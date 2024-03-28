@@ -117,5 +117,22 @@
     "gainMoreInsight": "Gain more insight into your sleep problems",
     "programsForSymptom": "Programs for {symptom}",
     "articlesForSymptom": "Articles for {symptom}",
-    "primary": "primary"
+    "primary": "primary",
+    "experts": "Experts",
+    "appointments": "Appointments",
+    "history": "History",
+    "findBySpeciality": "Find by speciality:",
+    "recommended": "Recommended",
+    "bestRated": "Best Rated",
+    "findSpecialist": "Find a specialist",
+    "searchSpecialist": "Search a specialist",
+    "years": "Years",
+    "filters": "Filters",
+    "specialty": "Specialty",
+    "reset": "reset",
+    "apply": "Apply",
+    "specialist": "Specialist",
+    "makeAppointment": "Make appointment",
+    "reviews": "reviews",
+    "about":"About"
 }

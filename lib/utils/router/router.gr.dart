@@ -43,6 +43,37 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CreateAccountPage(),
       );
     },
+    ExpertDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<ExpertDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ExpertDetailsPage(
+          key: args.key,
+          expert: args.expert,
+        ),
+      );
+    },
+    ExpertFilterRoute.name: (routeData) {
+      final args = routeData.argsAs<ExpertFilterRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ExpertFilterPage(
+          key: args.key,
+          specilalties: args.specilalties,
+          selectedSpeciality: args.selectedSpeciality,
+        ),
+      );
+    },
+    FindSpecialistRoute.name: (routeData) {
+      final args = routeData.argsAs<FindSpecialistRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FindSpecialistPage(
+          key: args.key,
+          specialty: args.specialty,
+        ),
+      );
+    },
     ForgotPasswordRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -230,6 +261,125 @@ class CreateAccountRoute extends PageRouteInfo<void> {
   static const String name = 'CreateAccountRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ExpertDetailsPage]
+class ExpertDetailsRoute extends PageRouteInfo<ExpertDetailsRouteArgs> {
+  ExpertDetailsRoute({
+    Key? key,
+    required Expert expert,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ExpertDetailsRoute.name,
+          args: ExpertDetailsRouteArgs(
+            key: key,
+            expert: expert,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ExpertDetailsRoute';
+
+  static const PageInfo<ExpertDetailsRouteArgs> page =
+      PageInfo<ExpertDetailsRouteArgs>(name);
+}
+
+class ExpertDetailsRouteArgs {
+  const ExpertDetailsRouteArgs({
+    this.key,
+    required this.expert,
+  });
+
+  final Key? key;
+
+  final Expert expert;
+
+  @override
+  String toString() {
+    return 'ExpertDetailsRouteArgs{key: $key, expert: $expert}';
+  }
+}
+
+/// generated route for
+/// [ExpertFilterPage]
+class ExpertFilterRoute extends PageRouteInfo<ExpertFilterRouteArgs> {
+  ExpertFilterRoute({
+    Key? key,
+    required List<Specialty> specilalties,
+    required Specialty? selectedSpeciality,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ExpertFilterRoute.name,
+          args: ExpertFilterRouteArgs(
+            key: key,
+            specilalties: specilalties,
+            selectedSpeciality: selectedSpeciality,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ExpertFilterRoute';
+
+  static const PageInfo<ExpertFilterRouteArgs> page =
+      PageInfo<ExpertFilterRouteArgs>(name);
+}
+
+class ExpertFilterRouteArgs {
+  const ExpertFilterRouteArgs({
+    this.key,
+    required this.specilalties,
+    required this.selectedSpeciality,
+  });
+
+  final Key? key;
+
+  final List<Specialty> specilalties;
+
+  final Specialty? selectedSpeciality;
+
+  @override
+  String toString() {
+    return 'ExpertFilterRouteArgs{key: $key, specilalties: $specilalties, selectedSpeciality: $selectedSpeciality}';
+  }
+}
+
+/// generated route for
+/// [FindSpecialistPage]
+class FindSpecialistRoute extends PageRouteInfo<FindSpecialistRouteArgs> {
+  FindSpecialistRoute({
+    Key? key,
+    required Specialty specialty,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FindSpecialistRoute.name,
+          args: FindSpecialistRouteArgs(
+            key: key,
+            specialty: specialty,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'FindSpecialistRoute';
+
+  static const PageInfo<FindSpecialistRouteArgs> page =
+      PageInfo<FindSpecialistRouteArgs>(name);
+}
+
+class FindSpecialistRouteArgs {
+  const FindSpecialistRouteArgs({
+    this.key,
+    required this.specialty,
+  });
+
+  final Key? key;
+
+  final Specialty specialty;
+
+  @override
+  String toString() {
+    return 'FindSpecialistRouteArgs{key: $key, specialty: $specialty}';
+  }
 }
 
 /// generated route for

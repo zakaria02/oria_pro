@@ -117,5 +117,22 @@
     "gainMoreInsight": "Gagnez plus d'informations sur vos problèmes de sommeil",
     "programsForSymptom": "Programmes pour {symptom}",
     "articlesForSymptom": "Articles pour {symptom}",
-    "primary": "primaire"
+    "primary": "primaire",
+    "experts": "Experts",
+    "appointments": "Rendez-vous",
+    "history": "Historique",
+    "findBySpeciality": "Trouver par spécialité :",
+    "recommended": "Recommandés",
+    "bestRated": "Meilleures évalués",
+    "findSpecialist": "Trouver un spécialiste",
+    "searchSpecialist": "Rechercher un spécialiste",
+    "years": "Années",
+    "filters": "Filtres",
+    "specialty": "Spécialité",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer",
+    "specialist": "Spécialiste",
+    "makeAppointment": "Prendre rendez-vous",
+    "reviews": "Avis",
+    "about": "À propos de"
 }

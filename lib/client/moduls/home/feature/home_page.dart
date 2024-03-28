@@ -77,9 +77,6 @@ class HomeView extends StatelessWidget {
                     ListView(
                       shrinkWrap: true,
                       children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.58,
-                        ),
                         Row(
                           children: [
                             Text(

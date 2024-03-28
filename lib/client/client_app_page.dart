@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oria_pro/client/moduls/expert/feature/expert_view.dart';
 import 'package:oria_pro/client/moduls/explore/feature/explore_view.dart';
 import 'package:oria_pro/client/moduls/home/feature/home_page.dart';
 import 'package:oria_pro/client/navigation/bottom_bar_item.dart';
@@ -26,6 +27,7 @@ class ClientAppPage extends StatelessWidget {
                 child: switch (state.currentIndex) {
               0 => const HomeView(),
               1 => const ExploreView(),
+              2 => const ExpertView(),
               _ => Center(
                   child: Text(
                     state.currentItem.name,

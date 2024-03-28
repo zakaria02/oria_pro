@@ -10,11 +10,15 @@ class OriaIconButton extends StatelessWidget {
     this.onPress,
     this.raduis = 24,
     this.size = 24,
+    this.backgroundColor = OriaColors.iconButtonBackgound,
+    this.color,
   });
   final String url;
   final VoidCallback? onPress;
   final double raduis;
   final double size;
+  final Color backgroundColor;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +27,14 @@ class OriaIconButton extends StatelessWidget {
       child: url.contains(".svg")
           ? CircleAvatar(
               radius: raduis,
-              backgroundColor: OriaColors.iconButtonBackgound,
+              backgroundColor: backgroundColor,
               child: SvgPicture.asset(
                 url,
                 height: size,
                 width: size,
+                colorFilter: color != null
+                    ? ColorFilter.mode(color!, BlendMode.srcIn)
+                    : null,
               ),
             )
           : CircleAvatar(
@@ -39,6 +46,7 @@ class OriaIconButton extends StatelessWidget {
                   url,
                   height: size,
                   width: size,
+                  color: color,
                 ),
               ),
             ),

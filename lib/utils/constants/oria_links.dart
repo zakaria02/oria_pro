@@ -14,4 +14,8 @@ class OriaLinks {
       "$_stagingAssetsBaseUrl/authors";
   static const String stagingSymptomsAssetsBaseUrl =
       "$_stagingAssetsBaseUrl/symptoms";
+  static const String stagingSpecialitiesAssetsBaseUrl =
+      "$_stagingAssetsBaseUrl/specialities";
+  static const String stagingExpertsAssetsBaseUrl =
+      "$_stagingAssetsBaseUrl/experts";
 }

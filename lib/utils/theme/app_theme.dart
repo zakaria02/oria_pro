@@ -64,6 +64,12 @@ class AppTheme {
           fontWeight: FontWeight.w400,
           color: OriaColors.primaryColor,
         ),
+        bodySmall: TextStyle(
+          fontFamily: "Raleway",
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: OriaColors.primaryColor,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oria_pro/utils/constants/oria_colors.dart';
 
 class OriaRoundedButton extends StatelessWidget {
   const OriaRoundedButton({
@@ -6,7 +7,7 @@ class OriaRoundedButton extends StatelessWidget {
     required this.onPress,
     this.child,
     this.text,
-    this.primaryColor,
+    this.primaryColor = OriaColors.green,
     this.textColor,
     this.borderColor,
     this.isLoading = false,
@@ -61,12 +62,14 @@ class OriaRoundedButton extends StatelessWidget {
                   width: 1,
                 )
               : null,
+          color: primaryColor,
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               surfaceTintColor: Colors.transparent,
+              backgroundColor: primaryColor,
               foregroundColor: textColor ?? Colors.white,
             ),
             onPressed: disabled

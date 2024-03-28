@@ -2,6 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../client/client_app_page.dart';
+import '../../client/moduls/expert/feature/entity/expert.dart';
+import '../../client/moduls/expert/feature/entity/specialty.dart';
+import '../../client/moduls/expert/feature/pages/experts/pages/expert_details_page.dart';
+import '../../client/moduls/expert/feature/pages/experts/pages/expert_filter_page.dart';
+import '../../client/moduls/expert/feature/pages/experts/pages/find_specialist_page.dart';
 import '../../client/moduls/explore/feature/learning/pages/article_page.dart';
 import '../../client/moduls/explore/feature/programs/pages/program_details_page.dart';
 import '../../client/moduls/explore/feature/programs/pages/program_sections_page.dart';
@@ -46,7 +51,11 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: ProgramSectionsRoute.page),
     AutoRoute(page: SectionDetailsRoute.page),
     // Home routes
-    AutoRoute(page: SymptomDataRoute.page)
+    AutoRoute(page: SymptomDataRoute.page),
+    // Expert routes
+    AutoRoute(page: FindSpecialistRoute.page),
+    AutoRoute(page: ExpertFilterRoute.page),
+    AutoRoute(page: ExpertDetailsRoute.page),
   ];
 
   final List<AutoRoute> _symptomRoutes = [];

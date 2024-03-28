@@ -57,6 +57,8 @@ dependencies:
   dotted_line: ^3.2.2
   appinio_video_player: ^1.2.2
   pinput: ^4.0.0
+  flutter_typeahead: ^5.2.0
+  dropdown_button2: ^2.3.9
   
 
 dev_dependencies:

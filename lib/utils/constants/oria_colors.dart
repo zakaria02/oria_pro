@@ -14,4 +14,5 @@ class OriaColors {
   static const red = Color(0xFFD53535);
   static const redAccent = Color(0xFFE13232);
   static const orange = Color(0xFFF77700);
+  static const darkOrange = Color(0xFFFE5F05);
 }

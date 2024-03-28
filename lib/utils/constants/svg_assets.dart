@@ -29,6 +29,10 @@ class SvgAssets {
   static const String userOutlinedIcon = "$_svgAssetsLink/user_outlined.svg";
   static const String premiumIcon = "$_svgAssetsLink/premium.svg";
   static const String checkIcon = "$_svgAssetsLink/check.svg";
+  static const String filterIcon = "$_svgAssetsLink/filter.svg";
+  static const String starIcon = "$_svgAssetsLink/star.svg";
+  static const String luggageIcon = "$_svgAssetsLink/luggage.svg";
+  static const String moneyIcon = "$_svgAssetsLink/money.svg";
   static const String finishedSectionIcon =
       "$_svgAssetsLink/finished_section.svg";
   static const String currentSectionIcon =
