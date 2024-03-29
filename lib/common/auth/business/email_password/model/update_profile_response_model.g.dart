@@ -12,9 +12,9 @@ UpdateProfileResponseModel _$UpdateProfileResponseModelFromJson(
       id: json['id'] as String,
       email: json['email'] as String,
       name: json['name'] as String?,
-      birthday: json['birthday'] == null
+      birthDay: json['birthDay'] == null
           ? null
-          : DateTime.parse(json['birthday'] as String),
+          : DateTime.parse(json['birthDay'] as String),
       role: json['role'] as String,
     );
 
@@ -24,6 +24,6 @@ Map<String, dynamic> _$UpdateProfileResponseModelToJson(
       'id': instance.id,
       'email': instance.email,
       'name': instance.name,
-      'birthday': instance.birthday?.toIso8601String(),
+      'birthDay': instance.birthDay?.toIso8601String(),
       'role': instance.role,
     };

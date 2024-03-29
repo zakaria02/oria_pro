@@ -87,5 +87,10 @@ enum UserRole {
 }
 
 extension UserModelMappers on UserModel {
-  User toUser() => User(name: name!, profilePicture: profilePicture);
+  User toUser() => User(
+        name: name!,
+        profilePicture: profilePicture,
+        birthDay: birthDay,
+        email: email,
+      );
 }

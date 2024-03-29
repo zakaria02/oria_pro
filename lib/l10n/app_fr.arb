@@ -114,7 +114,7 @@
     "goodAfternoon": "Bon après-midi. {username}",
     "goodEvening": "Bonsoir. {username}",
     "keepLearning": "Continuer à apprendre",
-    "gainMoreInsight": "Gagnez plus d'informations sur vos problèmes de sommeil",
+    "gainMoreInsight": "Gagnez plus d'informations sur vos {symptom}",
     "programsForSymptom": "Programmes pour {symptom}",
     "articlesForSymptom": "Articles pour {symptom}",
     "primary": "primaire",
@@ -134,5 +134,10 @@
     "specialist": "Spécialiste",
     "makeAppointment": "Prendre rendez-vous",
     "reviews": "Avis",
-    "about": "À propos de"
+    "about": "À propos de",
+    "readMore": "Lire la suite",
+    "readLess": "Lire moins",
+    "myInfo": "Mes informations",
+    "logout": "Déconnexion",
+    "saveChanges": "Enregistrer les modifications"
 }

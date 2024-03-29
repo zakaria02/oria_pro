@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:oria_pro/common/auth/business/email_password/locator/email_password_locator.dart';
 import 'package:oria_pro/common/auth/business/local_data_source/auth_local_data_source.dart';
+import 'package:oria_pro/common/auth/feature/entity/onbaording_step.dart';
 import 'package:oria_pro/common/email_verification/feature/bloc/email_verification_bloc.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/router/router.dart';
@@ -22,9 +23,12 @@ class VerifyEmailPage extends StatefulWidget {
   const VerifyEmailPage({
     super.key,
     required this.email,
+    required this.steps,
   });
 
   final String email;
+  // TODO: Remove this when email verification is done
+  final OnBoardingSteps steps;
 
   @override
   State<VerifyEmailPage> createState() => _VerifyEmailPageState();
@@ -85,8 +89,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               ),
               const SizedBox(height: 40),
               OriaRoundedButton(
-                onPress: () =>
-                    context.router.replaceAll([const AppOrchestratorRoute()]),
+                onPress: () => context.router
+                    .replaceAll([OnBoardingStepsRoute(steps: widget.steps)]),
                 padding: EdgeInsets.zero,
                 text: AppLocalizations.of(context)!.continue_key,
               )

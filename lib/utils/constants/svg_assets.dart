@@ -33,6 +33,10 @@ class SvgAssets {
   static const String starIcon = "$_svgAssetsLink/star.svg";
   static const String luggageIcon = "$_svgAssetsLink/luggage.svg";
   static const String moneyIcon = "$_svgAssetsLink/money.svg";
+  static const String logoutIcon = "$_svgAssetsLink/logout.svg";
+  static const String policyIcon = "$_svgAssetsLink/policy.svg";
+  static const String termsIcon = "$_svgAssetsLink/terms.svg";
+  static const String myInfoIcon = "$_svgAssetsLink/my_info.svg";
   static const String finishedSectionIcon =
       "$_svgAssetsLink/finished_section.svg";
   static const String currentSectionIcon =

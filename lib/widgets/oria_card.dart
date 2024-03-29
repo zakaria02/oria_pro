@@ -9,6 +9,10 @@ class OriaCard extends StatelessWidget {
     this.width = double.infinity,
     this.height,
     this.padding = const EdgeInsets.all(20),
+    this.onlyTopRaduis = false,
+    this.onlyBottomRaduis = false,
+    this.noRaduis = false,
+    this.radius = 12,
   });
   final Widget child;
   final Color? borderColor;
@@ -16,6 +20,10 @@ class OriaCard extends StatelessWidget {
   final double? width;
   final double? height;
   final EdgeInsets padding;
+  final bool onlyTopRaduis;
+  final bool onlyBottomRaduis;
+  final bool noRaduis;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +31,19 @@ class OriaCard extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: noRaduis
+            ? null
+            : onlyTopRaduis
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(radius),
+                    topRight: Radius.circular(radius),
+                  )
+                : onlyBottomRaduis
+                    ? BorderRadius.only(
+                        bottomLeft: Radius.circular(radius),
+                        bottomRight: Radius.circular(radius),
+                      )
+                    : BorderRadius.circular(radius),
         color: backgroundColor,
         border: borderColor != null ? Border.all(color: borderColor!) : null,
       ),

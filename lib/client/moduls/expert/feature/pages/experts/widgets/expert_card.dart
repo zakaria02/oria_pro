@@ -51,7 +51,14 @@ class ExpertCard extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
-            Container(
+            Text(
+              "${expert.city}, ${expert.province}",
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelMedium,
+              textAlign: TextAlign.center,
+            ),
+            /*Container(
               decoration: BoxDecoration(
                 border: Border.all(
                   color: OriaColors.green,
@@ -68,7 +75,7 @@ class ExpertCard extends StatelessWidget {
                     ),
                 textAlign: TextAlign.center,
               ),
-            ),
+            ),*/
           ],
         ),
       ),

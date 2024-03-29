@@ -60,7 +60,7 @@ class SymptomDataPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   SizedBox(
-                    height: 162,
+                    height: 166,
                     child: BlocBuilder<ProgramsBloc, ProgramsState>(
                       builder: (programContext, programState) {
                         return ListView.separated(

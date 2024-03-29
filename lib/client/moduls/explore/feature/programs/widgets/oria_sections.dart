@@ -36,11 +36,11 @@ class ActionsSteps extends StatelessWidget {
                       program.sections.first.title.split(" ").length) /
                   7 *
                   MediaQuery.of(context).size.width *
-                  0.1,
+                  0.12,
               bottom: (program.sections.last.description.split(" ").length +
                           program.sections.last.title.split(" ").length) *
                       2 +
-                  35,
+                  45,
               child: const OriaDottedLine(
                 color: OriaColors.disabledColor,
               ),
@@ -219,14 +219,27 @@ class ActionCard extends StatelessWidget {
                   ),
                   if (section.duration > 0) ...[
                     const SizedBox(height: 8),
-                    Text(
-                      AppLocalizations.of(context)!.minutes(section.duration),
-                      style:
-                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          SvgAssets.timeAsset,
+                          colorFilter: const ColorFilter.mode(
+                              OriaColors.darkGrey, BlendMode.srcIn),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .minutes(section.duration),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
                                 fontWeight: FontWeight.w500,
                                 color: OriaColors.darkGrey,
                                 fontStyle: FontStyle.italic,
                               ),
+                        ),
+                      ],
                     ),
                   ]
                 ],

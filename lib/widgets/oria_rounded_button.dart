@@ -71,6 +71,7 @@ class OriaRoundedButton extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               backgroundColor: primaryColor,
               foregroundColor: textColor ?? Colors.white,
+              disabledBackgroundColor: OriaColors.disabledColor,
             ),
             onPressed: disabled
                 ? null

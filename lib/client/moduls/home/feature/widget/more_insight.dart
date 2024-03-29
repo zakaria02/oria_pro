@@ -46,7 +46,8 @@ class MoreInsight extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.gainMoreInsight,
+                      AppLocalizations.of(context)!
+                          .gainMoreInsight(state.selectedSymptom!.name),
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             color: OriaColors.greenAccent,
                             fontSize: 16,

@@ -7,14 +7,14 @@ class UpdateProfileResponseModel {
   final String id;
   final String email;
   final String? name;
-  final DateTime? birthday;
+  final DateTime? birthDay;
   final String role;
 
   const UpdateProfileResponseModel({
     required this.id,
     required this.email,
     this.name,
-    this.birthday,
+    this.birthDay,
     required this.role,
   });
 

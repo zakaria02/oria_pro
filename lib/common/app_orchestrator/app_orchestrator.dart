@@ -20,14 +20,17 @@ class AppOrchestratorPage extends StatelessWidget {
           if (state is StepsSuccess) {
             if (state.steps == null) {
               context.router.replaceAll([const LoginRoute()]);
-            } /*else if (state.steps?.emailToVerify != null) {
+              // TODO: the condition must be 0, this is a workaround for email verification
+            } else if (state.steps?.emailToVerify != null &&
+                state.steps!.stepsCount > 1) {
               context.router.replaceAll([
                 VerifyEmailRoute(
                   email: state.steps!.emailToVerify!,
+                  steps: state.steps!,
                 )
               ]);
-            }*/
-            else if (state.steps?.stepsCount != 0) {
+              // TODO: the condition must be 0, this is a workaround for email verification
+            } else if (state.steps?.stepsCount == 1) {
               context.router
                   .replaceAll([OnBoardingStepsRoute(steps: state.steps!)]);
             } else {

@@ -18,12 +18,13 @@ class HomeView extends StatelessWidget {
 
   String greeting(BuildContext context, String name) {
     DateTime currentTime = DateTime.now();
+    final firstName = name.split(" ").first;
     if (currentTime.hour >= 4 && currentTime.hour < 12) {
-      return AppLocalizations.of(context)!.goodMorning(name);
+      return AppLocalizations.of(context)!.goodMorning(firstName);
     } else if (currentTime.hour >= 12 && currentTime.hour < 18) {
-      return AppLocalizations.of(context)!.goodAfternoon(name);
+      return AppLocalizations.of(context)!.goodAfternoon(firstName);
     } else {
-      return AppLocalizations.of(context)!.goodEvening(name);
+      return AppLocalizations.of(context)!.goodEvening(firstName);
     }
   }
 

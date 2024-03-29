@@ -170,6 +170,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    UpdateMyInfoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UpdateMyInfoPage(),
+      );
+    },
     VerifyEmailRoute.name: (routeData) {
       final args = routeData.argsAs<VerifyEmailRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -177,6 +183,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: VerifyEmailPage(
           key: args.key,
           email: args.email,
+          steps: args.steps,
         ),
       );
     },
@@ -716,17 +723,33 @@ class SymptomDataRouteArgs {
 }
 
 /// generated route for
+/// [UpdateMyInfoPage]
+class UpdateMyInfoRoute extends PageRouteInfo<void> {
+  const UpdateMyInfoRoute({List<PageRouteInfo>? children})
+      : super(
+          UpdateMyInfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateMyInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [VerifyEmailPage]
 class VerifyEmailRoute extends PageRouteInfo<VerifyEmailRouteArgs> {
   VerifyEmailRoute({
     Key? key,
     required String email,
+    required OnBoardingSteps steps,
     List<PageRouteInfo>? children,
   }) : super(
           VerifyEmailRoute.name,
           args: VerifyEmailRouteArgs(
             key: key,
             email: email,
+            steps: steps,
           ),
           initialChildren: children,
         );
@@ -741,14 +764,17 @@ class VerifyEmailRouteArgs {
   const VerifyEmailRouteArgs({
     this.key,
     required this.email,
+    required this.steps,
   });
 
   final Key? key;
 
   final String email;
 
+  final OnBoardingSteps steps;
+
   @override
   String toString() {
-    return 'VerifyEmailRouteArgs{key: $key, email: $email}';
+    return 'VerifyEmailRouteArgs{key: $key, email: $email, steps: $steps}';
   }
 }

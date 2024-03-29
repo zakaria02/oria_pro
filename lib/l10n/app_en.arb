@@ -114,7 +114,7 @@
     "goodAfternoon": "Good afternoon. {username}",
     "goodEvening": "Good evening. {username}",
     "keepLearning": "Keep learning",
-    "gainMoreInsight": "Gain more insight into your sleep problems",
+    "gainMoreInsight": "Gain more insight into your {symptom}",
     "programsForSymptom": "Programs for {symptom}",
     "articlesForSymptom": "Articles for {symptom}",
     "primary": "primary",
@@ -134,5 +134,10 @@
     "specialist": "Specialist",
     "makeAppointment": "Make appointment",
     "reviews": "reviews",
-    "about":"About"
+    "about":"About",
+    "readMore": "Read more",
+    "readLess": "Read less",
+    "myInfo": "My info",
+    "logout": "Logout",
+    "saveChanges": "Save changes"
 }

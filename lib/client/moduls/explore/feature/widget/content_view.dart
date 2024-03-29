@@ -33,7 +33,7 @@ class ContentView extends StatelessWidget {
           height: 16,
         ),
         SizedBox(
-          height: 190,
+          height: 186,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: content.articles.length,
@@ -101,7 +101,7 @@ class ArticleCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      height: 114,
+                      height: 118,
                       width: 230,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
