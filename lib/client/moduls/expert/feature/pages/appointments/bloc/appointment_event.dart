@@ -22,3 +22,13 @@ class SelectDate extends AppointmentEvent {
 
   const SelectDate({required this.date});
 }
+
+class CreateAppointment extends AppointmentEvent {
+  final String expertId;
+  final DateTime appointmentDate;
+
+  const CreateAppointment({
+    required this.expertId,
+    required this.appointmentDate,
+  });
+}

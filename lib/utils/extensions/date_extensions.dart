@@ -125,7 +125,7 @@ extension DateTimeExtensions on DateTime? {
 
   DateTime addHourAndMinutesAndTransformToLocal(int hours, int minutes) {
     final date =
-        DateTime(this!.year, this!.month, this!.second, hours, minutes);
+        DateTime.utc(this!.year, this!.month, this!.day, hours, minutes);
     return date.toLocal();
   }
 

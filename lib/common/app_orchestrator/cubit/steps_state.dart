@@ -15,3 +15,8 @@ final class StepsInitial extends StepsState {
 final class StepsSuccess extends StepsState {
   const StepsSuccess({required super.steps});
 }
+
+final class StepsError extends StepsState {
+  final String errorMessage;
+  const StepsError({required super.steps, required this.errorMessage});
+}

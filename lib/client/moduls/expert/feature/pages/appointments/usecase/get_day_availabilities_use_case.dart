@@ -22,7 +22,7 @@ class GetDayAvailabilitiesUseCase {
 
     availabilities.add(DayAvailability(
         date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
+        period: _getHourPeriod(avaliableHour.hour),
         available: result.hours.hour1.available));
 
     /////
@@ -34,9 +34,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour2.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour2.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour2.available,
+    ));
 
     /////
 
@@ -47,9 +48,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour3.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour3.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour3.available,
+    ));
 
     /////
 
@@ -60,9 +62,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour4.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour4.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour4.available,
+    ));
 
     /////
 
@@ -73,9 +76,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour5.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour5.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour5.available,
+    ));
 
     /////
 
@@ -86,9 +90,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour6.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour6.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour6.available,
+    ));
 
     /////
 
@@ -99,9 +104,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour7.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour7.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour7.available,
+    ));
 
     /////
 
@@ -112,9 +118,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour8.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour8.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour8.available,
+    ));
 
     /////
 
@@ -125,9 +132,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour9.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour9.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour9.available,
+    ));
 
     /////
 
@@ -138,9 +146,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour10.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour10.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour10.available,
+    ));
 
     /////
 
@@ -151,9 +160,10 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour11.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour11.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour11.available,
+    ));
 
     /////
 
@@ -164,10 +174,22 @@ class GetDayAvailabilitiesUseCase {
         int.parse(result.hours.hour12.time.substring(3)));
 
     availabilities.add(DayAvailability(
-        date: avaliableHour,
-        period: avaliableHour.hour >= 12 ? Period.evening : Period.morning,
-        available: result.hours.hour12.available));
+      date: avaliableHour,
+      period: _getHourPeriod(avaliableHour.hour),
+      available: result.hours.hour12.available,
+    ));
 
     return availabilities;
   }
+}
+
+Period _getHourPeriod(int hour) {
+  if (hour >= 0 && hour < 12) {
+    return Period.morning;
+  }
+  if (hour < 18) {
+    return Period.evening;
+  }
+
+  return Period.night;
 }

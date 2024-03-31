@@ -8,12 +8,15 @@ class AvailabilityResponseModel {
   final bool generalAvailability;
   @JsonKey(name: "day")
   final String day;
+  @JsonKey(name: "expertId")
+  final String expertId;
   @JsonKey(name: "hours")
   final AvailableHours hours;
 
   const AvailabilityResponseModel({
     required this.hours,
     required this.day,
+    required this.expertId,
     required this.generalAvailability,
   });
 

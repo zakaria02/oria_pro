@@ -30,17 +30,21 @@ class ArticlePage extends StatelessWidget {
           builder: (context, state) {
             if (state is ArticleContentLoading) {
               return const Padding(
-                padding: EdgeInsets.only(top: 80),
+                padding: EdgeInsets.only(top: 40),
                 child: OriaLoadingProgress(),
               );
             }
             if (state.article == null) {
-              return OriaNoDataView(
-                  message: AppLocalizations.of(context)!.noArticleFound);
+              return SizedBox(
+                child: OriaNoDataView(
+                  message: AppLocalizations.of(context)!.noArticleFound,
+                ),
+              );
             }
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: ListView(
+                shrinkWrap: true,
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
@@ -50,12 +54,12 @@ class ArticlePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Stack(
-                    fit: StackFit.passthrough,
-                    children: [
-                      SizedBox(
-                        height: 200,
-                        child: AspectRatio(
+                  SizedBox(
+                    height: 200,
+                    child: Stack(
+                      fit: StackFit.passthrough,
+                      children: [
+                        AspectRatio(
                           aspectRatio: 3 / 2,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -65,29 +69,31 @@ class ArticlePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10, top: 10),
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: CircleAvatar(
-                            backgroundColor: OriaColors.scaffoldBackgroundColor,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 0.5),
-                              child: OriaIconButton(
-                                url: state.article?.isFavorite == true
-                                    ? SvgAssets.favoriteAsset
-                                    : SvgAssets.notFavoriteAsset,
-                                size: 20,
-                                onPress: () =>
-                                    BlocProvider.of<ArticleContentBloc>(context)
-                                        .add(UpdateFavorite()),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10, top: 10),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: CircleAvatar(
+                              backgroundColor:
+                                  OriaColors.scaffoldBackgroundColor,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 0.5),
+                                child: OriaIconButton(
+                                  url: state.article?.isFavorite == true
+                                      ? SvgAssets.favoriteAsset
+                                      : SvgAssets.notFavoriteAsset,
+                                  size: 20,
+                                  onPress: () =>
+                                      BlocProvider.of<ArticleContentBloc>(
+                                              context)
+                                          .add(UpdateFavorite()),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 8),
                   AuthorCard(author: state.article!.author),

@@ -148,5 +148,13 @@
     "goToPayment": "Go to payment",
     "noResultsFound": "No results found!",
     "adjustFilter":"Please try adjusting your filters",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "night": "Night",
+    "appointmentDetails": "You have scheduled your appointment on:",
+    "when": "When:",
+    "duration": "Duration:",
+    "backToHome": "Back to Home",
+    "thanks": "Thank you {usename}!",
+    "upcoming": "Upcoming",
+    "previous": "Previous"
 }

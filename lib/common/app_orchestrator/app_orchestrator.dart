@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
+import 'package:oria_pro/widgets/oria_snack_bar.dart';
 
 import 'cubit/steps_cubit.dart';
 
@@ -17,6 +18,10 @@ class AppOrchestratorPage extends StatelessWidget {
       create: (context) => StepsCubit()..getSteps(),
       child: BlocConsumer<StepsCubit, StepsState>(
         listener: (context, state) {
+          if (state is StepsError) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          }
           if (state is StepsSuccess) {
             if (state.steps == null) {
               context.router.replaceAll([const LoginRoute()]);
@@ -32,6 +37,8 @@ class AppOrchestratorPage extends StatelessWidget {
             } else {
               context.router.replaceAll([const ClientAppRoute()]);
             }
+          } else {
+            context.router.replaceAll([const LoginRoute()]);
           }
         },
         builder: (context, state) {

@@ -3,6 +3,8 @@ import 'package:oria_pro/client/moduls/expert/business/model/expert_response_mod
 import 'package:retrofit/retrofit.dart';
 
 import '../model/availability_response_model.dart';
+import '../model/create_appointment_request_model.dart';
+import '../model/create_appointment_response_model.dart';
 import '../model/specialty_response_model.dart';
 
 part 'expert_service.g.dart';
@@ -27,4 +29,11 @@ abstract class ExpertService {
   @GET("/consultation/experts/{expertId}/availability/{day}")
   Future<AvailabilityResponseModel> getDayAvailabilities(
       @Path() String expertId, @Path() String day);
+
+  @POST("/consultation/appointement/create")
+  Future<CreateAppointmentResponseModel> createAppointment(
+      @Body() CreateAppointmentRequestModel request);
+
+  @GET("/consultation/experts/{expertId}")
+  Future<ExpertModel> getExpert(@Path() final String expertId);
 }

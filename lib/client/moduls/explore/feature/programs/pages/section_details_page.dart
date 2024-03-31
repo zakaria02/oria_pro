@@ -33,7 +33,7 @@ class SectionDetailsPage extends StatelessWidget {
       builder: (context, state) {
         return OriaScaffold(
             appBarData: AppBarData(
-              firstButtonUrl: SvgAssets.closeAsset,
+              firstButtonUrl: SvgAssets.backAsset,
               onFirstButtonPress: () => context.maybePop(),
               title: programName,
             ),

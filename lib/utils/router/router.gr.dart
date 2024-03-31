@@ -96,6 +96,16 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    MakeAppointmentSuccessRoute.name: (routeData) {
+      final args = routeData.argsAs<MakeAppointmentSuccessRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: MakeAppointmentSuccessPage(
+          key: args.key,
+          appointment: args.appointment,
+        ),
+      );
+    },
     OnBoardingStepsRoute.name: (routeData) {
       final args = routeData.argsAs<OnBoardingStepsRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -461,6 +471,45 @@ class MakeAppointmentRouteArgs {
   @override
   String toString() {
     return 'MakeAppointmentRouteArgs{key: $key, expert: $expert}';
+  }
+}
+
+/// generated route for
+/// [MakeAppointmentSuccessPage]
+class MakeAppointmentSuccessRoute
+    extends PageRouteInfo<MakeAppointmentSuccessRouteArgs> {
+  MakeAppointmentSuccessRoute({
+    Key? key,
+    required Appointment appointment,
+    List<PageRouteInfo>? children,
+  }) : super(
+          MakeAppointmentSuccessRoute.name,
+          args: MakeAppointmentSuccessRouteArgs(
+            key: key,
+            appointment: appointment,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'MakeAppointmentSuccessRoute';
+
+  static const PageInfo<MakeAppointmentSuccessRouteArgs> page =
+      PageInfo<MakeAppointmentSuccessRouteArgs>(name);
+}
+
+class MakeAppointmentSuccessRouteArgs {
+  const MakeAppointmentSuccessRouteArgs({
+    this.key,
+    required this.appointment,
+  });
+
+  final Key? key;
+
+  final Appointment appointment;
+
+  @override
+  String toString() {
+    return 'MakeAppointmentSuccessRouteArgs{key: $key, appointment: $appointment}';
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oria_pro/client/moduls/expert/feature/entity/expert_top_select.dart';
 import 'package:oria_pro/client/moduls/explore/feature/cubit/explore_navigation_cubit.dart';
 import 'package:oria_pro/client/moduls/explore/feature/learning/learning_view.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/programs_view.dart';
@@ -32,11 +33,13 @@ class ExploreView extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
               OriaTopBarSelect(
-                items: state.topSelectItems,
+                items: state.topSelectItems
+                    .map((e) => ExpertTopSelectItem(title: e, count: null))
+                    .toList(),
                 selectedItem: state.currentItem,
                 onItemPress: (item) =>
                     BlocProvider.of<ExploreNavigationCubit>(context)
-                        .selectItem(item),
+                        .selectItem(item.title),
               ),
               const SizedBox(height: 20),
               Builder(

@@ -148,5 +148,13 @@
     "goToPayment": "Aller au paiement",
     "noResultsFound": "Aucun résultat trouvé !",
     "adjustFilter": "Veuillez essayer d'ajuster vos filtres",
-    "clearFilters": "Effacer les filtres"
+    "clearFilters": "Effacer les filtres",
+    "night": "Nuit",
+    "appointmentDetails": "Vous avez planifié votre rendez-vous le :",
+    "when": "Quand :",
+    "duration": "Durée :",
+    "backToHome": "Retour à l'accueil",
+    "thanks": "Merci {username}!",
+    "upcoming": "À venir",
+    "previous": "Précédent"
 }

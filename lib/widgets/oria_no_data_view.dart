@@ -11,24 +11,22 @@ class OriaNoDataView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SvgPicture.asset(
-              SvgAssets.noDataAsset,
-              height: height,
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SvgPicture.asset(
+            SvgAssets.noDataAsset,
+            height: height,
           ),
-          Text(
-            message,
-            style: Theme.of(context).textTheme.displayLarge,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+        ),
+        Text(
+          message,
+          style: Theme.of(context).textTheme.displayLarge,
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

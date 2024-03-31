@@ -11,8 +11,12 @@ class StepsCubit extends Cubit<StepsState> {
   StepsCubit() : super(const StepsInitial(steps: null));
 
   void getSteps() async {
-    final GetUserStepsUseCase stepsUseCase = EmailPasswordAuthLocator().get();
-    final OnBoardingSteps? steps = await stepsUseCase.execute();
-    emit(StepsSuccess(steps: steps));
+    try {
+      final GetUserStepsUseCase stepsUseCase = EmailPasswordAuthLocator().get();
+      final OnBoardingSteps? steps = await stepsUseCase.execute();
+      emit(StepsSuccess(steps: steps));
+    } catch (e) {
+      emit(StepsError(steps: state.steps, errorMessage: e.toString()));
+    }
   }
 }

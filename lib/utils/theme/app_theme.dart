@@ -76,7 +76,7 @@ class AppTheme {
           foregroundColor: Colors.white,
           backgroundColor: OriaColors.green,
           textStyle: const TextStyle(
-            fontFamily: "Raleway",
+            fontFamily: "Satoshi",
             fontSize: 16,
             fontWeight: FontWeight.w700,
           ),

@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase/create_appointment_usecase.dart';
 import '../../../../../../utils/network/dio_builder.dart';
 import '../../../../../utils/locator/abstract_locator.dart';
 import '../../feature/pages/appointments/usecase/get_day_availabilities_use_case.dart';
@@ -22,5 +23,7 @@ class ExpertLocator extends AbstractLocator {
         .registerLazySingleton<ExpertRepository>(() => ExpertRepositoryImpl());
     serviceLocator.registerLazySingleton<GetDayAvailabilitiesUseCase>(
         () => GetDayAvailabilitiesUseCase());
+    serviceLocator.registerLazySingleton<CreateAppointmentUsecase>(
+        () => CreateAppointmentUsecase());
   }
 }

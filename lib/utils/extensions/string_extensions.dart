@@ -9,10 +9,11 @@ extension StringMappers on String {
   }
 
   DateTime toOriaDateTime() {
-    final day = int.parse(substring(0, 2));
-    final month = int.parse(substring(3, 5));
-    final year = int.parse(substring(6, 9));
+    final List<String> dateValues = split("-");
+    final day = int.parse(dateValues[0]);
+    final month = int.parse(dateValues[1]);
+    final year = int.parse(dateValues[2]);
 
-    return DateTime(year, month, day).toUtc();
+    return DateTime(year, month, day);
   }
 }

@@ -11,6 +11,7 @@ AvailabilityResponseModel _$AvailabilityResponseModelFromJson(
     AvailabilityResponseModel(
       hours: AvailableHours.fromJson(json['hours'] as Map<String, dynamic>),
       day: json['day'] as String,
+      expertId: json['expertId'] as String,
       generalAvailability: json['generalAvailability'] as bool,
     );
 
@@ -19,6 +20,7 @@ Map<String, dynamic> _$AvailabilityResponseModelToJson(
     <String, dynamic>{
       'generalAvailability': instance.generalAvailability,
       'day': instance.day,
+      'expertId': instance.expertId,
       'hours': instance.hours,
     };
 

@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/widgets/period_availabilities.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/utils/extensions/date_extensions.dart';
+import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_app_bar.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
+import 'package:oria_pro/widgets/oria_rounded_button.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:oria_pro/widgets/oria_snack_bar.dart';
@@ -39,6 +41,9 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
           if (state is AppointmentError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          } else if (state is CreateAppointmentSuccess) {
+            context.router.replace(
+                MakeAppointmentSuccessRoute(appointment: state.appointment));
           }
         },
         builder: (context, state) {
@@ -71,16 +76,27 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      PeriodAvailabilities(
-                          title: AppLocalizations.of(context)!.morning,
-                          availabilities: state.morningAvailabilities,
-                          suffix: "PM"),
-                      const SizedBox(height: 32),
-                      PeriodAvailabilities(
-                        title: AppLocalizations.of(context)!.evening,
-                        availabilities: state.eveningAvailabilities,
-                        suffix: "AM",
-                      ),
+                      if (state.morningAvailabilities.isNotEmpty)
+                        PeriodAvailabilities(
+                            title: AppLocalizations.of(context)!.morning,
+                            availabilities: state.morningAvailabilities,
+                            suffix: "PM"),
+                      if (state.eveningAvailabilities.isNotEmpty) ...[
+                        const SizedBox(height: 32),
+                        PeriodAvailabilities(
+                          title: AppLocalizations.of(context)!.evening,
+                          availabilities: state.eveningAvailabilities,
+                          suffix: "AM",
+                        ),
+                      ],
+                      if (state.nightAvailabilities.isNotEmpty) ...[
+                        const SizedBox(height: 32),
+                        PeriodAvailabilities(
+                          title: AppLocalizations.of(context)!.night,
+                          availabilities: state.nightAvailabilities,
+                          suffix: "AM",
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -110,7 +126,47 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                               ?.copyWith(fontFamily: "Satoshi"),
                         )
                       ],
-                    )
+                    ),
+                  const SizedBox(height: 12),
+                  OriaRoundedButton(
+                    isLoading: state is CreateAppointmentLoading,
+                    disabled: state.selectedDate == null,
+                    padding: EdgeInsets.zero,
+                    onPress: () =>
+                        BlocProvider.of<AppointmentBloc>(context).add(
+                      CreateAppointment(
+                        expertId: widget.expert.id,
+                        appointmentDate: state.selectedDate!.date,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const Flexible(
+                          flex: 2,
+                          child: SizedBox(
+                            width: double.infinity,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 4,
+                          child: Text(
+                            AppLocalizations.of(context)!.goToPayment,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              "\$${widget.expert.consultationPrice}",
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
