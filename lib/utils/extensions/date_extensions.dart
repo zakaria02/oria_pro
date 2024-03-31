@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -38,6 +39,14 @@ extension DateTimeExtensions on DateTime? {
           "${this!.month > 9 ? this!.month : '0${this!.month}'}/"
           "${this!.year.toString().substring(2)} - "
           "${this!.hour > 9 ? this!.hour : '0${this!.hour}'}:"
+          "${this!.minute > 9 ? this!.minute : '0${this!.minute}'}";
+    }
+    return null;
+  }
+
+  String? toHour() {
+    if (this != null) {
+      return "${this!.hour > 9 ? this!.hour : '0${this!.hour}'}:"
           "${this!.minute > 9 ? this!.minute : '0${this!.minute}'}";
     }
     return null;
@@ -107,5 +116,23 @@ extension DateTimeExtensions on DateTime? {
         "${monthAbbreviations[this!.month - 1]} ${this!.year}"
         "${withTime ? " - ${this!.hour > 9 ? "${this!.hour}" : "0${this!.hour}"}:"
             "${this!.minute > 9 ? "${this!.minute}" : "0${this!.minute}"}" : ""}";
+  }
+
+  String toApiDate() {
+    final date = this!;
+    return "${date.day}-${date.month}-${date.year}";
+  }
+
+  DateTime addHourAndMinutesAndTransformToLocal(int hours, int minutes) {
+    final date =
+        DateTime(this!.year, this!.month, this!.second, hours, minutes);
+    return date.toLocal();
+  }
+
+  String toDetailedDate(BuildContext context) {
+    return "${this!.hour > 9 ? this!.hour : '0${this!.hour}'}"
+        ":${this!.minute > 9 ? this!.minute : '0${this!.minute}'}"
+        "${this!.hour > 9 ? "PM" : "AM"} - "
+        "${toAbbreviationMonthDate(context, withTime: false)}";
   }
 }

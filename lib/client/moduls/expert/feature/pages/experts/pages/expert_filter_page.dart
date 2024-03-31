@@ -84,9 +84,7 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
             child: OriaRoundedButton(
               padding: EdgeInsets.zero,
               onPress: () {
-                BlocProvider.of<ExpertFilterCubit>(context).addFilter(
-                  specialty: null,
-                );
+                BlocProvider.of<ExpertFilterCubit>(context).resetFilters();
                 context.maybePop();
               },
               text: AppLocalizations.of(context)!.reset,

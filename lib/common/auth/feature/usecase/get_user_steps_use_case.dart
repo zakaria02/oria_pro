@@ -27,6 +27,7 @@ class GetUserStepsUseCase {
       name: userModel.name,
       birthDay: userModel.birthDay,
       profilePicture: userModel.profilePicture,
+      isEmailVerified: userModel.isEmailVerified,
     );
     await authLocalDataSource.saveUser(updatedUser);
 

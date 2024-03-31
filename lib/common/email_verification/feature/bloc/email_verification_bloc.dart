@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/common/email_verification/business/locator/email_verification_locator.dart';
-import 'package:oria_pro/common/email_verification/business/model/verify_email_request_model.dart';
 import 'package:oria_pro/common/email_verification/business/repository/email_verification_repository.dart';
 
 part 'email_verification_event.dart';
@@ -24,12 +23,8 @@ class EmailVerificationBloc
     on<VerifyEmail>((event, emit) async {
       try {
         emit(VerifyEmailLoading());
-        if (event.pin == "0000") {
-          emit(VerifyEmailSuccess());
-        } else {
-          await repository.verifyEmail(VerifyEmailRequestModel(event.pin));
-          emit(VerifyEmailSuccess());
-        }
+        await repository.verifyEmail(event.token);
+        emit(VerifyEmailSuccess());
       } catch (e) {
         emit(VerifyEmailFailed());
       }

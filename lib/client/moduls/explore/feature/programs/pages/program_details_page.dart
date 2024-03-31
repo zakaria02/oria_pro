@@ -60,6 +60,7 @@ class ProgramDetailsPage extends StatelessWidget {
                           ),
                           OriaCard(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   programsState.selectedProgram!.title,

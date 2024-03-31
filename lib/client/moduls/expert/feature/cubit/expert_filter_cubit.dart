@@ -12,4 +12,10 @@ class ExpertFilterCubit extends Cubit<ExpertFilterState> {
       specialty: specialty,
     ));
   }
+
+  void resetFilters() {
+    emit(
+      const ExpertFilterState(specialty: null),
+    );
+  }
 }

@@ -86,6 +86,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LoginPage(),
       );
     },
+    MakeAppointmentRoute.name: (routeData) {
+      final args = routeData.argsAs<MakeAppointmentRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: MakeAppointmentPage(
+          key: args.key,
+          expert: args.expert,
+        ),
+      );
+    },
     OnBoardingStepsRoute.name: (routeData) {
       final args = routeData.argsAs<OnBoardingStepsRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -183,7 +193,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: VerifyEmailPage(
           key: args.key,
           email: args.email,
-          steps: args.steps,
         ),
       );
     },
@@ -415,6 +424,44 @@ class LoginRoute extends PageRouteInfo<void> {
   static const String name = 'LoginRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MakeAppointmentPage]
+class MakeAppointmentRoute extends PageRouteInfo<MakeAppointmentRouteArgs> {
+  MakeAppointmentRoute({
+    Key? key,
+    required Expert expert,
+    List<PageRouteInfo>? children,
+  }) : super(
+          MakeAppointmentRoute.name,
+          args: MakeAppointmentRouteArgs(
+            key: key,
+            expert: expert,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'MakeAppointmentRoute';
+
+  static const PageInfo<MakeAppointmentRouteArgs> page =
+      PageInfo<MakeAppointmentRouteArgs>(name);
+}
+
+class MakeAppointmentRouteArgs {
+  const MakeAppointmentRouteArgs({
+    this.key,
+    required this.expert,
+  });
+
+  final Key? key;
+
+  final Expert expert;
+
+  @override
+  String toString() {
+    return 'MakeAppointmentRouteArgs{key: $key, expert: $expert}';
+  }
 }
 
 /// generated route for
@@ -742,14 +789,12 @@ class VerifyEmailRoute extends PageRouteInfo<VerifyEmailRouteArgs> {
   VerifyEmailRoute({
     Key? key,
     required String email,
-    required OnBoardingSteps steps,
     List<PageRouteInfo>? children,
   }) : super(
           VerifyEmailRoute.name,
           args: VerifyEmailRouteArgs(
             key: key,
             email: email,
-            steps: steps,
           ),
           initialChildren: children,
         );
@@ -764,17 +809,14 @@ class VerifyEmailRouteArgs {
   const VerifyEmailRouteArgs({
     this.key,
     required this.email,
-    required this.steps,
   });
 
   final Key? key;
 
   final String email;
 
-  final OnBoardingSteps steps;
-
   @override
   String toString() {
-    return 'VerifyEmailRouteArgs{key: $key, email: $email, steps: $steps}';
+    return 'VerifyEmailRouteArgs{key: $key, email: $email}';
   }
 }

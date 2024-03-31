@@ -55,7 +55,10 @@ class ExpertCard extends StatelessWidget {
               "${expert.city}, ${expert.province}",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelMedium,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: OriaColors.darkGrey),
               textAlign: TextAlign.center,
             ),
             /*Container(

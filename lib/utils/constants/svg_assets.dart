@@ -45,4 +45,6 @@ class SvgAssets {
   static const String activeNotificationIcon =
       "$_svgAssetsLink/active_notification.svg";
   static const String arrowLeftIcon = "$_svgAssetsLink/arrow_left.svg";
+  static const String noResultFoundAsset =
+      "$_svgAssetsLink/no_result_found.svg";
 }

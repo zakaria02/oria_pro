@@ -237,6 +237,7 @@ class ActionCard extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 color: OriaColors.darkGrey,
                                 fontStyle: FontStyle.italic,
+                                fontFamily: "Satoshi",
                               ),
                         ),
                       ],

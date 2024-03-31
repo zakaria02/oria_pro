@@ -139,5 +139,14 @@
     "readLess": "Read less",
     "myInfo": "My info",
     "logout": "Logout",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "appointment": "Appointment",
+    "morning": "Morning",
+    "day": "Day",
+    "evening": "Evening",
+    "appointmentTime": "Appointment time",
+    "goToPayment": "Go to payment",
+    "noResultsFound": "No results found!",
+    "adjustFilter":"Please try adjusting your filters",
+    "clearFilters": "Clear filters"
 }

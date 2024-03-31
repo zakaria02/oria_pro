@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../model/availability_response_model.dart';
 import '../model/specialty_response_model.dart';
 
 part 'expert_service.g.dart';
@@ -18,9 +19,12 @@ abstract class ExpertService {
   @GET("/consultation/experts/best-rated")
   Future<ExpertResponseModel> fetchBestRatedExperts();
 
-  @GET(
-      "/consultation/experts?specialty={specialtyId}&page={page}&limit={limit}")
+  @GET("/consultation/experts")
   Future<ExpertResponseModel> fetchSpecialtyExperts(
-      @Path() String? specialtyId, @Path() int page,
-      {@Path() int limit = 10});
+      @Query("specialty") String? specialtyId, @Query("page") int page,
+      {@Query("limit") int limit = 10});
+
+  @GET("/consultation/experts/{expertId}/availability/{day}")
+  Future<AvailabilityResponseModel> getDayAvailabilities(
+      @Path() String expertId, @Path() String day);
 }

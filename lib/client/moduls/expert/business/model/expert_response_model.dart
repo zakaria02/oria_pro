@@ -107,6 +107,7 @@ extension ExpertModelMappers on ExpertModel {
       yearsOfExperience: yearsOfExperience,
       consultationPrice: consultationPrice,
       bio: bio,
+      id: id,
     );
   }
 }

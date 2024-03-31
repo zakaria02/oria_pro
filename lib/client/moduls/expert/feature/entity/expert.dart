@@ -9,6 +9,7 @@ class Expert {
   final double consultationPrice;
   final double? rateAvarage;
   final String? bio;
+  final String id;
 
   const Expert({
     required this.profilePicture,
@@ -21,5 +22,6 @@ class Expert {
     required this.rateAvarage,
     required this.yearsOfExperience,
     required this.bio,
+    required this.id,
   });
 }

@@ -5,6 +5,7 @@ import '../../client/client_app_page.dart';
 import '../../client/moduls/account/feature/pages/update_my_info_page.dart';
 import '../../client/moduls/expert/feature/entity/expert.dart';
 import '../../client/moduls/expert/feature/entity/specialty.dart';
+import '../../client/moduls/expert/feature/pages/appointments/pages/make_appointment_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/expert_details_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/expert_filter_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/find_specialist_page.dart';
@@ -57,6 +58,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: FindSpecialistRoute.page),
     AutoRoute(page: ExpertFilterRoute.page),
     AutoRoute(page: ExpertDetailsRoute.page),
+    AutoRoute(page: MakeAppointmentRoute.page),
     // Account routes
     AutoRoute(page: UpdateMyInfoRoute.page),
   ];

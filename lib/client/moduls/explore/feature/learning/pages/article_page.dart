@@ -43,9 +43,9 @@ class ArticlePage extends StatelessWidget {
               child: ListView(
                 children: [
                   Align(
-                    alignment: Alignment.topRight,
+                    alignment: Alignment.topLeft,
                     child: OriaIconButton(
-                      url: SvgAssets.closeAsset,
+                      url: SvgAssets.backAsset,
                       onPress: () => context.maybePop(),
                     ),
                   ),
@@ -94,6 +94,7 @@ class ArticlePage extends StatelessWidget {
                   const SizedBox(height: 8),
                   OriaCard(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           state.article!.title,

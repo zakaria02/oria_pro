@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:oria_pro/client/moduls/expert/feature/bloc/expert_bloc.dart';
 import 'package:oria_pro/client/moduls/expert/feature/entity/specialty.dart';
@@ -10,6 +11,7 @@ import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_app_bar.dart';
 import 'package:oria_pro/widgets/oria_icon_button.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
+import 'package:oria_pro/widgets/oria_rounded_button.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -170,6 +172,7 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                             ),
                             url: SvgAssets.filterIcon,
                             backgroundColor: OriaColors.darkOrange,
+                            size: 17,
                           )
                         ],
                       ),
@@ -189,21 +192,65 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                                 onPress: () =>
                                     BlocProvider.of<ExpertFilterCubit>(
                                             filterContext)
-                                        .addFilter(specialty: null),
+                                        .resetFilters(),
                               )
                           ],
                         ),
                       ),
                       const SizedBox(height: 16),
-                      ListView.separated(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => ExpertDetailedCard(
-                          expert: experts[index],
+                      Visibility(
+                        visible: experts.isNotEmpty,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => ExpertDetailedCard(
+                            expert: experts[index],
+                          ),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 8),
+                          itemCount: experts.length,
                         ),
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 8),
-                        itemCount: experts.length,
-                      )
+                      ),
+                      Visibility(
+                        visible: experts.isEmpty &&
+                            expertState is! SpecialityExpertLoading,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 60),
+                            SvgPicture.asset(
+                              SvgAssets.noResultFoundAsset,
+                              height: 230,
+                            ),
+                            const SizedBox(height: 45),
+                            Text(
+                              AppLocalizations.of(context)!.noResultsFound,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge
+                                  ?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              AppLocalizations.of(context)!.adjustFilter,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const SizedBox(height: 20),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              child: OriaRoundedButton(
+                                onPress: () =>
+                                    BlocProvider.of<ExpertFilterCubit>(
+                                            filterContext)
+                                        .resetFilters(),
+                                text:
+                                    AppLocalizations.of(context)!.clearFilters,
+                                primaryColor: OriaColors.secondaryOrange,
+                                padding: EdgeInsets.zero,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

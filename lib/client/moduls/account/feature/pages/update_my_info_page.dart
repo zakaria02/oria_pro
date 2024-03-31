@@ -89,7 +89,7 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                         centerText: false,
                       ),
                       const SizedBox(height: 16),
-                      Text(
+                      /*Text(
                         AppLocalizations.of(context)!.email,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
@@ -102,7 +102,7 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                             email = tippedEmail;
                           });
                         },
-                      ),
+                      ),*/
                       const SizedBox(height: 16),
                       OriaRoundedButton(
                         onPress: () {

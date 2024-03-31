@@ -25,7 +25,7 @@ class ProgramSectionsPage extends StatelessWidget {
             true;
         return OriaScaffold(
           appBarData: AppBarData(
-            firstButtonUrl: SvgAssets.closeAsset,
+            firstButtonUrl: SvgAssets.backAsset,
             onFirstButtonPress: () => context.maybePop(),
             title: state.selectedProgram?.title,
           ),

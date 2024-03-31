@@ -10,7 +10,7 @@ sealed class EmailVerificationEvent extends Equatable {
 final class SendVerificationEmail extends EmailVerificationEvent {}
 
 final class VerifyEmail extends EmailVerificationEvent {
-  final String pin;
+  final String token;
 
-  const VerifyEmail({required this.pin});
+  const VerifyEmail({required this.token});
 }

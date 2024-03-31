@@ -139,5 +139,14 @@
     "readLess": "Lire moins",
     "myInfo": "Mes informations",
     "logout": "Déconnexion",
-    "saveChanges": "Enregistrer les modifications"
+    "saveChanges": "Enregistrer les modifications",
+    "appointment": "Rendez-vous",
+    "morning": "Matin",
+    "day": "Journée",
+    "evening": "Soirée",
+    "appointmentTime": "Heure du rendez-vous",
+    "goToPayment": "Aller au paiement",
+    "noResultsFound": "Aucun résultat trouvé !",
+    "adjustFilter": "Veuillez essayer d'ajuster vos filtres",
+    "clearFilters": "Effacer les filtres"
 }

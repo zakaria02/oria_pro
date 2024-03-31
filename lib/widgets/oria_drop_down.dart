@@ -51,7 +51,6 @@ class OriaDropDown<T> extends StatelessWidget {
           iconEnabledColor: OriaColors.primaryColor,
         ),
         dropdownStyleData: DropdownStyleData(
-          width: 200,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
           ),

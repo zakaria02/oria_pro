@@ -109,7 +109,11 @@ class _ExpertService implements ExpertService {
     int limit = 10,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'specialty': specialtyId,
+      r'page': page,
+      r'limit': limit,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -121,7 +125,7 @@ class _ExpertService implements ExpertService {
     )
             .compose(
               _dio.options,
-              '/consultation/experts?specialty=${specialtyId}&page=${page}&limit=${limit}',
+              '/consultation/experts',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -131,6 +135,36 @@ class _ExpertService implements ExpertService {
               baseUrl,
             ))));
     final value = ExpertResponseModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<AvailabilityResponseModel> getDayAvailabilities(
+    String expertId,
+    String day,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AvailabilityResponseModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/consultation/experts/${expertId}/availability/${day}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = AvailabilityResponseModel.fromJson(_result.data!);
     return value;
   }
 

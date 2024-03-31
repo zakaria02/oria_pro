@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import '../../../../../../utils/network/dio_builder.dart';
 import '../../../../../utils/locator/abstract_locator.dart';
+import '../../feature/pages/appointments/usecase/get_day_availabilities_use_case.dart';
 import '../repository/expert_repository.dart';
 import '../service/expert_service.dart';
 
@@ -19,5 +20,7 @@ class ExpertLocator extends AbstractLocator {
         () => ExpertService(DioBuilder.createDio()));
     serviceLocator
         .registerLazySingleton<ExpertRepository>(() => ExpertRepositoryImpl());
+    serviceLocator.registerLazySingleton<GetDayAvailabilitiesUseCase>(
+        () => GetDayAvailabilitiesUseCase());
   }
 }

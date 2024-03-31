@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
+import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -113,7 +115,8 @@ class MakeExpertAppointmentCard extends StatelessWidget {
                   height: 36,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        context.pushRoute(MakeAppointmentRoute(expert: expert)),
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       backgroundColor: const Color(0xFF43C34C),

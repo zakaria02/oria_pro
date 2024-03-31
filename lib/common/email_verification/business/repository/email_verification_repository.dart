@@ -1,12 +1,10 @@
 import 'package:oria_pro/common/email_verification/business/locator/email_verification_locator.dart';
 import 'package:oria_pro/common/email_verification/business/service/email_verification_service.dart';
 
-import '../model/verify_email_request_model.dart';
-
 abstract class EmailVerificationRepository {
   Future<void> sendVerificationEmail();
 
-  Future<void> verifyEmail(VerifyEmailRequestModel request);
+  Future<void> verifyEmail(String token);
 }
 
 class EmailVerificationRepositoryImpl extends EmailVerificationRepository {
@@ -18,7 +16,7 @@ class EmailVerificationRepositoryImpl extends EmailVerificationRepository {
   }
 
   @override
-  Future<void> verifyEmail(VerifyEmailRequestModel request) {
-    return service.verifyEmail(request);
+  Future<void> verifyEmail(String token) {
+    return service.verifyEmail(token);
   }
 }

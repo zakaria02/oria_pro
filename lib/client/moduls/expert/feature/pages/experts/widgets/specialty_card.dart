@@ -38,7 +38,7 @@ class SpecialtyCard extends StatelessWidget {
         );
       },
       child: Container(
-        width: 115,
+        width: 138,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: specialty.color.withOpacity(0.1),
@@ -61,7 +61,6 @@ class SpecialtyCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    fontWeight: FontWeight.w400,
                     color: specialty.color,
                   ),
               textAlign: TextAlign.center,

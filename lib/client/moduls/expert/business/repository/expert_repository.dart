@@ -1,4 +1,5 @@
 import 'package:oria_pro/client/moduls/expert/business/locator/expert_locator.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/availability_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/service/expert_service.dart';
@@ -9,6 +10,8 @@ abstract class ExpertRepository {
   Future<List<ExpertModel>> fetchBestRatedExperts();
   Future<List<ExpertModel>> fetchSpecialtyExperts(
       String? specialtyId, int page);
+  Future<AvailabilityResponseModel> getDayAvailabilities(
+      String expertId, String day);
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -32,5 +35,11 @@ class ExpertRepositoryImpl extends ExpertRepository {
   Future<List<ExpertModel>> fetchSpecialtyExperts(
       String? specialtyId, int page) async {
     return (await _service.fetchSpecialtyExperts(specialtyId, page)).experts;
+  }
+
+  @override
+  Future<AvailabilityResponseModel> getDayAvailabilities(
+      String expertId, String day) {
+    return _service.getDayAvailabilities(expertId, day);
   }
 }
