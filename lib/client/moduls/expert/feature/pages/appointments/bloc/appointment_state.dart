@@ -6,13 +6,15 @@ sealed class AppointmentState extends Equatable {
     required this.selectedDate,
     required this.eveningAvailabilities,
     required this.nightAvailabilities,
-    required this.appointments,
+    required this.previous,
+    required this.upcoming,
   });
   final List<DayAvailability> morningAvailabilities;
   final List<DayAvailability> eveningAvailabilities;
   final List<DayAvailability> nightAvailabilities;
   final DayAvailability? selectedDate;
-  final List<AppointmentDetails> appointments;
+  final List<AppointmentDetails> previous;
+  final List<AppointmentDetails> upcoming;
 
   @override
   List<Object?> get props => [
@@ -20,7 +22,7 @@ sealed class AppointmentState extends Equatable {
         eveningAvailabilities,
         nightAvailabilities,
         selectedDate,
-        appointments,
+        previous,
       ];
 }
 
@@ -31,7 +33,8 @@ final class AppointmentInitial extends AppointmentState {
           selectedDate: null,
           eveningAvailabilities: const [],
           nightAvailabilities: const [],
-          appointments: const [],
+          previous: const [],
+          upcoming: const [],
         );
 }
 
@@ -41,7 +44,8 @@ final class GetDayAvailabilityLoading extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -51,7 +55,8 @@ final class GetDayAvailabilitySuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -61,7 +66,8 @@ final class CancelAppointmentLoading extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -71,7 +77,8 @@ final class CancelAppointmentSuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -81,7 +88,8 @@ final class FetchAllAppointmentsLoading extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -91,7 +99,8 @@ final class FetchAllAppointmentsSuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -101,7 +110,8 @@ final class SelectDateSuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -111,7 +121,8 @@ final class CreateAppointmentLoading extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }
 
@@ -122,7 +133,8 @@ final class CreateAppointmentSuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
     required this.appointment,
   });
 }
@@ -135,6 +147,7 @@ final class AppointmentError extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
-    required super.appointments,
+    required super.previous,
+    required super.upcoming,
   });
 }

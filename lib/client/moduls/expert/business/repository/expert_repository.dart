@@ -23,6 +23,7 @@ abstract class ExpertRepository {
   Future<ExpertModel> getExpert(String expertId);
   Future<PayInvoiceResponseModel> payInvoice(PayInvoiceRequestModel request);
   Future<List<AppointmentModel>> fetchAppointments();
+  Future<List<AppointmentModel>> fetchUpcomingAppointments();
   Future<void> cancelAppointment(String id);
 }
 
@@ -80,5 +81,10 @@ class ExpertRepositoryImpl extends ExpertRepository {
   Future<void> cancelAppointment(String id) {
     return _service
         .cancelAppointment(CancelAppointmentRequestModel(appointmentId: id));
+  }
+
+  @override
+  Future<List<AppointmentModel>> fetchUpcomingAppointments() {
+    return _service.fetchUpcomingAppointments();
   }
 }

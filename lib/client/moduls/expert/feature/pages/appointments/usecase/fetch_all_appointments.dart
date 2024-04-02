@@ -8,16 +8,25 @@ import '../../../entity/expert.dart';
 
 class FetchAllAppointmentsUsecase {
   final ExpertRepository _repository = ExploreLocator().get();
-  Future<List<AppointmentDetails>> execute() async {
-    final result = await _repository.fetchAppointments();
-    final notPendingResult = result.where((res) => res.status != "pending");
+  Future<List<AppointmentDetails>> execute({required bool isUpcoming}) async {
+    late List<AppointmentModel> result;
+    late Iterable<AppointmentModel> filtredResult;
+
+    if (isUpcoming) {
+      result = await _repository.fetchUpcomingAppointments();
+      filtredResult = result;
+    } else {
+      result = await _repository.fetchAppointments();
+      filtredResult = result
+          .where((res) => res.status != "pending" && res.status != "upcoming");
+    }
     final List<Expert> experts = [];
-    for (final res in result) {
+    for (final res in filtredResult) {
       final expertModel = await _repository.getExpert(res.expertId);
       experts.add(expertModel.toExpert());
     }
     experts.toSet();
-    List<AppointmentDetails> appointments = notPendingResult
+    List<AppointmentDetails> appointments = filtredResult
         .map((app) => app
             .toAppointment(experts.firstWhere((exp) => exp.id == app.expertId)))
         .toList();

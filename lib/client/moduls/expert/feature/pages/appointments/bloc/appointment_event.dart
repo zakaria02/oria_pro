@@ -35,6 +35,8 @@ class CreateAppointment extends AppointmentEvent {
 
 class FetchAllAppointments extends AppointmentEvent {}
 
+class FetchUpcomingAppointments extends AppointmentEvent {}
+
 class CancelAppointment extends AppointmentEvent {
   final String id;
 

@@ -10,13 +10,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bloc/appointment_bloc.dart';
 
-class AppointmentListView extends StatelessWidget {
-  const AppointmentListView({super.key});
+class UpcomingAppointmentListView extends StatelessWidget {
+  const UpcomingAppointmentListView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppointmentBloc()..add(FetchAllAppointments()),
+      create: (context) => AppointmentBloc()..add(FetchUpcomingAppointments()),
       child: BlocConsumer<AppointmentBloc, AppointmentState>(
         listener: (context, state) {
           if (state is AppointmentError) {
@@ -27,7 +27,7 @@ class AppointmentListView extends StatelessWidget {
         builder: (context, state) {
           return state is FetchAllAppointmentsLoading
               ? const OriaLoadingProgress()
-              : state.previous.isEmpty
+              : state.upcoming.isEmpty
                   ? Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -58,10 +58,10 @@ class AppointmentListView extends StatelessWidget {
                       child: ListView.separated(
                         shrinkWrap: true,
                         itemBuilder: (context, index) =>
-                            AppointmentCard(appointment: state.previous[index]),
+                            AppointmentCard(appointment: state.upcoming[index]),
                         separatorBuilder: (context, index) =>
                             const SizedBox(height: 12),
-                        itemCount: state.previous.length,
+                        itemCount: state.upcoming.length,
                       ),
                     );
         },

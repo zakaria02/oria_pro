@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/pages/appointments_list.dart';
+import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/pages/appointments_upcoming_view.dart';
 
 import '../../../../widgets/oria_top_select.dart';
 import 'cubit/expert_navigation_cubit.dart';
@@ -36,8 +37,10 @@ class ExpertView extends StatelessWidget {
                   if (state.currentItem == ExpertTopSelect.experts(context)) {
                     return const ExpertsView();
                   }
-                  if (state.currentItem ==
-                      ExpertTopSelect.appointments(context)) {
+                  if (state.currentItem == ExpertTopSelect.upcoming(context)) {
+                    return const UpcomingAppointmentListView();
+                  }
+                  if (state.currentItem == ExpertTopSelect.previous(context)) {
                     return const AppointmentListView();
                   }
                   return Expanded(

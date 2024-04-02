@@ -284,6 +284,36 @@ class _ExpertService implements ExpertService {
   }
 
   @override
+  Future<List<AppointmentModel>> fetchUpcomingAppointments() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<AppointmentModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/consultation/appointements/upcoming',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map(
+            (dynamic i) => AppointmentModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<void> cancelAppointment(CancelAppointmentRequestModel request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

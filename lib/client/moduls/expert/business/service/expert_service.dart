@@ -48,6 +48,9 @@ abstract class ExpertService {
   @GET("/consultation/appointements/all")
   Future<List<AppointmentModel>> fetchAllAppointments();
 
+  @GET("/consultation/appointements/upcoming")
+  Future<List<AppointmentModel>> fetchUpcomingAppointments();
+
   @POST("/consultation/appointement/cancel")
   Future<void> cancelAppointment(@Body() CancelAppointmentRequestModel request);
 }
