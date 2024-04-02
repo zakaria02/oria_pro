@@ -60,6 +60,7 @@ dependencies:
   flutter_typeahead: ^5.2.0
   dropdown_button2: ^2.3.9
   easy_date_timeline: ^1.0.3
+  calendar_date_picker2: ^0.5.5
   
 
 dev_dependencies:

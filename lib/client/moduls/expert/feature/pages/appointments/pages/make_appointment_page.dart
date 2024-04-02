@@ -6,6 +6,8 @@ import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/utils/extensions/date_extensions.dart';
 import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_app_bar.dart';
+import 'package:oria_pro/widgets/oria_date_picker.dart';
+import 'package:oria_pro/widgets/oria_dialog.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_rounded_button.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
@@ -46,12 +48,45 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                 MakeAppointmentSuccessRoute(appointment: state.appointment));
           }
         },
-        builder: (context, state) {
+        builder: (blocContext, state) {
           return OriaScaffold(
             appBarData: AppBarData(
               firstButtonUrl: SvgAssets.backAsset,
               onFirstButtonPress: () => context.maybePop(),
               title: AppLocalizations.of(context)!.appointment,
+              lastButtonUrl: SvgAssets.calendarIcon,
+              onLastButtonPress: () => showDialog(
+                context: context,
+                builder: (context) => OriaDialog(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: OriaDatePicker(
+                          onSelectDate: (date) {
+                            if (date != null) {
+                              setState(() {
+                                selectedDate = date;
+                              });
+                              BlocProvider.of<AppointmentBloc>(blocContext).add(
+                                GetDayAvailabilities(
+                                    day: date, expertId: widget.expert.id),
+                              );
+                            }
+                          },
+                          currentValue: selectedDate,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      OriaRoundedButton(
+                        onPress: () => Navigator.of(context).pop(),
+                        text: AppLocalizations.of(context)!.apply,
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
             body: Column(
               children: [
@@ -61,7 +96,7 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                     setState(() {
                       selectedDate = date;
                     });
-                    BlocProvider.of<AppointmentBloc>(context).add(
+                    BlocProvider.of<AppointmentBloc>(blocContext).add(
                         GetDayAvailabilities(
                             day: date, expertId: widget.expert.id));
                   },
@@ -133,7 +168,7 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                     disabled: state.selectedDate == null,
                     padding: EdgeInsets.zero,
                     onPress: () =>
-                        BlocProvider.of<AppointmentBloc>(context).add(
+                        BlocProvider.of<AppointmentBloc>(blocContext).add(
                       CreateAppointment(
                         expertId: widget.expert.id,
                         appointmentDate: state.selectedDate!.date,

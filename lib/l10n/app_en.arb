@@ -178,5 +178,12 @@
     "duration": "Duration:",
     "total": "Total:",
     "noAppointments": "No Appointements",
-    "youHaveNoAppointments": "You have no appointments to show here "
+    "youHaveNoAppointments": "You have no appointments to show here ",
+    "sun": "Sun",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat"
 }

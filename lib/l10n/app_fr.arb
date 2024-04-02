@@ -178,5 +178,12 @@
     "duration": "Duration:",
     "total": "Total:",
     "noAppointments": "Aucun rendez-vous",
-    "youHaveNoAppointments": "Vous n'avez aucun rendez-vous à afficher ici"
+    "youHaveNoAppointments": "Vous n'avez aucun rendez-vous à afficher ici",
+    "sun": "Dim",
+    "mon": "Lun",
+    "tue": "Mar",
+    "wed": "Mer",
+    "thu": "Jeu",
+    "fri": "Ven",
+    "sat": "Sam"
 }
