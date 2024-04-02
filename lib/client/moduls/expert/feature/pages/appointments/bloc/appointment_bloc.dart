@@ -19,8 +19,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         final GetDayAvailabilitiesUseCase usecase = ExploreLocator().get();
         emit(GetDayAvailabilityLoading(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -30,11 +30,11 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           morningAvailabilities: availabilities
               .where((date) => date.period == Period.morning)
               .toList(),
+          afternoonAvailabilities: availabilities
+              .where((date) => date.period == Period.afternoon)
+              .toList(),
           eveningAvailabilities: availabilities
               .where((date) => date.period == Period.evening)
-              .toList(),
-          nightAvailabilities: availabilities
-              .where((date) => date.period == Period.night)
               .toList(),
           selectedDate: state.selectedDate,
           previous: state.previous,
@@ -44,8 +44,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         emit(AppointmentError(
           errorMessage: e.toString(),
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -58,8 +58,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         emit(SelectDateSuccess(
           morningAvailabilities: state.morningAvailabilities,
           selectedDate: event.date,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
         ));
@@ -71,8 +71,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         final CreateAppointmentUsecase usecase = ExploreLocator().get();
         emit(CreateAppointmentLoading(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -81,8 +81,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
             await usecase.execute(event.expertId, event.appointmentDate);
         emit(CreateAppointmentSuccess(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -92,8 +92,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         emit(AppointmentError(
           errorMessage: e.toString(),
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -106,8 +106,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         final FetchAllAppointmentsUsecase usecase = ExploreLocator().get();
         emit(FetchAllAppointmentsLoading(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -115,8 +115,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         final appointments = await usecase.execute(isUpcoming: false);
         emit(FetchAllAppointmentsSuccess(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: appointments,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -125,8 +125,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         emit(AppointmentError(
           errorMessage: e.toString(),
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -139,8 +139,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         final FetchAllAppointmentsUsecase usecase = ExploreLocator().get();
         emit(FetchAllAppointmentsLoading(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -148,8 +148,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         final appointments = await usecase.execute(isUpcoming: true);
         emit(FetchAllAppointmentsSuccess(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           selectedDate: state.selectedDate,
           upcoming: appointments,
@@ -158,8 +158,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         emit(AppointmentError(
           errorMessage: e.toString(),
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -172,8 +172,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         final ExpertRepository repository = ExploreLocator().get();
         emit(CancelAppointmentLoading(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
@@ -181,19 +181,20 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         await repository.cancelAppointment(event.id);
         emit(CancelAppointmentSuccess(
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
         ));
         add(FetchAllAppointments());
+        add(FetchUpcomingAppointments());
       } catch (e) {
         emit(AppointmentError(
           errorMessage: e.toString(),
           morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
-          nightAvailabilities: state.nightAvailabilities,
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,

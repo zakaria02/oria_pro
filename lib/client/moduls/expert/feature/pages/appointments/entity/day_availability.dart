@@ -7,4 +7,4 @@ class DayAvailability {
       {required this.date, required this.period, required this.available});
 }
 
-enum Period { morning, evening, night }
+enum Period { morning, afternoon, evening }

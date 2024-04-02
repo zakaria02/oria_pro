@@ -80,21 +80,21 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                         PeriodAvailabilities(
                             title: AppLocalizations.of(context)!.morning,
                             availabilities: state.morningAvailabilities,
-                            suffix: "PM"),
+                            suffix: "AM"),
+                      if (state.afternoonAvailabilities.isNotEmpty) ...[
+                        const SizedBox(height: 32),
+                        PeriodAvailabilities(
+                          title: AppLocalizations.of(context)!.afternoon,
+                          availabilities: state.afternoonAvailabilities,
+                          suffix: "PM",
+                        ),
+                      ],
                       if (state.eveningAvailabilities.isNotEmpty) ...[
                         const SizedBox(height: 32),
                         PeriodAvailabilities(
                           title: AppLocalizations.of(context)!.evening,
                           availabilities: state.eveningAvailabilities,
-                          suffix: "AM",
-                        ),
-                      ],
-                      if (state.nightAvailabilities.isNotEmpty) ...[
-                        const SizedBox(height: 32),
-                        PeriodAvailabilities(
-                          title: AppLocalizations.of(context)!.night,
-                          availabilities: state.nightAvailabilities,
-                          suffix: "AM",
+                          suffix: "PM",
                         ),
                       ],
                     ],

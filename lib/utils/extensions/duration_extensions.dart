@@ -21,7 +21,6 @@ extension DurationMappers on Duration {
     String twoDigitDays = twoDigits(inDays.remainder(356).abs());
     String twoDigitHours = twoDigits(inHours.remainder(24).abs());
     String twoDigitMinutes = twoDigits(inMinutes.remainder(60).abs());
-    String twoDigitSeconds = twoDigits(inSeconds.remainder(60).abs());
-    return "$negativeSign${AppLocalizations.of(context)!.daysCount(twoDigitDays)} ${AppLocalizations.of(context)!.hours(twoDigitHours)} ${AppLocalizations.of(context)!.minutes(twoDigitMinutes)} $twoDigitSeconds sec";
+    return "$negativeSign${inDays != 0 ? "${AppLocalizations.of(context)!.daysCount(twoDigitDays)} " : ""}${inHours != 0 ? "${AppLocalizations.of(context)!.hours(twoDigitHours)} " : ""}${inMinutes != 0 ? AppLocalizations.of(context)!.minutes(twoDigitMinutes) : ""}";
   }
 }

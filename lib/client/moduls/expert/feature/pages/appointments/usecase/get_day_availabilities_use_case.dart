@@ -188,8 +188,8 @@ Period _getHourPeriod(int hour) {
     return Period.morning;
   }
   if (hour < 18) {
-    return Period.evening;
+    return Period.afternoon;
   }
 
-  return Period.night;
+  return Period.evening;
 }
