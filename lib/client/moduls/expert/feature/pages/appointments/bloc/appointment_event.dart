@@ -32,3 +32,11 @@ class CreateAppointment extends AppointmentEvent {
     required this.appointmentDate,
   });
 }
+
+class FetchAllAppointments extends AppointmentEvent {}
+
+class CancelAppointment extends AppointmentEvent {
+  final String id;
+
+  const CancelAppointment({required this.id});
+}

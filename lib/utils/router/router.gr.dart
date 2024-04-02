@@ -21,6 +21,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AppOrchestratorPage(),
       );
     },
+    AppointmentRefundingRoute.name: (routeData) {
+      final args = routeData.argsAs<AppointmentRefundingRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AppointmentRefundingPage(
+          key: args.key,
+          appointment: args.appointment,
+        ),
+      );
+    },
     ArticleRoute.name: (routeData) {
       final args = routeData.argsAs<ArticleRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -190,6 +200,16 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    UpcomingDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<UpcomingDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: UpcomingDetailsPage(
+          key: args.key,
+          appointment: args.appointment,
+        ),
+      );
+    },
     UpdateMyInfoRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -221,6 +241,45 @@ class AppOrchestratorRoute extends PageRouteInfo<void> {
   static const String name = 'AppOrchestratorRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AppointmentRefundingPage]
+class AppointmentRefundingRoute
+    extends PageRouteInfo<AppointmentRefundingRouteArgs> {
+  AppointmentRefundingRoute({
+    Key? key,
+    required AppointmentDetails appointment,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AppointmentRefundingRoute.name,
+          args: AppointmentRefundingRouteArgs(
+            key: key,
+            appointment: appointment,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AppointmentRefundingRoute';
+
+  static const PageInfo<AppointmentRefundingRouteArgs> page =
+      PageInfo<AppointmentRefundingRouteArgs>(name);
+}
+
+class AppointmentRefundingRouteArgs {
+  const AppointmentRefundingRouteArgs({
+    this.key,
+    required this.appointment,
+  });
+
+  final Key? key;
+
+  final AppointmentDetails appointment;
+
+  @override
+  String toString() {
+    return 'AppointmentRefundingRouteArgs{key: $key, appointment: $appointment}';
+  }
 }
 
 /// generated route for
@@ -815,6 +874,44 @@ class SymptomDataRouteArgs {
   @override
   String toString() {
     return 'SymptomDataRouteArgs{key: $key, symptom: $symptom}';
+  }
+}
+
+/// generated route for
+/// [UpcomingDetailsPage]
+class UpcomingDetailsRoute extends PageRouteInfo<UpcomingDetailsRouteArgs> {
+  UpcomingDetailsRoute({
+    Key? key,
+    required AppointmentDetails appointment,
+    List<PageRouteInfo>? children,
+  }) : super(
+          UpcomingDetailsRoute.name,
+          args: UpcomingDetailsRouteArgs(
+            key: key,
+            appointment: appointment,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'UpcomingDetailsRoute';
+
+  static const PageInfo<UpcomingDetailsRouteArgs> page =
+      PageInfo<UpcomingDetailsRouteArgs>(name);
+}
+
+class UpcomingDetailsRouteArgs {
+  const UpcomingDetailsRouteArgs({
+    this.key,
+    required this.appointment,
+  });
+
+  final Key? key;
+
+  final AppointmentDetails appointment;
+
+  @override
+  String toString() {
+    return 'UpcomingDetailsRouteArgs{key: $key, appointment: $appointment}';
   }
 }
 

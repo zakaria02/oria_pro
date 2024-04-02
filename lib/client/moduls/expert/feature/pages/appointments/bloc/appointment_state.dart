@@ -6,18 +6,21 @@ sealed class AppointmentState extends Equatable {
     required this.selectedDate,
     required this.eveningAvailabilities,
     required this.nightAvailabilities,
+    required this.appointments,
   });
   final List<DayAvailability> morningAvailabilities;
   final List<DayAvailability> eveningAvailabilities;
   final List<DayAvailability> nightAvailabilities;
   final DayAvailability? selectedDate;
+  final List<AppointmentDetails> appointments;
 
   @override
   List<Object?> get props => [
         morningAvailabilities,
         eveningAvailabilities,
         nightAvailabilities,
-        selectedDate
+        selectedDate,
+        appointments,
       ];
 }
 
@@ -28,6 +31,7 @@ final class AppointmentInitial extends AppointmentState {
           selectedDate: null,
           eveningAvailabilities: const [],
           nightAvailabilities: const [],
+          appointments: const [],
         );
 }
 
@@ -37,6 +41,7 @@ final class GetDayAvailabilityLoading extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
+    required super.appointments,
   });
 }
 
@@ -46,6 +51,47 @@ final class GetDayAvailabilitySuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
+    required super.appointments,
+  });
+}
+
+final class CancelAppointmentLoading extends AppointmentState {
+  const CancelAppointmentLoading({
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.eveningAvailabilities,
+    required super.nightAvailabilities,
+    required super.appointments,
+  });
+}
+
+final class CancelAppointmentSuccess extends AppointmentState {
+  const CancelAppointmentSuccess({
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.eveningAvailabilities,
+    required super.nightAvailabilities,
+    required super.appointments,
+  });
+}
+
+final class FetchAllAppointmentsLoading extends AppointmentState {
+  const FetchAllAppointmentsLoading({
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.eveningAvailabilities,
+    required super.nightAvailabilities,
+    required super.appointments,
+  });
+}
+
+final class FetchAllAppointmentsSuccess extends AppointmentState {
+  const FetchAllAppointmentsSuccess({
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.eveningAvailabilities,
+    required super.nightAvailabilities,
+    required super.appointments,
   });
 }
 
@@ -55,6 +101,7 @@ final class SelectDateSuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
+    required super.appointments,
   });
 }
 
@@ -64,6 +111,7 @@ final class CreateAppointmentLoading extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
+    required super.appointments,
   });
 }
 
@@ -74,6 +122,7 @@ final class CreateAppointmentSuccess extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
+    required super.appointments,
     required this.appointment,
   });
 }
@@ -86,5 +135,6 @@ final class AppointmentError extends AppointmentState {
     required super.selectedDate,
     required super.eveningAvailabilities,
     required super.nightAvailabilities,
+    required super.appointments,
   });
 }

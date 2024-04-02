@@ -1,8 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:oria_pro/client/moduls/expert/business/repository/expert_repository.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment.dart';
+import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment_details.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/day_availability.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase/create_appointment_usecase.dart';
+import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase/fetch_all_appointments.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase/get_day_availabilities_use_case.dart';
 import 'package:oria_pro/client/moduls/explore/business/di/explore_locator.dart';
 
@@ -18,6 +21,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           morningAvailabilities: state.morningAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
           nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
           selectedDate: state.selectedDate,
         ));
         final availabilities = await usecase.execute(event.expertId, event.day);
@@ -32,6 +36,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
               .where((date) => date.period == Period.night)
               .toList(),
           selectedDate: state.selectedDate,
+          appointments: state.appointments,
         ));
       } catch (e) {
         emit(AppointmentError(
@@ -39,6 +44,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           morningAvailabilities: state.morningAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
           nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
           selectedDate: state.selectedDate,
         ));
       }
@@ -51,6 +57,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           selectedDate: event.date,
           eveningAvailabilities: state.eveningAvailabilities,
           nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
         ));
       }
     });
@@ -62,6 +69,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           morningAvailabilities: state.morningAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
           nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
           selectedDate: state.selectedDate,
         ));
         final appointment =
@@ -70,6 +78,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           morningAvailabilities: state.morningAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
           nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
           selectedDate: state.selectedDate,
           appointment: appointment,
         ));
@@ -79,6 +88,68 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           morningAvailabilities: state.morningAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
           nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
+          selectedDate: state.selectedDate,
+        ));
+      }
+    });
+
+    on<FetchAllAppointments>((event, emit) async {
+      try {
+        final FetchAllAppointmentsUsecase usecase = ExploreLocator().get();
+        emit(FetchAllAppointmentsLoading(
+          morningAvailabilities: state.morningAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
+          selectedDate: state.selectedDate,
+        ));
+        final appointments = await usecase.execute();
+        emit(FetchAllAppointmentsSuccess(
+          morningAvailabilities: state.morningAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          nightAvailabilities: state.nightAvailabilities,
+          appointments: appointments,
+          selectedDate: state.selectedDate,
+        ));
+      } catch (e) {
+        emit(AppointmentError(
+          errorMessage: e.toString(),
+          morningAvailabilities: state.morningAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
+          selectedDate: state.selectedDate,
+        ));
+      }
+    });
+
+    on<CancelAppointment>((event, emit) async {
+      try {
+        final ExpertRepository repository = ExploreLocator().get();
+        emit(CancelAppointmentLoading(
+          morningAvailabilities: state.morningAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
+          selectedDate: state.selectedDate,
+        ));
+        await repository.cancelAppointment(event.id);
+        emit(CancelAppointmentSuccess(
+          morningAvailabilities: state.morningAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
+          selectedDate: state.selectedDate,
+        ));
+        add(FetchAllAppointments());
+      } catch (e) {
+        emit(AppointmentError(
+          errorMessage: e.toString(),
+          morningAvailabilities: state.morningAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          nightAvailabilities: state.nightAvailabilities,
+          appointments: state.appointments,
           selectedDate: state.selectedDate,
         ));
       }

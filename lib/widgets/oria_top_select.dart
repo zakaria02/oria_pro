@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../client/moduls/expert/feature/entity/expert_top_select.dart';
 import '../utils/constants/oria_colors.dart';
 
 class OriaTopBarSelect extends StatelessWidget {
-  const OriaTopBarSelect({
-    super.key,
-    required this.items,
-    required this.selectedItem,
-    required this.onItemPress,
-  });
+  const OriaTopBarSelect(
+      {super.key,
+      required this.items,
+      required this.selectedItem,
+      required this.onItemPress});
 
-  final List<ExpertTopSelectItem> items;
+  final List<String> items;
   final String selectedItem;
-  final Function(ExpertTopSelectItem) onItemPress;
+  final Function(String) onItemPress;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class OriaTopBarSelect extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 3),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: items
@@ -34,60 +32,25 @@ class OriaTopBarSelect extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () => onItemPress(item),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: selectedItem == item.title
+                          color: selectedItem == item
                               ? OriaColors.green
                               : Colors.white,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              item.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium
-                                  ?.copyWith(
-                                    fontWeight: selectedItem == item.title
+                        child: Text(
+                          item,
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    fontWeight: selectedItem == item
                                         ? FontWeight.w700
                                         : FontWeight.w500,
-                                    color: selectedItem == item.title
+                                    color: selectedItem == item
                                         ? Colors.white
                                         : OriaColors.green,
                                   ),
-                              textAlign: TextAlign.center,
-                            ),
-                            if (item.count != null) ...[
-                              const SizedBox(width: 12),
-                              Container(
-                                height: 22,
-                                width: 22,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: selectedItem == item.title
-                                      ? OriaColors.scaffoldBackgroundColor
-                                      : OriaColors.iconButtonBackgound,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "${item.count}",
-                                    style: TextStyle(
-                                      fontFamily: "satoshi",
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      color: selectedItem == item.title
-                                          ? OriaColors.green
-                                          : Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ]
-                          ],
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),

@@ -1,8 +1,12 @@
 import 'package:oria_pro/client/moduls/expert/business/locator/expert_locator.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/appointment_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/availability_response_model.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/cancel_appointment_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/create_appointment_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/create_appointment_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/pay_invoice_request_model.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/pay_invoice_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/service/expert_service.dart';
 
@@ -17,6 +21,9 @@ abstract class ExpertRepository {
   Future<CreateAppointmentResponseModel> createAppointment(
       CreateAppointmentRequestModel request);
   Future<ExpertModel> getExpert(String expertId);
+  Future<PayInvoiceResponseModel> payInvoice(PayInvoiceRequestModel request);
+  Future<List<AppointmentModel>> fetchAppointments();
+  Future<void> cancelAppointment(String id);
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -57,5 +64,21 @@ class ExpertRepositoryImpl extends ExpertRepository {
   @override
   Future<ExpertModel> getExpert(String expertId) {
     return _service.getExpert(expertId);
+  }
+
+  @override
+  Future<PayInvoiceResponseModel> payInvoice(PayInvoiceRequestModel request) {
+    return _service.payInvoice(request);
+  }
+
+  @override
+  Future<List<AppointmentModel>> fetchAppointments() {
+    return _service.fetchAllAppointments();
+  }
+
+  @override
+  Future<void> cancelAppointment(String id) {
+    return _service
+        .cancelAppointment(CancelAppointmentRequestModel(appointmentId: id));
   }
 }

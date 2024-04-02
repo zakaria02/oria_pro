@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/pages/appointments_list.dart';
 
 import '../../../../widgets/oria_top_select.dart';
 import 'cubit/expert_navigation_cubit.dart';
@@ -24,7 +25,7 @@ class ExpertView extends StatelessWidget {
               const SizedBox(height: 20),
               OriaTopBarSelect(
                 items: state.topSelectItems,
-                selectedItem: state.currentItem.title,
+                selectedItem: state.currentItem,
                 onItemPress: (item) =>
                     BlocProvider.of<ExpertNavigationCubit>(context)
                         .selectItem(item),
@@ -32,13 +33,16 @@ class ExpertView extends StatelessWidget {
               const SizedBox(height: 20),
               Builder(
                 builder: (context) {
-                  if (state.currentItem.title ==
-                      ExpertTopSelect.experts(context)) {
+                  if (state.currentItem == ExpertTopSelect.experts(context)) {
                     return const ExpertsView();
+                  }
+                  if (state.currentItem ==
+                      ExpertTopSelect.appointments(context)) {
+                    return const AppointmentListView();
                   }
                   return Expanded(
                     child: Center(
-                      child: Text(state.currentItem.title),
+                      child: Text(state.currentItem),
                     ),
                   );
                 },

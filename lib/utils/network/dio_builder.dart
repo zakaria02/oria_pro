@@ -50,11 +50,14 @@ class AppInterceptors extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
+    final String? token = await EmailPasswordAuthLocator()
+        .get<AuthLocalDataSource>()
+        .getUser()
+        .then((user) => user?.accessToken);
     options.headers.addAll(
       {
         Headers.contentTypeHeader: "application/json",
-        "Authorization":
-            "Bearer ${await EmailPasswordAuthLocator().get<AuthLocalDataSource>().getUser().then((user) => user?.accessToken)}",
+        if (token != null) "Authorization": "Bearer $token",
       },
     );
     options.followRedirects = false;
