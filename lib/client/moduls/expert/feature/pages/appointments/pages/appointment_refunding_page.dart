@@ -170,8 +170,7 @@ class AppointmentRefundingPage extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            DateTime(2023, 9, 6, 10)
-                                .toAbbreviationMonthDate(context),
+                            appointment.date.toAbbreviationMonthDate(context),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium

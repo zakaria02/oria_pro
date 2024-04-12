@@ -21,8 +21,10 @@ class FetchAllAppointmentsUsecase {
           .where((res) => res.status != "pending" && res.status != "upcoming");
     }
     final List<Expert> experts = [];
-    for (final res in filtredResult) {
-      final expertModel = await _repository.getExpert(res.expertId);
+    final List<String> expertsId =
+        filtredResult.map((res) => res.expertId).toSet().toList();
+    for (final id in expertsId) {
+      final expertModel = await _repository.getExpert(id);
       experts.add(expertModel.toExpert());
     }
     experts.toSet();

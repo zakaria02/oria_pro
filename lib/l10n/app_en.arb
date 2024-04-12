@@ -185,5 +185,8 @@
     "wed": "Wed",
     "thu": "Thu",
     "fri": "Fri",
-    "sat": "Sat"
+    "sat": "Sat",
+    "deniedPermission": "Denied Permission",
+    "deniedPermissionContent": "You need to give access to denied permissions to procced",
+    "manage": "Manage"
 }

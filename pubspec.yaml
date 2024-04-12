@@ -55,12 +55,15 @@ dependencies:
   flutter_widget_from_html: ^0.14.11
   url_launcher: ^6.2.5
   dotted_line: ^3.2.2
-  appinio_video_player: ^1.2.2
   pinput: ^4.0.0
   flutter_typeahead: ^5.2.0
   dropdown_button2: ^2.3.9
   easy_date_timeline: ^1.0.3
   calendar_date_picker2: ^0.5.5
+  shared_preferences: ^2.2.2
+  appinio_video_player: ^1.2.2
+  hms_room_kit: ^1.0.17
+  permission_handler: ^11.3.1
   
 
 dev_dependencies:

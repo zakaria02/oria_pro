@@ -9,7 +9,7 @@ class PayInvoiceResponseModel {
   @JsonKey(name: "payment")
   final String paymentId;
   @JsonKey(name: "amount")
-  final int amount;
+  final double amount;
   @JsonKey(name: "user")
   final String userId;
   @JsonKey(name: "type")

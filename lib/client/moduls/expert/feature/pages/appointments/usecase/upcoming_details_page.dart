@@ -15,10 +15,14 @@ import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:oria_pro/widgets/oria_dialog.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../../../utils/constants/oria_colors.dart';
+import '../../../../../../../widgets/oria_rounded_button.dart';
 import '../../../../../../../widgets/oria_rounded_image.dart';
+import '../../../../business/service/permission_service.dart';
 import '../bloc/appointment_bloc.dart';
+import 'call_page.dart';
 
 @RoutePage()
 class UpcomingDetailsPage extends StatefulWidget {
@@ -285,15 +289,90 @@ class _UpcomingDetailsPageState extends State<UpcomingDetailsPage> {
                           const SizedBox(width: 22),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                if (duration!.inMinutes > 10) {
-                                  _showDialog(
+                              onTap: () async {
+                                final allGranted =
+                                    await PermissionService.verifyPermissions();
+                                if (allGranted) {
+                                  Navigator.push(
+                                    // ignore: use_build_context_synchronously
                                     context,
-                                    AppLocalizations.of(context)!.istNotTime,
-                                    AppLocalizations.of(context)!.youCanStartIn,
-                                    description:
-                                        duration!.formatDuration(context),
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AppointmentCallPage(
+                                                appointment:
+                                                    widget.appointment)),
                                   );
+                                } else {
+                                  final statuses = await PermissionService
+                                      .checkPermissions();
+                                  final hasDenied = statuses.values.contains(
+                                      PermissionStatus.permanentlyDenied);
+                                  if (hasDenied) {
+                                    showDialog(
+                                      // ignore: use_build_context_synchronously
+                                      context: context,
+                                      builder: (context) {
+                                        return OriaDialog(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    SvgAssets.warningIcon,
+                                                  ),
+                                                  Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .deniedPermission,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge
+                                                        ?.copyWith(
+                                                          fontFamily: "Raleway",
+                                                        ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  const SizedBox(height: 8),
+                                                  Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .deniedPermissionContent,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displayMedium
+                                                        ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  const SizedBox(height: 24),
+                                                  OriaRoundedButton(
+                                                    padding: EdgeInsets.zero,
+                                                    onPress: () =>
+                                                        openAppSettings().then(
+                                                            (value) =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop()),
+                                                    text: AppLocalizations.of(
+                                                            context)!
+                                                        .manage,
+                                                    primaryColor:
+                                                        OriaColors.gold,
+                                                    textColor: Colors.white,
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 }
                               },
                               child: Container(

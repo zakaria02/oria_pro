@@ -7,6 +7,7 @@ import '../model/availability_response_model.dart';
 import '../model/cancel_appointment_request_model.dart';
 import '../model/create_appointment_request_model.dart';
 import '../model/create_appointment_response_model.dart';
+import '../model/meeting_access_reponse_model.dart';
 import '../model/pay_invoice_request_model.dart';
 import '../model/pay_invoice_response_model.dart';
 import '../model/specialty_response_model.dart';
@@ -53,4 +54,8 @@ abstract class ExpertService {
 
   @POST("/consultation/appointement/cancel")
   Future<void> cancelAppointment(@Body() CancelAppointmentRequestModel request);
+
+  @GET("/consultation/appointement/{appointmentId}/meeting-access")
+  Future<MeetingAccessResponseModel> getMeetingAccessKey(
+      @Path() String appointmentId);
 }

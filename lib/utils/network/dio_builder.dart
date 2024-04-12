@@ -1,9 +1,10 @@
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/auth/business/email_password/locator/email_password_locator.dart';
-import '../../common/auth/business/local_data_source/auth_local_data_source.dart';
+import '../locator/locator.dart';
 
 /// [DioBuilder] will build the dio instances that will be used in the app
 /// the timeout is 20 seconds
@@ -50,10 +51,9 @@ class AppInterceptors extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    final String? token = await EmailPasswordAuthLocator()
-        .get<AuthLocalDataSource>()
-        .getUser()
-        .then((user) => user?.accessToken);
+    await GetIt.instance.isReady<SharedPreferences>();
+    SharedPreferences prefs = AppLocator().get();
+    final String? token = prefs.getString("token");
     options.headers.addAll(
       {
         Headers.contentTypeHeader: "application/json",
@@ -84,8 +84,11 @@ class AppInterceptors extends Interceptor {
           case 500:
             throw InternalServerErrorException(
                 err.response, err.requestOptions);
+          case 502:
+            throw BadGetwayException(err.response, err.requestOptions);
+          default:
+            throw UnknownException(err.response, err.requestOptions);
         }
-        break;
       case DioExceptionType.cancel:
         break;
       case DioExceptionType.badCertificate:
@@ -93,7 +96,19 @@ class AppInterceptors extends Interceptor {
       case DioExceptionType.connectionError:
       case DioExceptionType.unknown:
         throw NoInternetConnectionException(err.response, err.requestOptions);
+      default:
+        throw UnknownException(err.response, err.requestOptions);
     }
+  }
+}
+
+class UnknownException extends DioException {
+  UnknownException(Response? response, RequestOptions r)
+      : super(requestOptions: r, response: response);
+
+  @override
+  String toString() {
+    return 'Unknown error';
   }
 }
 
@@ -115,6 +130,16 @@ class InternalServerErrorException extends DioException {
   String toString() {
     return response?.data["message"] ??
         'Unknown error occurred, please try again later.';
+  }
+}
+
+class BadGetwayException extends DioException {
+  BadGetwayException(Response? response, RequestOptions r)
+      : super(requestOptions: r, response: response);
+
+  @override
+  String toString() {
+    return response?.data["message"] ?? 'Bad Getway';
   }
 }
 

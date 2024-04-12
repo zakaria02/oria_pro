@@ -10,6 +10,7 @@ import '../../client/moduls/expert/feature/pages/appointments/entity/appointment
 import '../../client/moduls/expert/feature/pages/appointments/pages/appointment_refunding_page.dart';
 import '../../client/moduls/expert/feature/pages/appointments/pages/make_appointment_page.dart';
 import '../../client/moduls/expert/feature/pages/appointments/pages/make_appointment_success.dart';
+import '../../client/moduls/expert/feature/pages/appointments/usecase/call_page.dart';
 import '../../client/moduls/expert/feature/pages/appointments/usecase/upcoming_details_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/expert_details_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/expert_filter_page.dart';

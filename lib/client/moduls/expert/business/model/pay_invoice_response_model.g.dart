@@ -11,7 +11,7 @@ PayInvoiceResponseModel _$PayInvoiceResponseModelFromJson(
     PayInvoiceResponseModel(
       status: json['status'] as String,
       paymentId: json['payment'] as String,
-      amount: json['amount'] as int,
+      amount: (json['amount'] as num).toDouble(),
       userId: json['user'] as String,
       type: json['type'] as String,
       id: json['id'] as String,

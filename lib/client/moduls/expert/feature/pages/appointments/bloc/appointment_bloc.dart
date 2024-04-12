@@ -9,6 +9,8 @@ import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase/get_day_availabilities_use_case.dart';
 import 'package:oria_pro/client/moduls/explore/business/di/explore_locator.dart';
 
+//import '../../../../business/locator/expert_locator.dart';
+
 part 'appointment_event.dart';
 part 'appointment_state.dart';
 
@@ -77,20 +79,22 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
         ));
-        final appointment =
-            await usecase.execute(event.expertId, event.appointmentDate);
-        emit(CreateAppointmentSuccess(
-          morningAvailabilities: state.morningAvailabilities,
-          afternoonAvailabilities: state.afternoonAvailabilities,
-          eveningAvailabilities: state.eveningAvailabilities,
-          previous: state.previous,
-          upcoming: state.upcoming,
-          selectedDate: state.selectedDate,
-          appointment: appointment,
-        ));
+        final appointment = await usecase.execute(
+            event.expertId, event.appointmentDate.toUtc());
+        emit(
+          CreateAppointmentSuccess(
+            morningAvailabilities: state.morningAvailabilities,
+            afternoonAvailabilities: state.afternoonAvailabilities,
+            eveningAvailabilities: state.eveningAvailabilities,
+            previous: state.previous,
+            upcoming: state.upcoming,
+            selectedDate: state.selectedDate,
+            appointment: appointment,
+          ),
+        );
       } catch (e) {
         emit(AppointmentError(
-          errorMessage: e.toString(),
+          errorMessage: "Error occured",
           morningAvailabilities: state.morningAvailabilities,
           afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
@@ -146,13 +150,16 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           selectedDate: state.selectedDate,
         ));
         final appointments = await usecase.execute(isUpcoming: true);
+        final upcoming = appointments
+            .where((app) => app.date.isAfter(DateTime.now()))
+            .toList();
         emit(FetchAllAppointmentsSuccess(
           morningAvailabilities: state.morningAvailabilities,
           afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
           previous: state.previous,
           selectedDate: state.selectedDate,
-          upcoming: appointments,
+          upcoming: upcoming,
         ));
       } catch (e) {
         emit(AppointmentError(
@@ -189,6 +196,41 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
         ));
         add(FetchAllAppointments());
         add(FetchUpcomingAppointments());
+      } catch (e) {
+        emit(AppointmentError(
+          errorMessage: e.toString(),
+          morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          previous: state.previous,
+          upcoming: state.upcoming,
+          selectedDate: state.selectedDate,
+        ));
+      }
+    });
+
+    on<GetRoomCode>((event, emit) async {
+      //ExpertRepository repository = ExpertLocator().get();
+      try {
+        emit(GetRoomCodeLoading(
+          morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          previous: state.previous,
+          upcoming: state.upcoming,
+          selectedDate: state.selectedDate,
+        ));
+        /*final String roomCode =
+            (await repository.getMeetingAccessKey(event.appointmentId)).key;*/
+        emit(GetRoomCodeSuccess(
+          roomCode: "jpx-oazq-kix",
+          morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          previous: state.previous,
+          upcoming: state.upcoming,
+          selectedDate: state.selectedDate,
+        ));
       } catch (e) {
         emit(AppointmentError(
           errorMessage: e.toString(),

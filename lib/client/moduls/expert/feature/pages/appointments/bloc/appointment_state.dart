@@ -139,6 +139,31 @@ final class CreateAppointmentSuccess extends AppointmentState {
   });
 }
 
+final class GetRoomCodeLoading extends AppointmentState {
+  const GetRoomCodeLoading({
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.afternoonAvailabilities,
+    required super.eveningAvailabilities,
+    required super.previous,
+    required super.upcoming,
+  });
+}
+
+final class GetRoomCodeSuccess extends AppointmentState {
+  final String roomCode;
+
+  const GetRoomCodeSuccess({
+    required this.roomCode,
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.afternoonAvailabilities,
+    required super.eveningAvailabilities,
+    required super.previous,
+    required super.upcoming,
+  });
+}
+
 final class AppointmentError extends AppointmentState {
   final String errorMessage;
   const AppointmentError({

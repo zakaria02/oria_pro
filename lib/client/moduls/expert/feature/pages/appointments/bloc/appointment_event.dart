@@ -42,3 +42,9 @@ class CancelAppointment extends AppointmentEvent {
 
   const CancelAppointment({required this.id});
 }
+
+final class GetRoomCode extends AppointmentEvent {
+  final String appointmentId;
+
+  const GetRoomCode({required this.appointmentId});
+}

@@ -21,6 +21,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AppOrchestratorPage(),
       );
     },
+    AppointmentCallRoute.name: (routeData) {
+      final args = routeData.argsAs<AppointmentCallRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AppointmentCallPage(
+          key: args.key,
+          appointment: args.appointment,
+        ),
+      );
+    },
     AppointmentRefundingRoute.name: (routeData) {
       final args = routeData.argsAs<AppointmentRefundingRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -241,6 +251,44 @@ class AppOrchestratorRoute extends PageRouteInfo<void> {
   static const String name = 'AppOrchestratorRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AppointmentCallPage]
+class AppointmentCallRoute extends PageRouteInfo<AppointmentCallRouteArgs> {
+  AppointmentCallRoute({
+    Key? key,
+    required AppointmentDetails appointment,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AppointmentCallRoute.name,
+          args: AppointmentCallRouteArgs(
+            key: key,
+            appointment: appointment,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AppointmentCallRoute';
+
+  static const PageInfo<AppointmentCallRouteArgs> page =
+      PageInfo<AppointmentCallRouteArgs>(name);
+}
+
+class AppointmentCallRouteArgs {
+  const AppointmentCallRouteArgs({
+    this.key,
+    required this.appointment,
+  });
+
+  final Key? key;
+
+  final AppointmentDetails appointment;
+
+  @override
+  String toString() {
+    return 'AppointmentCallRouteArgs{key: $key, appointment: $appointment}';
+  }
 }
 
 /// generated route for

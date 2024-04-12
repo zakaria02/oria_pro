@@ -10,6 +10,8 @@ import 'package:oria_pro/client/moduls/expert/business/model/pay_invoice_respons
 import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/service/expert_service.dart';
 
+import '../model/meeting_access_reponse_model.dart';
+
 abstract class ExpertRepository {
   Future<List<SpecialtyReposneModel>> fetchSpecialties();
   Future<List<ExpertModel>> fetchRecommendedExperts();
@@ -25,6 +27,7 @@ abstract class ExpertRepository {
   Future<List<AppointmentModel>> fetchAppointments();
   Future<List<AppointmentModel>> fetchUpcomingAppointments();
   Future<void> cancelAppointment(String id);
+  Future<MeetingAccessResponseModel> getMeetingAccessKey(String appointmentId);
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -86,5 +89,10 @@ class ExpertRepositoryImpl extends ExpertRepository {
   @override
   Future<List<AppointmentModel>> fetchUpcomingAppointments() {
     return _service.fetchUpcomingAppointments();
+  }
+
+  @override
+  Future<MeetingAccessResponseModel> getMeetingAccessKey(String appointmentId) {
+    return _service.getMeetingAccessKey(appointmentId);
   }
 }
