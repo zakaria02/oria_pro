@@ -104,10 +104,11 @@ class MakeExpertAppointmentCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "${expert.consultationPrice} \$",
+                  "\$${expert.consultationPrice} - ${AppLocalizations.of(context)!.minutes(30)}",
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         fontSize: 13,
                         color: const Color(0xFF43C34C),
+                        fontFamily: "Satoshi",
                       ),
                 ),
                 const SizedBox(height: 16),

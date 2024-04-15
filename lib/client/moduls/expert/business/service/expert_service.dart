@@ -5,6 +5,7 @@ import 'package:retrofit/retrofit.dart';
 import '../model/appointment_model.dart';
 import '../model/availability_response_model.dart';
 import '../model/cancel_appointment_request_model.dart';
+import '../model/city_model.dart';
 import '../model/create_appointment_request_model.dart';
 import '../model/create_appointment_response_model.dart';
 import '../model/meeting_access_reponse_model.dart';
@@ -20,6 +21,9 @@ abstract class ExpertService {
   @GET("/metadata/specialities")
   Future<List<SpecialtyReposneModel>> fetchSpecialties();
 
+  @GET("/metadata/cities")
+  Future<List<CityModel>> fetchCities();
+
   @GET("/consultation/experts/recommended")
   Future<ExpertResponseModel> fetchRecommendedExperts();
 
@@ -28,8 +32,12 @@ abstract class ExpertService {
 
   @GET("/consultation/experts")
   Future<ExpertResponseModel> fetchSpecialtyExperts(
-      @Query("specialty") String? specialtyId, @Query("page") int page,
-      {@Query("limit") int limit = 10});
+    @Query("specialty") String? specialtyId,
+    @Query("city") String? cityId,
+    @Query("averageRating") int? rating,
+    @Query("page") int page, {
+    @Query("limit") int limit = 10,
+  });
 
   @GET("/consultation/experts/{expertId}/availability/{day}")
   Future<AvailabilityResponseModel> getDayAvailabilities(

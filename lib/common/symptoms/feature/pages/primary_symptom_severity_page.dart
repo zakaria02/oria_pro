@@ -33,6 +33,9 @@ class _PrimarySymptomSeverityPageState
   @override
   Widget build(BuildContext context) {
     final router = context.router;
+    if (widget.onboardingStepsCubit.state.currentIndex == 2) {
+      selectedSeverity = null;
+    }
     return OriaScaffold(
       appBarData: AppBarData(
         firstButtonUrl: widget.onboardingStepsCubit.state.currentIndex != 0

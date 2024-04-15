@@ -29,7 +29,7 @@ class FilterCard extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelMedium
-                ?.copyWith(color: Colors.black),
+                ?.copyWith(color: Colors.black, fontFamily: "Satoshi"),
           ),
           const SizedBox(width: 20),
           OriaIconButton(

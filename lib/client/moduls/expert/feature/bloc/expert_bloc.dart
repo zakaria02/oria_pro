@@ -6,6 +6,7 @@ import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_
 import 'package:oria_pro/client/moduls/expert/business/repository/expert_repository.dart';
 import 'package:oria_pro/client/moduls/expert/feature/entity/specialty.dart';
 
+import '../entity/city.dart';
 import '../entity/expert.dart';
 
 part 'expert_event.dart';
@@ -53,7 +54,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           specialtyExperts: state.specialtyExperts,
         ));
         final specialtyExperts = await repository.fetchSpecialtyExperts(
-            event.specialty?.id, event.page);
+            event.specialty?.id, event.city?.id, event.rating, event.page);
         emit(SpecialityExpertSuccess(
           specialties: state.specialties,
           bestRatedExperts: state.bestRatedExperts,

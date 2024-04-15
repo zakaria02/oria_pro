@@ -11,10 +11,14 @@ final class FetchHomeData extends ExpertEvent {}
 
 final class FetchSpecialtyExperts extends ExpertEvent {
   final Specialty? specialty;
+  final City? city;
+  final int? rating;
   final int page;
 
   const FetchSpecialtyExperts({
     required this.specialty,
+    this.city,
+    this.rating,
     required this.page,
   });
 }

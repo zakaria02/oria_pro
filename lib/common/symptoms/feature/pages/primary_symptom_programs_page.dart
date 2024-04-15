@@ -76,20 +76,20 @@ class _PrimarySymptomsProgramsPageState
                       ),
                       SizedBox(height: state.programs.isNotEmpty ? 40 : 10),
                       state.programs.isNotEmpty
-                          ? ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: state.programs.length,
-                              itemBuilder: (context, index) =>
-                                  ProgramSeggestionCard(
-                                program: state.programs[index],
-                                selected:
-                                    state.programs[index] == selectedProgram,
-                                onPress: (program) => setState(() {
-                                  selectedProgram = program;
-                                }),
+                          ? Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: state.programs.length,
+                                itemBuilder: (context, index) =>
+                                    ProgramSeggestionCard(
+                                  program: state.programs[index],
+                                  selected:
+                                      state.programs[index] == selectedProgram,
+                                  onPress: (program) => setState(() {
+                                    selectedProgram = program;
+                                  }),
+                                ),
                               ),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 16),
                             )
                           : OriaNoDataView(
                               message: AppLocalizations.of(context)!.noProgram,

@@ -188,5 +188,8 @@
     "sat": "Sat",
     "deniedPermission": "Denied Permission",
     "deniedPermissionContent": "You need to give access to denied permissions to procced",
-    "manage": "Manage"
+    "manage": "Manage",
+    "location": "Location",
+    "customerReview": "Customer Review",
+    "andUp": "& Up"
 }

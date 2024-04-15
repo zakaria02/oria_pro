@@ -19,77 +19,81 @@ class ProgramSeggestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onPress(program),
-      child: Container(
-        padding: EdgeInsets.zero,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: selected ? Border.all(color: OriaColors.primaryColor) : null,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.13),
-              blurRadius: 8,
-              offset: const Offset(0.0, 8),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              height: 100,
-              width: 90,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
-                ),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    program.imageUrl,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: GestureDetector(
+        onTap: () => onPress(program),
+        child: Container(
+          padding: EdgeInsets.zero,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border:
+                selected ? Border.all(color: OriaColors.primaryColor) : null,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.13),
+                blurRadius: 8,
+                offset: const Offset(0.0, 8),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                height: 100,
+                width: 90,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
                   ),
-                  fit: BoxFit.fitHeight,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      program.imageUrl,
+                    ),
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      program.title,
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          SvgAssets.timeAsset,
-                          colorFilter: const ColorFilter.mode(
-                            OriaColors.primaryColor,
-                            BlendMode.srcIn,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        program.title,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            SvgAssets.timeAsset,
+                            colorFilter: const ColorFilter.mode(
+                              OriaColors.primaryColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          AppLocalizations.of(context)!
-                              .daysCount(program.duration),
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(width: 4),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .daysCount(program.duration),
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

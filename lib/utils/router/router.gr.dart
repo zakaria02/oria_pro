@@ -80,7 +80,10 @@ abstract class _$AppRouter extends RootStackRouter {
         child: ExpertFilterPage(
           key: args.key,
           specilalties: args.specilalties,
+          cities: args.cities,
           selectedSpeciality: args.selectedSpeciality,
+          selectedCity: args.selectedCity,
+          selectedRating: args.selectedRating,
         ),
       );
     },
@@ -440,14 +443,20 @@ class ExpertFilterRoute extends PageRouteInfo<ExpertFilterRouteArgs> {
   ExpertFilterRoute({
     Key? key,
     required List<Specialty> specilalties,
+    required List<City> cities,
     required Specialty? selectedSpeciality,
+    required City? selectedCity,
+    required int? selectedRating,
     List<PageRouteInfo>? children,
   }) : super(
           ExpertFilterRoute.name,
           args: ExpertFilterRouteArgs(
             key: key,
             specilalties: specilalties,
+            cities: cities,
             selectedSpeciality: selectedSpeciality,
+            selectedCity: selectedCity,
+            selectedRating: selectedRating,
           ),
           initialChildren: children,
         );
@@ -462,18 +471,27 @@ class ExpertFilterRouteArgs {
   const ExpertFilterRouteArgs({
     this.key,
     required this.specilalties,
+    required this.cities,
     required this.selectedSpeciality,
+    required this.selectedCity,
+    required this.selectedRating,
   });
 
   final Key? key;
 
   final List<Specialty> specilalties;
 
+  final List<City> cities;
+
   final Specialty? selectedSpeciality;
+
+  final City? selectedCity;
+
+  final int? selectedRating;
 
   @override
   String toString() {
-    return 'ExpertFilterRouteArgs{key: $key, specilalties: $specilalties, selectedSpeciality: $selectedSpeciality}';
+    return 'ExpertFilterRouteArgs{key: $key, specilalties: $specilalties, cities: $cities, selectedSpeciality: $selectedSpeciality, selectedCity: $selectedCity, selectedRating: $selectedRating}';
   }
 }
 

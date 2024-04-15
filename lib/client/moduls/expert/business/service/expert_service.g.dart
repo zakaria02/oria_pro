@@ -49,6 +49,35 @@ class _ExpertService implements ExpertService {
   }
 
   @override
+  Future<List<CityModel>> fetchCities() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<CityModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/metadata/cities',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => CityModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<ExpertResponseModel> fetchRecommendedExperts() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -105,12 +134,16 @@ class _ExpertService implements ExpertService {
   @override
   Future<ExpertResponseModel> fetchSpecialtyExperts(
     String? specialtyId,
+    String? cityId,
+    int? rating,
     int page, {
     int limit = 10,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'specialty': specialtyId,
+      r'city': cityId,
+      r'averageRating': rating,
       r'page': page,
       r'limit': limit,
     };

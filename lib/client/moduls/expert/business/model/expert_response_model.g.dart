@@ -56,15 +56,3 @@ Map<String, dynamic> _$ExpertModelToJson(ExpertModel instance) =>
       'lastName': instance.lastName,
       'id': instance.id,
     };
-
-CityModel _$CityModelFromJson(Map<String, dynamic> json) => CityModel(
-      name: json['name'] as String,
-      province: json['province'] as String,
-      id: json['id'] as String,
-    );
-
-Map<String, dynamic> _$CityModelToJson(CityModel instance) => <String, dynamic>{
-      'name': instance.name,
-      'province': instance.province,
-      'id': instance.id,
-    };

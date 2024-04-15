@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:oria_pro/client/moduls/expert/feature/entity/expert.dart';
 import 'package:oria_pro/utils/constants/oria_links.dart';
+import 'city_model.dart';
 import 'specialty_response_model.dart';
 
 part 'expert_response_model.g.dart';
@@ -71,26 +72,6 @@ class ExpertModel {
   factory ExpertModel.fromJson(Map<String, dynamic> json) =>
       _$ExpertModelFromJson(json);
   Map<String, dynamic> toJson() => _$ExpertModelToJson(this);
-}
-
-@JsonSerializable()
-class CityModel {
-  @JsonKey(name: "name")
-  final String name;
-  @JsonKey(name: "province")
-  final String province;
-  @JsonKey(name: "id")
-  final String id;
-
-  const CityModel({
-    required this.name,
-    required this.province,
-    required this.id,
-  });
-
-  factory CityModel.fromJson(Map<String, dynamic> json) =>
-      _$CityModelFromJson(json);
-  Map<String, dynamic> toJson() => _$CityModelToJson(this);
 }
 
 extension ExpertModelMappers on ExpertModel {

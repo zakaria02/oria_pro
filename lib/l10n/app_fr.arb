@@ -188,5 +188,8 @@
     "sat": "Sam",
     "deniedPermission": "Permission refusée",
     "deniedPermissionContent": "Vous devez donner accès aux permissions refusées pour continuer",
-    "manage": "Gérer"
+    "manage": "Gérer",
+    "location": "Emplacement",
+    "customerReview": "Avis du client",
+    "andUp": "& Plus"
 }

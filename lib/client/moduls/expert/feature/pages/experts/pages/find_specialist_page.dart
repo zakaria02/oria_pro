@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../cubit/expert_filter_cubit.dart';
+import '../../../entity/city.dart';
 import '../../../entity/expert.dart';
 import '../widgets/expert_detailed_card.dart';
 import 'expert_filter_page.dart';
@@ -46,11 +49,18 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
       create: (context) => ExpertFilterCubit()
         ..addFilter(
           specialty: widget.specialty,
-        ),
+        )
+        ..getCities(),
       child: BlocConsumer<ExpertFilterCubit, ExpertFilterState>(
         listener: (filterContext, filterState) {
           BlocProvider.of<ExpertBloc>(filterContext).add(
-              FetchSpecialtyExperts(specialty: filterState.specialty, page: 1));
+            FetchSpecialtyExperts(
+              specialty: filterState.specialty,
+              city: filterState.city,
+              rating: filterState.rating,
+              page: 1,
+            ),
+          );
         },
         builder: (filterContext, filterState) {
           return BlocBuilder<ExpertBloc, ExpertState>(
@@ -153,27 +163,32 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                             ),
                           ),
                           const SizedBox(width: 8),
-                          OriaIconButton(
-                            onPress: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return BlocProvider.value(
+                          if (filterState.cities.isNotEmpty)
+                            OriaIconButton(
+                              onPress: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return BlocProvider.value(
                                       value: BlocProvider.of<ExpertFilterCubit>(
                                         filterContext,
                                       ),
                                       child: ExpertFilterPage(
                                         specilalties: expertState.specialties,
+                                        cities: filterState.cities,
                                         selectedSpeciality:
                                             filterState.specialty,
-                                      ));
-                                },
+                                        selectedCity: filterState.city,
+                                        selectedRating: filterState.rating,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                            url: SvgAssets.filterIcon,
-                            backgroundColor: OriaColors.darkOrange,
-                            size: 17,
-                          )
+                              url: SvgAssets.filterIcon,
+                              backgroundColor: OriaColors.darkOrange,
+                              size: 17,
+                            )
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -192,7 +207,24 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                                 onPress: () =>
                                     BlocProvider.of<ExpertFilterCubit>(
                                             filterContext)
-                                        .resetFilters(),
+                                        .removeFilter(Specialty),
+                              ),
+                            if (filterState.city != null)
+                              FilterCard(
+                                title: filterState.city!.name,
+                                onPress: () =>
+                                    BlocProvider.of<ExpertFilterCubit>(
+                                            filterContext)
+                                        .removeFilter(City),
+                              ),
+                            if (filterState.rating != null)
+                              FilterCard(
+                                title:
+                                    "${filterState.rating!} ${AppLocalizations.of(context)!.andUp}",
+                                onPress: () =>
+                                    BlocProvider.of<ExpertFilterCubit>(
+                                            filterContext)
+                                        .removeFilter(Int),
                               )
                           ],
                         ),

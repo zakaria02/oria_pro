@@ -10,6 +10,7 @@ import 'package:oria_pro/client/moduls/expert/business/model/pay_invoice_respons
 import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/service/expert_service.dart';
 
+import '../model/city_model.dart';
 import '../model/meeting_access_reponse_model.dart';
 
 abstract class ExpertRepository {
@@ -17,7 +18,7 @@ abstract class ExpertRepository {
   Future<List<ExpertModel>> fetchRecommendedExperts();
   Future<List<ExpertModel>> fetchBestRatedExperts();
   Future<List<ExpertModel>> fetchSpecialtyExperts(
-      String? specialtyId, int page);
+      String? specialtyId, String? cityId, int? rating, int page);
   Future<AvailabilityResponseModel> getDayAvailabilities(
       String expertId, String day);
   Future<CreateAppointmentResponseModel> createAppointment(
@@ -28,6 +29,7 @@ abstract class ExpertRepository {
   Future<List<AppointmentModel>> fetchUpcomingAppointments();
   Future<void> cancelAppointment(String id);
   Future<MeetingAccessResponseModel> getMeetingAccessKey(String appointmentId);
+  Future<List<CityModel>> getCities();
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -49,8 +51,10 @@ class ExpertRepositoryImpl extends ExpertRepository {
 
   @override
   Future<List<ExpertModel>> fetchSpecialtyExperts(
-      String? specialtyId, int page) async {
-    return (await _service.fetchSpecialtyExperts(specialtyId, page)).experts;
+      String? specialtyId, String? cityId, int? rating, int page) async {
+    return (await _service.fetchSpecialtyExperts(
+            specialtyId, cityId, rating, page))
+        .experts;
   }
 
   @override
@@ -94,5 +98,10 @@ class ExpertRepositoryImpl extends ExpertRepository {
   @override
   Future<MeetingAccessResponseModel> getMeetingAccessKey(String appointmentId) {
     return _service.getMeetingAccessKey(appointmentId);
+  }
+
+  @override
+  Future<List<CityModel>> getCities() {
+    return _service.fetchCities();
   }
 }
