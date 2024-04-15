@@ -129,6 +129,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    MedicalInfoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MedicalInfoPage(),
+      );
+    },
     OnBoardingStepsRoute.name: (routeData) {
       final args = routeData.argsAs<OnBoardingStepsRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -636,6 +642,20 @@ class MakeAppointmentSuccessRouteArgs {
   String toString() {
     return 'MakeAppointmentSuccessRouteArgs{key: $key, appointment: $appointment}';
   }
+}
+
+/// generated route for
+/// [MedicalInfoPage]
+class MedicalInfoRoute extends PageRouteInfo<void> {
+  const MedicalInfoRoute({List<PageRouteInfo>? children})
+      : super(
+          MedicalInfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MedicalInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

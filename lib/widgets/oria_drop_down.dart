@@ -19,14 +19,16 @@ class OriaDropDown<T> extends StatelessWidget {
       child: DropdownButton2<T>(
         isExpanded: true,
         items: items
-            .map((item) => DropdownMenuItem<T>(
-                  value: item,
-                  child: Text(
-                    item.toString(),
-                    style: Theme.of(context).textTheme.displayMedium,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ))
+            .map(
+              (item) => DropdownMenuItem<T>(
+                value: item,
+                child: Text(
+                  item.toString(),
+                  style: Theme.of(context).textTheme.displayMedium,
+                  overflow: TextOverflow.visible,
+                ),
+              ),
+            )
             .toList(),
         value: selectedItem,
         onChanged: (item) {

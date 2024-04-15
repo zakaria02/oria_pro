@@ -70,6 +70,12 @@ class AccountView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               AccountParam(
+                image: SvgAssets.medicalInfoIcon,
+                title: AppLocalizations.of(context)!.medicalInfo,
+                onPress: () => context.router.push(const MedicalInfoRoute()),
+              ),
+              const SizedBox(height: 8),
+              AccountParam(
                 onlyTopRaduis: true,
                 image: SvgAssets.policyIcon,
                 title: AppLocalizations.of(context)!.privacyPolicy,

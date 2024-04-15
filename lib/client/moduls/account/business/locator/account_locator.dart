@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:oria_pro/client/moduls/account/business/repository/medical_info_repository.dart';
+import 'package:oria_pro/client/moduls/account/business/service/medical_info_service.dart';
 import 'package:oria_pro/client/moduls/account/feature/use_case/update_user_info_usecase.dart';
+import 'package:oria_pro/utils/network/dio_builder.dart';
 import '../../../../../utils/locator/abstract_locator.dart';
 
 class AccountLocator extends AbstractLocator {
@@ -13,6 +16,10 @@ class AccountLocator extends AbstractLocator {
 
   @override
   void setUp(GetIt serviceLocator) {
+    serviceLocator.registerLazySingleton<MedicalInfoService>(
+        () => MedicalInfoService(DioBuilder.createDio()));
+    serviceLocator.registerLazySingleton<MedicalInfoRepository>(
+        () => MedicalInfoRepositoryImpl());
     serviceLocator.registerLazySingleton<UpdateMyInfoUseCase>(
         () => UpdateMyInfoUseCase());
   }

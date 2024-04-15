@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../client/client_app_page.dart';
+import '../../client/moduls/account/feature/pages/medical_info_page.dart';
 import '../../client/moduls/account/feature/pages/update_my_info_page.dart';
 import '../../client/moduls/expert/feature/entity/city.dart';
 import '../../client/moduls/expert/feature/entity/expert.dart';
@@ -71,6 +72,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: AppointmentRefundingRoute.page),
     // Account routes
     AutoRoute(page: UpdateMyInfoRoute.page),
+    AutoRoute(page: MedicalInfoRoute.page),
   ];
 
   final List<AutoRoute> _symptomRoutes = [];

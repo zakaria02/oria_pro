@@ -9,6 +9,8 @@ import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase/get_day_availabilities_use_case.dart';
 import 'package:oria_pro/client/moduls/explore/business/di/explore_locator.dart';
 
+import '../../../../business/locator/expert_locator.dart';
+
 //import '../../../../business/locator/expert_locator.dart';
 
 part 'appointment_event.dart';
@@ -210,7 +212,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     });
 
     on<GetRoomCode>((event, emit) async {
-      //ExpertRepository repository = ExpertLocator().get();
+      ExpertRepository repository = ExpertLocator().get();
       try {
         emit(GetRoomCodeLoading(
           morningAvailabilities: state.morningAvailabilities,
@@ -220,10 +222,10 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
         ));
-        /*final String roomCode =
-            (await repository.getMeetingAccessKey(event.appointmentId)).key;*/
+        final String roomCode =
+            (await repository.getMeetingAccessKey(event.appointmentId)).key;
         emit(GetRoomCodeSuccess(
-          roomCode: "jpx-oazq-kix",
+          roomCode: roomCode,
           morningAvailabilities: state.morningAvailabilities,
           afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
