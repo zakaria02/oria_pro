@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
@@ -7,8 +7,9 @@ import 'package:oria_pro/widgets/oria_rounded_image.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../utils/constants/oria_colors.dart';
-import '../../../../../../../utils/router/router.dart';
+import '../../../bloc/expert_bloc.dart';
 import '../../../entity/expert.dart';
+import '../pages/expert_details_page.dart';
 
 class ExpertDetailedCard extends StatelessWidget {
   const ExpertDetailedCard({
@@ -21,7 +22,25 @@ class ExpertDetailedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushRoute(ExpertDetailsRoute(expert: expert)),
+      onTap: () {
+        BlocProvider.of<ExpertBloc>(context)
+            .add(FetchExpertReviews(expertId: expert.id));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (currentContext) {
+              return BlocProvider.value(
+                value: BlocProvider.of<ExpertBloc>(
+                  context,
+                ),
+                child: ExpertDetailsPage(
+                  expert: expert,
+                ),
+              );
+            },
+          ),
+        );
+      },
       child: OriaCard(
           child: Row(
         children: [

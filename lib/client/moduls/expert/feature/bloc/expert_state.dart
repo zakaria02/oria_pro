@@ -6,11 +6,13 @@ sealed class ExpertState extends Equatable {
     required this.bestRatedExperts,
     required this.recommendedExperts,
     required this.specialtyExperts,
+    required this.reviews,
   });
   final List<Specialty> specialties;
   final List<Expert> recommendedExperts;
   final List<Expert> bestRatedExperts;
   final List<Expert> specialtyExperts;
+  final List<Review> reviews;
 
   @override
   List<Object> get props => [
@@ -28,6 +30,7 @@ final class ExpertInitial extends ExpertState {
           recommendedExperts: const [],
           bestRatedExperts: const [],
           specialtyExperts: const [],
+          reviews: const [],
         );
 }
 
@@ -37,6 +40,7 @@ final class HomeDataLoading extends ExpertState {
     required super.bestRatedExperts,
     required super.recommendedExperts,
     required super.specialtyExperts,
+    required super.reviews,
   });
 }
 
@@ -46,6 +50,7 @@ final class HomeDataSuccess extends ExpertState {
     required super.bestRatedExperts,
     required super.recommendedExperts,
     required super.specialtyExperts,
+    required super.reviews,
   });
 }
 
@@ -55,6 +60,7 @@ final class SpecialityExpertLoading extends ExpertState {
     required super.bestRatedExperts,
     required super.recommendedExperts,
     required super.specialtyExperts,
+    required super.reviews,
   });
 }
 
@@ -64,6 +70,27 @@ final class SpecialityExpertSuccess extends ExpertState {
     required super.bestRatedExperts,
     required super.recommendedExperts,
     required super.specialtyExperts,
+    required super.reviews,
+  });
+}
+
+final class ExpertReviewsLoading extends ExpertState {
+  const ExpertReviewsLoading({
+    required super.specialties,
+    required super.bestRatedExperts,
+    required super.recommendedExperts,
+    required super.specialtyExperts,
+    required super.reviews,
+  });
+}
+
+final class ExpertReviewsSuccess extends ExpertState {
+  const ExpertReviewsSuccess({
+    required super.specialties,
+    required super.bestRatedExperts,
+    required super.recommendedExperts,
+    required super.specialtyExperts,
+    required super.reviews,
   });
 }
 
@@ -74,6 +101,7 @@ final class ExpertError extends ExpertState {
     required super.bestRatedExperts,
     required super.recommendedExperts,
     required super.specialtyExperts,
+    required super.reviews,
     required this.errorMessage,
   });
 }

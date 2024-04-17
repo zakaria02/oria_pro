@@ -100,6 +100,7 @@ class ProgramSection {
 
 class ProgramSectionWithContent extends ProgramSection {
   final String content;
+  final String? videoUrl;
   ProgramSectionWithContent({
     required super.description,
     required super.type,
@@ -112,6 +113,7 @@ class ProgramSectionWithContent extends ProgramSection {
     required super.id,
     required super.sectionStatus,
     required this.content,
+    required this.videoUrl,
   });
 }
 

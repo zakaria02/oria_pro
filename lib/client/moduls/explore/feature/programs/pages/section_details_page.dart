@@ -2,13 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:oria_pro/client/moduls/explore/feature/programs/entity/symptom_program.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_no_data_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../common/entity/author.dart';
-import '../../../../../../common/widgets/author_card.dart';
 import '../../../../../../widgets/oria_app_bar.dart';
 import '../../../../../../widgets/oria_card.dart';
 import '../../../../../../widgets/oria_loading_progress.dart';
@@ -44,17 +42,7 @@ class SectionDetailsPage extends StatelessWidget {
                     : Expanded(
                         child: ListView(
                           children: [
-                            const SizedBox(height: 16),
-                            if (state.selectedSection!.type ==
-                                SectionType.video)
-                              AuthorCard(author: author),
-                            SizedBox(
-                                height: state.selectedSection!.type ==
-                                        SectionType.article
-                                    ? 8
-                                    : 0),
-                            if (state.selectedSection!.type ==
-                                SectionType.article)
+                            if (state.selectedSection!.imageUrl != null)
                               Container(
                                 height: 200,
                                 decoration: BoxDecoration(
@@ -67,36 +55,21 @@ class SectionDetailsPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                            if (state.selectedSection!.videoUrl != null)
+                              const SizedBox(height: 8),
+                            if (state.selectedSection!.videoUrl != null)
+                              OriaVideoPlayer(
+                                  videoUrl: state.selectedSection!.videoUrl!),
+                            const SizedBox(height: 8),
                             SizedBox(
-                                height: state.selectedSection!.type ==
-                                        SectionType.article
+                                height: state.selectedSection!.imageUrl != null
                                     ? 8
                                     : 0),
-                            if (state.selectedSection!.type ==
-                                SectionType.article)
-                              OriaCard(
-                                child: HtmlWidget(
-                                  state.selectedSection!.content,
-                                ),
+                            OriaCard(
+                              child: HtmlWidget(
+                                state.selectedSection!.content,
                               ),
-                            SizedBox(
-                                height: state.selectedSection!.type ==
-                                        SectionType.video
-                                    ? 40
-                                    : 0),
-                            if (state.selectedSection!.type ==
-                                SectionType.video)
-                              Text(
-                                state.selectedSection!.title,
-                                style: Theme.of(context).textTheme.displayLarge,
-                              ),
-                            if (state.selectedSection!.type ==
-                                SectionType.video)
-                              const SizedBox(height: 24),
-                            if (state.selectedSection!.type ==
-                                SectionType.video)
-                              OriaVideoPlayer(
-                                  videoUrl: state.selectedSection!.content),
+                            ),
                           ],
                         ),
                       ),

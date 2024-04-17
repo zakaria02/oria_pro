@@ -9,6 +9,8 @@ part 'update_section_response_model.g.dart';
 class ProgramSectionWithContentModel extends ProgramSectionModel {
   @JsonKey(name: "content")
   final String content;
+  @JsonKey(name: "videoUrl")
+  final String? videoUrl;
 
   ProgramSectionWithContentModel({
     required super.description,
@@ -22,6 +24,7 @@ class ProgramSectionWithContentModel extends ProgramSectionModel {
     required super.id,
     super.sectionStatus,
     required this.content,
+    required this.videoUrl,
   });
 
   factory ProgramSectionWithContentModel.fromJson(Map<String, dynamic> json) =>
@@ -39,11 +42,14 @@ extension UpdateSectionResponseModelMappers on ProgramSectionWithContentModel {
       isPremium: isPremium,
       selectionOrder: selectionOrder,
       title: title,
-      imageUrl: "${OriaLinks.stagingProgramsAssetsBaseUrl}/$imageUrl",
+      imageUrl: imageUrl != null
+          ? "${OriaLinks.stagingProgramsAssetsBaseUrl}/$imageUrl"
+          : null,
       programId: programId,
       id: id,
       sectionStatus: sectionStatus?.toLearningStatus(),
       content: content,
+      videoUrl: videoUrl,
     );
   }
 }

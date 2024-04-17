@@ -14,12 +14,12 @@ class CreateAppointmentUsecase {
     final result = await _repository.createAppointment(
         CreateAppointmentRequestModel(
             expertId: expertId, appointmentDate: appointmentDate));
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     final invoicePaiement = await _repository.payInvoice(PayInvoiceRequestModel(
         invoiceId: result.invoiceId, paymentReference: _getRandomString(10)));
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (invoicePaiement.status == "paid") {
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 500));
       final expertModel = await _repository.getExpert(result.expertId);
       return Appointment(
         date: result.appointmentDate.toLocal(),

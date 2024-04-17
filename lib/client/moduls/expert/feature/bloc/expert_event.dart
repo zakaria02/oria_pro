@@ -22,3 +22,9 @@ final class FetchSpecialtyExperts extends ExpertEvent {
     required this.page,
   });
 }
+
+final class FetchExpertReviews extends ExpertEvent {
+  final String expertId;
+
+  const FetchExpertReviews({required this.expertId});
+}

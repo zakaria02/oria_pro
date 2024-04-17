@@ -11,6 +11,7 @@ import '../model/create_appointment_response_model.dart';
 import '../model/meeting_access_reponse_model.dart';
 import '../model/pay_invoice_request_model.dart';
 import '../model/pay_invoice_response_model.dart';
+import '../model/review_model.dart';
 import '../model/specialty_response_model.dart';
 
 part 'expert_service.g.dart';
@@ -66,4 +67,7 @@ abstract class ExpertService {
   @GET("/consultation/appointement/{appointmentId}/meeting-access")
   Future<MeetingAccessResponseModel> getMeetingAccessKey(
       @Path() String appointmentId);
+
+  @GET("/consultation/experts/{expertId}/reviews")
+  Future<List<ReviewModel>> getExpertReviews(@Path() String expertId);
 }

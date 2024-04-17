@@ -1,8 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oria_pro/client/moduls/expert/feature/bloc/expert_bloc.dart';
 import 'package:oria_pro/client/moduls/expert/feature/entity/expert.dart';
+import 'package:oria_pro/client/moduls/expert/feature/pages/experts/pages/expert_details_page.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
-import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
 
 class ExpertCard extends StatelessWidget {
@@ -13,7 +14,25 @@ class ExpertCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.pushRoute(ExpertDetailsRoute(expert: expert)),
+      onTap: () {
+        BlocProvider.of<ExpertBloc>(context)
+            .add(FetchExpertReviews(expertId: expert.id));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (currentContext) {
+              return BlocProvider.value(
+                value: BlocProvider.of<ExpertBloc>(
+                  context,
+                ),
+                child: ExpertDetailsPage(
+                  expert: expert,
+                ),
+              );
+            },
+          ),
+        );
+      },
       child: OriaCard(
         width: 187,
         borderColor: OriaColors.iconButtonBackgound,
@@ -61,24 +80,6 @@ class ExpertCard extends StatelessWidget {
                   ?.copyWith(color: OriaColors.darkGrey),
               textAlign: TextAlign.center,
             ),
-            /*Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: OriaColors.green,
-                ),
-                borderRadius: BorderRadius.circular(24),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: Text(
-                "${expert.city}, ${expert.province}",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: OriaColors.green,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-            ),*/
           ],
         ),
       ),

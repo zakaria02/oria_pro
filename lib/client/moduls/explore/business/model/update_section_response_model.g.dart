@@ -20,6 +20,7 @@ ProgramSectionWithContentModel _$ProgramSectionWithContentModelFromJson(
       id: json['id'] as String,
       sectionStatus: json['learningStatus'] as String?,
       content: json['content'] as String,
+      videoUrl: json['videoUrl'] as String?,
     );
 
 Map<String, dynamic> _$ProgramSectionWithContentModelToJson(
@@ -36,4 +37,5 @@ Map<String, dynamic> _$ProgramSectionWithContentModelToJson(
       'id': instance.id,
       'learningStatus': instance.sectionStatus,
       'content': instance.content,
+      'videoUrl': instance.videoUrl,
     };
