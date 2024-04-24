@@ -8,12 +8,14 @@ class UpdateProfileRequestModel {
   final String? email;
   final String? password;
   final DateTime? birthDay;
+  final bool shareMedicalInfo;
 
   const UpdateProfileRequestModel({
     this.name,
     this.email,
     this.password,
     this.birthDay,
+    this.shareMedicalInfo = false,
   });
 
   factory UpdateProfileRequestModel.fromJson(Map<String, dynamic> json) =>

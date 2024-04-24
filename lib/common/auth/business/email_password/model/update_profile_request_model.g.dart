@@ -15,6 +15,7 @@ UpdateProfileRequestModel _$UpdateProfileRequestModelFromJson(
       birthDay: json['birthDay'] == null
           ? null
           : DateTime.parse(json['birthDay'] as String),
+      shareMedicalInfo: json['shareMedicalInfo'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$UpdateProfileRequestModelToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$UpdateProfileRequestModelToJson(
       'email': instance.email,
       'password': instance.password,
       'birthDay': instance.birthDay?.toIso8601String(),
+      'shareMedicalInfo': instance.shareMedicalInfo,
     };

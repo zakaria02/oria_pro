@@ -245,42 +245,46 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                       Visibility(
                         visible: experts.isEmpty &&
                             expertState is! SpecialityExpertLoading,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 60),
-                            SvgPicture.asset(
-                              SvgAssets.noResultFoundAsset,
-                              height: 230,
-                            ),
-                            const SizedBox(height: 45),
-                            Text(
-                              AppLocalizations.of(context)!.noResultsFound,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayLarge
-                                  ?.copyWith(fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              AppLocalizations.of(context)!.adjustFilter,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 20),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: OriaRoundedButton(
-                                onPress: () =>
-                                    BlocProvider.of<ExpertFilterCubit>(
-                                            filterContext)
-                                        .resetFilters(),
-                                text:
-                                    AppLocalizations.of(context)!.clearFilters,
-                                primaryColor: OriaColors.secondaryOrange,
-                                padding: EdgeInsets.zero,
+                        child: Expanded(
+                          child: ListView(
+                            children: [
+                              const SizedBox(height: 60),
+                              SvgPicture.asset(
+                                SvgAssets.noResultFoundAsset,
+                                height: 230,
                               ),
-                            )
-                          ],
+                              const SizedBox(height: 45),
+                              Text(
+                                AppLocalizations.of(context)!.noResultsFound,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge
+                                    ?.copyWith(fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                AppLocalizations.of(context)!.adjustFilter,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 20),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 50),
+                                child: OriaRoundedButton(
+                                  onPress: () =>
+                                      BlocProvider.of<ExpertFilterCubit>(
+                                              filterContext)
+                                          .resetFilters(),
+                                  text: AppLocalizations.of(context)!
+                                      .clearFilters,
+                                  primaryColor: OriaColors.secondaryOrange,
+                                  padding: EdgeInsets.zero,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],

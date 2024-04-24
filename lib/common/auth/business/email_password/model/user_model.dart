@@ -30,6 +30,8 @@ class UserModel extends HiveObject {
   final bool isEmailVerified;
   @HiveField(11)
   final String? profilePicture;
+  @HiveField(12)
+  final bool shareMedicalInfo;
 
   UserModel({
     required this.id,
@@ -44,6 +46,7 @@ class UserModel extends HiveObject {
     required this.birthDay,
     required this.isEmailVerified,
     required this.profilePicture,
+    required this.shareMedicalInfo,
   });
 
   UserModel copyWith({
@@ -58,6 +61,7 @@ class UserModel extends HiveObject {
     DateTime? birthDay,
     bool? isEmailVerified,
     String? profilePicture,
+    bool? shareMedicalInfo,
   }) =>
       UserModel(
         id: id,
@@ -73,6 +77,7 @@ class UserModel extends HiveObject {
         birthDay: birthDay ?? this.birthDay,
         isEmailVerified: isEmailVerified ?? this.isEmailVerified,
         profilePicture: profilePicture ?? this.profilePicture,
+        shareMedicalInfo: shareMedicalInfo ?? this.shareMedicalInfo,
       );
 }
 
@@ -92,5 +97,6 @@ extension UserModelMappers on UserModel {
         profilePicture: profilePicture,
         birthDay: birthDay,
         email: email,
+        shareMedicalInfo: shareMedicalInfo,
       );
 }

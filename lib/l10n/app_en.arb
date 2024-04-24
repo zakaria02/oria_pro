@@ -228,5 +228,13 @@
     "walking": "Walking",
     "targetedWeightTraining": "Targeted weight training",
     "cardio": "Cardio",
-    "patientsFeedbacks": "Patients Feedbacks"
+    "patientsFeedbacks": "Patients Feedbacks",
+    "rateAppointment": "Rate your appointement with {expert}",
+    "send": "Send",
+    "startHere": "Start here",
+    "todaysAction": "Today's action",
+    "howIsYouSymptomToday": "How is your {symptom} today:",
+    "congratsContent": "Congratulations {name} on completing your tasks today! We are proud of you!",
+    "keepLearningSymptoms": "Keep learning about your symptoms",
+    "wouldLikeFocusSomething": "Would you like to focus on something else for today?"
 }

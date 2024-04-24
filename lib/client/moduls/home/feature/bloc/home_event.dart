@@ -14,3 +14,15 @@ final class SelectSymptom extends HomeEvent {
 
   const SelectSymptom({this.symptom});
 }
+
+final class FinishAnAction extends HomeEvent {
+  final bool completedProgramSection;
+  final bool readArticle;
+  final bool loggedSymptomSeverity;
+
+  const FinishAnAction({
+    required this.completedProgramSection,
+    required this.readArticle,
+    required this.loggedSymptomSeverity,
+  });
+}

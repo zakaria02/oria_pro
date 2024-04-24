@@ -11,6 +11,8 @@ class Expert {
   final String? bio;
   final String id;
 
+  String get fullName => "$firstName $lastName";
+
   const Expert({
     required this.profilePicture,
     required this.city,

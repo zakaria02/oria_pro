@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment_details.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/pages/appointment_refunding_page.dart';
@@ -13,6 +14,7 @@ import 'package:oria_pro/utils/extensions/duration_extensions.dart';
 import 'package:oria_pro/widgets/oria_app_bar.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:oria_pro/widgets/oria_dialog.dart';
+import 'package:oria_pro/widgets/oria_rounded_input.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -36,6 +38,8 @@ class UpcomingDetailsPage extends StatefulWidget {
 class _UpcomingDetailsPageState extends State<UpcomingDetailsPage> {
   Duration? duration;
   late Timer _timer;
+  double rating = 5;
+  String comment = "";
 
   _showDialog(BuildContext context, String title, String subTitle,
       {String? description}) {
@@ -297,10 +301,104 @@ class _UpcomingDetailsPageState extends State<UpcomingDetailsPage> {
                                     // ignore: use_build_context_synchronously
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            AppointmentCallPage(
-                                                appointment:
-                                                    widget.appointment)),
+                                      builder: (context) => AppointmentCallPage(
+                                        appointment: widget.appointment,
+                                        onLeave: () {
+                                          showDialog(
+                                            context: blocContext,
+                                            builder: (context) {
+                                              return OriaDialog(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .rateAppointment(
+                                                        widget.appointment
+                                                            .expert.fullName,
+                                                      ),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium
+                                                          ?.copyWith(
+                                                            fontFamily:
+                                                                "Raleway",
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    const SizedBox(height: 12),
+                                                    RatingBar.builder(
+                                                      initialRating: 5,
+                                                      minRating: 1,
+                                                      direction:
+                                                          Axis.horizontal,
+                                                      allowHalfRating: true,
+                                                      itemCount: 5,
+                                                      itemPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              horizontal: 4.0),
+                                                      itemBuilder:
+                                                          (context, _) =>
+                                                              const Icon(
+                                                        Icons.star,
+                                                        color:
+                                                            Color(0xFFE8C889),
+                                                      ),
+                                                      onRatingUpdate: (r) {
+                                                        rating = r;
+                                                      },
+                                                    ),
+                                                    const SizedBox(height: 12),
+                                                    OriaRoundedInput(
+                                                      hintText: "",
+                                                      minLines: 3,
+                                                      borderRadius: 12,
+                                                      borderColor: const Color(
+                                                          0xFFE8C889),
+                                                      validator: false,
+                                                      onTextChange: (c) {
+                                                        comment = c;
+                                                      },
+                                                    ),
+                                                    const SizedBox(height: 12),
+                                                    OriaRoundedButton(
+                                                      padding: EdgeInsets.zero,
+                                                      height: 45,
+                                                      onPress: () {
+                                                        BlocProvider.of<
+                                                                    AppointmentBloc>(
+                                                                blocContext)
+                                                            .add(
+                                                          AddReview(
+                                                              appointmentId:
+                                                                  widget
+                                                                      .appointment
+                                                                      .id,
+                                                              review: comment,
+                                                              rating: rating),
+                                                        );
+                                                        context.maybePop();
+                                                      },
+                                                      text: AppLocalizations.of(
+                                                              context)!
+                                                          .send,
+                                                      primaryColor: const Color(
+                                                          0xFFE8C889),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   );
                                 } else {
                                   final statuses = await PermissionService

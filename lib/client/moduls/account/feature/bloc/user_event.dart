@@ -9,6 +9,12 @@ sealed class UserEvent extends Equatable {
 
 final class FetchAccount extends UserEvent {}
 
+final class UpdateMedicalInfoSharing extends UserEvent {
+  final bool shareMedicalInfo;
+
+  const UpdateMedicalInfoSharing({required this.shareMedicalInfo});
+}
+
 final class UpdateUser extends UserEvent {
   final String email;
   final String name;

@@ -18,6 +18,7 @@ UserResponseModel _$UserResponseModelFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['birthDay'] as String),
       isEmailVerified: json['isEmailVerified'] as bool,
       profilePicture: json['profilePicture'] as String?,
+      shareMedicalInfo: json['shareMedicalInfo'] as bool,
     );
 
 Map<String, dynamic> _$UserResponseModelToJson(UserResponseModel instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$UserResponseModelToJson(UserResponseModel instance) =>
       'birthDay': instance.birthDay?.toIso8601String(),
       'isEmailVerified': instance.isEmailVerified,
       'profilePicture': instance.profilePicture,
+      'shareMedicalInfo': instance.shareMedicalInfo,
     };

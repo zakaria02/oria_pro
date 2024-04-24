@@ -9,8 +9,10 @@ import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../utils/constants/oria_colors.dart';
 import 'bloc/user_bloc.dart';
 import 'pages/update_my_info_page.dart';
 
@@ -25,6 +27,11 @@ class AccountView extends StatelessWidget {
         builder: (userBlocContext, userState) {
           return ListView(
             children: [
+              if (userState is UpdateUserLoading)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: OriaLoadingProgress(),
+                ),
               OriaCard(
                 onlyTopRaduis: true,
                 child: Column(
@@ -70,9 +77,24 @@ class AccountView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               AccountParam(
+                padding: const EdgeInsets.only(
+                    left: 20, top: 7, bottom: 7, right: 10),
                 image: SvgAssets.medicalInfoIcon,
                 title: AppLocalizations.of(context)!.medicalInfo,
                 onPress: () => context.router.push(const MedicalInfoRoute()),
+                icon: Switch(
+                  value: userState.currenUser?.shareMedicalInfo ?? false,
+                  activeColor: OriaColors.greenAccentLight,
+                  inactiveThumbColor: const Color(0xFF7B7B7B),
+                  trackColor: const MaterialStatePropertyAll(
+                    Color(0xFFFAF8F2),
+                  ),
+                  onChanged: (bool value) {
+                    BlocProvider.of<UserBloc>(userBlocContext).add(
+                      UpdateMedicalInfoSharing(shareMedicalInfo: value),
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 8),
               AccountParam(

@@ -3,7 +3,6 @@ import 'package:oria_pro/client/moduls/explore/business/model/enroll_program_req
 import 'package:oria_pro/client/moduls/explore/business/model/learning_article.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
 import 'package:retrofit/retrofit.dart';
-
 import '../model/explore_symptom_article_model.dart';
 import '../model/explore_symptom_program_model.dart';
 import '../model/favorite_request_model.dart';
@@ -57,11 +56,11 @@ abstract class ExploreService {
   /*@GET("/learning/program/{programId}/sections")
   Future<List<ProgramSection>> fetchProgramSections(
     @Path() String programId,
-  );
+  );*/
 
   @GET("/learning/program/{programId}/section/{sectionId}")
-  Future<ProgramSectionWithContent> fetchProgramSectionContent(
+  Future<ProgramSectionWithContentModel> fetchProgramSectionContent(
     @Path() String programId,
     @Path() String sectionId,
-  );*/
+  );
 }

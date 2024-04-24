@@ -28,6 +28,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: AppointmentCallPage(
           key: args.key,
           appointment: args.appointment,
+          onLeave: args.onLeave,
         ),
       );
     },
@@ -199,13 +200,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SectionDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<SectionDetailsRouteArgs>();
+      final args = routeData.argsAs<SectionDetailsRouteArgs>(
+          orElse: () => const SectionDetailsRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: SectionDetailsPage(
           key: args.key,
           programName: args.programName,
-          author: args.author,
+          section: args.section,
         ),
       );
     },
@@ -216,6 +218,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: SymptomDataPage(
           key: args.key,
           symptom: args.symptom,
+        ),
+      );
+    },
+    SymptomsListRoute.name: (routeData) {
+      final args = routeData.argsAs<SymptomsListRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SymptomsListPage(
+          key: args.key,
+          symptoms: args.symptoms,
         ),
       );
     },
@@ -268,12 +280,14 @@ class AppointmentCallRoute extends PageRouteInfo<AppointmentCallRouteArgs> {
   AppointmentCallRoute({
     Key? key,
     required AppointmentDetails appointment,
+    required void Function() onLeave,
     List<PageRouteInfo>? children,
   }) : super(
           AppointmentCallRoute.name,
           args: AppointmentCallRouteArgs(
             key: key,
             appointment: appointment,
+            onLeave: onLeave,
           ),
           initialChildren: children,
         );
@@ -288,15 +302,18 @@ class AppointmentCallRouteArgs {
   const AppointmentCallRouteArgs({
     this.key,
     required this.appointment,
+    required this.onLeave,
   });
 
   final Key? key;
 
   final AppointmentDetails appointment;
 
+  final void Function() onLeave;
+
   @override
   String toString() {
-    return 'AppointmentCallRouteArgs{key: $key, appointment: $appointment}';
+    return 'AppointmentCallRouteArgs{key: $key, appointment: $appointment, onLeave: $onLeave}';
   }
 }
 
@@ -888,14 +905,14 @@ class SectionDetailsRoute extends PageRouteInfo<SectionDetailsRouteArgs> {
   SectionDetailsRoute({
     Key? key,
     String? programName,
-    required Author author,
+    ProgramSectionWithContent? section,
     List<PageRouteInfo>? children,
   }) : super(
           SectionDetailsRoute.name,
           args: SectionDetailsRouteArgs(
             key: key,
             programName: programName,
-            author: author,
+            section: section,
           ),
           initialChildren: children,
         );
@@ -910,18 +927,18 @@ class SectionDetailsRouteArgs {
   const SectionDetailsRouteArgs({
     this.key,
     this.programName,
-    required this.author,
+    this.section,
   });
 
   final Key? key;
 
   final String? programName;
 
-  final Author author;
+  final ProgramSectionWithContent? section;
 
   @override
   String toString() {
-    return 'SectionDetailsRouteArgs{key: $key, programName: $programName, author: $author}';
+    return 'SectionDetailsRouteArgs{key: $key, programName: $programName, section: $section}';
   }
 }
 
@@ -960,6 +977,44 @@ class SymptomDataRouteArgs {
   @override
   String toString() {
     return 'SymptomDataRouteArgs{key: $key, symptom: $symptom}';
+  }
+}
+
+/// generated route for
+/// [SymptomsListPage]
+class SymptomsListRoute extends PageRouteInfo<SymptomsListRouteArgs> {
+  SymptomsListRoute({
+    Key? key,
+    required List<Symptom> symptoms,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SymptomsListRoute.name,
+          args: SymptomsListRouteArgs(
+            key: key,
+            symptoms: symptoms,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SymptomsListRoute';
+
+  static const PageInfo<SymptomsListRouteArgs> page =
+      PageInfo<SymptomsListRouteArgs>(name);
+}
+
+class SymptomsListRouteArgs {
+  const SymptomsListRouteArgs({
+    this.key,
+    required this.symptoms,
+  });
+
+  final Key? key;
+
+  final List<Symptom> symptoms;
+
+  @override
+  String toString() {
+    return 'SymptomsListRouteArgs{key: $key, symptoms: $symptoms}';
   }
 }
 

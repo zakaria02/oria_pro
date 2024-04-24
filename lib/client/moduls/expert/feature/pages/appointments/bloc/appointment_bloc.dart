@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/add_review_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/repository/expert_repository.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment_details.dart';
@@ -244,6 +245,14 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           selectedDate: state.selectedDate,
         ));
       }
+    });
+
+    on<AddReview>((event, emit) async {
+      ExpertRepository repository = ExpertLocator().get();
+      repository.addReview(AddReviewRequestModel(
+          appointementId: event.appointmentId,
+          rating: event.rating,
+          review: event.review));
     });
   }
 }

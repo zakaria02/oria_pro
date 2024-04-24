@@ -3,7 +3,6 @@ import 'package:oria_pro/common/auth/feature/usecase/get_user_steps_use_case.dar
 
 import '../../../../../utils/locator/abstract_locator.dart';
 import '../../../../../utils/network/dio_builder.dart';
-import '../../../feature/usecase/get_user_use_case.dart';
 import '../../../feature/usecase/login_use_case.dart';
 import '../../../feature/usecase/signup_use_case.dart';
 import '../../local_data_source/auth_local_data_source.dart';
@@ -32,8 +31,6 @@ class EmailPasswordAuthLocator extends AbstractLocator {
         () => EmailPasswordRepositoryImpl());
     serviceLocator.registerLazySingleton<LoginUseCase>(() => LoginUseCase());
     serviceLocator.registerLazySingleton<SignupUseCase>(() => SignupUseCase());
-    serviceLocator
-        .registerLazySingleton<GetUserUseCase>(() => GetUserUseCase());
     serviceLocator.registerLazySingleton<GetUserStepsUseCase>(
         () => GetUserStepsUseCase());
     serviceLocator.registerLazySingleton<AuthLocalDataSource>(

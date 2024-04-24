@@ -48,44 +48,42 @@ class OriaRoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      width: width ?? double.infinity,
+      height: height ?? 55,
       padding: padding,
-      child: Container(
-        width: width ?? double.infinity,
-        height: height ?? 55,
-        padding: EdgeInsets.zero,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          border: borderColor != null
-              ? Border.all(
-                  color: borderColor!,
-                  width: 1,
-                )
-              : null,
-          color: primaryColor,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              surfaceTintColor: Colors.transparent,
-              backgroundColor: primaryColor,
-              foregroundColor: textColor ?? Colors.white,
-              disabledBackgroundColor: OriaColors.disabledColor,
-            ),
-            onPressed: disabled
-                ? null
-                : isLoading
-                    ? () {}
-                    : onPress,
-            child: isLoading
-                ? loadingWidget()
-                : text != null
-                    ? Text(
-                        text!,
-                      )
-                    : child,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        border: borderColor != null
+            ? Border.all(
+                color: borderColor!,
+                width: 1,
+              )
+            : null,
+        color: disabled ? null : primaryColor,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            surfaceTintColor: Colors.transparent,
+            backgroundColor: primaryColor,
+            foregroundColor: textColor ?? Colors.white,
+            disabledBackgroundColor: OriaColors.disabledColor,
+            padding: EdgeInsets.zero,
           ),
+          onPressed: disabled
+              ? null
+              : isLoading
+                  ? () {}
+                  : onPress,
+          child: isLoading
+              ? loadingWidget()
+              : text != null
+                  ? Text(
+                      text!,
+                    )
+                  : child,
         ),
       ),
     );

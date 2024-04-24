@@ -123,7 +123,6 @@ class ActionCard extends StatelessWidget {
                 ),
                 child: SectionDetailsPage(
                   programName: program.title,
-                  author: program.author,
                 ),
               );
             },

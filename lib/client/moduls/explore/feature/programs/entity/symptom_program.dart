@@ -1,3 +1,5 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../../../../../../common/entity/author.dart';
 
 class SymptomProgram {
@@ -98,6 +100,7 @@ class ProgramSection {
       );
 }
 
+@JsonSerializable()
 class ProgramSectionWithContent extends ProgramSection {
   final String content;
   final String? videoUrl;

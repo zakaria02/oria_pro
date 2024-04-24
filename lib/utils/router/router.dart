@@ -18,15 +18,16 @@ import '../../client/moduls/expert/feature/pages/experts/pages/expert_details_pa
 import '../../client/moduls/expert/feature/pages/experts/pages/expert_filter_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/find_specialist_page.dart';
 import '../../client/moduls/explore/feature/learning/pages/article_page.dart';
+import '../../client/moduls/explore/feature/programs/entity/symptom_program.dart';
 import '../../client/moduls/explore/feature/programs/pages/program_details_page.dart';
 import '../../client/moduls/explore/feature/programs/pages/program_sections_page.dart';
 import '../../client/moduls/explore/feature/programs/pages/section_details_page.dart';
+import '../../client/moduls/home/feature/symptoms_list_page.dart';
 import '../../common/app_orchestrator/app_orchestrator.dart';
 import '../../common/auth/feature/entity/onbaording_step.dart';
 import '../../common/auth/feature/pages/create_account_page.dart';
 import '../../common/auth/feature/pages/forgot_password_page.dart';
 import '../../common/auth/feature/pages/login_page.dart';
-import '../../common/entity/author.dart';
 import '../../common/onboarding/feature/cubit/onboarding_steps_cubit.dart';
 import '../../common/onboarding/feature/pages/on_boarding_steps_page.dart';
 import '../../common/email_verification/feature/verify_email_page.dart';
@@ -62,6 +63,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: SectionDetailsRoute.page),
     // Home routes
     AutoRoute(page: SymptomDataRoute.page),
+    AutoRoute(page: SymptomsListRoute.page),
     // Expert routes
     AutoRoute(page: FindSpecialistRoute.page),
     AutoRoute(page: ExpertFilterRoute.page),

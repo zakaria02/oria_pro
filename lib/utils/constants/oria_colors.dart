@@ -10,6 +10,7 @@ class OriaColors {
   static const green = Color(0xFF5B855E);
   static const greenLight = Color(0xFFE3F6E4);
   static const greenAccent = Color(0xFF1C6421);
+  static const greenAccentLight = Color(0xFF31B85F);
   static const iconButtonBackgound = Color(0xFFFAF1E1);
   static const red = Color(0xFFD53535);
   static const redAccent = Color(0xFFE13232);

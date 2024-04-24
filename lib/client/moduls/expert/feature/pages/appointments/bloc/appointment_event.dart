@@ -48,3 +48,15 @@ final class GetRoomCode extends AppointmentEvent {
 
   const GetRoomCode({required this.appointmentId});
 }
+
+final class AddReview extends AppointmentEvent {
+  final String appointmentId;
+  final double rating;
+  final String review;
+
+  const AddReview({
+    required this.appointmentId,
+    required this.review,
+    required this.rating,
+  });
+}

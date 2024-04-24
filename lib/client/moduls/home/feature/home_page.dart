@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/home/feature/widget/home_symptom_card.dart';
 import 'package:oria_pro/client/moduls/home/feature/widget/more_insight.dart';
+import 'package:oria_pro/common/symptoms/feature/entity/symptom.dart';
 import 'package:oria_pro/utils/constants/png_assets.dart';
 import 'package:oria_pro/widgets/oria_icon_button.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../utils/constants/svg_assets.dart';
 import 'bloc/home_bloc.dart';
+import 'widget/daily_actions.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -49,94 +51,125 @@ class HomeView extends StatelessWidget {
                 if (state is GetHomeDataLoading) {
                   return const OriaLoadingProgress();
                 }
-                return Column(
-                  children: [
-                    if (state.currentUser != null)
-                      Row(
-                        children: [
-                          OriaRoundedImage(
-                            networkImage: state.currentUser?.profilePicture,
-                            assetImage:
-                                state.currentUser?.profilePicture == null
-                                    ? PngAssets.womanAsset
-                                    : null,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            greeting(context, state.currentUser!.name),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const Spacer(),
-                          const OriaIconButton(
-                            url: SvgAssets.activeNotificationIcon,
-                          )
-                        ],
-                      ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ListView(
-                      shrinkWrap: true,
-                      children: [
+                return Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (state.currentUser != null)
                         Row(
                           children: [
+                            OriaRoundedImage(
+                              networkImage: state.currentUser?.profilePicture,
+                              assetImage:
+                                  state.currentUser?.profilePicture == null
+                                      ? PngAssets.womanAsset
+                                      : null,
+                            ),
+                            const SizedBox(width: 12),
                             Text(
-                              AppLocalizations.of(context)!.keepLearning,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                    fontFamily: "Marcellus",
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                              greeting(context, state.currentUser!.name),
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const Spacer(),
-                            if (state.selectedSymptom != null)
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 4),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(200)),
-                                child: Text(
-                                  state.selectedSymptom!.name,
+                            const OriaIconButton(
+                              url: SvgAssets.activeNotificationIcon,
+                            )
+                          ],
+                        ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Expanded(
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            if (state.actions != null)
+                              DailyActionsSteps(
+                                symptoms: state.userSymptoms,
+                                name: state.currentUser!.name,
+                                actions: state.actions!,
+                                primarySymptom: state.userSymptoms
+                                    .firstWhere((sym) =>
+                                        sym.type == SymptomType.primary)
+                                    .name,
+                                onStartHerePress: (completedProgramSection,
+                                    readArticle, loggedSymptomSeverity) {
+                                  BlocProvider.of<HomeBloc>(context)
+                                      .add(FinishAnAction(
+                                    completedProgramSection:
+                                        completedProgramSection,
+                                    readArticle: readArticle,
+                                    loggedSymptomSeverity:
+                                        loggedSymptomSeverity,
+                                  ));
+                                },
+                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.keepLearning,
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium
-                                      ?.copyWith(fontSize: 10),
-                                ),
-                              ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        SizedBox(
-                          height: 125,
-                          child: state.selectedSymptom != null
-                              ? const MoreInsight()
-                              : ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) =>
-                                      HomeSymptomCard(
-                                    symptom: state.userSymptoms[index],
-                                    onPress: () =>
-                                        BlocProvider.of<HomeBloc>(context).add(
-                                      SelectSymptom(
-                                        symptom: state.userSymptoms[index],
+                                      ?.copyWith(
+                                        fontFamily: "Marcellus",
+                                        fontWeight: FontWeight.w400,
                                       ),
+                                ),
+                                const Spacer(),
+                                if (state.selectedSymptom != null)
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 4),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(200)),
+                                    child: Text(
+                                      state.selectedSymptom!.name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(fontSize: 10),
                                     ),
                                   ),
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(width: 10),
-                                  itemCount: state.userSymptoms.length,
-                                ),
-                        )
-                      ],
-                    ),
-                  ],
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            SizedBox(
+                              height: 125,
+                              child: state.selectedSymptom != null
+                                  ? const MoreInsight()
+                                  : ListView.separated(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) =>
+                                          HomeSymptomCard(
+                                        symptom: state.userSymptoms[index],
+                                        onPress: () =>
+                                            BlocProvider.of<HomeBloc>(context)
+                                                .add(
+                                          SelectSymptom(
+                                            symptom: state.userSymptoms[index],
+                                          ),
+                                        ),
+                                      ),
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(width: 10),
+                                      itemCount: state.userSymptoms.length,
+                                    ),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

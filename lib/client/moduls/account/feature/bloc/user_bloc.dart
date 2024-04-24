@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:oria_pro/client/moduls/account/feature/use_case/update_share_medical_info.dart';
 import 'package:oria_pro/client/moduls/account/feature/use_case/update_user_info_usecase.dart';
 import 'package:oria_pro/common/auth/business/email_password/locator/email_password_locator.dart';
 import 'package:oria_pro/common/auth/business/email_password/model/user_model.dart';
@@ -33,7 +34,32 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         );
         if (updated) {
           add(FetchAccount());
-          emit(UpdateUserSuccess(currenUser: state.currenUser));
+        } else {
+          emit(UserError(
+              currenUser: state.currenUser,
+              errorMessage: "Error while updating current user"));
+        }
+      } catch (e) {
+        UserError(currenUser: state.currenUser, errorMessage: e.toString());
+      }
+    });
+
+    on<UpdateMedicalInfoSharing>((event, emit) async {
+      final UpdateShareMedicalInfoUseCase usecase =
+          EmailPasswordAuthLocator().get();
+      final AuthLocalDataSource authLocalDataSource =
+          EmailPasswordAuthLocator().get();
+      try {
+        emit(UpdateUserLoading(currenUser: state.currenUser));
+        final updated = await usecase.execute(
+          event.shareMedicalInfo,
+        );
+        if (updated) {
+          final user = await authLocalDataSource.getUser();
+          final updatedUser =
+              user!.copyWith(shareMedicalInfo: event.shareMedicalInfo);
+          await authLocalDataSource.saveUser(updatedUser);
+          emit(UpdateUserSuccess(currenUser: updatedUser.toUser()));
         } else {
           emit(UserError(
               currenUser: state.currenUser,

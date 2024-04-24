@@ -14,6 +14,7 @@ class AccountParam extends StatelessWidget {
   final Color? titleColor;
   final double imageSize;
   final bool noRaduis;
+  final EdgeInsets padding;
 
   const AccountParam({
     super.key,
@@ -27,6 +28,7 @@ class AccountParam extends StatelessWidget {
     this.onlyBottomRaduis = false,
     this.noRaduis = false,
     this.imageSize = 24,
+    this.padding = const EdgeInsets.all(20),
   });
 
   @override
@@ -34,6 +36,7 @@ class AccountParam extends StatelessWidget {
     return GestureDetector(
       onTap: onPress ?? onIconPress,
       child: OriaCard(
+        padding: padding,
         backgroundColor: Colors.white,
         onlyBottomRaduis: onlyBottomRaduis,
         onlyTopRaduis: onlyTopRaduis,

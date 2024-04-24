@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/widgets/period_availabilities.dart';
@@ -32,6 +33,8 @@ class MakeAppointmentPage extends StatefulWidget {
 
 class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
   DateTime selectedDate = DateTime.now();
+  final EasyInfiniteDateTimelineController _controller =
+      EasyInfiniteDateTimelineController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -55,43 +58,55 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
               onFirstButtonPress: () => context.maybePop(),
               title: AppLocalizations.of(context)!.appointment,
               lastButtonUrl: SvgAssets.calendarIcon,
-              onLastButtonPress: () => showDialog(
-                context: context,
-                builder: (context) => OriaDialog(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: OriaDatePicker(
-                          onSelectDate: (date) {
-                            if (date != null) {
-                              setState(() {
-                                selectedDate = date;
-                              });
-                              BlocProvider.of<AppointmentBloc>(blocContext).add(
-                                GetDayAvailabilities(
-                                    day: date, expertId: widget.expert.id),
-                              );
-                            }
-                          },
-                          currentValue: selectedDate,
-                        ),
+              onLastButtonPress: () async {
+                final date = await showDialog(
+                  context: context,
+                  builder: (context) {
+                    DateTime? pickedDate;
+                    return OriaDialog(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: OriaDatePicker(
+                              onSelectDate: (date) {
+                                pickedDate = date;
+                              },
+                              currentValue: selectedDate,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          OriaRoundedButton(
+                            onPress: () =>
+                                Navigator.of(context).pop(pickedDate),
+                            text: AppLocalizations.of(context)!.apply,
+                          )
+                        ],
                       ),
-                      const SizedBox(height: 16),
-                      OriaRoundedButton(
-                        onPress: () => Navigator.of(context).pop(),
-                        text: AppLocalizations.of(context)!.apply,
-                      )
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                  },
+                );
+                if (date != null) {
+                  if (date != null) {
+                    _controller.animateToDate(date);
+                    setState(() {
+                      selectedDate = date;
+                    });
+                    // ignore: use_build_context_synchronously
+                    BlocProvider.of<AppointmentBloc>(blocContext).add(
+                      GetDayAvailabilities(
+                          day: date, expertId: widget.expert.id),
+                    );
+                  }
+                }
+              },
             ),
             body: Column(
               children: [
                 AppointmentDatePicker(
                   selectedDate: selectedDate,
+                  controller: _controller,
                   onDateSelect: (date) {
                     setState(() {
                       selectedDate = date;

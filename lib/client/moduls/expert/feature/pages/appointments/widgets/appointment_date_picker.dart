@@ -6,15 +6,14 @@ import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/bloc/ap
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 
 class AppointmentDatePicker extends StatelessWidget {
-  AppointmentDatePicker({
+  const AppointmentDatePicker({
     super.key,
     required this.onDateSelect,
     required this.selectedDate,
+    required this.controller,
   });
 
-  final EasyInfiniteDateTimelineController _controller =
-      EasyInfiniteDateTimelineController();
-
+  final EasyInfiniteDateTimelineController controller;
   final Function(DateTime) onDateSelect;
   final DateTime selectedDate;
 
@@ -25,7 +24,7 @@ class AppointmentDatePicker extends StatelessWidget {
         return EasyInfiniteDateTimeLine(
           locale: Intl.systemLocale,
           activeColor: OriaColors.secondaryOrange,
-          controller: _controller,
+          controller: controller,
           firstDate: DateTime.now(),
           focusDate: selectedDate,
           lastDate: DateTime.now().add(const Duration(days: 356)),

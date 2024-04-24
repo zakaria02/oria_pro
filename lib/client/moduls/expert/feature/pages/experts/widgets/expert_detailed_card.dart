@@ -67,7 +67,7 @@ class ExpertDetailedCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      "${expert.rateAvarage ?? 4.5}",
+                      expert.rateAvarage?.toStringAsFixed(2) ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.labelLarge,

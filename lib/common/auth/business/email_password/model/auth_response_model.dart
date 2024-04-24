@@ -70,6 +70,7 @@ extension AuthResponseMappers on AuthResponseModel {
       birthDay: user.birthDay,
       isEmailVerified: user.isEmailVerified,
       profilePicture: user.profilePicture,
+      shareMedicalInfo: user.shareMedicalInfo,
     );
   }
 }
@@ -93,6 +94,7 @@ extension UserResponseModelMappers on UserResponseModel {
       birthDay: birthDay,
       isEmailVerified: currentUser.isEmailVerified,
       profilePicture: currentUser.profilePicture,
+      shareMedicalInfo: currentUser.shareMedicalInfo,
     );
   }
 }

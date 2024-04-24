@@ -24,12 +24,14 @@ class FilterCard extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium
-                ?.copyWith(color: Colors.black, fontFamily: "Satoshi"),
+          Flexible(
+            child: Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: Colors.black, fontFamily: "Satoshi"),
+            ),
           ),
           const SizedBox(width: 20),
           OriaIconButton(

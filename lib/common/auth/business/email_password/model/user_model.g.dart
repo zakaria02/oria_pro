@@ -29,13 +29,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       birthDay: fields[9] as DateTime?,
       isEmailVerified: fields[10] as bool,
       profilePicture: fields[11] as String?,
+      shareMedicalInfo: fields[12] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -59,7 +60,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(10)
       ..write(obj.isEmailVerified)
       ..writeByte(11)
-      ..write(obj.profilePicture);
+      ..write(obj.profilePicture)
+      ..writeByte(12)
+      ..write(obj.shareMedicalInfo);
   }
 
   @override

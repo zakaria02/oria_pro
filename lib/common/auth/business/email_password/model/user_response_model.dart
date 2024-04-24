@@ -20,6 +20,8 @@ class UserResponseModel {
   final bool isEmailVerified;
   @JsonKey(name: "profilePicture")
   final String? profilePicture;
+  @JsonKey(name: "shareMedicalInfo")
+  final bool shareMedicalInfo;
 
   const UserResponseModel({
     required this.id,
@@ -30,6 +32,7 @@ class UserResponseModel {
     required this.birthDay,
     required this.isEmailVerified,
     required this.profilePicture,
+    required this.shareMedicalInfo,
   });
 
   factory UserResponseModel.fromJson(Map<String, dynamic> json) =>

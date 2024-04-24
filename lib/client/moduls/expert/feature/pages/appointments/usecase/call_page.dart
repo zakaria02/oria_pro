@@ -15,8 +15,13 @@ import '../entity/appointment_details.dart';
 
 @RoutePage()
 class AppointmentCallPage extends StatelessWidget {
-  const AppointmentCallPage({super.key, required this.appointment});
+  const AppointmentCallPage({
+    super.key,
+    required this.appointment,
+    required this.onLeave,
+  });
   final AppointmentDetails appointment;
+  final VoidCallback onLeave;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +41,10 @@ class AppointmentCallPage extends StatelessWidget {
                     userId: user?.id,
                     userName: user?.name,
                   ),
+                  onLeave: () async {
+                    await Future.delayed(const Duration(seconds: 3));
+                    onLeave.call();
+                  },
                 );
               }
               return OriaScaffold(

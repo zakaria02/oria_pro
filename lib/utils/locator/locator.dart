@@ -4,6 +4,7 @@ import 'package:oria_pro/common/email_verification/business/locator/email_verifi
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../client/moduls/account/business/locator/account_locator.dart';
 import '../../client/moduls/expert/business/locator/expert_locator.dart';
+import '../../client/moduls/home/business/locator/home_locator.dart';
 import '../../common/onboarding/business/locator/onboarding_lcoator.dart';
 import '../router/router.dart';
 import 'abstract_locator.dart';
@@ -31,5 +32,6 @@ class AppLocator extends AbstractLocator {
     EmailVerificationLocator().setUp(serviceLocator);
     ExpertLocator().setUp(serviceLocator);
     AccountLocator().setUp(serviceLocator);
+    HomeLocator().setUp(serviceLocator);
   }
 }

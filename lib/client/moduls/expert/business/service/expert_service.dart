@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/add_review_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -70,4 +71,7 @@ abstract class ExpertService {
 
   @GET("/consultation/experts/{expertId}/reviews")
   Future<List<ReviewModel>> getExpertReviews(@Path() String expertId);
+
+  @POST("/consultation/appointement/review")
+  Future<void> addReview(@Body() AddReviewRequestModel request);
 }

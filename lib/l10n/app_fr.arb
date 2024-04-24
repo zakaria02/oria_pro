@@ -228,5 +228,13 @@
     "walking": "Marche",
     "targetedWeightTraining": "Entraînement ciblé de musculation",
     "cardio": "Cardio",
-    "patientsFeedbacks": "Retours des patients"
+    "patientsFeedbacks": "Retours des patients",
+    "rateAppointment": "Notez votre rendez-vous avec {expert}",
+    "send": "Envoyer",
+    "startHere": "Commencer ici",
+    "todaysAction": "Action du jour",
+    "howIsYourSymptomToday": "Comment est votre {symptom} aujourd'hui :",
+    "congratsContent": "Congratulations {name} on completing your tasks today! We are proud of you!",
+    "keepLearningSymptoms": "Keep learning about your symptoms",
+    "wouldLikeFocusSomething": "Souhaitez-vous vous concentrer sur autre chose aujourd'hui ?"
 }

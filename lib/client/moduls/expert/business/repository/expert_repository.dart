@@ -1,4 +1,5 @@
 import 'package:oria_pro/client/moduls/expert/business/locator/expert_locator.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/add_review_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/appointment_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/availability_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/cancel_appointment_request_model.dart';
@@ -32,6 +33,7 @@ abstract class ExpertRepository {
   Future<MeetingAccessResponseModel> getMeetingAccessKey(String appointmentId);
   Future<List<CityModel>> getCities();
   Future<List<ReviewModel>> getExpertReviews(String expertId);
+  Future<void> addReview(AddReviewRequestModel request);
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -110,5 +112,10 @@ class ExpertRepositoryImpl extends ExpertRepository {
   @override
   Future<List<ReviewModel>> getExpertReviews(String expertId) {
     return _service.getExpertReviews(expertId);
+  }
+
+  @override
+  Future<void> addReview(AddReviewRequestModel request) {
+    return _service.addReview(request);
   }
 }
