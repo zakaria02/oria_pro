@@ -27,8 +27,8 @@ class SymptomCard extends StatelessWidget {
           children: [
             Image.network(
               symptom.icon,
-              height: 48,
-              width: 48,
+              height: 32,
+              width: 32,
               color: symptom.type == SymptomType.primary
                   ? const Color(0xFFFAF1E1)
                   : Colors.black,

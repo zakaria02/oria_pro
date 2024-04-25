@@ -6,11 +6,13 @@ sealed class SymptomState extends Equatable {
     required this.selectedSymptom,
     required this.secondarySymptoms,
     required this.symptomPrograms,
+    required this.symptomArticles,
   });
   final List<SymptomInfo> symptoms;
   final SymptomInfo? selectedSymptom;
   final List<SymptomInfo> secondarySymptoms;
   final List<Program> symptomPrograms;
+  final List<SymptomArticle> symptomArticles;
 
   @override
   List<Object?> get props =>
@@ -24,6 +26,7 @@ final class SymptomInitial extends SymptomState {
           selectedSymptom: null,
           secondarySymptoms: const [],
           symptomPrograms: const [],
+          symptomArticles: const [],
         );
 }
 
@@ -33,6 +36,7 @@ final class SymptomLoading extends SymptomState {
     required super.selectedSymptom,
     required super.secondarySymptoms,
     required super.symptomPrograms,
+    required super.symptomArticles,
   });
 }
 
@@ -42,6 +46,7 @@ final class SymptomSuccess extends SymptomState {
     required super.selectedSymptom,
     required super.secondarySymptoms,
     required super.symptomPrograms,
+    required super.symptomArticles,
   });
 }
 
@@ -51,6 +56,7 @@ final class AddSymptomLoading extends SymptomState {
     required super.selectedSymptom,
     required super.secondarySymptoms,
     required super.symptomPrograms,
+    required super.symptomArticles,
   });
 }
 
@@ -60,23 +66,28 @@ final class AddSymptomSuccess extends SymptomState {
     required super.selectedSymptom,
     required super.secondarySymptoms,
     required super.symptomPrograms,
+    required super.symptomArticles,
   });
 }
 
 final class SymptomDataLoading extends SymptomState {
-  const SymptomDataLoading(
-      {required super.symptoms,
-      required super.selectedSymptom,
-      required super.secondarySymptoms,
-      required super.symptomPrograms});
+  const SymptomDataLoading({
+    required super.symptoms,
+    required super.selectedSymptom,
+    required super.secondarySymptoms,
+    required super.symptomPrograms,
+    required super.symptomArticles,
+  });
 }
 
 final class SymptomDataSuccess extends SymptomState {
-  const SymptomDataSuccess(
-      {required super.symptoms,
-      required super.selectedSymptom,
-      required super.secondarySymptoms,
-      required super.symptomPrograms});
+  const SymptomDataSuccess({
+    required super.symptoms,
+    required super.selectedSymptom,
+    required super.secondarySymptoms,
+    required super.symptomPrograms,
+    required super.symptomArticles,
+  });
 }
 
 final class SymptomError extends SymptomState {
@@ -88,5 +99,6 @@ final class SymptomError extends SymptomState {
     required super.selectedSymptom,
     required super.secondarySymptoms,
     required super.symptomPrograms,
+    required super.symptomArticles,
   });
 }

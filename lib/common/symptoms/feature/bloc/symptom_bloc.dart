@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:oria_pro/client/moduls/explore/business/di/explore_locator.dart';
+import 'package:oria_pro/client/moduls/explore/business/model/explore_symptom_article_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
-import 'package:oria_pro/client/moduls/explore/business/repository/explore_repository.dart';
+import 'package:oria_pro/client/moduls/explore/feature/entity/learning_content.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/program.dart';
 
 import '../../business/locator/symptom_locator.dart';
@@ -24,6 +24,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           selectedSymptom: state.selectedSymptom,
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
         ),
       );
       try {
@@ -34,6 +35,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             selectedSymptom: state.selectedSymptom,
             secondarySymptoms: state.secondarySymptoms,
             symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
           ),
         );
       } catch (e) {
@@ -43,6 +45,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           selectedSymptom: state.selectedSymptom,
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
         ));
       }
     });
@@ -53,6 +56,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
         selectedSymptom: event.symptom,
         secondarySymptoms: state.secondarySymptoms,
         symptomPrograms: state.symptomPrograms,
+        symptomArticles: state.symptomArticles,
       ));
     });
 
@@ -63,6 +67,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           selectedSymptom: state.selectedSymptom,
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
         ),
       );
       List<SymptomInfo> secSymptoms = List.from(state.secondarySymptoms);
@@ -77,6 +82,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           selectedSymptom: event.symptom,
           secondarySymptoms: [...secSymptoms],
           symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
         ),
       );
     });
@@ -89,18 +95,22 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             selectedSymptom: state.selectedSymptom,
             secondarySymptoms: state.secondarySymptoms,
             symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
           ),
         );
-        ExploreRepository repository = ExploreLocator().get();
-        final programsModel =
-            await repository.fetchSymptomPrograms(event.symptom.symptomId);
+        SymptomRepository repository = SymptomLocator().get();
+        final symptomContent =
+            await repository.getSymptomContent(event.symptom.symptomId);
         emit(
           SymptomDataSuccess(
             symptoms: state.symptoms,
             selectedSymptom: state.selectedSymptom,
             secondarySymptoms: state.secondarySymptoms,
-            symptomPrograms: programsModel.results
+            symptomPrograms: symptomContent.results.symptomPrograms
                 .map((program) => program.toProgram())
+                .toList(),
+            symptomArticles: symptomContent.results.symptomArticles
+                .map((ar) => ar.toArticleUio())
                 .toList(),
           ),
         );
@@ -111,6 +121,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           selectedSymptom: state.selectedSymptom,
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
         ));
       }
     });

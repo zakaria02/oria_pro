@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/program_model.dart';
+import 'package:oria_pro/common/symptoms/business/model/symptom_content_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/update_section_response_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/repository/explore_repository.dart';
@@ -27,6 +28,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
 
         final result = await learningContentUseCase.execute(true);
@@ -35,6 +37,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
       } catch (e) {
         emit(ProgramsError(
@@ -42,6 +45,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           errorMessage: e.toString(),
         ));
       }
@@ -54,6 +58,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
 
         final programsModel =
@@ -65,6 +70,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
               .toList(),
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
       } catch (e) {
         emit(ProgramsError(
@@ -72,6 +78,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           errorMessage: e.toString(),
         ));
       }
@@ -84,6 +91,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
 
         final programsModel = await repository.fetchProgram(event.programId);
@@ -91,6 +99,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           content: state.content,
           programs: state.programs,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           selectedProgram: programsModel.toSymptomProgram(),
         ));
       } catch (e) {
@@ -99,6 +108,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           errorMessage: e.toString(),
         ));
       }
@@ -111,6 +121,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
 
         await repository.enrollProgram(event.programId);
@@ -119,6 +130,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           content: state.content,
           programs: state.programs,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           selectedProgram: state.selectedProgram
               ?.copyWith(programStatus: LearningStatus.started),
         ));
@@ -128,10 +140,12 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           errorMessage: e.toString(),
         ));
       }
     });
+
     on<ResetProgram>((event, emit) async {
       ExploreRepository repository = ExploreLocator().get();
       try {
@@ -140,6 +154,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
 
         await repository.resetProgram(event.programId);
@@ -156,6 +171,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           content: state.content,
           programs: state.programs,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           selectedProgram: resetedProgram,
         ));
       } catch (e) {
@@ -164,6 +180,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           errorMessage: e.toString(),
         ));
       }
@@ -177,6 +194,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
 
         final updated = event.sectionStatus == LearningStatus.notStarted
@@ -204,6 +222,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
               programs: state.programs,
               selectedProgram: program,
               selectedSection: selectedSection,
+              mixedContent: state.mixedContent,
             ));
           }
         } else {
@@ -212,6 +231,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
             programs: state.programs,
             selectedProgram: state.selectedProgram,
             selectedSection: state.selectedSection,
+            mixedContent: state.mixedContent,
             errorMessage:
                 "We encountered a problem starting this section. Please try again.",
           ));
@@ -222,6 +242,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           errorMessage: e.toString(),
         ));
       }
@@ -234,6 +255,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
         final updated = await usecase.execute(event.programId, event.sectionId);
         if (updated) {
@@ -252,6 +274,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
               programs: state.programs,
               selectedProgram: program,
               selectedSection: null,
+              mixedContent: state.mixedContent,
             ));
           }
         } else {
@@ -260,6 +283,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
             programs: state.programs,
             selectedProgram: state.selectedProgram,
             selectedSection: state.selectedSection,
+            mixedContent: state.mixedContent,
             errorMessage:
                 "We encountered a problem starting this section. Please try again.",
           ));
@@ -270,6 +294,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           programs: state.programs,
           selectedProgram: state.selectedProgram,
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
           errorMessage: e.toString(),
         ));
       }
@@ -297,6 +322,7 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
           sections: state.sections,
           errorMessage: e.toString(),
           selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
         ));
       }
     });*/

@@ -1,4 +1,5 @@
 import '../locator/symptom_locator.dart';
+import '../model/symptom_content_model.dart';
 import '../model/symptom_info_model.dart';
 import '../model/symptom_severity_request_model.dart';
 import '../model/user_symptom_model.dart';
@@ -12,6 +13,7 @@ abstract class SymptomRepository {
   Future<List<UserSymptomResponseModel>> addUserSymptom(
       UserSymptomRequestModel request);
   Future<void> addSymptomSeverity(SymptomSeverityRequestModel request);
+  Future<SymptomContentModel> getSymptomContent(String symptomId);
 }
 
 class SymptomRepositoryImpl implements SymptomRepository {
@@ -35,5 +37,10 @@ class SymptomRepositoryImpl implements SymptomRepository {
   @override
   Future<void> addSymptomSeverity(SymptomSeverityRequestModel request) {
     return service.addSymptomSeverity(request);
+  }
+
+  @override
+  Future<SymptomContentModel> getSymptomContent(String symptomId) {
+    return service.getSymptomContent(symptomId);
   }
 }

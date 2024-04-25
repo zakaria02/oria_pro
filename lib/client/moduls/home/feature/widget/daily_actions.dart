@@ -193,7 +193,10 @@ class DailyActionsSteps extends StatelessWidget {
     if (congrats) {
       return Column(
         children: [
-          SvgPicture.asset(SvgAssets.congratsAsset),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: SvgPicture.asset(SvgAssets.congratsAsset),
+          ),
           const SizedBox(height: 32),
           Text(
             AppLocalizations.of(context)!.congratsContent(name),
@@ -210,11 +213,12 @@ class DailyActionsSteps extends StatelessWidget {
                 context.pushRoute(SymptomsListRoute(symptoms: symptoms)),
             text: AppLocalizations.of(context)!.keepLearningSymptoms,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 32),
         ],
       );
     }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           AppLocalizations.of(context)!.todaysAction,
@@ -222,9 +226,6 @@ class DailyActionsSteps extends StatelessWidget {
                 fontFamily: "Marcellus",
                 fontWeight: FontWeight.w400,
               ),
-        ),
-        const SizedBox(
-          height: 16,
         ),
         steps(context),
       ],

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../model/symptom_content_model.dart';
 import '../model/symptom_info_model.dart';
 import '../model/symptom_severity_request_model.dart';
 import '../model/user_symptom_model.dart';
@@ -25,4 +26,7 @@ abstract class SymptomService {
 
   @POST("/tracker/track/symptom/event")
   Future<void> addSymptomSeverity(@Body() SymptomSeverityRequestModel request);
+
+  @GET("/learning/symptom-explore/{symptomId}")
+  Future<SymptomContentModel> getSymptomContent(@Path() String symptomId);
 }
