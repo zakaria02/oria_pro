@@ -236,5 +236,8 @@
     "howIsYourSymptomToday": "Comment est votre {symptom} aujourd'hui :",
     "congratsContent": "Congratulations {name} on completing your tasks today! We are proud of you!",
     "keepLearningSymptoms": "Keep learning about your symptoms",
-    "wouldLikeFocusSomething": "Souhaitez-vous vous concentrer sur autre chose aujourd'hui ?"
+    "wouldLikeFocusSomething": "Souhaitez-vous vous concentrer sur autre chose aujourd'hui ?",
+    "recommendation": "Recommendation",
+    "noAppointmentsForDate": "No appointments available on this date, please select another.",
+    "noAppointmentsForDate_fr": "Aucun rendez-vous disponible à cette date, veuillez en choisir une autre."
 }

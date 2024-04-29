@@ -121,35 +121,70 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                   visible: state is GetDayAvailabilityLoading,
                   child: const OriaLoadingProgress(),
                 ),
-                Visibility(
-                  visible: state is! GetDayAvailabilityLoading,
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      if (state.morningAvailabilities.isNotEmpty)
-                        PeriodAvailabilities(
-                            title: AppLocalizations.of(context)!.morning,
-                            availabilities: state.morningAvailabilities,
-                            suffix: "AM"),
-                      if (state.afternoonAvailabilities.isNotEmpty) ...[
-                        const SizedBox(height: 32),
-                        PeriodAvailabilities(
-                          title: AppLocalizations.of(context)!.afternoon,
-                          availabilities: state.afternoonAvailabilities,
-                          suffix: "PM",
+                selectedDate.day == DateTime.now().day
+                    ? Container(
+                        padding: const EdgeInsets.all(18),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFE3E3),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                      ],
-                      if (state.eveningAvailabilities.isNotEmpty) ...[
-                        const SizedBox(height: 32),
-                        PeriodAvailabilities(
-                          title: AppLocalizations.of(context)!.evening,
-                          availabilities: state.eveningAvailabilities,
-                          suffix: "PM",
+                        child: Column(
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.fullyBooked,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: const Color(0xFFFC4646),
+                                  ),
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .noAppointmentsForDate,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF8C8585),
+                                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
-                      ],
-                    ],
-                  ),
-                ),
+                      )
+                    : Visibility(
+                        visible: state is! GetDayAvailabilityLoading,
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            if (state.morningAvailabilities.isNotEmpty)
+                              PeriodAvailabilities(
+                                  title: AppLocalizations.of(context)!.morning,
+                                  availabilities: state.morningAvailabilities,
+                                  suffix: "AM"),
+                            if (state.afternoonAvailabilities.isNotEmpty) ...[
+                              const SizedBox(height: 32),
+                              PeriodAvailabilities(
+                                title: AppLocalizations.of(context)!.afternoon,
+                                availabilities: state.afternoonAvailabilities,
+                                suffix: "PM",
+                              ),
+                            ],
+                            if (state.eveningAvailabilities.isNotEmpty) ...[
+                              const SizedBox(height: 32),
+                              PeriodAvailabilities(
+                                title: AppLocalizations.of(context)!.evening,
+                                availabilities: state.eveningAvailabilities,
+                                suffix: "PM",
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
               ],
             ),
             bottomNavigationBar: Padding(
@@ -168,12 +203,14 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
                         const Spacer(),
-                        Text(
-                          state.selectedDate!.date.toDetailedDate(context),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(fontFamily: "Satoshi"),
+                        Expanded(
+                          child: Text(
+                            state.selectedDate!.date.toDetailedDate(context),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(fontFamily: "Satoshi"),
+                          ),
                         )
                       ],
                     ),
@@ -193,7 +230,7 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         const Flexible(
-                          flex: 2,
+                          flex: 1,
                           child: SizedBox(
                             width: double.infinity,
                           ),

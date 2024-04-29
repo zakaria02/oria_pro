@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment_details.dart';
-import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/usecase/upcoming_details_page.dart';
+import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/pages/upcoming_details_page.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/extensions/date_extensions.dart';
 import 'package:oria_pro/utils/extensions/string_extensions.dart';
@@ -21,20 +21,18 @@ class AppointmentCard extends StatelessWidget {
       builder: (blocContext, state) {
         return GestureDetector(
           onTap: () {
-            if (appointment.status == AppointmentStatus.upcoming) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return BlocProvider.value(
-                        value: BlocProvider.of<AppointmentBloc>(
-                          blocContext,
-                        ),
-                        child: UpcomingDetailsPage(appointment: appointment));
-                  },
-                ),
-              );
-            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return BlocProvider.value(
+                      value: BlocProvider.of<AppointmentBloc>(
+                        blocContext,
+                      ),
+                      child: UpcomingDetailsPage(appointment: appointment));
+                },
+              ),
+            );
           },
           child: Stack(
             fit: StackFit.passthrough,
@@ -72,7 +70,7 @@ class AppointmentCard extends StatelessWidget {
                             "${appointment.date.toAbbreviationMonthDate(context, withTime: true)} (${AppLocalizations.of(context)!.minutes(appointment.duration)})",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyMedium
+                                .labelMedium
                                 ?.copyWith(
                                     fontWeight: FontWeight.w500,
                                     fontFamily: "Satoshi"),

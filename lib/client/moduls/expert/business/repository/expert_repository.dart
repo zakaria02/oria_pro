@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:oria_pro/client/moduls/expert/business/locator/expert_locator.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/add_review_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/appointment_model.dart';
@@ -11,7 +13,9 @@ import 'package:oria_pro/client/moduls/expert/business/model/pay_invoice_respons
 import 'package:oria_pro/client/moduls/expert/business/model/review_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/service/expert_service.dart';
+import 'package:path_provider/path_provider.dart';
 
+import '../../../../../utils/network/dio_builder.dart';
 import '../model/city_model.dart';
 import '../model/meeting_access_reponse_model.dart';
 
@@ -34,6 +38,7 @@ abstract class ExpertRepository {
   Future<List<CityModel>> getCities();
   Future<List<ReviewModel>> getExpertReviews(String expertId);
   Future<void> addReview(AddReviewRequestModel request);
+  Future<File> downloadPrescription(String appointmentId);
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -117,5 +122,22 @@ class ExpertRepositoryImpl extends ExpertRepository {
   @override
   Future<void> addReview(AddReviewRequestModel request) {
     return _service.addReview(request);
+  }
+
+  @override
+  Future<File> downloadPrescription(String appointmentId) async {
+    final dio = DioBuilder().dio;
+    Directory? dir;
+
+    if (Platform.isIOS) {
+      dir = await getApplicationDocumentsDirectory();
+    } else {
+      dir = Directory('/storage/emulated/0/Download/');
+      if (!await dir.exists()) dir = (await getExternalStorageDirectory())!;
+    }
+
+    await dio.download("/consultation/appointement/$appointmentId/prescription",
+        "${dir.path}/$appointmentId.pdf");
+    return File("${dir.path}/$appointmentId.pdf");
   }
 }

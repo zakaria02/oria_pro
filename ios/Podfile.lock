@@ -21,6 +21,10 @@ PODS:
   - HMSWebRTC (1.0.5118)
   - just_audio (0.0.1):
     - Flutter
+  - native_video_player (1.0.0):
+    - Flutter
+  - open_filex (0.0.2):
+    - Flutter
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_foundation (0.0.1):
@@ -57,6 +61,8 @@ DEPENDENCIES:
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - hmssdk_flutter (from `.symlinks/plugins/hmssdk_flutter/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
+  - native_video_player (from `.symlinks/plugins/native_video_player/ios`)
+  - open_filex (from `.symlinks/plugins/open_filex/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
@@ -91,6 +97,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/hmssdk_flutter/ios"
   just_audio:
     :path: ".symlinks/plugins/just_audio/ios"
+  native_video_player:
+    :path: ".symlinks/plugins/native_video_player/ios"
+  open_filex:
+    :path: ".symlinks/plugins/open_filex/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
@@ -128,6 +138,8 @@ SPEC CHECKSUMS:
   hmssdk_flutter: 5ef8ca6090c52e483b97fd83388f52226683acac
   HMSWebRTC: 4487c7200f1e9358412c1d8cd974edd2766467dc
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
+  native_video_player: d12af78a1a4a8cf09775a5177d5b392def6fd23c
+  open_filex: 6e26e659846ec990262224a12ef1c528bb4edbe4
   package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2

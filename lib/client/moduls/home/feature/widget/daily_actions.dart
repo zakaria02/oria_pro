@@ -233,7 +233,7 @@ class DailyActionsSteps extends StatelessWidget {
   }
 }
 
-class ActionCard extends StatelessWidget {
+class ActionCard extends StatefulWidget {
   const ActionCard({
     super.key,
     required this.title,
@@ -257,6 +257,11 @@ class ActionCard extends StatelessWidget {
   final VoidCallback onStartPressed;
 
   @override
+  State<ActionCard> createState() => _ActionCardState();
+}
+
+class _ActionCardState extends State<ActionCard> {
+  @override
   Widget build(BuildContext context) {
     return OriaCard(
       backgroundColor: Colors.white,
@@ -264,13 +269,13 @@ class ActionCard extends StatelessWidget {
       padding: EdgeInsets.zero,
       child: Column(
         children: [
-          if (imageUrl != null && current)
+          if (widget.imageUrl != null && widget.current)
             Container(
               height: 140,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    imageUrl!,
+                    widget.imageUrl!,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -292,7 +297,7 @@ class ActionCard extends StatelessWidget {
                       RichText(
                         text: TextSpan(children: [
                           TextSpan(
-                            text: "$title: ",
+                            text: "${widget.title}: ",
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -302,7 +307,7 @@ class ActionCard extends StatelessWidget {
                                 ),
                           ),
                           TextSpan(
-                            text: description,
+                            text: widget.description,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -313,7 +318,7 @@ class ActionCard extends StatelessWidget {
                           ),
                         ]),
                       ),
-                      if (duration > 0) ...[
+                      if (widget.duration > 0) ...[
                         const SizedBox(height: 8),
                         Row(
                           children: [
@@ -324,7 +329,8 @@ class ActionCard extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              AppLocalizations.of(context)!.minutes(duration),
+                              AppLocalizations.of(context)!
+                                  .minutes(widget.duration),
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -341,7 +347,7 @@ class ActionCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (isPremium) ...[
+                if (widget.isPremium) ...[
                   const SizedBox(width: 8),
                   const OriaIconButton(
                     url: SvgAssets.premiumIcon,
@@ -352,21 +358,22 @@ class ActionCard extends StatelessWidget {
               ],
             ),
           ),
-          if (current)
+          if (widget.current)
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                 child: OriaRoundedButton(
-                  width: 150,
+                  width: 160,
                   height: 34,
                   onPress: () {
-                    onStartPressed.call();
-                    if (section != null) {
+                    widget.onStartPressed.call();
+                    if (widget.section != null) {
                       context.pushRoute(SectionDetailsRoute(
-                          section: section!, programName: section!.title));
+                          section: widget.section!,
+                          programName: widget.section!.title));
                     } else {
-                      context.pushRoute(ArticleRoute(id: article!.id));
+                      context.pushRoute(ArticleRoute(id: widget.article!.id));
                     }
                   },
                   text: AppLocalizations.of(context)!.startHere,

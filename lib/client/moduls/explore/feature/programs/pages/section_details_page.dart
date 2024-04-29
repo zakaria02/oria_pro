@@ -50,7 +50,7 @@ class _SectionDetailsPageState extends State<SectionDetailsPage> {
                           : SectionBody(section: state.selectedSection!);
                 },
               ),
-        bottomNavigationBar: displayNext && widget.section == null
+        bottomNavigationBar: displayNext || widget.section == null
             ? OriaRoundedButton(
                 onPress: () => context.maybePop(true),
                 text: AppLocalizations.of(context)!.next,

@@ -23,7 +23,7 @@ class HourCard extends StatelessWidget {
           onTap: () => BlocProvider.of<AppointmentBloc>(context)
               .add(SelectDate(date: date)),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               border: Border.all(
                 color: !date.available

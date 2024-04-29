@@ -14,6 +14,7 @@ class SvgAssets {
   static const String closeAsset = "$_svgAssetsLink/close.svg";
   static const String backAsset = "$_svgAssetsLink/back.svg";
   static const String congratsAsset = "$_svgAssetsLink/congrats.svg";
+  static const String recommendationIcon = "$_svgAssetsLink/recommendation.svg";
   static const String profilCalculationAsset =
       "$_svgAssetsLink/profil_calculation.svg";
   static const String noDataAsset = "$_svgAssetsLink/no_data.svg";

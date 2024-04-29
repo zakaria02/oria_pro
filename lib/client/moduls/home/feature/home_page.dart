@@ -139,7 +139,7 @@ class HomeView extends StatelessWidget {
                               height: 12,
                             ),
                             SizedBox(
-                              height: 125,
+                              height: 142,
                               child: state.selectedSymptom != null
                                   ? const MoreInsight()
                                   : ListView.separated(
