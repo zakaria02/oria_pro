@@ -10,6 +10,7 @@ import 'package:oria_pro/widgets/oria_scaffold.dart';
 
 import '../widgets/oria_bottom_bar.dart';
 import 'cubit/client_navigation_cubit.dart';
+import 'moduls/tracker/feature/tracker_view.dart';
 
 @RoutePage()
 class ClientAppPage extends StatelessWidget {
@@ -29,7 +30,8 @@ class ClientAppPage extends StatelessWidget {
               0 => const HomeView(),
               1 => const ExploreView(),
               2 => const ExpertView(),
-              3 => const AccountView(),
+              3 => const TrackerView(),
+              4 => const AccountView(),
               _ => const SizedBox(),
             }),
             bottomBarPadding: EdgeInsets.zero,

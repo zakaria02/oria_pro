@@ -43,6 +43,7 @@ class SvgAssets {
   static const String calendarIcon = "$_svgAssetsLink/calendar.svg";
   static const String timerIcon = "$_svgAssetsLink/timer.svg";
   static const String warningIcon = "$_svgAssetsLink/warning.svg";
+  static const String insightsIcon = "$_svgAssetsLink/insights.svg";
   static const String timePrimaryIcon = "$_svgAssetsLink/time_primary.svg";
   static const String noAppointmentsAsset =
       "$_svgAssetsLink/no_appointements.svg";

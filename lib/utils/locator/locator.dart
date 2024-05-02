@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../client/moduls/account/business/locator/account_locator.dart';
 import '../../client/moduls/expert/business/locator/expert_locator.dart';
 import '../../client/moduls/home/business/locator/home_locator.dart';
+import '../../client/moduls/tracker/business/locator/tracker_locator.dart';
 import '../../common/onboarding/business/locator/onboarding_lcoator.dart';
 import '../router/router.dart';
 import 'abstract_locator.dart';
@@ -33,5 +34,6 @@ class AppLocator extends AbstractLocator {
     ExpertLocator().setUp(serviceLocator);
     AccountLocator().setUp(serviceLocator);
     HomeLocator().setUp(serviceLocator);
+    SymptomTrackerLocator().setUp(serviceLocator);
   }
 }

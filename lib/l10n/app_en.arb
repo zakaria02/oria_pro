@@ -239,5 +239,19 @@
     "wouldLikeFocusSomething": "Would you like to focus on something else for today?",
     "recommendation": "Recommendation",
     "fullyBooked": "Fully Booked!",
-    "noAppointmentsForDate": "No appointments available on this date, please select another"
+    "noAppointmentsForDate": "No appointments available on this date, please select another",
+    "insights": "Insights",
+    "symptomTracekr": "Symptom tracker",
+    "viewInsights": "View Insights",
+    "awful": "Awful",
+    "bad": "Bad",
+    "okay": "Okay",
+    "good": "Good",
+    "great": "Great",
+    "todaysActivity": "Today's activity:",
+    "addActivity": "Add activity",
+    "logSeverity": "Log severity",
+    "editMySymptoms": "Edit my symptoms",
+    "howWasSymptomToday": "How was your {symptom} today",
+    "close": "Close"
 }

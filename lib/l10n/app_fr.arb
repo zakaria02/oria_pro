@@ -239,5 +239,19 @@
     "wouldLikeFocusSomething": "Souhaitez-vous vous concentrer sur autre chose aujourd'hui ?",
     "recommendation": "Recommendation",
     "noAppointmentsForDate": "No appointments available on this date, please select another.",
-    "noAppointmentsForDate_fr": "Aucun rendez-vous disponible à cette date, veuillez en choisir une autre."
+    "noAppointmentsForDate_fr": "Aucun rendez-vous disponible à cette date, veuillez en choisir une autre.",
+    "insights": "Aperçus",
+    "symptomTracker": "Suivi des symptômes",
+    "viewInsights": "Voir les aperçus",
+    "awful": "Horrible",
+    "bad": "Mauvais",
+    "okay": "Passable",
+    "good": "Bien",
+    "great": "Excellent",
+    "todaysActivity": "Activité du jour :",
+    "addActivity": "Ajouter une activité",
+    "logSeverity": "Enregistrer la sévérité",
+    "editMySymptoms": "Modifier mes symptômes",
+    "howWasSymptomToday": "Comment était votre {symptom} aujourd'hui",
+    "close": "Fermer"
 }

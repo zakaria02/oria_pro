@@ -17,7 +17,7 @@ import 'package:oria_pro/widgets/oria_snack_bar.dart';
 
 import '../../../entity/expert.dart';
 import '../bloc/appointment_bloc.dart';
-import '../widgets/appointment_date_picker.dart';
+import '../../../../../../../common/widgets/bar_date_picker.dart';
 
 @RoutePage()
 class MakeAppointmentPage extends StatefulWidget {
@@ -87,24 +87,22 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
                     );
                   },
                 );
+
                 if (date != null) {
-                  if (date != null) {
-                    _controller.animateToDate(date);
-                    setState(() {
-                      selectedDate = date;
-                    });
-                    // ignore: use_build_context_synchronously
-                    BlocProvider.of<AppointmentBloc>(blocContext).add(
-                      GetDayAvailabilities(
-                          day: date, expertId: widget.expert.id),
-                    );
-                  }
+                  _controller.animateToDate(date);
+                  setState(() {
+                    selectedDate = date;
+                  });
+                  // ignore: use_build_context_synchronously
+                  BlocProvider.of<AppointmentBloc>(blocContext).add(
+                    GetDayAvailabilities(day: date, expertId: widget.expert.id),
+                  );
                 }
               },
             ),
             body: Column(
               children: [
-                AppointmentDatePicker(
+                BarDatePicker(
                   selectedDate: selectedDate,
                   controller: _controller,
                   onDateSelect: (date) {
