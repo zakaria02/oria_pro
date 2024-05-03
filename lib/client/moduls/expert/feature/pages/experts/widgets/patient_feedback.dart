@@ -19,10 +19,11 @@ class PatientFeedback extends StatefulWidget {
 
 class _PatientFeedbackState extends State<PatientFeedback> {
   int maxLines = 3;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8, bottom: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -59,13 +60,16 @@ class _PatientFeedbackState extends State<PatientFeedback> {
                       maxLines = maxLines == 3 ? 100 : 3;
                     });
                   },
-                  child: Text(
-                    maxLines == 3
-                        ? AppLocalizations.of(context)!.readMore
-                        : AppLocalizations.of(context)!.readLess,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: OriaColors.darkOrange,
-                        ),
+                  child: Visibility(
+                    visible: widget.review.review.length > 125,
+                    child: Text(
+                      maxLines == 3
+                          ? AppLocalizations.of(context)!.readMore
+                          : AppLocalizations.of(context)!.readLess,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: OriaColors.darkOrange,
+                          ),
+                    ),
                   ),
                 ),
               ],
