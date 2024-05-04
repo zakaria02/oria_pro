@@ -81,7 +81,11 @@ class _TrackerViewState extends State<TrackerView> {
               child: Column(
                 children: [
                   BarDatePicker(
-                    onDateSelect: (date) {},
+                    onDateSelect: (date) {
+                      setState(() {
+                        selectedDate = date;
+                      });
+                    },
                     selectedDate: selectedDate,
                     controller: _controller,
                   ),
