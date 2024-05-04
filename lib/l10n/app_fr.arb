@@ -253,5 +253,14 @@
     "logSeverity": "Enregistrer la sévérité",
     "editMySymptoms": "Modifier mes symptômes",
     "howWasSymptomToday": "Comment était votre {symptom} aujourd'hui",
-    "close": "Fermer"
+    "close": "Fermer",
+    "logSymptomSeverity": "Enregistrer la gravité des symptômes",
+    "save": "Enregistrer",
+    "assesment": "Évaluation",
+    "whatDidYouDoToday": "Qu'avez-vous fait aujourd'hui parmi cette liste ?",
+    "whatDidYouDoTodayDescription": "Choisissez les activités que vous avez réalisées aujourd'hui ou ajoutez-les ci-dessous si vous ne les trouvez pas dans cette liste.",
+    "editActivities": "Modifier les activités",
+    "mustLogSeverity": "Vous devez enregistrer la gravité des symptômes avant d'ajouter une activité.",
+    "activities": "Activités",
+    "showOrHideActivities": "Affichez ou masquez les activités que vous souhaitez suivre dans vos observations."
 }

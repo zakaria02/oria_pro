@@ -253,5 +253,14 @@
     "logSeverity": "Log severity",
     "editMySymptoms": "Edit my symptoms",
     "howWasSymptomToday": "How was your {symptom} today",
-    "close": "Close"
+    "close": "Close",
+    "logSymptomSeverity": "Log symptom severity",
+    "save": "Save",
+    "assesment": "Assessment",
+    "whatDidYouDoToday": "What did you do today from this list?",
+    "whatDidYouDoTodayDescription": "Choose the things you did today or add them below if you didn't find them in this list.",
+    "editActivities": "Edit activities",
+    "mustLogSeverity": "You must record the severity of symptoms before adding an activity.",
+    "activities": "Activities",
+    "showOrHideActivities": "(Show or hide the Activities you want to track in your observations)"
 }

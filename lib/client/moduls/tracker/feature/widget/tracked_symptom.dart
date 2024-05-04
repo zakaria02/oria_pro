@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:oria_pro/client/moduls/tracker/feature/bloc/tracker_bloc.dart';
+import 'package:oria_pro/client/moduls/tracker/feature/widget/activity_card.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/widget/logger_card.dart';
+import 'package:oria_pro/client/moduls/tracker/feature/widget/severity_card.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:oria_pro/widgets/oria_snack_bar.dart';
 
 import '../enitity/tracked_symptom.dart';
 
 class TrackedSymptomCard extends StatelessWidget {
-  const TrackedSymptomCard({super.key, required this.symptom});
+  const TrackedSymptomCard({
+    super.key,
+    required this.symptom,
+    required this.logSymptom,
+    required this.logActivity,
+  });
   final TrackedSymptom symptom;
+  final Function(TrackedSymptom symptom) logSymptom;
+  final Function(String logEventId) logActivity;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +36,6 @@ class TrackedSymptomCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     symptom.name,
@@ -33,6 +44,11 @@ class TrackedSymptomCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                   ),
+                  if (symptom.isPrimary) ...[
+                    const SizedBox(width: 8),
+                    SvgPicture.asset(SvgAssets.primaryStarIcon),
+                  ],
+                  const Spacer(),
                   Container(
                     padding: const EdgeInsets.symmetric(
                       vertical: 6,
@@ -74,10 +90,61 @@ class TrackedSymptomCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LoggerCard(
-                    title: AppLocalizations.of(context)!.logSeverity,
-                    onPress: () {},
+                  symptom.logEventValue == null
+                      ? LoggerCard(
+                          title: AppLocalizations.of(context)!.logSeverity,
+                          onPress: () => logSymptom(symptom),
+                        )
+                      : SeverityCard(
+                          severity: symptom.logEventValue!,
+                          onPress: () => logSymptom(symptom),
+                        ),
+                  const SizedBox(height: 12),
+                  Text(
+                    AppLocalizations.of(context)!.todaysActivity,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge
+                        ?.copyWith(color: const Color(0xFF3C3C3C)),
+                  ),
+                  const SizedBox(height: 16),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 12,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      ...symptom.loggedActivities
+                          .map(
+                            (activity) => ActivityCard(
+                              activity: activity,
+                              onCrossPressed: () =>
+                                  BlocProvider.of<TrackerBloc>(context).add(
+                                RemoveSymptomActivity(
+                                  activityId: activity.id,
+                                  logEventId: symptom.logEventId!,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      LoggerCard(
+                        title: AppLocalizations.of(context)!.addActivity,
+                        onPress: () {
+                          if (symptom.logEventId != null) {
+                            logActivity(symptom.logEventId!);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              OriaErrorSnackBar(
+                                content: AppLocalizations.of(context)!
+                                    .mustLogSeverity,
+                              ),
+                            );
+                          }
+                        },
+                      )
+                    ],
                   )
                 ],
               ),

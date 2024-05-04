@@ -13,29 +13,32 @@ class LoggerCard extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return DottedBorder(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-      radius: const Radius.circular(34),
-      strokeWidth: 1,
-      dashPattern: const [1, 5],
-      color: color,
-      borderType: BorderType.RRect,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.add,
-            size: 11,
-            color: color,
-          ),
-          const SizedBox(width: 12),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: color,
-                ),
-          ),
-        ],
+    return GestureDetector(
+      onTap: onPress,
+      child: DottedBorder(
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+        radius: const Radius.circular(34),
+        strokeWidth: 1,
+        dashPattern: const [1, 5],
+        color: color,
+        borderType: BorderType.RRect,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.add,
+              size: 11,
+              color: color,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: color,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }

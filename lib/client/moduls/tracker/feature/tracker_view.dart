@@ -1,6 +1,8 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oria_pro/client/moduls/tracker/feature/page/log_activity_page.dart';
+import 'package:oria_pro/client/moduls/tracker/feature/page/log_severity_page.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/widget/tracked_symptom.dart';
 import 'package:oria_pro/common/widgets/bar_date_picker.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
@@ -31,8 +33,9 @@ class _TrackerViewState extends State<TrackerView> {
     return BlocProvider(
       create: (context) => TrackerBloc()..add(FetchSymptomsData()),
       child: BlocBuilder<TrackerBloc, TrackerState>(
-        builder: (context, state) {
+        builder: (blocContext, state) {
           return OriaScaffold(
+            bottomBarPadding: EdgeInsets.zero,
             appBarData: AppBarData(
               title: AppLocalizations.of(context)!.symptomTracekr,
               lastButtonUrl: SvgAssets.calendarIcon,
@@ -74,25 +77,68 @@ class _TrackerViewState extends State<TrackerView> {
               },
             ),
             padding: EdgeInsets.zero,
-            body: state is TrackedDataLoading
-                ? const OriaLoadingProgress()
-                : Column(
-                    children: [
-                      BarDatePicker(
-                        onDateSelect: (date) {},
-                        selectedDate: selectedDate,
-                        controller: _controller,
-                      ),
-                      const SizedBox(height: 38),
-                      ListView(
-                        shrinkWrap: true,
-                        children: state.symptoms
-                            .map((symptom) =>
-                                TrackedSymptomCard(symptom: symptom))
-                            .toList(),
-                      )
-                    ],
+            body: Expanded(
+              child: Column(
+                children: [
+                  BarDatePicker(
+                    onDateSelect: (date) {},
+                    selectedDate: selectedDate,
+                    controller: _controller,
                   ),
+                  const SizedBox(height: 24),
+                  state is TrackedDataLoading
+                      ? const Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: OriaLoadingProgress(),
+                        )
+                      : const SizedBox(),
+                  Expanded(
+                    child: ListView(
+                      children: state.symptoms
+                          .map(
+                            (symptom) => TrackedSymptomCard(
+                                symptom: symptom,
+                                logSymptom: (symptom) => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return BlocProvider.value(
+                                            value: BlocProvider.of<TrackerBloc>(
+                                              blocContext,
+                                            ),
+                                            child: LogSeverityPage(
+                                              symptom: symptom,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                logActivity: (logEventId) {
+                                  BlocProvider.of<TrackerBloc>(blocContext)
+                                      .add(FetchActivities());
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return BlocProvider.value(
+                                          value: BlocProvider.of<TrackerBloc>(
+                                            blocContext,
+                                          ),
+                                          child: LogActivityPage(
+                                            logEventId: logEventId,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                }),
+                          )
+                          .toList(),
+                    ),
+                  )
+                ],
+              ),
+            ),
           );
         },
       ),

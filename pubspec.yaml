@@ -69,6 +69,7 @@ dependencies:
   html: ^0.15.4
   open_filex: ^4.4.0
   dotted_border: ^2.1.0
+  custom_check_box: ^0.0.4
   
 
 dev_dependencies:

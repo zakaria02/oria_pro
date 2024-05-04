@@ -7,11 +7,13 @@ class SeverityCard extends StatelessWidget {
     required this.severity,
     required this.onPress,
     required this.selected,
+    this.color = Colors.white,
   });
 
   final int severity;
   final Function(int) onPress;
   final bool selected;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class SeverityCard extends StatelessWidget {
       onTap: () => onPress(severity),
       child: Container(
         decoration: BoxDecoration(
-          color: selected ? OriaColors.green : Colors.white,
+          color: selected ? OriaColors.green : color,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Center(

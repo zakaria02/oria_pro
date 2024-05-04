@@ -1,5 +1,6 @@
 class OriaLinks {
   static const userHiveBox = "userModelBox";
+  static const activityHiveBox = "activityModelBox";
 
   static const String _stagingAssetsBaseUrl = "https://assets.oria.pro/images";
   static const String stagingOnBoardingAssetsBaseUrl =
@@ -18,4 +19,6 @@ class OriaLinks {
       "$_stagingAssetsBaseUrl/specialities";
   static const String stagingExpertsAssetsBaseUrl =
       "$_stagingAssetsBaseUrl/experts";
+  static const String stagingActivitiesAssetsBaseUrl =
+      "$_stagingAssetsBaseUrl/activities";
 }
