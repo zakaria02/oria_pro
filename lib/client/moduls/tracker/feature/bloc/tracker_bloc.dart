@@ -25,11 +25,22 @@ class TrackerBloc extends Bloc<TrackerEvent, TrackerState> {
             symptoms: state.symptoms,
             activities: state.activities,
             savedActivities: state.savedActivities));
-        final symptoms = await repository.fetchTrackedSymptoms();
+        final symptomsModel = await repository.fetchTrackedSymptoms();
+        final symptoms =
+            symptomsModel.map((s) => s.toTrackedSymptom()).toList();
+        symptoms.sort((a, b) {
+          if (a.isPrimary && !b.isPrimary) {
+            return -1;
+          } else if (!a.isPrimary && b.isPrimary) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         emit(TrackedDataSuccess(
           activities: state.activities,
           savedActivities: state.savedActivities,
-          symptoms: symptoms.map((s) => s.toTrackedSymptom()).toList(),
+          symptoms: symptoms,
         ));
       } catch (e) {
         emit(

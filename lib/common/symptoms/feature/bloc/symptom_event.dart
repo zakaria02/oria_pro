@@ -9,10 +9,24 @@ sealed class SymptomEvent extends Equatable {
 
 final class FetchAllSymptoms extends SymptomEvent {}
 
+final class FetchUserSymptoms extends SymptomEvent {}
+
 final class SelectPrimarySymptom extends SymptomEvent {
   final SymptomInfo symptom;
 
   const SelectPrimarySymptom({required this.symptom});
+}
+
+final class ChangePrimarySymptom extends SymptomEvent {
+  final SymptomInfo symptom;
+
+  const ChangePrimarySymptom({required this.symptom});
+}
+
+final class AddSecondarySymptoms extends SymptomEvent {
+  final List<SymptomInfo> symptoms;
+
+  const AddSecondarySymptoms({required this.symptoms});
 }
 
 final class UpdateSecondarySymptoms extends SymptomEvent {

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:oria_pro/common/symptoms/feature/entity/symptom_info.dart';
 
 import '../../../../utils/constants/oria_links.dart';
 import '../../feature/entity/symptom.dart';
@@ -35,5 +36,10 @@ extension UserSymptomMappers on UserSymptomModel {
         _ => SymptomType.secondary,
       },
     );
+  }
+
+  SymptomInfo toSymptomInfo() {
+    return SymptomInfo(
+        symptomId: symptom.id, icon: symptom.icon, name: symptom.name);
   }
 }

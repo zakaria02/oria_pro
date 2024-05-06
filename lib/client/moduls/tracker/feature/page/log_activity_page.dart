@@ -20,8 +20,10 @@ class LogActivityPage extends StatefulWidget {
   const LogActivityPage({
     super.key,
     required this.logEventId,
+    required this.activities,
   });
   final String logEventId;
+  final List<Activity> activities;
 
   @override
   State<LogActivityPage> createState() => _LogActivityPageState();

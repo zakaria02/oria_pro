@@ -262,5 +262,10 @@
     "editActivities": "Modifier les activités",
     "mustLogSeverity": "Vous devez enregistrer la gravité des symptômes avant d'ajouter une activité.",
     "activities": "Activités",
-    "showOrHideActivities": "Affichez ou masquez les activités que vous souhaitez suivre dans vos observations."
+    "showOrHideActivities": "Affichez ou masquez les activités que vous souhaitez suivre dans vos observations.",
+    "myPrimarySymptom": "Mon symptôme principal",
+    "addMoreSymptoms": "Ajouter d'autres symptômes",
+    "otherSymptoms": "Autres symptômes",
+    "change": "Changer",
+    "primarySymptom": "Symptôme principal :"
 }

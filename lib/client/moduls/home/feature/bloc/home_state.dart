@@ -27,8 +27,8 @@ final class HomeInitial extends HomeState {
         );
 }
 
-final class GetHomeDataLoading extends HomeState {
-  const GetHomeDataLoading({
+final class FetchUserInfoLoading extends HomeState {
+  const FetchUserInfoLoading({
     required super.currentUser,
     required super.userSymptoms,
     required super.selectedSymptom,
@@ -36,8 +36,44 @@ final class GetHomeDataLoading extends HomeState {
   });
 }
 
-final class GetHomeDataSuccess extends HomeState {
-  const GetHomeDataSuccess({
+final class FetchUserInfoSuccess extends HomeState {
+  const FetchUserInfoSuccess({
+    required super.currentUser,
+    required super.userSymptoms,
+    required super.selectedSymptom,
+    required super.actions,
+  });
+}
+
+final class FetchTodaysActionsLoading extends HomeState {
+  const FetchTodaysActionsLoading({
+    required super.currentUser,
+    required super.userSymptoms,
+    required super.selectedSymptom,
+    required super.actions,
+  });
+}
+
+final class FetchTodaysActionsSuccess extends HomeState {
+  const FetchTodaysActionsSuccess({
+    required super.currentUser,
+    required super.userSymptoms,
+    required super.selectedSymptom,
+    required super.actions,
+  });
+}
+
+final class FetchUserCurrentSymptomsLoading extends HomeState {
+  const FetchUserCurrentSymptomsLoading({
+    required super.currentUser,
+    required super.userSymptoms,
+    required super.selectedSymptom,
+    required super.actions,
+  });
+}
+
+final class FetchUserCurrentSymptomsSuccess extends HomeState {
+  const FetchUserCurrentSymptomsSuccess({
     required super.currentUser,
     required super.userSymptoms,
     required super.selectedSymptom,

@@ -10,6 +10,7 @@ import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:oria_pro/widgets/oria_snack_bar.dart';
 
+import '../enitity/activity.dart';
 import '../enitity/tracked_symptom.dart';
 
 class TrackedSymptomCard extends StatelessWidget {
@@ -21,7 +22,7 @@ class TrackedSymptomCard extends StatelessWidget {
   });
   final TrackedSymptom symptom;
   final Function(TrackedSymptom symptom) logSymptom;
-  final Function(String logEventId) logActivity;
+  final Function(String logEventId, List<Activity>) logActivity;
 
   @override
   Widget build(BuildContext context) {
@@ -129,21 +130,23 @@ class TrackedSymptomCard extends StatelessWidget {
                             ),
                           )
                           .toList(),
-                      LoggerCard(
-                        title: AppLocalizations.of(context)!.addActivity,
-                        onPress: () {
-                          if (symptom.logEventId != null) {
-                            logActivity(symptom.logEventId!);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              OriaErrorSnackBar(
-                                content: AppLocalizations.of(context)!
-                                    .mustLogSeverity,
-                              ),
-                            );
-                          }
-                        },
-                      )
+                      if (symptom.loggedActivities.length < 3)
+                        LoggerCard(
+                          title: AppLocalizations.of(context)!.addActivity,
+                          onPress: () {
+                            if (symptom.logEventId != null) {
+                              logActivity(symptom.logEventId!,
+                                  symptom.loggedActivities);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                OriaErrorSnackBar(
+                                  content: AppLocalizations.of(context)!
+                                      .mustLogSeverity,
+                                ),
+                              );
+                            }
+                          },
+                        )
                     ],
                   )
                 ],

@@ -262,5 +262,10 @@
     "editActivities": "Edit activities",
     "mustLogSeverity": "You must record the severity of symptoms before adding an activity.",
     "activities": "Activities",
-    "showOrHideActivities": "(Show or hide the Activities you want to track in your observations)"
+    "showOrHideActivities": "(Show or hide the Activities you want to track in your observations)",
+    "myPrimarySymptom": "My primary symptom",
+    "addMoreSymptoms": "Add More Symptoms",
+    "otherSymptoms": "Other symptoms",
+    "change": "Change",
+    "primarySymptom": "Primary Symptom:"
 }

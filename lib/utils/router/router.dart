@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
+import 'package:oria_pro/common/symptoms/feature/pages/edit_my_symptoms_page.dart';
 
 import '../../client/client_app_page.dart';
 import '../../client/moduls/account/feature/pages/medical_info_page.dart';
@@ -37,6 +38,8 @@ import '../../common/onboarding/feature/pages/profil_calculation_page.dart';
 import '../../common/symptoms/feature/pages/primary_symptom_page.dart';
 import '../../common/symptoms/feature/pages/secondary_symptoms_page.dart';
 import '../../common/symptoms/feature/pages/symptom_data_page.dart';
+import '../../common/symptoms/feature/pages/update_primary_symptom_page.dart';
+import '../../common/symptoms/feature/pages/update_secondary_symptoms_page.dart';
 
 part 'router.gr.dart';
 
@@ -75,6 +78,10 @@ class AppRouter extends _$AppRouter {
     // Account routes
     AutoRoute(page: UpdateMyInfoRoute.page),
     AutoRoute(page: MedicalInfoRoute.page),
+    // Common routes
+    AutoRoute(page: EditMySymptomsRoute.page),
+    AutoRoute(page: UpdatePrimarySymptomRoute.page),
+    AutoRoute(page: UpdateSecondarySymptomsRoute.page)
   ];
 
   final List<AutoRoute> _symptomRoutes = [];

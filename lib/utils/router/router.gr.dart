@@ -64,6 +64,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CreateAccountPage(),
       );
     },
+    EditMySymptomsRoute.name: (routeData) {
+      final args = routeData.argsAs<EditMySymptomsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EditMySymptomsPage(
+          key: args.key,
+          refresh: args.refresh,
+        ),
+      );
+    },
     ExpertDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<ExpertDetailsRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -247,6 +257,29 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const UpdateMyInfoPage(),
       );
     },
+    UpdatePrimarySymptomRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdatePrimarySymptomRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: UpdatePrimarySymptomPage(
+          key: args.key,
+          currentSymptom: args.currentSymptom,
+          refresh: args.refresh,
+        ),
+      );
+    },
+    UpdateSecondarySymptomsRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateSecondarySymptomsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: UpdateSecondarySymptomsPage(
+          key: args.key,
+          currentSymptoms: args.currentSymptoms,
+          primarySymptom: args.primarySymptom,
+          refresh: args.refresh,
+        ),
+      );
+    },
     VerifyEmailRoute.name: (routeData) {
       final args = routeData.argsAs<VerifyEmailRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -420,6 +453,44 @@ class CreateAccountRoute extends PageRouteInfo<void> {
   static const String name = 'CreateAccountRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EditMySymptomsPage]
+class EditMySymptomsRoute extends PageRouteInfo<EditMySymptomsRouteArgs> {
+  EditMySymptomsRoute({
+    Key? key,
+    required void Function() refresh,
+    List<PageRouteInfo>? children,
+  }) : super(
+          EditMySymptomsRoute.name,
+          args: EditMySymptomsRouteArgs(
+            key: key,
+            refresh: refresh,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'EditMySymptomsRoute';
+
+  static const PageInfo<EditMySymptomsRouteArgs> page =
+      PageInfo<EditMySymptomsRouteArgs>(name);
+}
+
+class EditMySymptomsRouteArgs {
+  const EditMySymptomsRouteArgs({
+    this.key,
+    required this.refresh,
+  });
+
+  final Key? key;
+
+  final void Function() refresh;
+
+  @override
+  String toString() {
+    return 'EditMySymptomsRouteArgs{key: $key, refresh: $refresh}';
+  }
 }
 
 /// generated route for
@@ -1068,6 +1139,99 @@ class UpdateMyInfoRoute extends PageRouteInfo<void> {
   static const String name = 'UpdateMyInfoRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdatePrimarySymptomPage]
+class UpdatePrimarySymptomRoute
+    extends PageRouteInfo<UpdatePrimarySymptomRouteArgs> {
+  UpdatePrimarySymptomRoute({
+    Key? key,
+    required Symptom currentSymptom,
+    required void Function() refresh,
+    List<PageRouteInfo>? children,
+  }) : super(
+          UpdatePrimarySymptomRoute.name,
+          args: UpdatePrimarySymptomRouteArgs(
+            key: key,
+            currentSymptom: currentSymptom,
+            refresh: refresh,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdatePrimarySymptomRoute';
+
+  static const PageInfo<UpdatePrimarySymptomRouteArgs> page =
+      PageInfo<UpdatePrimarySymptomRouteArgs>(name);
+}
+
+class UpdatePrimarySymptomRouteArgs {
+  const UpdatePrimarySymptomRouteArgs({
+    this.key,
+    required this.currentSymptom,
+    required this.refresh,
+  });
+
+  final Key? key;
+
+  final Symptom currentSymptom;
+
+  final void Function() refresh;
+
+  @override
+  String toString() {
+    return 'UpdatePrimarySymptomRouteArgs{key: $key, currentSymptom: $currentSymptom, refresh: $refresh}';
+  }
+}
+
+/// generated route for
+/// [UpdateSecondarySymptomsPage]
+class UpdateSecondarySymptomsRoute
+    extends PageRouteInfo<UpdateSecondarySymptomsRouteArgs> {
+  UpdateSecondarySymptomsRoute({
+    Key? key,
+    required List<Symptom> currentSymptoms,
+    required Symptom? primarySymptom,
+    required void Function() refresh,
+    List<PageRouteInfo>? children,
+  }) : super(
+          UpdateSecondarySymptomsRoute.name,
+          args: UpdateSecondarySymptomsRouteArgs(
+            key: key,
+            currentSymptoms: currentSymptoms,
+            primarySymptom: primarySymptom,
+            refresh: refresh,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateSecondarySymptomsRoute';
+
+  static const PageInfo<UpdateSecondarySymptomsRouteArgs> page =
+      PageInfo<UpdateSecondarySymptomsRouteArgs>(name);
+}
+
+class UpdateSecondarySymptomsRouteArgs {
+  const UpdateSecondarySymptomsRouteArgs({
+    this.key,
+    required this.currentSymptoms,
+    required this.primarySymptom,
+    required this.refresh,
+  });
+
+  final Key? key;
+
+  final List<Symptom> currentSymptoms;
+
+  final Symptom? primarySymptom;
+
+  final void Function() refresh;
+
+  @override
+  String toString() {
+    return 'UpdateSecondarySymptomsRouteArgs{key: $key, currentSymptoms: $currentSymptoms, primarySymptom: $primarySymptom, refresh: $refresh}';
+  }
 }
 
 /// generated route for

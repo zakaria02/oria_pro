@@ -4,6 +4,8 @@ import 'package:oria_pro/client/moduls/explore/business/model/explore_symptom_ar
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/learning_content.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/program.dart';
+import 'package:oria_pro/common/symptoms/business/model/user_symptom_model.dart';
+import 'package:oria_pro/common/symptoms/business/model/user_symptom_request_model.dart';
 
 import '../../business/locator/symptom_locator.dart';
 import '../../business/model/symptom_info_model.dart';
@@ -25,6 +27,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
         ),
       );
       try {
@@ -36,6 +39,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             secondarySymptoms: state.secondarySymptoms,
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
           ),
         );
       } catch (e) {
@@ -46,6 +50,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
         ));
       }
     });
@@ -57,6 +62,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
         secondarySymptoms: state.secondarySymptoms,
         symptomPrograms: state.symptomPrograms,
         symptomArticles: state.symptomArticles,
+        userSymptoms: state.userSymptoms,
       ));
     });
 
@@ -68,6 +74,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
         ),
       );
       List<SymptomInfo> secSymptoms = List.from(state.secondarySymptoms);
@@ -83,6 +90,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           secondarySymptoms: [...secSymptoms],
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
         ),
       );
     });
@@ -96,6 +104,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             secondarySymptoms: state.secondarySymptoms,
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
           ),
         );
         SymptomRepository repository = SymptomLocator().get();
@@ -112,6 +121,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomArticles: symptomContent.results.symptomArticles
                 .map((ar) => ar.toArticleUio())
                 .toList(),
+            userSymptoms: state.userSymptoms,
           ),
         );
       } catch (e) {
@@ -122,6 +132,127 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           secondarySymptoms: state.secondarySymptoms,
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
+        ));
+      }
+    });
+
+    on<FetchUserSymptoms>((event, emit) async {
+      try {
+        emit(
+          UserSymptomsLoading(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+        SymptomRepository repository = SymptomLocator().get();
+        final symptoms = await repository.fetchUserSymptoms();
+        emit(
+          SymptomDataSuccess(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: symptoms.map((sym) => sym.toSymptom()).toList(),
+          ),
+        );
+      } catch (e) {
+        emit(SymptomError(
+          errorMessage: e.toString(),
+          symptoms: state.symptoms,
+          selectedSymptom: state.selectedSymptom,
+          secondarySymptoms: state.secondarySymptoms,
+          symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
+        ));
+      }
+    });
+
+    on<ChangePrimarySymptom>((event, emit) async {
+      try {
+        emit(
+          UpdateSymptomsLoading(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+        SymptomRepository repository = SymptomLocator().get();
+        await repository.addUserSymptom(UserSymptomRequestModel(
+          symptomId: event.symptom.symptomId,
+          type: "primary",
+        ));
+        emit(
+          UpdateSymptomsSuccess(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+      } catch (e) {
+        emit(SymptomError(
+          errorMessage: e.toString(),
+          symptoms: state.symptoms,
+          selectedSymptom: state.selectedSymptom,
+          secondarySymptoms: state.secondarySymptoms,
+          symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
+        ));
+      }
+    });
+
+    on<AddSecondarySymptoms>((event, emit) async {
+      try {
+        emit(
+          UpdateSymptomsLoading(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+        SymptomRepository repository = SymptomLocator().get();
+        for (final symp in event.symptoms) {
+          await repository.addUserSymptom(UserSymptomRequestModel(
+            symptomId: symp.symptomId,
+            type: "secondary",
+          ));
+        }
+
+        emit(
+          UpdateSymptomsSuccess(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+      } catch (e) {
+        emit(SymptomError(
+          errorMessage: e.toString(),
+          symptoms: state.symptoms,
+          selectedSymptom: state.selectedSymptom,
+          secondarySymptoms: state.secondarySymptoms,
+          symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
         ));
       }
     });

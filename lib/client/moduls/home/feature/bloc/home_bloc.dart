@@ -19,24 +19,47 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
-    on<GetHomeData>((event, emit) async {
+    on<FetchUserInfo>((event, emit) async {
       try {
         AuthLocalDataSource authLocalDataSource =
             EmailPasswordAuthLocator().get();
-        GetUserSymptomsUsecase getUserSymptomsUsecase = SymptomLocator().get();
-        GetDailyActionsUseCase getDailyActionsUseCase = HomeLocator().get();
-        emit(GetHomeDataLoading(
+        emit(FetchUserInfoLoading(
           currentUser: state.currentUser,
           userSymptoms: state.userSymptoms,
           selectedSymptom: state.selectedSymptom,
           actions: state.actions,
         ));
         final user = await authLocalDataSource.getUser();
-        final symptoms = await getUserSymptomsUsecase.execute();
-        final actions = await getDailyActionsUseCase.execute();
-        emit(GetHomeDataSuccess(
+        emit(FetchUserInfoSuccess(
           currentUser: user!.toUser(),
-          userSymptoms: symptoms,
+          userSymptoms: state.userSymptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+      } catch (e) {
+        emit(HomeError(
+          errorMessage: e.toString(),
+          currentUser: state.currentUser,
+          userSymptoms: state.userSymptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+      }
+    });
+
+    on<FetchTodaysActions>((event, emit) async {
+      try {
+        GetDailyActionsUseCase getDailyActionsUseCase = HomeLocator().get();
+        emit(FetchTodaysActionsLoading(
+          currentUser: state.currentUser,
+          userSymptoms: state.userSymptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+        final actions = await getDailyActionsUseCase.execute();
+        emit(FetchTodaysActionsSuccess(
+          currentUser: state.currentUser,
+          userSymptoms: state.userSymptoms,
           selectedSymptom: state.selectedSymptom,
           actions: actions,
         ));
@@ -50,6 +73,35 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         ));
       }
     });
+
+    on<FetchUserCurrentSymptoms>((event, emit) async {
+      try {
+        GetUserSymptomsUsecase getUserSymptomsUsecase = SymptomLocator().get();
+        emit(FetchUserCurrentSymptomsLoading(
+          currentUser: state.currentUser,
+          userSymptoms: state.userSymptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+        final symptoms = await getUserSymptomsUsecase.execute();
+
+        emit(FetchUserCurrentSymptomsSuccess(
+          currentUser: state.currentUser,
+          userSymptoms: symptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+      } catch (e) {
+        emit(HomeError(
+          errorMessage: e.toString(),
+          currentUser: state.currentUser,
+          userSymptoms: state.userSymptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+      }
+    });
+
     on<SelectSymptom>((event, emit) {
       emit(
         SelectedSymptom(
@@ -69,7 +121,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             readArticle: event.readArticle,
             loggedSymptomSeverity: event.loggedSymptomSeverity),
       );
-      add(GetHomeData());
+      add(FetchTodaysActions());
     });
   }
 }

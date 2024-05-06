@@ -48,11 +48,10 @@ class OnBoardingStepsPage extends StatelessWidget {
                 ),
                 PrimarySymptomsProgramsPage(
                     onboardingStepsCubit: onboardingStepsCubit),
-              ],
-              if (steps.secondarySymptoms.isEmpty)
                 SecondarySymptomsPage(
                   onboardingStepsCubit: onboardingStepsCubit,
                 ),
+              ],
               if (steps.stepsCount != 0)
                 ProfilCalculationPage(
                   progress: onboardingStepsCubit.state.progress,

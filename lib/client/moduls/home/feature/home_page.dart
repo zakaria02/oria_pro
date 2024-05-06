@@ -1,9 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:oria_pro/client/moduls/home/feature/widget/home_symptom_card.dart';
 import 'package:oria_pro/client/moduls/home/feature/widget/more_insight.dart';
 import 'package:oria_pro/common/symptoms/feature/entity/symptom.dart';
+import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/constants/png_assets.dart';
+import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_icon_button.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_rounded_image.dart';
@@ -33,7 +37,10 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc()..add(GetHomeData()),
+      create: (context) => HomeBloc()
+        ..add(FetchUserInfo())
+        ..add(FetchUserCurrentSymptoms())
+        ..add(FetchTodaysActions()),
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeError) {
@@ -48,7 +55,9 @@ class HomeView extends StatelessWidget {
             padding: EdgeInsets.zero,
             body: Builder(
               builder: (context) {
-                if (state is GetHomeDataLoading) {
+                if (state is FetchUserInfoLoading ||
+                    state is FetchTodaysActionsLoading ||
+                    state is FetchUserCurrentSymptomsLoading) {
                   return const OriaLoadingProgress();
                 }
                 return Expanded(
@@ -79,6 +88,76 @@ class HomeView extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
+                      if (state.userSymptoms.isNotEmpty) ...[
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(70),
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                SvgAssets.editPrimaryIcon,
+                              ),
+                              const SizedBox(width: 12),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .primarySymptom,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    state.userSymptoms
+                                        .firstWhere((symp) =>
+                                            symp.type == SymptomType.primary)
+                                        .name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () => context.pushRoute(
+                                  EditMySymptomsRoute(
+                                    refresh: () =>
+                                        BlocProvider.of<HomeBloc>(context).add(
+                                      FetchUserCurrentSymptoms(),
+                                    ),
+                                  ),
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: OriaColors.primaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.change,
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ],
                       Expanded(
                         child: ListView(
                           shrinkWrap: true,
@@ -104,40 +183,42 @@ class HomeView extends StatelessWidget {
                                   ));
                                 },
                               ),
-                            Row(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.keepLearning,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                        fontFamily: "Marcellus",
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                ),
-                                const Spacer(),
-                                if (state.selectedSymptom != null)
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 4),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(200)),
-                                    child: Text(
-                                      state.selectedSymptom!.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(fontSize: 10),
-                                    ),
+                            if (state.userSymptoms.isNotEmpty) ...[
+                              Row(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.keepLearning,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                          fontFamily: "Marcellus",
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                   ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
+                                  const Spacer(),
+                                  if (state.selectedSymptom != null)
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 4),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(200)),
+                                      child: Text(
+                                        state.selectedSymptom!.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(fontSize: 10),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 12,
+                              ),
+                            ],
                             SizedBox(
                               height: 142,
                               child: state.selectedSymptom != null

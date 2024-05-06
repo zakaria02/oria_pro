@@ -1,3 +1,5 @@
+import 'package:oria_pro/common/symptoms/feature/entity/symptom_info.dart';
+
 class Symptom {
   final String userSymptomId;
   final String symptomId;
@@ -15,3 +17,13 @@ class Symptom {
 }
 
 enum SymptomType { primary, secondary }
+
+extension SymptomMappers on Symptom {
+  SymptomInfo toSymptom() {
+    return SymptomInfo(
+      symptomId: symptomId,
+      icon: icon,
+      name: name,
+    );
+  }
+}

@@ -99,6 +99,14 @@ class AccountView extends StatelessWidget {
               const SizedBox(height: 8),
               AccountParam(
                 onlyTopRaduis: true,
+                image: SvgAssets.crossHairIcon,
+                title: AppLocalizations.of(context)!.editMySymptoms,
+                onPress: () =>
+                    context.pushRoute(EditMySymptomsRoute(refresh: () {})),
+              ),
+              const SizedBox(height: 1),
+              AccountParam(
+                noRaduis: true,
                 image: SvgAssets.policyIcon,
                 title: AppLocalizations.of(context)!.privacyPolicy,
                 onPress: () async {

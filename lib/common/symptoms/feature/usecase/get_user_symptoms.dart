@@ -8,6 +8,18 @@ class GetUserSymptomsUsecase {
   final SymptomRepository _repository = SymptomLocator().get();
   Future<List<Symptom>> execute() async {
     final symptoms = await _repository.fetchUserSymptoms();
-    return symptoms.map((symptom) => symptom.toSymptom()).toList();
+    final currentSymptoms =
+        symptoms.map((symptom) => symptom.toSymptom()).toList();
+    currentSymptoms.sort((a, b) {
+      if (a.type == SymptomType.primary && b.type == SymptomType.secondary) {
+        return -1;
+      } else if (a.type == SymptomType.secondary &&
+          b.type == SymptomType.primary) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return currentSymptoms;
   }
 }
