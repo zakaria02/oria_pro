@@ -13,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../widgets/oria_card.dart';
 import '../bloc/symptom_bloc.dart';
+import '../widgets/symptom_card.dart';
 import 'update_secondary_symptoms_page.dart';
 
 @RoutePage()
@@ -126,35 +127,28 @@ class EditMySymptomsPage extends StatelessWidget {
                                   ),
                         ),
                         const SizedBox(height: 16),
-                        ...secondarySymptoms
-                            .map((symp) => OriaCard(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 20,
-                                  ),
-                                  borderColor: OriaColors.iconButtonBackgound,
-                                  child: Row(
-                                    children: [
-                                      Image.network(
-                                        symp.icon,
-                                        color: Colors.black,
-                                        height: 36,
-                                      ),
-                                      const SizedBox(width: 18),
-                                      Text(
-                                        symp.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium
-                                            ?.copyWith(
-                                              color: const Color(0xFF454545),
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ))
-                            .toList(),
+                        SizedBox(
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                            ),
+                            itemBuilder: (context, index) => SymptomCard(
+                              symptom: secondarySymptoms[index].toSymptom(),
+                              selected: false,
+                              onPress: () =>
+                                  BlocProvider.of<SymptomBloc>(context).add(
+                                      SelectPrimarySymptom(
+                                          symptom: secondarySymptoms[index]
+                                              .toSymptom())),
+                            ),
+                            itemCount: secondarySymptoms.length,
+                          ),
+                        ),
                         const SizedBox(height: 36),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),

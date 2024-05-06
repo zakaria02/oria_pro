@@ -5,6 +5,7 @@ import 'package:oria_pro/client/moduls/tracker/feature/bloc/tracker_bloc.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/widget/activity_card.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/widget/logger_card.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/widget/severity_card.dart';
+import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -56,7 +57,7 @@ class TrackedSymptomCard extends StatelessWidget {
                       horizontal: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF61E89B),
+                      color: OriaColors.green,
                       borderRadius: BorderRadius.circular(28),
                     ),
                     child: Row(

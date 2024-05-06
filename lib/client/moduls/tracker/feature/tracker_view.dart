@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/page/log_activity_page.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/page/log_severity_page.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/widget/tracked_symptom.dart';
 import 'package:oria_pro/common/widgets/bar_date_picker.dart';
+import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
@@ -154,7 +156,7 @@ class _TrackerViewState extends State<TrackerView> {
                     ],
                   ),
                   if (state is! TrackedDataLoading)
-                    Align(
+                    /*Align(
                       alignment: Alignment.bottomCenter,
                       child: OriaRoundedButton(
                         onPress: () => context.pushRoute(
@@ -165,7 +167,35 @@ class _TrackerViewState extends State<TrackerView> {
                         ),
                         text: AppLocalizations.of(context)!.editMySymptoms,
                       ),
-                    ),
+                    ),*/
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: OriaColors.green,
+                          shape: BoxShape.circle,
+                        ),
+                        height: 56,
+                        width: 56,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.pushRoute(
+                              EditMySymptomsRoute(
+                                  refresh: () =>
+                                      BlocProvider.of<TrackerBloc>(blocContext)
+                                          .add(FetchSymptomsData())),
+                            );
+                          },
+                          child: Center(
+                            child: SvgPicture.asset(
+                              SvgAssets.styloIcon,
+                              height: 23,
+                              width: 23,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                 ],
               ),
             ),
