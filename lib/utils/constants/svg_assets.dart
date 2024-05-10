@@ -48,6 +48,7 @@ class SvgAssets {
   static const String settingsIcon = "$_svgAssetsLink/settings.svg";
   static const String editPrimaryIcon = "$_svgAssetsLink/edit_primary.svg";
   static const String crossHairIcon = "$_svgAssetsLink/crosshair.svg";
+  static const String insightIcon = "$_svgAssetsLink/insight.svg";
   static const String timePrimaryIcon = "$_svgAssetsLink/time_primary.svg";
   static const String primaryStarIcon = "$_svgAssetsLink/primary_star.svg";
   static const String noAppointmentsAsset =

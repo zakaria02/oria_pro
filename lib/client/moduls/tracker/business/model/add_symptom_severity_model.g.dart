@@ -11,6 +11,7 @@ AddSymptomSeverityModel _$AddSymptomSeverityModelFromJson(
     AddSymptomSeverityModel(
       symptom: json['symptom'] as String,
       severity: json['severity'] as int,
+      logDate: json['logDate'] as String,
     );
 
 Map<String, dynamic> _$AddSymptomSeverityModelToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$AddSymptomSeverityModelToJson(
     <String, dynamic>{
       'symptom': instance.symptom,
       'severity': instance.severity,
+      'logDate': instance.logDate,
     };

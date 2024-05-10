@@ -1,3 +1,4 @@
+import '../../../../../common/symptoms/feature/entity/symptom_info.dart';
 import 'activity.dart';
 
 class TrackedSymptom {
@@ -20,4 +21,14 @@ class TrackedSymptom {
     required this.logEventId,
     required this.loggedActivities,
   });
+}
+
+extension TrackedSymptomMappers on TrackedSymptom {
+  SymptomInfo toSymptom() {
+    return SymptomInfo(
+      symptomId: symptomId,
+      icon: icon,
+      name: name,
+    );
+  }
 }

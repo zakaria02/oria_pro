@@ -39,6 +39,13 @@ final class RemoveSymptomActivity extends TrackerEvent {
   });
 }
 
+class SelectDate extends TrackerEvent {
+  final String selectedDate;
+
+  SelectDate(DateTime date)
+      : selectedDate = DateFormat('yyyy-MM-dd').format(date);
+}
+
 final class FetchActivities extends TrackerEvent {}
 
 final class FetchLocalActivities extends TrackerEvent {}
@@ -48,4 +55,18 @@ final class UpdateLocalActivity extends TrackerEvent {
   final Activity activity;
 
   const UpdateLocalActivity({required this.selected, required this.activity});
+}
+
+final class GetSymptomInsights extends TrackerEvent {
+  final String symptomId;
+  final String endDate;
+  final String startDate;
+  final String? compareWith;
+
+  const GetSymptomInsights({
+    required this.symptomId,
+    required this.endDate,
+    required this.startDate,
+    this.compareWith,
+  });
 }

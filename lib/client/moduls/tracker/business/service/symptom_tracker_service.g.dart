@@ -19,9 +19,9 @@ class _SymptomTrackerService implements SymptomTrackerService {
   String? baseUrl;
 
   @override
-  Future<List<TrackedSymptomModel>> fetchTrackedSymptoms() async {
+  Future<List<TrackedSymptomModel>> fetchTrackedSymptoms(String date) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'date': date};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
@@ -154,6 +154,43 @@ class _SymptomTrackerService implements SymptomTrackerService {
     var value = _result.data!
         .map((dynamic i) => ActivityModel.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<InsightsModel> getSymptomInsights(
+    String symptomId,
+    String endDate,
+    String startDate,
+    String? compareWith,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'endDate': endDate,
+      r'startDate': startDate,
+      r'compareWith': compareWith,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<InsightsModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/tracker/insights/${symptomId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = InsightsModel.fromJson(_result.data!);
     return value;
   }
 

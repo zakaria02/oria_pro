@@ -9,11 +9,15 @@ class BarDatePicker extends StatelessWidget {
     required this.onDateSelect,
     required this.selectedDate,
     required this.controller,
+    required this.firstDate,
+    required this.lastDate,
   });
 
   final EasyInfiniteDateTimelineController controller;
   final Function(DateTime) onDateSelect;
   final DateTime selectedDate;
+  final DateTime firstDate;
+  final DateTime lastDate;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +25,9 @@ class BarDatePicker extends StatelessWidget {
       locale: Intl.systemLocale,
       activeColor: OriaColors.secondaryOrange,
       controller: controller,
-      firstDate: DateTime.now(),
+      firstDate: firstDate,
       focusDate: selectedDate,
-      lastDate: DateTime.now().add(const Duration(days: 356)),
+      lastDate: lastDate,
       onDateChange: (selectedDate) => onDateSelect(selectedDate),
       showTimelineHeader: false,
       dayProps: EasyDayProps(

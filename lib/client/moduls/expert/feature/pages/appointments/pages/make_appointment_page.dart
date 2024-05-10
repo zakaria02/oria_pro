@@ -103,6 +103,8 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
             body: Column(
               children: [
                 BarDatePicker(
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(const Duration(days: 356)),
                   selectedDate: selectedDate,
                   controller: _controller,
                   onDateSelect: (date) {

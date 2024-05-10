@@ -40,6 +40,13 @@ class AppTheme {
           fontWeight: FontWeight.w500,
           color: OriaColors.primaryColor,
         ),
+        // That's have to be medium, but it's late to change it now it will affect the app
+        displaySmall: TextStyle(
+          fontFamily: "Raleway",
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: OriaColors.primaryColor,
+        ),
         labelLarge: TextStyle(
           fontFamily: "Raleway",
           fontSize: 14,

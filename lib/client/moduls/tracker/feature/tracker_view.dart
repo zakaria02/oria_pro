@@ -3,6 +3,7 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:oria_pro/client/moduls/tracker/feature/page/insights_details_page.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/page/log_activity_page.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/page/log_severity_page.dart';
 import 'package:oria_pro/client/moduls/tracker/feature/widget/tracked_symptom.dart';
@@ -10,14 +11,8 @@ import 'package:oria_pro/common/widgets/bar_date_picker.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
-import 'package:oria_pro/widgets/oria_scaffold.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../utils/constants/svg_assets.dart';
-import '../../../../widgets/oria_app_bar.dart';
-import '../../../../widgets/oria_date_picker.dart';
-import '../../../../widgets/oria_dialog.dart';
-import '../../../../widgets/oria_rounded_button.dart';
 import 'bloc/tracker_bloc.dart';
 
 class TrackerView extends StatefulWidget {
@@ -35,170 +30,135 @@ class _TrackerViewState extends State<TrackerView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TrackerBloc()..add(FetchSymptomsData()),
+      create: (context) => TrackerBloc()
+        ..add(SelectDate(selectedDate))
+        ..add(FetchSymptomsData()),
       child: BlocBuilder<TrackerBloc, TrackerState>(
         builder: (blocContext, state) {
-          return OriaScaffold(
-            bottomBarPadding: EdgeInsets.zero,
-            appBarData: AppBarData(
-              title: AppLocalizations.of(context)!.symptomTracekr,
-              lastButtonUrl: SvgAssets.calendarIcon,
-              onLastButtonPress: () async {
-                final date = await showDialog(
-                  context: context,
-                  builder: (context) {
-                    DateTime? pickedDate;
-                    return OriaDialog(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: OriaDatePicker(
-                              onSelectDate: (date) {
-                                pickedDate = date;
-                              },
-                              currentValue: selectedDate,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          OriaRoundedButton(
-                            onPress: () =>
-                                Navigator.of(context).pop(pickedDate),
-                            text: AppLocalizations.of(context)!.apply,
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                );
-                if (date != null) {
-                  _controller.animateToDate(date);
-                  setState(() {
-                    selectedDate = date;
-                  });
-                }
-              },
-            ),
-            padding: EdgeInsets.zero,
-            body: Expanded(
-              child: Stack(
+          return Stack(
+            children: [
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      BarDatePicker(
-                        onDateSelect: (date) {
-                          setState(() {
-                            selectedDate = date;
-                          });
-                        },
-                        selectedDate: selectedDate,
-                        controller: _controller,
-                      ),
-                      const SizedBox(height: 24),
-                      state is TrackedDataLoading
-                          ? const Padding(
-                              padding: EdgeInsets.only(bottom: 12),
-                              child: OriaLoadingProgress(),
-                            )
-                          : const SizedBox(),
-                      Expanded(
-                        child: ListView(
-                          children: [
-                            ...state.symptoms
-                                .map(
-                                  (symptom) => TrackedSymptomCard(
-                                      symptom: symptom,
-                                      logSymptom: (symptom) => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) {
-                                                return BlocProvider.value(
-                                                  value: BlocProvider.of<
-                                                      TrackerBloc>(
-                                                    blocContext,
-                                                  ),
-                                                  child: LogSeverityPage(
-                                                    symptom: symptom,
-                                                  ),
-                                                );
-                                              },
-                                            ),
+                  BarDatePicker(
+                    firstDate: DateTime.now().add(const Duration(days: -30)),
+                    lastDate: DateTime.now(),
+                    onDateSelect: (date) {
+                      setState(() {
+                        selectedDate = date;
+                      });
+                      BlocProvider.of<TrackerBloc>(blocContext)
+                          .add(SelectDate(selectedDate));
+                      BlocProvider.of<TrackerBloc>(blocContext)
+                          .add(FetchSymptomsData());
+                    },
+                    selectedDate: selectedDate,
+                    controller: _controller,
+                  ),
+                  const SizedBox(height: 24),
+                  state is TrackedDataLoading
+                      ? const Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: OriaLoadingProgress(),
+                        )
+                      : const SizedBox(),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        ...state.symptoms
+                            .map(
+                              (symptom) => TrackedSymptomCard(
+                                symptom: symptom,
+                                logSymptom: (symptom) => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return BlocProvider.value(
+                                        value: BlocProvider.of<TrackerBloc>(
+                                          blocContext,
+                                        ),
+                                        child: LogSeverityPage(
+                                          symptom: symptom,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                logActivity: (logEventId, activities) {
+                                  BlocProvider.of<TrackerBloc>(blocContext)
+                                      .add(FetchActivities());
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return BlocProvider.value(
+                                          value: BlocProvider.of<TrackerBloc>(
+                                            blocContext,
                                           ),
-                                      logActivity: (logEventId, activities) {
-                                        BlocProvider.of<TrackerBloc>(
-                                                blocContext)
-                                            .add(FetchActivities());
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) {
-                                              return BlocProvider.value(
-                                                value: BlocProvider.of<
-                                                    TrackerBloc>(
-                                                  blocContext,
-                                                ),
-                                                child: LogActivityPage(
-                                                  logEventId: logEventId,
-                                                  activities: activities,
-                                                ),
-                                              );
-                                            },
+                                          child: LogActivityPage(
+                                            logEventId: logEventId,
+                                            activities: activities,
                                           ),
                                         );
-                                      }),
-                                )
-                                .toList(),
-                            const SizedBox(height: 60)
-                          ],
-                        ),
-                      ),
-                    ],
+                                      },
+                                    ),
+                                  );
+                                },
+                                viewInsights: (symptom) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return BlocProvider.value(
+                                          value: BlocProvider.of<TrackerBloc>(
+                                            blocContext,
+                                          ),
+                                          child: InsightsDetailsPage(
+                                            symptom: symptom,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                            .toList(),
+                        const SizedBox(height: 60)
+                      ],
+                    ),
                   ),
-                  if (state is! TrackedDataLoading)
-                    /*Align(
-                      alignment: Alignment.bottomCenter,
-                      child: OriaRoundedButton(
-                        onPress: () => context.pushRoute(
+                ],
+              ),
+              if (state is! TrackedDataLoading)
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: OriaColors.green,
+                      shape: BoxShape.circle,
+                    ),
+                    height: 56,
+                    width: 56,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.pushRoute(
                           EditMySymptomsRoute(
                               refresh: () =>
                                   BlocProvider.of<TrackerBloc>(blocContext)
                                       .add(FetchSymptomsData())),
-                        ),
-                        text: AppLocalizations.of(context)!.editMySymptoms,
-                      ),
-                    ),*/
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: OriaColors.green,
-                          shape: BoxShape.circle,
-                        ),
-                        height: 56,
-                        width: 56,
-                        child: GestureDetector(
-                          onTap: () {
-                            context.pushRoute(
-                              EditMySymptomsRoute(
-                                  refresh: () =>
-                                      BlocProvider.of<TrackerBloc>(blocContext)
-                                          .add(FetchSymptomsData())),
-                            );
-                          },
-                          child: Center(
-                            child: SvgPicture.asset(
-                              SvgAssets.styloIcon,
-                              height: 23,
-                              width: 23,
-                            ),
-                          ),
+                        );
+                      },
+                      child: Center(
+                        child: SvgPicture.asset(
+                          SvgAssets.styloIcon,
+                          height: 23,
+                          width: 23,
                         ),
                       ),
-                    )
-                ],
-              ),
-            ),
+                    ),
+                  ),
+                )
+            ],
           );
         },
       ),

@@ -6,10 +6,12 @@ part 'add_symptom_severity_model.g.dart';
 class AddSymptomSeverityModel {
   final String symptom;
   final int severity;
+  final String logDate;
 
   const AddSymptomSeverityModel({
     required this.symptom,
     required this.severity,
+    required this.logDate,
   });
 
   factory AddSymptomSeverityModel.fromJson(Map<String, dynamic> json) =>

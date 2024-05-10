@@ -267,5 +267,12 @@
     "addMoreSymptoms": "Add More Symptoms",
     "otherSymptoms": "Other symptoms",
     "change": "Change",
-    "primarySymptom": "Primary Symptom:"
+    "primarySymptom": "Primary Symptom:",
+    "symptomHistory": "{symptom} history",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "compareWith": "Compare with",
+    "addSymptom": "Add symptom",
+    "consultExpertForSymptom": "Consult an expert for your {symptom}",
+    "youDontHaveInsights": "You don't have any insights yet"
 }

@@ -19,10 +19,12 @@ class TrackedSymptomCard extends StatelessWidget {
     super.key,
     required this.symptom,
     required this.logSymptom,
+    required this.viewInsights,
     required this.logActivity,
   });
   final TrackedSymptom symptom;
   final Function(TrackedSymptom symptom) logSymptom;
+  final Function(TrackedSymptom symptom) viewInsights;
   final Function(String logEventId, List<Activity>) logActivity;
 
   @override
@@ -51,34 +53,37 @@ class TrackedSymptomCard extends StatelessWidget {
                     SvgPicture.asset(SvgAssets.primaryStarIcon),
                   ],
                   const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 6,
-                      horizontal: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: OriaColors.green,
-                      borderRadius: BorderRadius.circular(28),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          SvgAssets.insightsIcon,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.viewInsights,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Raleway",
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
+                  GestureDetector(
+                    onTap: () => viewInsights(symptom),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: OriaColors.green,
+                        borderRadius: BorderRadius.circular(28),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            SvgAssets.insightsIcon,
                           ),
-                        )
-                      ],
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.viewInsights,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Raleway",
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
