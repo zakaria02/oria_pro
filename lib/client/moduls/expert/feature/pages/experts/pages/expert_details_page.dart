@@ -39,6 +39,7 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
             onFirstButtonPress: () => context.maybePop(),
             title: AppLocalizations.of(context)!.specialist,
           ),
+          bottomBarPadding: EdgeInsets.zero,
           body: state is ExpertReviewsLoading
               ? const OriaLoadingProgress()
               : Expanded(

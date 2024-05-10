@@ -11,6 +11,7 @@ SymptomSeverityRequestModel _$SymptomSeverityRequestModelFromJson(
     SymptomSeverityRequestModel(
       symptomId: json['symptom'] as String,
       severity: json['severity'] as int,
+      logDate: DateTime.parse(json['logDate'] as String),
     );
 
 Map<String, dynamic> _$SymptomSeverityRequestModelToJson(
@@ -18,4 +19,5 @@ Map<String, dynamic> _$SymptomSeverityRequestModelToJson(
     <String, dynamic>{
       'symptom': instance.symptomId,
       'severity': instance.severity,
+      'logDate': instance.logDate.toIso8601String(),
     };

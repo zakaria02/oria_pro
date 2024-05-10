@@ -100,7 +100,7 @@ class AccountView extends StatelessWidget {
               AccountParam(
                 onlyTopRaduis: true,
                 image: SvgAssets.crossHairIcon,
-                title: AppLocalizations.of(context)!.editMySymptoms,
+                title: AppLocalizations.of(context)!.mySymptoms,
                 onPress: () =>
                     context.pushRoute(EditMySymptomsRoute(refresh: () {})),
               ),

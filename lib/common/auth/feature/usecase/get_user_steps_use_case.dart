@@ -41,13 +41,18 @@ class GetUserStepsUseCase {
     List<Symptom> primarySymptoms = symptoms
         .where((symptom) => symptom.type == SymptomType.primary)
         .toList();
+    List<Symptom> secondarySymptoms = symptoms
+        .where((symptom) => symptom.type == SymptomType.secondary)
+        .toList();
 
-    int stepsCount = _calculateStepsCount(updatedUser, primarySymptoms);
+    int stepsCount =
+        _calculateStepsCount(updatedUser, primarySymptoms, secondarySymptoms);
 
     return OnBoardingSteps(
       name: updatedUser.name,
       birthDay: updatedUser.birthDay,
       primarySymptoms: primarySymptoms,
+      secondarySymptoms: secondarySymptoms,
       stepsCount: stepsCount,
       emailToVerify: updatedUser.isEmailVerified ? null : updatedUser.email,
     );
@@ -56,11 +61,14 @@ class GetUserStepsUseCase {
   int _calculateStepsCount(
     UserModel updatedUser,
     List<Symptom> primarySymptoms,
+    List<Symptom> secondarySymptoms,
   ) {
     int stepsCount = 0;
     if (updatedUser.name == null) stepsCount++;
     if (updatedUser.birthDay == null) stepsCount++;
     if (primarySymptoms.isEmpty) stepsCount += 3;
+    if (secondarySymptoms.isEmpty && primarySymptoms.isEmpty) stepsCount++;
+
     return stepsCount;
   }
 }

@@ -44,10 +44,10 @@ class HomeSymptomCard extends StatelessWidget {
           ),
           Visibility(
             visible: symptom.type == SymptomType.primary,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 33),
-              child: Align(
-                alignment: Alignment.bottomCenter,
+            child: Positioned(
+              top: 110,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 33),
                 child: Container(
                   decoration: BoxDecoration(
                     color: const Color(0xFF0CB564),

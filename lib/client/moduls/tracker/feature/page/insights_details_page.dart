@@ -126,6 +126,7 @@ class _InsightsDetailsPageState extends State<InsightsDetailsPage> {
         title:
             AppLocalizations.of(context)!.symptomHistory(widget.symptom.name),
       ),
+      bottomBarPadding: EdgeInsets.zero,
       body: BlocBuilder<TrackerBloc, TrackerState>(
         builder: (blocContext, state) {
           return Expanded(

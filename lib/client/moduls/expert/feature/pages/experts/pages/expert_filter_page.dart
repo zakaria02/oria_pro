@@ -47,10 +47,10 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
     selectedSpeciality = widget.selectedSpeciality ?? widget.specilalties.first;
     selectedCity = widget.selectedCity ?? widget.cities.first;
     rating = switch (widget.selectedRating) {
-      5 => Rating.rating5,
+      4 => Rating.rating4,
       3 => Rating.rating3,
       2 => Rating.rating2,
-      _ => Rating.rating5,
+      _ => Rating.all,
     };
     selectedRating = widget.selectedRating;
     super.initState();
@@ -118,12 +118,21 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                       ),
                       const SizedBox(height: 12),
                       RatingWidget(
-                        count: 5,
                         onPress: (rat) {
                           setState(() {
                             rating = rat;
                           });
-                          selectedRating = 5;
+                          selectedRating = null;
+                        },
+                        rating: rating,
+                      ),
+                      RatingWidget(
+                        count: 4,
+                        onPress: (rat) {
+                          setState(() {
+                            rating = rat;
+                          });
+                          selectedRating = 4;
                         },
                         rating: rating,
                       ),

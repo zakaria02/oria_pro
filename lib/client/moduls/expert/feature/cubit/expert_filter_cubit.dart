@@ -56,6 +56,7 @@ class ExpertFilterCubit extends Cubit<ExpertFilterState> {
   Future<void> getCities() async {
     ExpertRepository repository = ExpertLocator().get();
     final cities = await repository.getCities();
+    cities.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     emit(
       ExpertFilterState(
         specialty: state.specialty,

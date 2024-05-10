@@ -55,11 +55,6 @@ class HomeView extends StatelessWidget {
             padding: EdgeInsets.zero,
             body: Builder(
               builder: (context) {
-                if (state is FetchUserInfoLoading ||
-                    state is FetchTodaysActionsLoading ||
-                    state is FetchUserCurrentSymptomsLoading) {
-                  return const OriaLoadingProgress();
-                }
                 return Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +81,15 @@ class HomeView extends StatelessWidget {
                           ],
                         ),
                       const SizedBox(
-                        height: 16,
+                        height: 8,
+                      ),
+                      if (state is FetchUserInfoLoading ||
+                          state is FetchTodaysActionsLoading ||
+                          state is FetchUserCurrentSymptomsLoading ||
+                          state is AddSeverityLoading)
+                        const OriaLoadingProgress(),
+                      const SizedBox(
+                        height: 8,
                       ),
                       if (state.userSymptoms.isNotEmpty) ...[
                         Container(
@@ -173,14 +176,15 @@ class HomeView extends StatelessWidget {
                                     .name,
                                 onStartHerePress: (completedProgramSection,
                                     readArticle, loggedSymptomSeverity) {
-                                  BlocProvider.of<HomeBloc>(context)
-                                      .add(FinishAnAction(
-                                    completedProgramSection:
-                                        completedProgramSection,
-                                    readArticle: readArticle,
-                                    loggedSymptomSeverity:
-                                        loggedSymptomSeverity,
-                                  ));
+                                  BlocProvider.of<HomeBloc>(context).add(
+                                    FinishAnAction(
+                                      completedProgramSection:
+                                          completedProgramSection,
+                                      readArticle: readArticle,
+                                      loggedSymptomSeverity:
+                                          loggedSymptomSeverity,
+                                    ),
+                                  );
                                 },
                               ),
                             if (state.userSymptoms.isNotEmpty) ...[

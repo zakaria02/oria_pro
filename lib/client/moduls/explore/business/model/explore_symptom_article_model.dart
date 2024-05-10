@@ -48,13 +48,15 @@ class ArticleModel {
 }
 
 extension ExploreSymptomArticleMapper on ExploreSymptomArticleModel {
-  LearningContent toLearningContentUio() {
+  LearningContent toLearningContentUio(String primaryId) {
     return LearningContent(
-        contentId: id,
-        symptomId: symptom.id,
-        symptomName: symptom.name,
-        articles: articles.map((article) => article.toArticleUio()).toList(),
-        type: LearningContentType.article);
+      contentId: id,
+      symptomId: symptom.id,
+      symptomName: symptom.name,
+      articles: articles.map((article) => article.toArticleUio()).toList(),
+      type: LearningContentType.article,
+      isPrimarySymptom: symptom.id == primaryId,
+    );
   }
 }
 

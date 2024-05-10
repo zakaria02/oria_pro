@@ -8,10 +8,12 @@ import 'package:oria_pro/common/auth/business/email_password/locator/email_passw
 import 'package:oria_pro/common/auth/business/email_password/model/user_model.dart';
 import 'package:oria_pro/common/auth/business/local_data_source/auth_local_data_source.dart';
 import 'package:oria_pro/common/symptoms/business/locator/symptom_locator.dart';
+import 'package:oria_pro/common/symptoms/business/repository/symptom_repository.dart';
 import 'package:oria_pro/common/symptoms/feature/entity/symptom.dart';
 import 'package:oria_pro/common/symptoms/feature/usecase/get_user_symptoms.dart';
 
 import '../../../../../common/entity/user.dart';
+import '../../../../../common/symptoms/business/model/symptom_severity_request_model.dart';
 import '../../business/model/finish_action_model.dart';
 
 part 'home_event.dart';
@@ -63,6 +65,35 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           selectedSymptom: state.selectedSymptom,
           actions: actions,
         ));
+      } catch (e) {
+        emit(HomeError(
+          errorMessage: e.toString(),
+          currentUser: state.currentUser,
+          userSymptoms: state.userSymptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+      }
+    });
+
+    on<AddSymptomSeverity>((event, emit) async {
+      try {
+        SymptomRepository symptomRepository = SymptomLocator().get();
+        emit(AddSeverityLoading(
+          currentUser: state.currentUser,
+          userSymptoms: state.userSymptoms,
+          selectedSymptom: state.selectedSymptom,
+          actions: state.actions,
+        ));
+
+        await symptomRepository.addSymptomSeverity(
+          SymptomSeverityRequestModel(
+            symptomId: event.symptomId,
+            severity: event.severity,
+            logDate: DateTime.now(),
+          ),
+        );
+        add(FetchTodaysActions());
       } catch (e) {
         emit(HomeError(
           errorMessage: e.toString(),

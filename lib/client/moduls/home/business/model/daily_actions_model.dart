@@ -9,6 +9,7 @@ class DailyActionsModel {
   final bool loggedSymptomSeverity;
   final RecommendedArticleModel recommendedArticle;
   final ProgramSectionModel recommendedProgramSection;
+  final int? loggedSeverityValue;
 
   const DailyActionsModel({
     required this.completedProgramSection,
@@ -16,6 +17,7 @@ class DailyActionsModel {
     required this.loggedSymptomSeverity,
     required this.recommendedArticle,
     required this.recommendedProgramSection,
+    required this.loggedSeverityValue,
   });
 
   factory DailyActionsModel.fromJson(Map<String, dynamic> json) =>

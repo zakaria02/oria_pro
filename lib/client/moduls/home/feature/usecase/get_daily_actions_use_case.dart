@@ -30,6 +30,7 @@ class GetDailyActionsUseCase {
       article: article,
       section: section,
       loggedSymptomSeverity: actions.loggedSymptomSeverity,
+      loggedSeverityValue: actions.loggedSeverityValue,
     );
   }
 }

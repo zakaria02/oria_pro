@@ -37,12 +37,12 @@ class OriaBottomBar extends StatelessWidget {
                 activeIcon: item.filledIcon.contains(".svg")
                     ? SvgPicture.asset(
                         item.filledIcon,
-                        height: 24,
-                        width: 24,
+                        height: 22,
+                        width: 22,
                       )
                     : SizedBox(
-                        height: 24,
-                        width: 24,
+                        height: 22,
+                        width: 22,
                         child: Image.asset(
                           item.filledIcon,
                         ),
@@ -50,12 +50,12 @@ class OriaBottomBar extends StatelessWidget {
                 icon: item.filledIcon.contains(".svg")
                     ? SvgPicture.asset(
                         item.icon,
-                        height: 24,
-                        width: 24,
+                        height: 22,
+                        width: 22,
                       )
                     : SizedBox(
-                        height: 24,
-                        width: 24,
+                        height: 22,
+                        width: 22,
                         child: Image.asset(
                           item.icon,
                         ),

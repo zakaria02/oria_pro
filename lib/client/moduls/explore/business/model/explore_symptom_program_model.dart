@@ -46,13 +46,15 @@ class ProgramSymptomModel {
 }
 
 extension ExploreSymptomProgrameMapper on ExploreSymptomProgramModel {
-  LearningContent toLearningContentUio() {
+  LearningContent toLearningContentUio(String primaryId) {
     return LearningContent(
-        contentId: id,
-        symptomId: symptom.id,
-        symptomName: symptom.name,
-        articles: programs.map((article) => article.toArticleUio()).toList(),
-        type: LearningContentType.program);
+      contentId: id,
+      symptomId: symptom.id,
+      symptomName: symptom.name,
+      articles: programs.map((article) => article.toArticleUio()).toList(),
+      type: LearningContentType.program,
+      isPrimarySymptom: symptom.id == primaryId,
+    );
   }
 }
 

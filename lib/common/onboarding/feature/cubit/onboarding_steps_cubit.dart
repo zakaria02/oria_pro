@@ -123,6 +123,7 @@ class OnboardingStepsCubit extends Cubit<OnboardingStepsState> {
         await symptomRepository.addSymptomSeverity(SymptomSeverityRequestModel(
           symptomId: state.primarySymptom!.symptomId,
           severity: state.primarySymptomSeverity,
+          logDate: DateTime.now(),
         ));
 
         emit(
@@ -138,10 +139,10 @@ class OnboardingStepsCubit extends Cubit<OnboardingStepsState> {
             maxIndex: state.maxIndex,
           ),
         );
-      }
 
-      for (final symptom in state.secondarySymptoms) {
-        await addSecondarySymptomUsecase.execute(symptom.symptomId);
+        for (final symptom in state.secondarySymptoms) {
+          await addSecondarySymptomUsecase.execute(symptom.symptomId);
+        }
       }
 
       emit(

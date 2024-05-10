@@ -25,7 +25,8 @@ class OriaDropDown<T> extends StatelessWidget {
                 child: Text(
                   item.toString(),
                   style: Theme.of(context).textTheme.displayMedium,
-                  overflow: TextOverflow.visible,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ),
             )

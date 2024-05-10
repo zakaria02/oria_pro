@@ -81,6 +81,15 @@ final class FetchUserCurrentSymptomsSuccess extends HomeState {
   });
 }
 
+final class AddSeverityLoading extends HomeState {
+  const AddSeverityLoading({
+    required super.currentUser,
+    required super.userSymptoms,
+    required super.selectedSymptom,
+    required super.actions,
+  });
+}
+
 final class SelectedSymptom extends HomeState {
   const SelectedSymptom({
     required super.currentUser,

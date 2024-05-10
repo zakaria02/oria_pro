@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:html/parser.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/learning_article.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/symptom_program.dart';
+import 'package:oria_pro/client/moduls/home/feature/bloc/home_bloc.dart';
 import 'package:oria_pro/client/moduls/home/feature/entity/daily_actions.dart';
 import 'package:oria_pro/common/symptoms/feature/entity/symptom.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
@@ -43,7 +45,8 @@ class DailyActionsSteps extends StatelessWidget {
 
   String _extractTextFromHtml(String htmlString) {
     var document = parse(htmlString);
-    return document.body?.text ?? "";
+    final text = document.body?.text.substring(0, 70) ?? "";
+    return text.isNotEmpty ? "$text..." : "";
   }
 
   Widget steps(BuildContext context) {
@@ -74,6 +77,7 @@ class DailyActionsSteps extends StatelessWidget {
                       const SizedBox(width: 16),
                       Expanded(
                         child: ActionCard(
+                          finished: actions.completedProgramSection,
                           title: actions.section.title,
                           description: actions.section.description,
                           imageUrl: actions.section.imageUrl,
@@ -101,6 +105,7 @@ class DailyActionsSteps extends StatelessWidget {
                       const SizedBox(width: 16),
                       Expanded(
                         child: ActionCard(
+                          finished: actions.readArticle,
                           title: actions.article.title,
                           description:
                               _extractTextFromHtml(actions.article.htmlContent),
@@ -148,14 +153,31 @@ class DailyActionsSteps extends StatelessWidget {
                                 children: List.generate(
                                   5,
                                   (index) => GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      if (actions.loggedSeverityValue == null) {
+                                        BlocProvider.of<HomeBloc>(context).add(
+                                          AddSymptomSeverity(
+                                            severity: index + 1,
+                                            symptomId: symptoms
+                                                .where((symp) =>
+                                                    symp.type ==
+                                                    SymptomType.primary)
+                                                .first
+                                                .symptomId,
+                                          ),
+                                        );
+                                      }
+                                    },
                                     child: Container(
                                       height: 32,
                                       width: 32,
                                       margin: const EdgeInsets.only(right: 6),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
-                                        color: const Color(0xFFFAF8F2),
+                                        color: index + 1 ==
+                                                actions.loggedSeverityValue
+                                            ? const Color(0xFFA8E4C2)
+                                            : const Color(0xFFFAF8F2),
                                       ),
                                       child: Center(
                                         child: Text(
@@ -245,6 +267,7 @@ class ActionCard extends StatefulWidget {
     required this.article,
     required this.isPremium,
     required this.onStartPressed,
+    required this.finished,
   });
   final String title;
   final String description;
@@ -255,6 +278,7 @@ class ActionCard extends StatefulWidget {
   final ProgramSectionWithContent? section;
   final LearningArticle? article;
   final VoidCallback onStartPressed;
+  final bool finished;
 
   @override
   State<ActionCard> createState() => _ActionCardState();
@@ -263,124 +287,136 @@ class ActionCard extends StatefulWidget {
 class _ActionCardState extends State<ActionCard> {
   @override
   Widget build(BuildContext context) {
-    return OriaCard(
-      backgroundColor: Colors.white,
-      borderColor: OriaColors.iconButtonBackgound,
-      padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          if (widget.imageUrl != null && widget.current)
-            Container(
-              height: 140,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                    widget.imageUrl!,
+    return GestureDetector(
+      onTap: () {
+        if (widget.finished) {
+          if (widget.section != null) {
+            context.pushRoute(SectionDetailsRoute(
+                section: widget.section!, programName: widget.section!.title));
+          } else {
+            context.pushRoute(ArticleRoute(id: widget.article!.id));
+          }
+        }
+      },
+      child: OriaCard(
+        backgroundColor: Colors.white,
+        borderColor: OriaColors.iconButtonBackgound,
+        padding: EdgeInsets.zero,
+        child: Column(
+          children: [
+            if (widget.imageUrl != null && widget.current)
+              Container(
+                height: 140,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      widget.imageUrl!,
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
                 ),
               ),
-            ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(children: [
-                          TextSpan(
-                            text: "${widget.title}: ",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: OriaColors.primaryColor,
-                                ),
-                          ),
-                          TextSpan(
-                            text: widget.description,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  color: OriaColors.primaryColor,
-                                ),
-                          ),
-                        ]),
-                      ),
-                      if (widget.duration > 0) ...[
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              SvgAssets.timeAsset,
-                              colorFilter: const ColorFilter.mode(
-                                  OriaColors.darkGrey, BlendMode.srcIn),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(children: [
+                            TextSpan(
+                              text: "${widget.title}: ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: OriaColors.primaryColor,
+                                  ),
                             ),
-                            const SizedBox(width: 4),
-                            Text(
-                              AppLocalizations.of(context)!
-                                  .minutes(widget.duration),
+                            TextSpan(
+                              text: widget.description,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
                                   ?.copyWith(
                                     fontWeight: FontWeight.w500,
-                                    color: OriaColors.darkGrey,
-                                    fontStyle: FontStyle.italic,
-                                    fontFamily: "Satoshi",
+                                    color: OriaColors.primaryColor,
                                   ),
                             ),
-                          ],
+                          ]),
                         ),
-                      ]
-                    ],
+                        if (widget.duration > 0) ...[
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                SvgAssets.timeAsset,
+                                colorFilter: const ColorFilter.mode(
+                                    OriaColors.darkGrey, BlendMode.srcIn),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .minutes(widget.duration),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      color: OriaColors.darkGrey,
+                                      fontStyle: FontStyle.italic,
+                                      fontFamily: "Satoshi",
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ]
+                      ],
+                    ),
                   ),
-                ),
-                if (widget.isPremium) ...[
-                  const SizedBox(width: 8),
-                  const OriaIconButton(
-                    url: SvgAssets.premiumIcon,
-                    size: 14,
-                    raduis: 14,
-                  ),
-                ]
-              ],
-            ),
-          ),
-          if (widget.current)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                child: OriaRoundedButton(
-                  width: 160,
-                  height: 34,
-                  onPress: () {
-                    widget.onStartPressed.call();
-                    if (widget.section != null) {
-                      context.pushRoute(SectionDetailsRoute(
-                          section: widget.section!,
-                          programName: widget.section!.title));
-                    } else {
-                      context.pushRoute(ArticleRoute(id: widget.article!.id));
-                    }
-                  },
-                  text: AppLocalizations.of(context)!.startHere,
-                ),
+                  if (widget.isPremium) ...[
+                    const SizedBox(width: 8),
+                    const OriaIconButton(
+                      url: SvgAssets.premiumIcon,
+                      size: 14,
+                      raduis: 14,
+                    ),
+                  ]
+                ],
               ),
             ),
-        ],
+            if (widget.current)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  child: OriaRoundedButton(
+                    width: 160,
+                    height: 34,
+                    onPress: () {
+                      widget.onStartPressed.call();
+                      if (widget.section != null) {
+                        context.pushRoute(SectionDetailsRoute(
+                            section: widget.section!,
+                            programName: widget.section!.title));
+                      } else {
+                        context.pushRoute(ArticleRoute(id: widget.article!.id));
+                      }
+                    },
+                    text: AppLocalizations.of(context)!.startHere,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -4,6 +4,7 @@ class LearningContent {
   final String symptomName;
   final List<SymptomArticle> articles;
   final LearningContentType type;
+  final bool isPrimarySymptom;
 
   const LearningContent({
     required this.contentId,
@@ -11,6 +12,7 @@ class LearningContent {
     required this.symptomName,
     required this.articles,
     required this.type,
+    required this.isPrimarySymptom,
   });
 }
 

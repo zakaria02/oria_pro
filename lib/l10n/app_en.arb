@@ -86,8 +86,8 @@
     "ageVerification": "Sorry, you must be at least 18 years old to proceed.",
     "whenYouCreateAccount": "By creating your account, you accept the ",
     "andThe": " and the ",
-    "generalConditions": "general conditions",
-    "privacyPolicy": "privacy policy ",
+    "generalConditions": "General conditions",
+    "privacyPolicy": "Privacy policy ",
     "traitementOria": "and consent to the processing of your personal data by Oria",
     "rateSymptom": "Rate your symptom",
     "addedToFavorite": "Article added to favorites!",
@@ -252,6 +252,7 @@
     "addActivity": "Add activity",
     "logSeverity": "Log severity",
     "editMySymptoms": "Edit my symptoms",
+    "mySymptoms": "My symptoms",
     "howWasSymptomToday": "How was your {symptom} today",
     "close": "Close",
     "logSymptomSeverity": "Log symptom severity",
@@ -274,5 +275,6 @@
     "compareWith": "Compare with",
     "addSymptom": "Add symptom",
     "consultExpertForSymptom": "Consult an expert for your {symptom}",
-    "youDontHaveInsights": "You don't have any insights yet"
+    "youDontHaveInsights": "You don't have any insights yet",
+    "allRatings": "All ratings"
 }

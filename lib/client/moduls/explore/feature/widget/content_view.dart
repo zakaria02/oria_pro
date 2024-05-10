@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,12 +23,20 @@ class ContentView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          content.symptomName,
-          style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                fontWeight: FontWeight.w400,
-                fontFamily: "Marcellus",
-              ),
+        Row(
+          children: [
+            Text(
+              content.symptomName,
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Marcellus",
+                  ),
+            ),
+            if (content.isPrimarySymptom) ...[
+              const SizedBox(width: 8),
+              SvgPicture.asset(SvgAssets.primaryStarIcon),
+            ],
+          ],
         ),
         const SizedBox(
           height: 16,

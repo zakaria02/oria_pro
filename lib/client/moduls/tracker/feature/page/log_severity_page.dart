@@ -27,6 +27,20 @@ class LogSeverityPage extends StatefulWidget {
 
 class _LogSeverityPageState extends State<LogSeverityPage> {
   late int severity;
+  Color get color => switch (severity) {
+        1 => const Color(0xFFA8E4C2),
+        2 => const Color(0xFFFEF3E0),
+        3 => const Color(0xFFFFDAA5),
+        4 => const Color(0xFFFF8888),
+        5 => const Color(0xFFFF5858),
+        _ => OriaColors.disabledColor,
+      };
+
+  Color get textColor => switch (severity) {
+        1 => const Color(0xFF006400),
+        2 => const Color(0xFF9F9F9F),
+        _ => Colors.white,
+      };
 
   @override
   void initState() {
@@ -85,13 +99,14 @@ class _LogSeverityPageState extends State<LogSeverityPage> {
                             fontWeight: FontWeight.w700,
                             fontFamily: "Raleway",
                           ),
+                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(
                           height: 64,
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: OriaColors.green,
+                            color: color,
                             borderRadius: BorderRadius.circular(24),
                           ),
                           padding: const EdgeInsets.symmetric(
@@ -105,8 +120,8 @@ class _LogSeverityPageState extends State<LogSeverityPage> {
                               5 => AppLocalizations.of(context)!.awful,
                               _ => "",
                             },
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: textColor,
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
                               fontFamily: "Raleway",

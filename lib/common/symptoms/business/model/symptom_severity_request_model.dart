@@ -8,10 +8,13 @@ class SymptomSeverityRequestModel {
   final String symptomId;
   @JsonKey(name: "severity")
   final int severity;
+  @JsonKey(name: "logDate")
+  final DateTime logDate;
 
   const SymptomSeverityRequestModel({
     required this.symptomId,
     required this.severity,
+    required this.logDate,
   });
 
   factory SymptomSeverityRequestModel.fromJson(Map<String, dynamic> json) =>

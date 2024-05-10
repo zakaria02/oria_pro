@@ -86,8 +86,8 @@
     "ageVerification": "Désolé, vous devez avoir au moins 18 ans pour continuer.",
     "whenYouCreateAccount": "En créant votre compte, vous accepter les ",
     "andThe": " et la ",
-    "generalConditions": "conditions générales",
-    "privacyPolicy": "politique de confidentialité ",
+    "generalConditions": "Conditions générales",
+    "privacyPolicy": "Politique de confidentialité ",
     "traitementOria": "et consentez au traitement de vos données personelles par Oria",
     "rateSymptom": "Évaluez votre symptôme",
     "addedToFavorite": "Article ajouté aux favoris !",
@@ -252,6 +252,7 @@
     "addActivity": "Ajouter une activité",
     "logSeverity": "Enregistrer la sévérité",
     "editMySymptoms": "Modifier mes symptômes",
+    "mySymptoms": "Mes symptômes",
     "howWasSymptomToday": "Comment était votre {symptom} aujourd'hui",
     "close": "Fermer",
     "logSymptomSeverity": "Enregistrer la gravité des symptômes",
@@ -274,5 +275,6 @@
     "compareWith": "Comparer avec",
     "addSymptom": "Ajouter un symptôme",
     "consultExpertForSymptom": "Consulter un expert pour votre {symptom}",
-    "youDontHaveInsights": "Vous n'avez encore aucun aperçu"
+    "youDontHaveInsights": "Vous n'avez encore aucun aperçu",
+     "allRatings": "Toutes les évaluation"
 }

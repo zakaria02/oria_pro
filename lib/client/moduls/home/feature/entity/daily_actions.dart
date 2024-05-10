@@ -8,6 +8,7 @@ class DailyActions {
   final bool loggedSymptomSeverity;
   final LearningArticle article;
   final ProgramSectionWithContent section;
+  final int? loggedSeverityValue;
 
   const DailyActions({
     required this.completedProgramSection,
@@ -15,5 +16,6 @@ class DailyActions {
     required this.article,
     required this.section,
     required this.loggedSymptomSeverity,
+    required this.loggedSeverityValue,
   });
 }

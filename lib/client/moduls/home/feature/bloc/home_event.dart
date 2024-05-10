@@ -13,6 +13,16 @@ final class FetchTodaysActions extends HomeEvent {}
 
 final class FetchUserCurrentSymptoms extends HomeEvent {}
 
+final class AddSymptomSeverity extends HomeEvent {
+  final int severity;
+  final String symptomId;
+
+  const AddSymptomSeverity({
+    required this.severity,
+    required this.symptomId,
+  });
+}
+
 final class SelectSymptom extends HomeEvent {
   final Symptom? symptom;
 

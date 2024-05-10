@@ -6,12 +6,12 @@ import 'package:oria_pro/utils/constants/oria_colors.dart';
 class RatingWidget extends StatelessWidget {
   const RatingWidget({
     super.key,
-    required this.count,
+    this.count,
     required this.onPress,
     required this.rating,
   });
 
-  final int count;
+  final int? count;
   final Function(Rating?) onPress;
   final Rating? rating;
 
@@ -21,31 +21,41 @@ class RatingWidget extends StatelessWidget {
       onTap: () => onPress(rating),
       child: Row(
         children: [
-          RatingBarIndicator(
-            rating: count.toDouble(),
-            itemBuilder: (context, index) => const Icon(
-              Icons.star,
-              color: OriaColors.gold,
+          if (count != null) ...[
+            RatingBarIndicator(
+              rating: count!.toDouble(),
+              itemBuilder: (context, index) => const Icon(
+                Icons.star,
+                color: OriaColors.gold,
+              ),
+              itemCount: 5,
+              itemSize: 25.0,
             ),
-            itemCount: 5,
-            itemSize: 25.0,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            AppLocalizations.of(context)!.andUp,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(fontWeight: FontWeight.w600),
-          ),
+            const SizedBox(width: 8),
+            Text(
+              AppLocalizations.of(context)!.andUp,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w600),
+            ),
+          ],
+          if (count == null)
+            Text(
+              AppLocalizations.of(context)!.allRatings,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w600),
+            ),
           const Spacer(),
           Radio<Rating>(
             activeColor: OriaColors.green,
             value: switch (count) {
-              5 => Rating.rating5,
+              4 => Rating.rating4,
               3 => Rating.rating3,
               2 => Rating.rating2,
-              _ => throw ("Unknown value")
+              _ => Rating.all,
             },
             groupValue: rating,
             onChanged: (Rating? value) => onPress(value),
@@ -56,4 +66,4 @@ class RatingWidget extends StatelessWidget {
   }
 }
 
-enum Rating { rating2, rating3, rating5 }
+enum Rating { rating2, rating3, rating4, all }

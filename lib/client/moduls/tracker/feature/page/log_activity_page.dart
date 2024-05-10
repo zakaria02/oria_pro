@@ -89,6 +89,9 @@ class _LogActivityPageState extends State<LogActivityPage> {
                                       // Display a maximum of 12 activities
                                       state.activities.map((activity) {
                                     return ActivitySelector(
+                                      disabled: widget.activities
+                                          .where((act) => act.id == activity.id)
+                                          .isNotEmpty,
                                       activity: activity,
                                       onActivitySelect: (act) {
                                         setState(
