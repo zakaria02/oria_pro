@@ -18,4 +18,5 @@ class OriaColors {
   static const darkOrange = Color(0xFFFE5F05);
   static const secondaryOrange = Color(0xFFE66E54);
   static const gold = Color(0xFFE8C889);
+  static const chartSecondaryColor = Color(0xFF2AB7C0);
 }

@@ -27,7 +27,7 @@ class ActivitySelector extends StatelessWidget {
       },
       child: OriaCard(
         borderColor: selected ? OriaColors.green : null,
-        backgroundColor: disabled ? OriaColors.disabledColor : Colors.white,
+        backgroundColor: disabled ? OriaColors.green : Colors.white,
         padding: const EdgeInsets.all(18),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

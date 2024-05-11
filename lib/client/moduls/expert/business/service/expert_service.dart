@@ -36,7 +36,7 @@ abstract class ExpertService {
   Future<ExpertResponseModel> fetchSpecialtyExperts(
     @Query("specialty") String? specialtyId,
     @Query("city") String? cityId,
-    @Query("averageRating") int? rating,
+    @Query("rating") int? rating,
     @Query("page") int page, {
     @Query("limit") int limit = 10,
   });

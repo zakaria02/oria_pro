@@ -45,9 +45,28 @@ class DailyActionsSteps extends StatelessWidget {
 
   String _extractTextFromHtml(String htmlString) {
     var document = parse(htmlString);
-    final text = document.body?.text.substring(0, 70) ?? "";
-    return text.isNotEmpty ? "$text..." : "";
+    final text = document.body?.text ?? "";
+    return text.isNotEmpty
+        ? text.length > 70
+            ? "${text.substring(0, 70)}..."
+            : text
+        : "";
   }
+
+  Color get color => switch (actions.loggedSeverityValue) {
+        1 => const Color(0xFFA8E4C2),
+        2 => const Color(0xFFFEF3E0),
+        3 => const Color(0xFFFFDAA5),
+        4 => const Color(0xFFFF8888),
+        5 => const Color(0xFFFF5858),
+        _ => OriaColors.disabledColor,
+      };
+
+  Color get textColor => switch (actions.loggedSeverityValue) {
+        1 => const Color(0xFF006400),
+        2 => const Color(0xFF9F9F9F),
+        _ => Colors.white,
+      };
 
   Widget steps(BuildContext context) {
     return Column(
@@ -116,9 +135,10 @@ class DailyActionsSteps extends StatelessWidget {
                           section: null,
                           isPremium: actions.article.isPremium,
                           onStartPressed: () => onStartHerePress(
-                              actions.completedProgramSection,
-                              true,
-                              actions.loggedSymptomSeverity),
+                            actions.completedProgramSection,
+                            true,
+                            actions.loggedSymptomSeverity,
+                          ),
                         ),
                       ),
                     ],
@@ -149,50 +169,96 @@ class DailyActionsSteps extends StatelessWidget {
                                     ),
                               ),
                               const SizedBox(height: 12),
-                              Row(
-                                children: List.generate(
-                                  5,
-                                  (index) => GestureDetector(
-                                    onTap: () {
-                                      if (actions.loggedSeverityValue == null) {
-                                        BlocProvider.of<HomeBloc>(context).add(
-                                          AddSymptomSeverity(
-                                            severity: index + 1,
-                                            symptomId: symptoms
-                                                .where((symp) =>
-                                                    symp.type ==
-                                                    SymptomType.primary)
-                                                .first
-                                                .symptomId,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: Container(
-                                      height: 32,
-                                      width: 32,
-                                      margin: const EdgeInsets.only(right: 6),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: index + 1 ==
-                                                actions.loggedSeverityValue
-                                            ? const Color(0xFFA8E4C2)
-                                            : const Color(0xFFFAF8F2),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "${index + 1}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                fontFamily: "Satoshi",
-                                                fontWeight: FontWeight.w500,
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    ...List.generate(
+                                      5,
+                                      (index) => GestureDetector(
+                                        onTap: () {
+                                          if (!actions.loggedSymptomSeverity) {
+                                            BlocProvider.of<HomeBloc>(context)
+                                                .add(
+                                              AddSymptomSeverity(
+                                                severity: index + 1,
+                                                symptomId: symptoms
+                                                    .where((symp) =>
+                                                        symp.type ==
+                                                        SymptomType.primary)
+                                                    .first
+                                                    .symptomId,
                                               ),
+                                            );
+                                            onStartHerePress(
+                                              actions.completedProgramSection,
+                                              actions.readArticle,
+                                              true,
+                                            );
+                                          }
+                                        },
+                                        child: Container(
+                                          height: 32,
+                                          width: 32,
+                                          margin:
+                                              const EdgeInsets.only(right: 6),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: index + 1 ==
+                                                    actions.loggedSeverityValue
+                                                ? const Color(0xFFA8E4C2)
+                                                : const Color(0xFFFAF8F2),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "${index + 1}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall
+                                                  ?.copyWith(
+                                                    fontFamily: "Satoshi",
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                    const SizedBox(width: 8),
+                                    if (actions.loggedSeverityValue != null)
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: color,
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        height: 32,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 5),
+                                        child: Text(
+                                          switch (actions.loggedSeverityValue) {
+                                            1 => AppLocalizations.of(context)!
+                                                .great,
+                                            2 => AppLocalizations.of(context)!
+                                                .good,
+                                            3 => AppLocalizations.of(context)!
+                                                .okay,
+                                            4 =>
+                                              AppLocalizations.of(context)!.bad,
+                                            5 => AppLocalizations.of(context)!
+                                                .awful,
+                                            _ => "",
+                                          },
+                                          style: TextStyle(
+                                            color: textColor,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "Raleway",
+                                          ),
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -212,7 +278,7 @@ class DailyActionsSteps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (congrats) {
+    /*if (congrats) {
       return Column(
         children: [
           Padding(
@@ -238,7 +304,7 @@ class DailyActionsSteps extends StatelessWidget {
           const SizedBox(height: 32),
         ],
       );
-    }
+    }*/
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

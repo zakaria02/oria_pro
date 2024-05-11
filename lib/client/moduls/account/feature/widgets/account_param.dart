@@ -55,14 +55,15 @@ class AccountParam extends StatelessWidget {
                 width: 8,
               ),
             ),
-            Text(
-              title,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium
-                  ?.copyWith(fontWeight: FontWeight.w700, color: titleColor),
+            Expanded(
+              child: Text(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(fontWeight: FontWeight.w700, color: titleColor),
+              ),
             ),
-            const Spacer(),
             if (icon != null)
               GestureDetector(
                 onTap: onIconPress,

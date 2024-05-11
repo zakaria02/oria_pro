@@ -38,7 +38,7 @@ class ExpertFilterPage extends StatefulWidget {
 
 class _ExpertFilterPageState extends State<ExpertFilterPage> {
   Specialty? selectedSpeciality;
-  City? selectedCity;
+  late City? selectedCity;
   int? selectedRating;
   Rating? rating;
 

@@ -70,7 +70,10 @@ class ExpertDetailedCard extends StatelessWidget {
                       expert.rateAvarage?.toStringAsFixed(2) ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.copyWith(fontFamily: "Satoshi"),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -97,8 +100,7 @@ class ExpertDetailedCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: OriaColors.grey,
-                          ),
+                          color: OriaColors.grey, fontFamily: "Satoshi"),
                       textAlign: TextAlign.center,
                     ),
                     const Spacer(),
@@ -110,10 +112,8 @@ class ExpertDetailedCard extends StatelessWidget {
                       "${expert.consultationPrice}",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(color: OriaColors.green),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: OriaColors.green, fontFamily: "Satoshi"),
                       textAlign: TextAlign.center,
                     ),
                   ],

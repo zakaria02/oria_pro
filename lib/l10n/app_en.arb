@@ -276,5 +276,6 @@
     "addSymptom": "Add symptom",
     "consultExpertForSymptom": "Consult an expert for your {symptom}",
     "youDontHaveInsights": "You don't have any insights yet",
-    "allRatings": "All ratings"
+    "allRatings": "All ratings",
+    "showMedicalInfo": "Show medical info"
 }

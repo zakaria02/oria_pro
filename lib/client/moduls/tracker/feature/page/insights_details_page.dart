@@ -13,6 +13,7 @@ import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../expert/feature/bloc/expert_bloc.dart';
 import '../bloc/tracker_bloc.dart';
 import '../enitity/chart_period.dart';
 import '../enitity/tracked_symptom.dart';
@@ -137,159 +138,165 @@ class _InsightsDetailsPageState extends State<InsightsDetailsPage> {
                   height: 12,
                 ),
                 OriaCard(
+                  padding: EdgeInsets.zero,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            widget.symptom.name,
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                          const Spacer(),
-                          Text(
-                            "${DateFormat('dd.MM').format(startDate)} "
-                            "-"
-                            " ${DateFormat('dd.MM').format(endDate)}",
-                            style: const TextStyle(
-                              fontFamily: "Satoshi",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              widget.symptom.name,
+                              style: Theme.of(context).textTheme.displaySmall,
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          GestureDetector(
-                            onTap: () {
-                              final sd = startDate.add(Duration(days: -range));
-                              updateDate(sd, startDate);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: OriaColors.primaryColor,
-                                  )),
-                              height: 28,
-                              width: 28,
-                              child: const Icon(
-                                Icons.arrow_back_ios_sharp,
-                                size: 14,
-                                color: OriaColors.primaryColor,
+                            const Spacer(),
+                            Text(
+                              "${DateFormat('dd.MM').format(startDate)} "
+                              "-"
+                              " ${DateFormat('dd.MM').format(endDate)}",
+                              style: const TextStyle(
+                                fontFamily: "Satoshi",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          GestureDetector(
-                            onTap: () {
-                              final ed = endDate.add(Duration(days: range));
-                              updateDate(endDate, ed);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
+                            const SizedBox(width: 8),
+                            GestureDetector(
+                              onTap: () {
+                                final sd =
+                                    startDate.add(Duration(days: -range));
+                                updateDate(sd, startDate);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: OriaColors.primaryColor,
+                                    )),
+                                height: 28,
+                                width: 28,
+                                child: const Icon(
+                                  Icons.arrow_back_ios_sharp,
+                                  size: 14,
                                   color: OriaColors.primaryColor,
                                 ),
                               ),
-                              height: 28,
-                              width: 28,
-                              child: const Icon(
-                                Icons.arrow_forward_ios_sharp,
-                                size: 14,
-                                color: OriaColors.primaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 18),
-                      Container(
-                        padding: const EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: OriaColors.grey,
-                          ),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Row(
-                          children: [
-                            PeriodSelector(
-                              period: ChartDataPeriod.weekly,
-                              isSelected: period == ChartDataPeriod.weekly,
-                              onPress: () {
-                                if (period != ChartDataPeriod.weekly) {
-                                  updatePeriod(ChartDataPeriod.weekly);
-                                }
-                              },
                             ),
                             const SizedBox(width: 8),
-                            PeriodSelector(
-                              period: ChartDataPeriod.monthly,
-                              isSelected: period == ChartDataPeriod.monthly,
-                              onPress: () {
-                                if (period != ChartDataPeriod.monthly) {
-                                  updatePeriod(ChartDataPeriod.monthly);
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 22),
-                      SeverityChart(
-                        severityLogs: state is GetInsightsSuccess
-                            ? state.insights?.logs ?? []
-                            : [],
-                        otherSeverityLogs: state is GetInsightsSuccess
-                            ? state.insights?.otherLogs ?? []
-                            : [],
-                      ),
-                      const SizedBox(height: 18),
-                      Text(
-                        AppLocalizations.of(context)!.compareWith,
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                      const SizedBox(height: 12),
-                      otherSymptom == null
-                          ? LoggerCard(
-                              title: AppLocalizations.of(context)!.addSymptom,
-                              onPress: () async {
-                                await addOtherSymptom(blocContext);
-                              },
-                            )
-                          : GestureDetector(
-                              onTap: () async {
-                                await addOtherSymptom(blocContext);
+                            GestureDetector(
+                              onTap: () {
+                                final ed = endDate.add(Duration(days: range));
+                                updateDate(endDate, ed);
                               },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 6, horizontal: 12),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(34),
+                                  shape: BoxShape.circle,
                                   border: Border.all(
                                     color: OriaColors.primaryColor,
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Image.network(
-                                      otherSymptom!.icon,
-                                      height: 28,
-                                      width: 28,
-                                      color: OriaColors.primaryColor,
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Text(
-                                      otherSymptom!.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium,
-                                    ),
-                                  ],
+                                height: 28,
+                                width: 28,
+                                child: const Icon(
+                                  Icons.arrow_forward_ios_sharp,
+                                  size: 14,
+                                  color: OriaColors.primaryColor,
                                 ),
                               ),
                             ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          padding: const EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: OriaColors.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Row(
+                            children: [
+                              PeriodSelector(
+                                period: ChartDataPeriod.weekly,
+                                isSelected: period == ChartDataPeriod.weekly,
+                                onPress: () {
+                                  if (period != ChartDataPeriod.weekly) {
+                                    updatePeriod(ChartDataPeriod.weekly);
+                                  }
+                                },
+                              ),
+                              const SizedBox(width: 8),
+                              PeriodSelector(
+                                period: ChartDataPeriod.monthly,
+                                isSelected: period == ChartDataPeriod.monthly,
+                                onPress: () {
+                                  if (period != ChartDataPeriod.monthly) {
+                                    updatePeriod(ChartDataPeriod.monthly);
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5, right: 10),
+                        child: SeverityChart(
+                          severityLogs: state is GetInsightsSuccess
+                              ? state.insights?.logs ?? []
+                              : [],
+                          otherSeverityLogs: state is GetInsightsSuccess
+                              ? state.insights?.otherLogs ?? []
+                              : [],
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          AppLocalizations.of(context)!.compareWith,
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: otherSymptom == null
+                            ? LoggerCard(
+                                title: AppLocalizations.of(context)!.addSymptom,
+                                onPress: () async {
+                                  await addOtherSymptom(blocContext);
+                                },
+                              )
+                            : GestureDetector(
+                                onTap: () async {
+                                  await addOtherSymptom(blocContext);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 6, horizontal: 24),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(34),
+                                    color: OriaColors.chartSecondaryColor,
+                                  ),
+                                  child: Text(
+                                    otherSymptom!.name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -363,17 +370,24 @@ class _InsightsDetailsPageState extends State<InsightsDetailsPage> {
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
                           const SizedBox(height: 16),
-                          SizedBox(
-                            height: 235,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => ExpertCard(
-                                expert: expertsList[index],
-                              ),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(width: 10),
-                              itemCount: expertsList.length,
+                          BlocProvider(
+                            create: (context) => ExpertBloc(),
+                            child: BlocBuilder<ExpertBloc, ExpertState>(
+                              builder: (context, state) {
+                                return SizedBox(
+                                  height: 235,
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) => ExpertCard(
+                                      expert: expertsList[index],
+                                    ),
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(width: 10),
+                                    itemCount: expertsList.length,
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],

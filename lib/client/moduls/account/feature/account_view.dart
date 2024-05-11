@@ -77,11 +77,22 @@ class AccountView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               AccountParam(
-                padding: const EdgeInsets.only(
-                    left: 20, top: 7, bottom: 7, right: 10),
+                onlyTopRaduis: true,
                 image: SvgAssets.medicalInfoIcon,
                 title: AppLocalizations.of(context)!.medicalInfo,
                 onPress: () => context.router.push(const MedicalInfoRoute()),
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(height: 1),
+              AccountParam(
+                onlyBottomRaduis: true,
+                padding: const EdgeInsets.only(
+                    left: 20, top: 7, bottom: 7, right: 10),
+                image: SvgAssets.medicalInfoIcon,
+                title: AppLocalizations.of(context)!.showMedicalInfo,
                 icon: Switch(
                   value: userState.currenUser?.shareMedicalInfo ?? false,
                   activeColor: OriaColors.greenAccentLight,

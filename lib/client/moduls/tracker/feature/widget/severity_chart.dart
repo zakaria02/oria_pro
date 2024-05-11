@@ -29,7 +29,6 @@ class _LineChart extends StatelessWidget {
           fontFamily: "Satoshi",
           color: Colors.grey,
         ),
-        opposedPosition: true,
       ),
       primaryYAxis: NumericAxis(
         isVisible: true,
@@ -64,8 +63,8 @@ class _LineChart extends StatelessWidget {
           }
         },
       ),
-      series: <AreaSeries<SeverityLog, String>>[
-        AreaSeries<SeverityLog, String>(
+      series: <SplineAreaSeries<SeverityLog, String>>[
+        SplineAreaSeries<SeverityLog, String>(
           dataSource: severityLogs,
           xValueMapper: (SeverityLog logs, _) =>
               DateFormat("dd/MM").format(logs.day),
@@ -79,31 +78,21 @@ class _LineChart extends StatelessWidget {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
           ),
-          markerSettings: const MarkerSettings(
-            height: 4,
-            width: 4,
-            shape: DataMarkerType.circle,
-          ),
           dataLabelSettings: const DataLabelSettings(isVisible: false),
         ),
-        AreaSeries<SeverityLog, String>(
+        SplineAreaSeries<SeverityLog, String>(
           dataSource: otherSeverityLogs,
           xValueMapper: (SeverityLog logs, _) =>
               DateFormat("dd/MM").format(logs.day),
           yValueMapper: (SeverityLog logs, _) => logs.severity,
-          color: OriaColors.primaryColor.withOpacity(0.5),
-          borderColor: OriaColors.primaryColor,
+          color: OriaColors.chartSecondaryColor.withOpacity(0.5),
+          borderColor: OriaColors.chartSecondaryColor,
           borderWidth: 2,
           gradient: const LinearGradient(
-            colors: <Color>[Colors.white, OriaColors.primaryColor],
+            colors: <Color>[Colors.white, OriaColors.chartSecondaryColor],
             stops: [0.0, 1.0],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
-          ),
-          markerSettings: const MarkerSettings(
-            height: 4,
-            width: 4,
-            shape: DataMarkerType.circle,
           ),
           dataLabelSettings: const DataLabelSettings(isVisible: false),
         ),
