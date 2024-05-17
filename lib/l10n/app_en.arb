@@ -13,7 +13,7 @@
     "sendEmail": "Send email",
     "chooseSymptom": "Choose symptom",
     "symptomBothering": "Symptom that is bothering you",
-    "symptomsBothering": "Symptom that are bothering you",
+    "symptomsBothering": "Symptoms that are bothering you",
     "chooseMainSymptom": "(Choose the main symptom. If you have additional symptoms, you can select them after this step)",
     "loadMore": "Load more",
     "next": "Next",
@@ -118,7 +118,7 @@
     "programsForSymptom": "Programs for {symptom}",
     "articlesForSymptom": "Articles for {symptom}",
     "primary": "primary",
-    "experts": "Experts",
+    "experts": "Find experts",
     "appointments": "Appointments",
     "history": "History",
     "findBySpeciality": "Find by speciality:",
@@ -278,5 +278,6 @@
     "youDontHaveInsights": "You don't have any insights yet",
     "allRatings": "All ratings",
     "showMedicalInfo": "Show medical info",
-    "finished": "Finished"
+    "finished": "Finished",
+    "province": "Province"
 }

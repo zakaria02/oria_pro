@@ -17,6 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:oria_pro/widgets/oria_rounded_button.dart';
 
 import '../../../../../../widgets/oria_icon_button.dart';
+import '../../../../../widgets/oria_dialog.dart';
 
 class DailyActionsSteps extends StatelessWidget {
   const DailyActionsSteps({
@@ -24,6 +25,7 @@ class DailyActionsSteps extends StatelessWidget {
     required this.actions,
     required this.primarySymptom,
     required this.onStartHerePress,
+    required this.finishSection,
     required this.name,
     required this.symptoms,
   });
@@ -31,6 +33,7 @@ class DailyActionsSteps extends StatelessWidget {
   final String primarySymptom;
   final String name;
   final Function(bool, bool, bool) onStartHerePress;
+  final Function(String, String) finishSection;
   final List<Symptom> symptoms;
 
   bool get isProgramCurrent => !actions.completedProgramSection;
@@ -54,17 +57,17 @@ class DailyActionsSteps extends StatelessWidget {
   }
 
   Color get color => switch (actions.loggedSeverityValue) {
-        1 => const Color(0xFFA8E4C2),
-        2 => const Color(0xFFFEF3E0),
-        3 => const Color(0xFFFFDAA5),
-        4 => const Color(0xFFFF8888),
-        5 => const Color(0xFFFF5858),
+        0 => const Color(0xFFA8E4C2),
+        1 => const Color(0xFFFEF3E0),
+        2 => const Color(0xFFFFDAA5),
+        3 => const Color(0xFFFF8888),
+        4 => const Color(0xFFFF5858),
         _ => OriaColors.disabledColor,
       };
 
   Color get textColor => switch (actions.loggedSeverityValue) {
-        1 => const Color(0xFF006400),
-        2 => const Color(0xFF9F9F9F),
+        0 => const Color(0xFF006400),
+        1 => const Color(0xFF9F9F9F),
         _ => Colors.white,
       };
 
@@ -105,10 +108,15 @@ class DailyActionsSteps extends StatelessWidget {
                           article: null,
                           section: actions.section,
                           isPremium: actions.section.isPremium,
-                          onStartPressed: () => onStartHerePress(
-                              true,
-                              actions.readArticle,
-                              actions.loggedSymptomSeverity),
+                          onStartPressed: () {
+                            onStartHerePress(true, actions.readArticle,
+                                actions.loggedSymptomSeverity);
+                            finishSection(
+                                actions.section.id, actions.section.programId);
+                          },
+                          loggedSymptom: actions.loggedSymptomSeverity,
+                          userName: name,
+                          symptoms: symptoms,
                         ),
                       ),
                     ],
@@ -139,6 +147,9 @@ class DailyActionsSteps extends StatelessWidget {
                             true,
                             actions.loggedSymptomSeverity,
                           ),
+                          loggedSymptom: actions.loggedSymptomSeverity,
+                          userName: name,
+                          symptoms: symptoms,
                         ),
                       ),
                     ],
@@ -181,7 +192,7 @@ class DailyActionsSteps extends StatelessWidget {
                                             BlocProvider.of<HomeBloc>(context)
                                                 .add(
                                               AddSymptomSeverity(
-                                                severity: index + 1,
+                                                severity: index,
                                                 symptomId: symptoms
                                                     .where((symp) =>
                                                         symp.type ==
@@ -190,6 +201,12 @@ class DailyActionsSteps extends StatelessWidget {
                                                     .symptomId,
                                               ),
                                             );
+                                            if (actions.readArticle &&
+                                                actions
+                                                    .completedProgramSection) {
+                                              _showCongratsDialog(
+                                                  context, name, symptoms);
+                                            }
                                             onStartHerePress(
                                               actions.completedProgramSection,
                                               actions.readArticle,
@@ -205,14 +222,14 @@ class DailyActionsSteps extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: index + 1 ==
+                                            color: index ==
                                                     actions.loggedSeverityValue
                                                 ? const Color(0xFFA8E4C2)
                                                 : const Color(0xFFFAF8F2),
                                           ),
                                           child: Center(
                                             child: Text(
-                                              "${index + 1}",
+                                              "$index",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodySmall
@@ -238,15 +255,15 @@ class DailyActionsSteps extends StatelessWidget {
                                             horizontal: 12, vertical: 5),
                                         child: Text(
                                           switch (actions.loggedSeverityValue) {
-                                            1 => AppLocalizations.of(context)!
+                                            0 => AppLocalizations.of(context)!
                                                 .great,
-                                            2 => AppLocalizations.of(context)!
+                                            1 => AppLocalizations.of(context)!
                                                 .good,
-                                            3 => AppLocalizations.of(context)!
+                                            2 => AppLocalizations.of(context)!
                                                 .okay,
-                                            4 =>
+                                            3 =>
                                               AppLocalizations.of(context)!.bad,
-                                            5 => AppLocalizations.of(context)!
+                                            4 => AppLocalizations.of(context)!
                                                 .awful,
                                             _ => "",
                                           },
@@ -278,33 +295,6 @@ class DailyActionsSteps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*if (congrats) {
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: SvgPicture.asset(SvgAssets.congratsAsset),
-          ),
-          const SizedBox(height: 32),
-          Text(
-            AppLocalizations.of(context)!.congratsContent(name),
-            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontFamily: "Marcellus",
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
-          OriaRoundedButton(
-            onPress: () =>
-                context.pushRoute(SymptomsListRoute(symptoms: symptoms)),
-            text: AppLocalizations.of(context)!.keepLearningSymptoms,
-          ),
-          const SizedBox(height: 32),
-        ],
-      );
-    }*/
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -334,6 +324,9 @@ class ActionCard extends StatefulWidget {
     required this.isPremium,
     required this.onStartPressed,
     required this.finished,
+    required this.loggedSymptom,
+    required this.symptoms,
+    required this.userName,
   });
   final String title;
   final String description;
@@ -345,6 +338,9 @@ class ActionCard extends StatefulWidget {
   final LearningArticle? article;
   final VoidCallback onStartPressed;
   final bool finished;
+  final bool loggedSymptom;
+  final String userName;
+  final List<Symptom> symptoms;
 
   @override
   State<ActionCard> createState() => _ActionCardState();
@@ -475,6 +471,10 @@ class _ActionCardState extends State<ActionCard> {
                             programName: widget.section!.title));
                       } else {
                         context.pushRoute(ArticleRoute(id: widget.article!.id));
+                        if (widget.loggedSymptom) {
+                          _showCongratsDialog(
+                              context, widget.userName, widget.symptoms);
+                        }
                       }
                     },
                     text: AppLocalizations.of(context)!.startHere,
@@ -518,4 +518,41 @@ class OriaDottedLine extends StatelessWidget {
       dashColor: color,
     );
   }
+}
+
+void _showCongratsDialog(
+    BuildContext context, String userName, List<Symptom> symptoms) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return OriaDialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              child: SvgPicture.asset(SvgAssets.congratsAsset),
+            ),
+            const SizedBox(height: 32),
+            Text(
+              AppLocalizations.of(context)!.congratsContent(userName),
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    fontFamily: "Marcellus",
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            OriaRoundedButton(
+              onPress: () =>
+                  context.pushRoute(SymptomsListRoute(symptoms: symptoms)),
+              text: AppLocalizations.of(context)!.keepLearningSymptoms,
+            ),
+            const SizedBox(height: 32),
+          ],
+        ),
+      );
+    },
+  );
 }

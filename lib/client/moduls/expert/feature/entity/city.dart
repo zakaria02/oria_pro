@@ -1,11 +1,13 @@
 class City {
   final String name;
-  final String province;
+  final String provinceId;
+  final String provinceName;
   final String id;
 
   const City({
     required this.name,
-    required this.province,
+    required this.provinceId,
+    required this.provinceName,
     required this.id,
   });
 

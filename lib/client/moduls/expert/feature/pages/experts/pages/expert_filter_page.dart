@@ -13,6 +13,8 @@ import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../utils/constants/oria_colors.dart';
+import '../../../../../../../widgets/oria_search_drop_down.dart';
+import '../../../entity/province.dart';
 import '../widgets/rating_widget.dart';
 
 @RoutePage()
@@ -24,13 +26,17 @@ class ExpertFilterPage extends StatefulWidget {
     required this.selectedSpeciality,
     required this.selectedCity,
     required this.selectedRating,
+    required this.provinces,
+    required this.selectedProvince,
   });
 
   final List<Specialty> specilalties;
   final List<City> cities;
+  final List<Province> provinces;
   final Specialty? selectedSpeciality;
   final int? selectedRating;
   final City? selectedCity;
+  final Province? selectedProvince;
 
   @override
   State<ExpertFilterPage> createState() => _ExpertFilterPageState();
@@ -39,13 +45,14 @@ class ExpertFilterPage extends StatefulWidget {
 class _ExpertFilterPageState extends State<ExpertFilterPage> {
   Specialty? selectedSpeciality;
   late City? selectedCity;
+  late Province? selectedProvince;
+  late List<City> provinceCities;
   int? selectedRating;
   Rating? rating;
 
   @override
   void initState() {
     selectedSpeciality = widget.selectedSpeciality ?? widget.specilalties.first;
-    selectedCity = widget.selectedCity ?? widget.cities.first;
     rating = switch (widget.selectedRating) {
       4 => Rating.rating4,
       3 => Rating.rating3,
@@ -53,6 +60,12 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
       _ => Rating.all,
     };
     selectedRating = widget.selectedRating;
+    selectedProvince = widget.selectedProvince ?? widget.provinces.first;
+    provinceCities = widget.cities
+        .where((city) => city.provinceId == selectedProvince?.id)
+        .toList();
+    selectedCity = widget.selectedCity ?? provinceCities.first;
+
     super.initState();
   }
 
@@ -92,6 +105,31 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                       ),
                       const SizedBox(height: 24),
                       Text(
+                        AppLocalizations.of(context)!.province,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge
+                            ?.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(height: 12),
+                      OriaDropDown<Province>(
+                        selectedItem: selectedProvince,
+                        items: widget.provinces,
+                        onValueChange: (province) {
+                          setState(() {
+                            if (selectedProvince != province) {
+                              selectedProvince = province;
+                              provinceCities = widget.cities
+                                  .where((city) =>
+                                      city.provinceId == selectedProvince?.id)
+                                  .toList();
+                              selectedCity = provinceCities.first;
+                            }
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
                         AppLocalizations.of(context)!.location,
                         style: Theme.of(context)
                             .textTheme
@@ -99,9 +137,9 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                             ?.copyWith(fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(height: 12),
-                      OriaDropDown<City>(
+                      OriaSearchDropDown<City>(
                         selectedItem: selectedCity,
-                        items: widget.cities,
+                        items: provinceCities,
                         onValueChange: (city) {
                           setState(() {
                             selectedCity = city;

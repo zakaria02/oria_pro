@@ -3,7 +3,8 @@ class Expert {
   final String firstName;
   final String lastName;
   final String city;
-  final String province;
+  final String provinceId;
+  final String provinceName;
   final String specialty;
   final int yearsOfExperience;
   final double consultationPrice;
@@ -18,7 +19,8 @@ class Expert {
     required this.city,
     required this.firstName,
     required this.lastName,
-    required this.province,
+    required this.provinceId,
+    required this.provinceName,
     required this.specialty,
     required this.consultationPrice,
     required this.rateAvarage,

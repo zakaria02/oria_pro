@@ -8,12 +8,14 @@ part of 'city_model.dart';
 
 CityModel _$CityModelFromJson(Map<String, dynamic> json) => CityModel(
       name: json['name'] as String,
-      province: json['province'] as String,
+      provinceId: json['provinceId'] as String,
+      provinceName: json['provinceName'] as String,
       id: json['id'] as String,
     );
 
 Map<String, dynamic> _$CityModelToJson(CityModel instance) => <String, dynamic>{
       'name': instance.name,
-      'province': instance.province,
+      'provinceId': instance.provinceId,
+      'provinceName': instance.provinceName,
       'id': instance.id,
     };

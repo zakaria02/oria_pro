@@ -95,6 +95,8 @@ abstract class _$AppRouter extends RootStackRouter {
           selectedSpeciality: args.selectedSpeciality,
           selectedCity: args.selectedCity,
           selectedRating: args.selectedRating,
+          provinces: args.provinces,
+          selectedProvince: args.selectedProvince,
         ),
       );
     },
@@ -541,6 +543,8 @@ class ExpertFilterRoute extends PageRouteInfo<ExpertFilterRouteArgs> {
     required Specialty? selectedSpeciality,
     required City? selectedCity,
     required int? selectedRating,
+    required List<Province> provinces,
+    required Province? selectedProvince,
     List<PageRouteInfo>? children,
   }) : super(
           ExpertFilterRoute.name,
@@ -551,6 +555,8 @@ class ExpertFilterRoute extends PageRouteInfo<ExpertFilterRouteArgs> {
             selectedSpeciality: selectedSpeciality,
             selectedCity: selectedCity,
             selectedRating: selectedRating,
+            provinces: provinces,
+            selectedProvince: selectedProvince,
           ),
           initialChildren: children,
         );
@@ -569,6 +575,8 @@ class ExpertFilterRouteArgs {
     required this.selectedSpeciality,
     required this.selectedCity,
     required this.selectedRating,
+    required this.provinces,
+    required this.selectedProvince,
   });
 
   final Key? key;
@@ -583,9 +591,13 @@ class ExpertFilterRouteArgs {
 
   final int? selectedRating;
 
+  final List<Province> provinces;
+
+  final Province? selectedProvince;
+
   @override
   String toString() {
-    return 'ExpertFilterRouteArgs{key: $key, specilalties: $specilalties, cities: $cities, selectedSpeciality: $selectedSpeciality, selectedCity: $selectedCity, selectedRating: $selectedRating}';
+    return 'ExpertFilterRouteArgs{key: $key, specilalties: $specilalties, cities: $cities, selectedSpeciality: $selectedSpeciality, selectedCity: $selectedCity, selectedRating: $selectedRating, provinces: $provinces, selectedProvince: $selectedProvince}';
   }
 }
 

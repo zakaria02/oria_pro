@@ -7,6 +7,7 @@ import 'package:oria_pro/common/symptoms/feature/widgets/severity_card.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../../utils/constants/oria_colors.dart';
 import '../../../../utils/constants/svg_assets.dart';
 import '../../../../utils/router/router.dart';
 import '../../../../widgets/oria_app_bar.dart';
@@ -30,6 +31,20 @@ class PrimarySymptomSeverityPage extends StatefulWidget {
 class _PrimarySymptomSeverityPageState
     extends State<PrimarySymptomSeverityPage> {
   int? selectedSeverity;
+  Color get color => switch (selectedSeverity) {
+        0 => const Color(0xFFA8E4C2),
+        1 => const Color(0xFFFEF3E0),
+        2 => const Color(0xFFFFDAA5),
+        3 => const Color(0xFFFF8888),
+        4 => const Color(0xFFFF5858),
+        _ => OriaColors.disabledColor,
+      };
+
+  Color get textColor => switch (selectedSeverity) {
+        0 => const Color(0xFF006400),
+        1 => const Color(0xFF9F9F9F),
+        _ => Colors.white,
+      };
   @override
   Widget build(BuildContext context) {
     final router = context.router;
@@ -47,12 +62,12 @@ class _PrimarySymptomSeverityPageState
       body: Expanded(
         child: ListView(
           children: [
-            const SizedBox(height: 80),
+            const SizedBox(height: 20),
             SvgPicture.asset(
               SvgAssets.rateAsset,
               height: MediaQuery.of(context).size.height * 0.28,
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 28),
             Text(
               widget.onboardingStepsCubit.state.primarySymptom?.name ?? "",
               style: Theme.of(context).textTheme.titleLarge,
@@ -67,6 +82,36 @@ class _PrimarySymptomSeverityPageState
                   ),
               textAlign: TextAlign.center,
             ),
+            const SizedBox(
+              height: 30,
+            ),
+            if (selectedSeverity != null)
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 28, vertical: 5),
+                  child: Text(
+                    switch (selectedSeverity) {
+                      0 => AppLocalizations.of(context)!.great,
+                      1 => AppLocalizations.of(context)!.good,
+                      2 => AppLocalizations.of(context)!.okay,
+                      3 => AppLocalizations.of(context)!.bad,
+                      4 => AppLocalizations.of(context)!.awful,
+                      _ => "",
+                    },
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Raleway",
+                    ),
+                  ),
+                ),
+              ),
             const SizedBox(height: 30),
             Center(
               child: SizedBox(
@@ -82,11 +127,11 @@ class _PrimarySymptomSeverityPageState
                   ),
                   itemCount: 5,
                   itemBuilder: (context, index) => SeverityCard(
-                    severity: index + 1,
+                    severity: index,
                     onPress: (severity) => setState(() {
                       selectedSeverity = severity;
                     }),
-                    selected: index + 1 == selectedSeverity,
+                    selected: index == selectedSeverity,
                   ),
                 ),
               ),

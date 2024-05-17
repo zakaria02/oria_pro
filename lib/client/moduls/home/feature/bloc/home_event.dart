@@ -29,6 +29,16 @@ final class SelectSymptom extends HomeEvent {
   const SelectSymptom({this.symptom});
 }
 
+final class FinishASection extends HomeEvent {
+  final String sectionId;
+  final String programId;
+
+  const FinishASection({
+    required this.sectionId,
+    required this.programId,
+  });
+}
+
 final class FinishAnAction extends HomeEvent {
   final bool completedProgramSection;
   final bool readArticle;

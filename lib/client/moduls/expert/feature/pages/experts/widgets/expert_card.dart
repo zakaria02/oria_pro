@@ -71,7 +71,7 @@ class ExpertCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              "${expert.city}, ${expert.province}",
+              "${expert.city}, ${expert.provinceName}",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context)

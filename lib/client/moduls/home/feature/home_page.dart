@@ -167,26 +167,33 @@ class HomeView extends StatelessWidget {
                           children: [
                             if (state.actions != null)
                               DailyActionsSteps(
-                                symptoms: state.userSymptoms,
-                                name: state.currentUser!.name,
-                                actions: state.actions!,
-                                primarySymptom: state.userSymptoms
-                                    .firstWhere((sym) =>
-                                        sym.type == SymptomType.primary)
-                                    .name,
-                                onStartHerePress: (completedProgramSection,
-                                    readArticle, loggedSymptomSeverity) {
-                                  BlocProvider.of<HomeBloc>(context).add(
-                                    FinishAnAction(
-                                      completedProgramSection:
-                                          completedProgramSection,
-                                      readArticle: readArticle,
-                                      loggedSymptomSeverity:
-                                          loggedSymptomSeverity,
-                                    ),
-                                  );
-                                },
-                              ),
+                                  symptoms: state.userSymptoms,
+                                  name: state.currentUser!.name,
+                                  actions: state.actions!,
+                                  primarySymptom: state.userSymptoms
+                                      .firstWhere((sym) =>
+                                          sym.type == SymptomType.primary)
+                                      .name,
+                                  onStartHerePress: (completedProgramSection,
+                                      readArticle, loggedSymptomSeverity) {
+                                    BlocProvider.of<HomeBloc>(context).add(
+                                      FinishAnAction(
+                                        completedProgramSection:
+                                            completedProgramSection,
+                                        readArticle: readArticle,
+                                        loggedSymptomSeverity:
+                                            loggedSymptomSeverity,
+                                      ),
+                                    );
+                                  },
+                                  finishSection: (sectionId, programId) {
+                                    BlocProvider.of<HomeBloc>(context).add(
+                                      FinishASection(
+                                        sectionId: sectionId,
+                                        programId: programId,
+                                      ),
+                                    );
+                                  }),
                             if (state.userSymptoms.isNotEmpty) ...[
                               Row(
                                 children: [

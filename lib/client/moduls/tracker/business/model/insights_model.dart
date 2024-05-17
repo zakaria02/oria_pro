@@ -47,7 +47,7 @@ extension InsightsModelMappers on InsightsModel {
           .map(
             (point) => SeverityLog(
               // We need to reverse values 5 become 1 and 1 become 5 and so on, so we can display it correcty in the chart
-              severity: 6 - point.severity,
+              severity: 5 - point.severity,
               day: point.logDate,
             ),
           )
@@ -56,7 +56,7 @@ extension InsightsModelMappers on InsightsModel {
           .map(
             (point) => SeverityLog(
               // We need to reverse values 5 become 1 and 1 become 5 and so on, so we can display it correcty in the chart
-              severity: 6 - point.severity,
+              severity: 5 - point.severity,
               day: point.logDate,
             ),
           )

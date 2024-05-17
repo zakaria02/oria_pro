@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import '../utils/constants/oria_colors.dart';
 
 class OriaTopBarSelect extends StatelessWidget {
-  const OriaTopBarSelect(
-      {super.key,
-      required this.items,
-      required this.selectedItem,
-      required this.onItemPress});
+  const OriaTopBarSelect({
+    super.key,
+    required this.items,
+    required this.selectedItem,
+    required this.onItemPress,
+    this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+    this.margin = const EdgeInsets.symmetric(vertical: 5),
+  });
 
   final List<String> items;
   final String selectedItem;
   final Function(String) onItemPress;
+  final EdgeInsets padding;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class OriaTopBarSelect extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+        padding: padding,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: items
@@ -32,7 +37,7 @@ class OriaTopBarSelect extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () => onItemPress(item),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        padding: margin,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           color: selectedItem == item

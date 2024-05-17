@@ -24,10 +24,14 @@ class ExpertsView extends StatelessWidget {
         },
         builder: (expertBlocContext, state) {
           return state is HomeDataLoading
-              ? const OriaLoadingProgress()
+              ? const Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: OriaLoadingProgress(),
+                )
               : Expanded(
                   child: ListView(
                     children: [
+                      const SizedBox(height: 20),
                       if (state.specialties.isNotEmpty) ...[
                         Text(
                           AppLocalizations.of(context)!.findBySpeciality,

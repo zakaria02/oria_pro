@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:oria_pro/client/moduls/explore/feature/programs/use_case/start_section_use_case.dart';
 import 'package:oria_pro/client/moduls/home/business/locator/home_locator.dart';
 import 'package:oria_pro/client/moduls/home/business/repository/home_repository.dart';
 import 'package:oria_pro/client/moduls/home/feature/entity/daily_actions.dart';
@@ -14,6 +15,8 @@ import 'package:oria_pro/common/symptoms/feature/usecase/get_user_symptoms.dart'
 
 import '../../../../../common/entity/user.dart';
 import '../../../../../common/symptoms/business/model/symptom_severity_request_model.dart';
+import '../../../explore/business/di/explore_locator.dart';
+import '../../../explore/feature/programs/use_case/finish_section_use_case.dart';
 import '../../business/model/finish_action_model.dart';
 
 part 'home_event.dart';
@@ -142,6 +145,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           actions: state.actions,
         ),
       );
+    });
+
+    on<FinishASection>((event, emit) async {
+      FinishSectionUseCase finishSectionUseCase = ExploreLocator().get();
+      StartSectionUseCase startSectionUseCase = ExploreLocator().get();
+      await startSectionUseCase.execute(event.programId, event.sectionId);
+      await Future.delayed(const Duration(milliseconds: 500));
+      await finishSectionUseCase.execute(event.programId, event.sectionId);
     });
 
     on<FinishAnAction>((event, emit) async {

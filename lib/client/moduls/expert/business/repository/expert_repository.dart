@@ -10,6 +10,7 @@ import 'package:oria_pro/client/moduls/expert/business/model/create_appointment_
 import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/pay_invoice_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/pay_invoice_response_model.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/province_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/review_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/service/expert_service.dart';
@@ -39,6 +40,7 @@ abstract class ExpertRepository {
   Future<List<ReviewModel>> getExpertReviews(String expertId);
   Future<void> addReview(AddReviewRequestModel request);
   Future<File> downloadPrescription(String appointmentId);
+  Future<List<ProvinceModel>> getProvinces();
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -112,6 +114,11 @@ class ExpertRepositoryImpl extends ExpertRepository {
   @override
   Future<List<CityModel>> getCities() {
     return _service.fetchCities();
+  }
+
+  @override
+  Future<List<ProvinceModel>> getProvinces() {
+    return _service.fetchProvinces();
   }
 
   @override

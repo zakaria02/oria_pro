@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/add_review_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/province_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../model/appointment_model.dart';
@@ -25,6 +26,9 @@ abstract class ExpertService {
 
   @GET("/metadata/cities")
   Future<List<CityModel>> fetchCities();
+
+  @GET("/metadata/provinces")
+  Future<List<ProvinceModel>> fetchProvinces();
 
   @GET("/consultation/experts/recommended")
   Future<ExpertResponseModel> fetchRecommendedExperts();

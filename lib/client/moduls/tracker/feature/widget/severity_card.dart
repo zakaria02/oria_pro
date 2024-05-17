@@ -14,8 +14,8 @@ class SeverityCard extends StatelessWidget {
   final VoidCallback onPress;
 
   Color get color => switch (severity) {
-        1 => const Color(0xFF006400),
-        2 => const Color(0xFF9F9F9F),
+        0 => const Color(0xFF006400),
+        1 => const Color(0xFF9F9F9F),
         _ => Colors.white,
       };
 
@@ -28,11 +28,11 @@ class SeverityCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(21),
           color: switch (severity) {
-            1 => const Color(0xFFA8E4C2),
-            2 => const Color(0xFFFEF3E0),
-            3 => const Color(0xFFFFDAA5),
-            4 => const Color(0xFFFF8888),
-            5 => const Color(0xFFFF5858),
+            0 => const Color(0xFFA8E4C2),
+            1 => const Color(0xFFFEF3E0),
+            2 => const Color(0xFFFFDAA5),
+            3 => const Color(0xFFFF8888),
+            4 => const Color(0xFFFF5858),
             _ => OriaColors.disabledColor,
           },
         ),
@@ -41,11 +41,11 @@ class SeverityCard extends StatelessWidget {
           children: [
             Text(
               switch (severity) {
-                1 => AppLocalizations.of(context)!.great,
-                2 => AppLocalizations.of(context)!.good,
-                3 => AppLocalizations.of(context)!.okay,
-                4 => AppLocalizations.of(context)!.bad,
-                5 => AppLocalizations.of(context)!.awful,
+                0 => AppLocalizations.of(context)!.great,
+                1 => AppLocalizations.of(context)!.good,
+                2 => AppLocalizations.of(context)!.okay,
+                3 => AppLocalizations.of(context)!.bad,
+                4 => AppLocalizations.of(context)!.awful,
                 _ => "",
               },
               style: Theme.of(context).textTheme.labelMedium?.copyWith(

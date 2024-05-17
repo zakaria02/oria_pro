@@ -7,14 +7,17 @@ part 'city_model.g.dart';
 class CityModel {
   @JsonKey(name: "name")
   final String name;
-  @JsonKey(name: "province")
-  final String province;
+  @JsonKey(name: "provinceId")
+  final String provinceId;
+  @JsonKey(name: "provinceName")
+  final String provinceName;
   @JsonKey(name: "id")
   final String id;
 
   const CityModel({
     required this.name,
-    required this.province,
+    required this.provinceId,
+    required this.provinceName,
     required this.id,
   });
 
@@ -27,7 +30,8 @@ extension CityModelMapper on CityModel {
   City toCity() {
     return City(
       name: name,
-      province: province,
+      provinceId: provinceId,
+      provinceName: provinceName,
       id: id,
     );
   }

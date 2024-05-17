@@ -50,7 +50,7 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
         ..addFilter(
           specialty: widget.specialty,
         )
-        ..getCities(),
+        ..getLocationData(),
       child: BlocConsumer<ExpertFilterCubit, ExpertFilterState>(
         listener: (filterContext, filterState) {
           BlocProvider.of<ExpertBloc>(filterContext).add(
@@ -180,6 +180,8 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                                             filterState.specialty,
                                         selectedCity: filterState.city,
                                         selectedRating: filterState.rating,
+                                        provinces: filterState.provinces,
+                                        selectedProvince: filterState.province,
                                       ),
                                     );
                                   },

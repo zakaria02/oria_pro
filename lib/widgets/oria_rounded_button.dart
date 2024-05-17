@@ -82,6 +82,7 @@ class OriaRoundedButton extends StatelessWidget {
               : text != null
                   ? Text(
                       text!,
+                      textAlign: TextAlign.center,
                     )
                   : child,
         ),
