@@ -143,7 +143,7 @@ class _ExpertService implements ExpertService {
     final queryParameters = <String, dynamic>{
       r'specialty': specialtyId,
       r'city': cityId,
-      r'averageRating': rating,
+      r'rating': rating,
       r'page': page,
       r'limit': limit,
     };

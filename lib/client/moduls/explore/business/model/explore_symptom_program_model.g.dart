@@ -30,6 +30,7 @@ ProgramSymptomModel _$ProgramSymptomModelFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       thumbnail: json['thumbnail'] as String,
       duration: json['duration'] as int,
+      learningStatus: json['learningStatus'] as String,
     );
 
 Map<String, dynamic> _$ProgramSymptomModelToJson(
@@ -39,4 +40,5 @@ Map<String, dynamic> _$ProgramSymptomModelToJson(
       'title': instance.title,
       'thumbnail': instance.thumbnail,
       'duration': instance.duration,
+      'learningStatus': instance.learningStatus,
     };

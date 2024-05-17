@@ -26,14 +26,6 @@ abstract class ExploreRepository {
   Future<void> updateSection(UpdateSectionRequestModel request);
   Future<ProgramSectionWithContentModel> fetchSectionDetails(
       String programId, String sectionId);
-
-  /*Future<List<ProgramDto>> fetchYourProgramms();
-  Future<ProgramDto> fetchProgram(String programId);
-  Future<List<ProgramSection>> fetchProgramSections(String programId);
-  Future<ProgramSectionWithContent> fetchProgramSectionContent(
-    String programId,
-    String sectionId,
-  );*/
 }
 
 class ExploreRepositoryImpl extends ExploreRepository {
@@ -96,30 +88,4 @@ class ExploreRepositoryImpl extends ExploreRepository {
     return service
         .resetProgram(EnrollProgramRequestModel(programId: programId));
   }
-
-  /*@override
-  Future<List<ProgramDto>> fetchCategoryPrograms(String categoryId) async {
-    return (await service.fetchCategoryPrograms(categoryId)).programs;
-  }
-
-  @override
-  Future<ProgramDto> fetchProgram(String programId) {
-    return service.fetchProgram(programId);
-  }
-
-  @override
-  Future<List<ProgramDto>> fetchYourProgramms() async {
-    return (await service.fetchYourProgramms()).programs;
-  }
-
-  @override
-  Future<List<ProgramSection>> fetchProgramSections(String programId) {
-    return service.fetchProgramSections(programId);
-  }
-
-  @override
-  Future<ProgramSectionWithContent> fetchProgramSectionContent(
-      String programId, String sectionId) {
-    return service.fetchProgramSectionContent(programId, sectionId);
-  }*/
 }

@@ -5,8 +5,13 @@ import 'package:oria_pro/utils/constants/svg_assets.dart';
 import '../utils/constants/oria_colors.dart';
 
 class OriaBadge extends StatelessWidget {
-  const OriaBadge({super.key, required this.title});
+  const OriaBadge({
+    super.key,
+    required this.title,
+    this.isTime = true,
+  });
   final String title;
+  final bool isTime;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,8 @@ class OriaBadge extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(SvgAssets.timeAsset),
+          if (isTime) SvgPicture.asset(SvgAssets.timeAsset),
+          if (!isTime) const SizedBox(width: 8),
           Text(
             title,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(

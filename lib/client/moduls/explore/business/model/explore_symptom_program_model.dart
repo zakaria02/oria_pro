@@ -32,12 +32,14 @@ class ProgramSymptomModel {
   final String title;
   final String thumbnail;
   final int duration;
+  final String learningStatus;
 
   const ProgramSymptomModel({
     required this.id,
     required this.title,
     required this.thumbnail,
     required this.duration,
+    required this.learningStatus,
   });
 
   factory ProgramSymptomModel.fromJson(Map<String, dynamic> json) =>
@@ -66,6 +68,7 @@ extension ArticleModelMappers on ProgramSymptomModel {
       thumbnail: "${OriaLinks.stagingProgramsAssetsBaseUrl}/$thumbnail",
       isPremium: false,
       duration: duration,
+      finished: learningStatus == "finished",
     );
   }
 }

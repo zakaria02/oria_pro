@@ -74,7 +74,9 @@ class ArticleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String badgeText = "";
-    if (article != null && type != null) {
+    if (article?.finished == true) {
+      badgeText = AppLocalizations.of(context)!.finished;
+    } else if (article != null && type != null) {
       switch (type) {
         case LearningContentType.article:
           badgeText = AppLocalizations.of(context)!.minutes(article!.duration);
@@ -156,6 +158,7 @@ class ArticleCard extends StatelessWidget {
                   children: [
                     OriaBadge(
                       title: badgeText,
+                      isTime: article?.finished != true,
                     ),
                     const Spacer(),
                     Visibility(

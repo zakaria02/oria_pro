@@ -53,11 +53,6 @@ abstract class ExploreService {
   Future<ProgramSectionWithContentModel> fetchSectionDetails(
       @Path() String programId, @Path() String sectionId);
 
-  /*@GET("/learning/program/{programId}/sections")
-  Future<List<ProgramSection>> fetchProgramSections(
-    @Path() String programId,
-  );*/
-
   @GET("/learning/program/{programId}/section/{sectionId}")
   Future<ProgramSectionWithContentModel> fetchProgramSectionContent(
     @Path() String programId,

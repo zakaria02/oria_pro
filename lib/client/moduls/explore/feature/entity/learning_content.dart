@@ -22,6 +22,7 @@ class SymptomArticle {
   final String thumbnail;
   final bool isPremium;
   final int duration;
+  final bool? finished;
 
   const SymptomArticle({
     required this.id,
@@ -29,6 +30,7 @@ class SymptomArticle {
     required this.thumbnail,
     required this.isPremium,
     required this.duration,
+    this.finished,
   });
 }
 
