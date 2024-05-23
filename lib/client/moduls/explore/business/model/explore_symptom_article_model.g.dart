@@ -29,7 +29,7 @@ ArticleModel _$ArticleModelFromJson(Map<String, dynamic> json) => ArticleModel(
       title: json['title'] as String,
       thumbnail: json['thumbnail'] as String,
       isPremium: json['isPremium'] as bool,
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
     );
 
 Map<String, dynamic> _$ArticleModelToJson(ArticleModel instance) =>

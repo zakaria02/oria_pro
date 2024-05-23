@@ -32,7 +32,7 @@ class BottomBarItem {
         BottomBarItem(
           filledIcon: SvgAssets.expertFilledIcon,
           icon: SvgAssets.expertOutlinedIcon,
-          name: AppLocalizations.of(context)!.expert,
+          name: AppLocalizations.of(context)!.experts,
           index: 2,
         ),
         BottomBarItem(

@@ -37,14 +37,17 @@ class _LogSeverityPageState extends State<LogSeverityPage> {
       };
 
   Color get textColor => switch (severity) {
-        0 => const Color(0xFF006400),
-        1 => const Color(0xFF9F9F9F),
-        _ => Colors.white,
+        0 => const Color(0xFF1C7D45),
+        1 => const Color(0xFF8B6525),
+        2 => const Color(0xFF835B22),
+        3 => const Color(0xFF6D1212),
+        4 => const Color(0xFF8E1212),
+        _ => OriaColors.disabledColor,
       };
 
   @override
   void initState() {
-    severity = widget.symptom.logEventValue ?? 1;
+    severity = widget.symptom.logEventValue ?? 0;
     super.initState();
   }
 
@@ -134,28 +137,22 @@ class _LogSeverityPageState extends State<LogSeverityPage> {
                         Center(
                           child: SizedBox(
                             height: 70,
-                            child: GridView.builder(
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 5,
-                                mainAxisSpacing: 12,
-                                crossAxisSpacing: 12,
-                              ),
                               itemCount: 5,
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(width: 12),
                               itemBuilder: (context, index) => SeverityCard(
                                 severity: index,
                                 onPress: (s) => setState(() {
                                   severity = s;
                                 }),
                                 selected: index == severity,
-                                color: OriaColors.scaffoldBackgroundColor,
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

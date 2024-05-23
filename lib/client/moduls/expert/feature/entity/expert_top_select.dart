@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExpertTopSelect {
   static String experts(BuildContext context) =>
-      AppLocalizations.of(context)!.experts;
+      AppLocalizations.of(context)!.findExpert;
   static String appointments(BuildContext context) =>
       AppLocalizations.of(context)!.appointments;
 

@@ -43,8 +43,7 @@ class ProgramsView extends StatelessWidget {
                                   ),
                                 );
                               },
-                            ))
-                        .toList(),
+                            ),),
                   ],
                 ),
               );

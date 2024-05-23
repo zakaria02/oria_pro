@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/constants/oria_colors.dart';
@@ -8,9 +10,11 @@ class UserImage extends StatelessWidget {
     super.key,
     required this.userImage,
     required this.size,
+    this.localImage,
   });
 
   final String? userImage;
+  final File? localImage;
   final double size;
 
   @override
@@ -20,12 +24,14 @@ class UserImage extends StatelessWidget {
       width: size,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: userImage == null
-              ? const AssetImage(
-                  PngAssets.womanAsset,
-                )
-              // ignore: unnecessary_cast
-              : (NetworkImage(userImage!) as ImageProvider<Object>),
+          image: localImage != null
+              ? FileImage(localImage!)
+              : userImage == null
+                  ? const AssetImage(
+                      PngAssets.womanAsset,
+                    )
+                  // ignore: unnecessary_cast
+                  : (NetworkImage(userImage!) as ImageProvider<Object>),
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,

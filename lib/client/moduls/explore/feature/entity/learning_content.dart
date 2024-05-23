@@ -23,6 +23,7 @@ class SymptomArticle {
   final bool isPremium;
   final int duration;
   final bool? finished;
+  final bool? started;
 
   const SymptomArticle({
     required this.id,
@@ -31,6 +32,7 @@ class SymptomArticle {
     required this.isPremium,
     required this.duration,
     this.finished,
+    this.started,
   });
 }
 

@@ -69,6 +69,7 @@ extension ArticleModelMappers on ProgramSymptomModel {
       isPremium: false,
       duration: duration,
       finished: learningStatus == "finished",
+      started: learningStatus == "started",
     );
   }
 }

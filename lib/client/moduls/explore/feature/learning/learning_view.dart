@@ -28,8 +28,7 @@ class LearningView extends StatelessWidget {
                             );
                           },
                         ),
-                      )
-                      .toList(),
+                      ),
                 ]),
               );
       },

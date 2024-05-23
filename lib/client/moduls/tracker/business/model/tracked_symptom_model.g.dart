@@ -12,7 +12,7 @@ TrackedSymptomModel _$TrackedSymptomModelFromJson(Map<String, dynamic> json) =>
       symptom: SymptomModel.fromJson(json['symptom'] as Map<String, dynamic>),
       isLogged: json['isLogged'] as bool,
       logEventId: json['logEventId'] as String?,
-      logEventValue: json['logEventValue'] as int?,
+      logEventValue: (json['logEventValue'] as num?)?.toInt(),
       type: json['type'] as String,
       loggedActivites: (json['loggedActivites'] as List<dynamic>)
           .map((e) => ActivityModel.fromJson(e as Map<String, dynamic>))

@@ -1,4 +1,5 @@
 {
+    "@@locale": "fr",
     "letsCreateAccount": "Créons un compte",
     "email": "E-mail",
     "password": "Mot de passe",
@@ -107,7 +108,6 @@
     "didntReceiveCode": "Vous n'avez pas reçu le code ? ",
     "requestAgain": "Demander de nouveau",
     "verifyMyEmail": "Vérifier mon email",
-    "logout": "Déconnexion",
     "pinError": "Le code que vous avez saisi n'est pas correct",
     "emailVerified": "Email vérifié avec succès !",
     "goodMorning": "Bonjour. {username}",
@@ -152,13 +152,11 @@
     "afternoon": "Après-midi",
     "appointmentDetails": "Vous avez planifié votre rendez-vous le :",
     "when": "Quand :",
-    "duration": "Durée :",
     "backToHome": "Retour à l'accueil",
     "thanks": "Merci {username}!",
     "upcoming": "À venir",
     "previous": "Précédent",
     "startsIn": "Commence dans {duration}",
-    "cancel": "Annuler",
     "startNow": "Commencer maintenant",
     "hours": "{count} heures",
     "istNotTime": "Ce n'est pas encore le moment",
@@ -279,5 +277,7 @@
     "allRatings": "Toutes les évaluation",
     "showMedicalInfo": "Afficher les informations médicales",
     "finished": "Fini",
-    "province": "Province"
+    "province": "Province",
+    "started": "Commencé",
+    "findExpert": "Trouver un expert"
 }

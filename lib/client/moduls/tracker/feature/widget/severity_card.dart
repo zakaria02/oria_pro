@@ -14,9 +14,21 @@ class SeverityCard extends StatelessWidget {
   final VoidCallback onPress;
 
   Color get color => switch (severity) {
-        0 => const Color(0xFF006400),
-        1 => const Color(0xFF9F9F9F),
-        _ => Colors.white,
+        0 => const Color(0xFFA8E4C2),
+        1 => const Color(0xFFFEF3E0),
+        2 => const Color(0xFFFFDAA5),
+        3 => const Color(0xFFFF8888),
+        4 => const Color(0xFFFF5858),
+        _ => OriaColors.disabledColor,
+      };
+
+  Color get textColor => switch (severity) {
+        0 => const Color(0xFF1C7D45),
+        1 => const Color(0xFF8B6525),
+        2 => const Color(0xFF835B22),
+        3 => const Color(0xFF6D1212),
+        4 => const Color(0xFF8E1212),
+        _ => OriaColors.disabledColor,
       };
 
   @override
@@ -26,16 +38,7 @@ class SeverityCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(21),
-          color: switch (severity) {
-            0 => const Color(0xFFA8E4C2),
-            1 => const Color(0xFFFEF3E0),
-            2 => const Color(0xFFFFDAA5),
-            3 => const Color(0xFFFF8888),
-            4 => const Color(0xFFFF5858),
-            _ => OriaColors.disabledColor,
-          },
-        ),
+            borderRadius: BorderRadius.circular(21), color: color),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -49,14 +52,14 @@ class SeverityCard extends StatelessWidget {
                 _ => "",
               },
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: color,
+                    color: textColor,
                   ),
             ),
             const SizedBox(width: 24),
             SvgPicture.asset(
               SvgAssets.styloIcon,
               colorFilter: ColorFilter.mode(
-                color,
+                textColor,
                 BlendMode.srcIn,
               ),
             )

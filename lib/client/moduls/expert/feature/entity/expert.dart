@@ -11,6 +11,7 @@ class Expert {
   final double? rateAvarage;
   final String? bio;
   final String id;
+  final bool available;
 
   String get fullName => "$firstName $lastName";
 
@@ -27,5 +28,6 @@ class Expert {
     required this.yearsOfExperience,
     required this.bio,
     required this.id,
+    required this.available,
   });
 }

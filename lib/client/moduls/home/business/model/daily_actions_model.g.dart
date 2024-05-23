@@ -15,7 +15,7 @@ DailyActionsModel _$DailyActionsModelFromJson(Map<String, dynamic> json) =>
           json['recommendedArticle'] as Map<String, dynamic>),
       recommendedProgramSection: ProgramSectionModel.fromJson(
           json['recommendedProgramSection'] as Map<String, dynamic>),
-      loggedSeverityValue: json['loggedSeverityValue'] as int?,
+      loggedSeverityValue: (json['loggedSeverityValue'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$DailyActionsModelToJson(DailyActionsModel instance) =>
@@ -31,7 +31,7 @@ Map<String, dynamic> _$DailyActionsModelToJson(DailyActionsModel instance) =>
 RecommendedArticleModel _$RecommendedArticleModelFromJson(
         Map<String, dynamic> json) =>
     RecommendedArticleModel(
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       title: json['title'] as String,
       id: json['id'] as String,
     );

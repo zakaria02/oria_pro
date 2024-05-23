@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:oria_pro/client/moduls/explore/feature/learning/bloc/article_content_bloc.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/widgets/oria_expanded_tile.dart';
@@ -107,11 +107,8 @@ class ArticlePage extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(height: 20),
-                        HtmlWidget(
-                          state.article!.htmlContent,
-                          textStyle: const TextStyle(
-                            fontFamily: "Raleway",
-                          ),
+                        Html(
+                          data: state.article!.htmlContent,
                         ),
                       ],
                     ),

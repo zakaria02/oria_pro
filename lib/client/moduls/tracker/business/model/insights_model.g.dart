@@ -31,7 +31,7 @@ Map<String, dynamic> _$InsightsModelToJson(InsightsModel instance) =>
 
 DataPointsModel _$DataPointsModelFromJson(Map<String, dynamic> json) =>
     DataPointsModel(
-      severity: json['severity'] as int,
+      severity: (json['severity'] as num).toInt(),
       logDate: DateTime.parse(json['logDate'] as String),
       id: json['id'] as String,
     );

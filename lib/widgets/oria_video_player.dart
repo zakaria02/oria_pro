@@ -10,14 +10,14 @@ class OriaVideoPlayer extends StatefulWidget {
 }
 
 class _OriaVideoPlayerState extends State<OriaVideoPlayer> {
-  late VideoPlayerController videoPlayerController;
+  late CachedVideoPlayerController videoPlayerController;
   late CustomVideoPlayerController _customVideoPlayerController;
 
   @override
   void initState() {
     super.initState();
     videoPlayerController =
-        VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
+        CachedVideoPlayerController.network(widget.videoUrl)
           ..initialize().then((value) => setState(() {}));
     _customVideoPlayerController = CustomVideoPlayerController(
       context: context,

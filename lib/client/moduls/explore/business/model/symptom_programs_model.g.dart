@@ -24,7 +24,7 @@ SymptomProgramsModel _$SymptomProgramsModelFromJson(
         Map<String, dynamic> json) =>
     SymptomProgramsModel(
       id: json['id'] as String,
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       imageUrl: json['thumbnail'] as String,
       title: json['title'] as String,
     );

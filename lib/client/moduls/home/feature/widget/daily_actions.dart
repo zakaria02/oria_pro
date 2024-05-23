@@ -56,7 +56,7 @@ class DailyActionsSteps extends StatelessWidget {
         : "";
   }
 
-  Color get color => switch (actions.loggedSeverityValue) {
+  Color color(int? value) => switch (value) {
         0 => const Color(0xFFA8E4C2),
         1 => const Color(0xFFFEF3E0),
         2 => const Color(0xFFFFDAA5),
@@ -65,10 +65,13 @@ class DailyActionsSteps extends StatelessWidget {
         _ => OriaColors.disabledColor,
       };
 
-  Color get textColor => switch (actions.loggedSeverityValue) {
-        0 => const Color(0xFF006400),
-        1 => const Color(0xFF9F9F9F),
-        _ => Colors.white,
+  Color textColor(int? value) => switch (value) {
+        0 => const Color(0xFF1C7D45),
+        1 => const Color(0xFF8B6525),
+        2 => const Color(0xFF835B22),
+        3 => const Color(0xFF6D1212),
+        4 => const Color(0xFF8E1212),
+        _ => OriaColors.disabledColor,
       };
 
   Widget steps(BuildContext context) {
@@ -183,62 +186,82 @@ class DailyActionsSteps extends StatelessWidget {
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ...List.generate(
                                       5,
                                       (index) => GestureDetector(
                                         onTap: () {
-                                          if (!actions.loggedSymptomSeverity) {
-                                            BlocProvider.of<HomeBloc>(context)
-                                                .add(
-                                              AddSymptomSeverity(
-                                                severity: index,
-                                                symptomId: symptoms
-                                                    .where((symp) =>
-                                                        symp.type ==
-                                                        SymptomType.primary)
-                                                    .first
-                                                    .symptomId,
-                                              ),
-                                            );
-                                            if (actions.readArticle &&
-                                                actions
-                                                    .completedProgramSection) {
-                                              _showCongratsDialog(
-                                                  context, name, symptoms);
-                                            }
-                                            onStartHerePress(
-                                              actions.completedProgramSection,
-                                              actions.readArticle,
-                                              true,
-                                            );
-                                          }
-                                        },
-                                        child: Container(
-                                          height: 32,
-                                          width: 32,
-                                          margin:
-                                              const EdgeInsets.only(right: 6),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: index ==
-                                                    actions.loggedSeverityValue
-                                                ? const Color(0xFFA8E4C2)
-                                                : const Color(0xFFFAF8F2),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "$index",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall
-                                                  ?.copyWith(
-                                                    fontFamily: "Satoshi",
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                          BlocProvider.of<HomeBloc>(context)
+                                              .add(
+                                            AddSymptomSeverity(
+                                              severity: index,
+                                              symptomId: symptoms
+                                                  .where((symp) =>
+                                                      symp.type ==
+                                                      SymptomType.primary)
+                                                  .first
+                                                  .symptomId,
                                             ),
-                                          ),
+                                          );
+                                          if (actions.readArticle &&
+                                              actions.completedProgramSection &&
+                                              !actions.loggedSymptomSeverity) {
+                                            _showCongratsDialog(
+                                                context, name, symptoms);
+                                          }
+                                          onStartHerePress(
+                                            actions.completedProgramSection,
+                                            actions.readArticle,
+                                            true,
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              height: 32,
+                                              width: 32,
+                                              margin: const EdgeInsets.only(
+                                                right: 6,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: color(index),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "$index",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                          fontFamily: "Satoshi",
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              textColor(index)),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            if (index ==
+                                                actions.loggedSeverityValue)
+                                              Container(
+                                                margin: const EdgeInsets.only(
+                                                  right: 6,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: color(index),
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                ),
+                                                height: 5,
+                                                width: 32,
+                                              ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -246,7 +269,8 @@ class DailyActionsSteps extends StatelessWidget {
                                     if (actions.loggedSeverityValue != null)
                                       Container(
                                         decoration: BoxDecoration(
-                                          color: color,
+                                          color: color(
+                                              actions.loggedSeverityValue),
                                           borderRadius:
                                               BorderRadius.circular(6),
                                         ),
@@ -268,7 +292,8 @@ class DailyActionsSteps extends StatelessWidget {
                                             _ => "",
                                           },
                                           style: TextStyle(
-                                            color: textColor,
+                                            color: textColor(
+                                                actions.loggedSeverityValue),
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "Raleway",
@@ -529,6 +554,13 @@ void _showCongratsDialog(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: OriaIconButton(
+                url: SvgAssets.closeAsset,
+                onPress: Navigator.of(context).pop,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30),
               child: SvgPicture.asset(SvgAssets.congratsAsset),

@@ -116,8 +116,10 @@ class MakeExpertAppointmentCard extends StatelessWidget {
                   height: 36,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () =>
-                        context.pushRoute(MakeAppointmentRoute(expert: expert)),
+                    onPressed: expert.available
+                        ? () => context
+                            .pushRoute(MakeAppointmentRoute(expert: expert))
+                        : null,
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.zero,
                       backgroundColor: const Color(0xFF43C34C),

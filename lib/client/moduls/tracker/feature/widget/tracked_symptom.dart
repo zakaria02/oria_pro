@@ -122,20 +122,18 @@ class TrackedSymptomCard extends StatelessWidget {
                     runSpacing: 12,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      ...symptom.loggedActivities
-                          .map(
-                            (activity) => ActivityCard(
-                              activity: activity,
-                              onCrossPressed: () =>
-                                  BlocProvider.of<TrackerBloc>(context).add(
-                                RemoveSymptomActivity(
-                                  activityId: activity.id,
-                                  logEventId: symptom.logEventId!,
-                                ),
-                              ),
+                      ...symptom.loggedActivities.map(
+                        (activity) => ActivityCard(
+                          activity: activity,
+                          onCrossPressed: () =>
+                              BlocProvider.of<TrackerBloc>(context).add(
+                            RemoveSymptomActivity(
+                              activityId: activity.id,
+                              logEventId: symptom.logEventId!,
                             ),
-                          )
-                          .toList(),
+                          ),
+                        ),
+                      ),
                       if (symptom.loggedActivities.length < 3)
                         LoggerCard(
                           title: AppLocalizations.of(context)!.addActivity,

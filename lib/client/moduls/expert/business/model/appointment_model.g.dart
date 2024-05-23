@@ -13,7 +13,7 @@ AppointmentModel _$AppointmentModelFromJson(Map<String, dynamic> json) =>
       expertId: json['expert'] as String,
       userId: json['user'] as String,
       date: DateTime.parse(json['dateTime'] as String),
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       type: json['type'] as String,
       id: json['id'] as String,
     );

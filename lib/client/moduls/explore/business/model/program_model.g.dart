@@ -11,7 +11,7 @@ ProgramModel _$ProgramModelFromJson(Map<String, dynamic> json) => ProgramModel(
       title: json['title'] as String,
       imageUrl: json['thumbnail'] as String,
       description: json['description'] as String,
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
       author: AuthorModel.fromJson(json['author'] as Map<String, dynamic>),
       sections: (json['sections'] as List<dynamic>)
@@ -39,9 +39,9 @@ ProgramSectionModel _$ProgramSectionModelFromJson(Map<String, dynamic> json) =>
     ProgramSectionModel(
       description: json['description'] as String,
       type: json['contentType'] as String,
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       isPremium: json['isPremium'] as bool,
-      selectionOrder: json['sectionOrder'] as int,
+      selectionOrder: (json['sectionOrder'] as num).toInt(),
       title: json['title'] as String,
       imageUrl: json['thumbnail'] as String?,
       programId: json['programId'] as String,

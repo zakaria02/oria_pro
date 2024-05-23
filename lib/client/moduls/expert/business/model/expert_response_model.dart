@@ -50,6 +50,8 @@ class ExpertModel {
   final String lastName;
   @JsonKey(name: "id")
   final String id;
+  @JsonKey(name: "available")
+  final bool available;
 
   const ExpertModel({
     required this.address,
@@ -67,6 +69,7 @@ class ExpertModel {
     required this.profilePicture,
     required this.specialty,
     required this.yearsOfExperience,
+    required this.available,
   });
 
   factory ExpertModel.fromJson(Map<String, dynamic> json) =>
@@ -90,6 +93,7 @@ extension ExpertModelMappers on ExpertModel {
       consultationPrice: consultationPrice,
       bio: bio,
       id: id,
+      available: available,
     );
   }
 }

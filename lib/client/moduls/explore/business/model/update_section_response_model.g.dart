@@ -11,9 +11,9 @@ ProgramSectionWithContentModel _$ProgramSectionWithContentModelFromJson(
     ProgramSectionWithContentModel(
       description: json['description'] as String,
       type: json['contentType'] as String,
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       isPremium: json['isPremium'] as bool,
-      selectionOrder: json['sectionOrder'] as int,
+      selectionOrder: (json['sectionOrder'] as num).toInt(),
       title: json['title'] as String,
       imageUrl: json['thumbnail'] as String?,
       programId: json['programId'] as String,

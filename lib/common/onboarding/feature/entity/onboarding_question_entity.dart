@@ -13,18 +13,12 @@ abstract class OnBoardingQuestion {
 
 abstract class OnBoardingQuestionWithIcon<T> extends OnBoardingQuestion {
   final String iconUrl;
-  OnBoardingQuestionWithIcon({required String title, required this.iconUrl})
-      : super(
-          title: title,
-        );
+  OnBoardingQuestionWithIcon({required super.title, required this.iconUrl});
 }
 
 abstract class OnBoardingQuestionWithContent<T> extends OnBoardingQuestion {
   final String content;
-  OnBoardingQuestionWithContent({required String title, required this.content})
-      : super(
-          title: title,
-        );
+  OnBoardingQuestionWithContent({required super.title, required this.content});
 }
 
 class OnBoardingQuestionMultiText extends OnBoardingQuestionWithIcon {
@@ -68,14 +62,11 @@ class OnBoardingQuestionMultiNumber extends OnBoardingQuestionWithIcon {
   QuestionOption? get selectedValue => value;
 
   OnBoardingQuestionMultiNumber({
-    required String title,
-    required String iconUrl,
+    required super.title,
+    required super.iconUrl,
     required this.content,
     required this.choices,
-  }) : super(
-          title: title,
-          iconUrl: iconUrl,
-        );
+  });
 
   @override
   set selectedValue(QuestionOption? selectedValue) {

@@ -13,7 +13,7 @@ LearningArticleModel _$LearningArticleModelFromJson(
       imageurl: json['thumbnail'] as String,
       title: json['title'] as String,
       author: AuthorModel.fromJson(json['author'] as Map<String, dynamic>),
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       isPremium: json['isPremium'] as bool,
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
       sources:

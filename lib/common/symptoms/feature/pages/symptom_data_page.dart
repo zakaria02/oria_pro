@@ -58,91 +58,97 @@ class SymptomDataPage extends StatelessWidget {
             return Expanded(
               child: ListView(
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.programsForSymptom(
-                      symptom.name,
+                  if (state.symptomPrograms.isNotEmpty) ...[
+                    Text(
+                      AppLocalizations.of(context)!.programsForSymptom(
+                        symptom.name,
+                      ),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 166,
-                    child: BlocBuilder<ProgramsBloc, ProgramsState>(
-                      builder: (programContext, programState) {
-                        return ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => ArticleCard(
-                            program: state.symptomPrograms[index],
-                            onItemPeress: (id, name) {
-                              BlocProvider.of<ProgramsBloc>(programContext).add(
-                                FetchProgramDetails(
-                                  programId: id,
-                                ),
-                              );
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return BlocProvider.value(
-                                        value: BlocProvider.of<ProgramsBloc>(
-                                          programContext,
-                                        ),
-                                        child: const ProgramDetailsPage());
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(width: 8),
-                          itemCount: state.symptomPrograms.length,
-                        );
-                      },
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: 198,
+                      child: BlocBuilder<ProgramsBloc, ProgramsState>(
+                        builder: (programContext, programState) {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => ArticleCard(
+                              program: state.symptomPrograms[index],
+                              onItemPeress: (id, name) {
+                                BlocProvider.of<ProgramsBloc>(programContext)
+                                    .add(
+                                  FetchProgramDetails(
+                                    programId: id,
+                                  ),
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return BlocProvider.value(
+                                          value: BlocProvider.of<ProgramsBloc>(
+                                            programContext,
+                                          ),
+                                          child: const ProgramDetailsPage());
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 8),
+                            itemCount: state.symptomPrograms.length,
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    AppLocalizations.of(context)!.articlesForSymptom(
-                      symptom.name,
+                    const SizedBox(height: 16),
+                  ],
+                  if (state.symptomArticles.isNotEmpty) ...[
+                    Text(
+                      AppLocalizations.of(context)!.articlesForSymptom(
+                        symptom.name,
+                      ),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 166,
-                    child: BlocBuilder<ArticleContentBloc, ArticleContentState>(
-                      builder: (articleContext, articleState) {
-                        return ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => ArticleCard(
-                            article: state.symptomArticles[index],
-                            type: LearningContentType.article,
-                            onItemPeress: (id, name) {
-                              BlocProvider.of<ArticleContentBloc>(
-                                      articleContext)
-                                  .add(FetchArticleContent(articleId: id));
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return BlocProvider.value(
-                                        value:
-                                            BlocProvider.of<ArticleContentBloc>(
-                                          articleContext,
-                                        ),
-                                        child: ArticlePage(id: id));
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(width: 8),
-                          itemCount: state.symptomArticles.length,
-                        );
-                      },
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: 198,
+                      child:
+                          BlocBuilder<ArticleContentBloc, ArticleContentState>(
+                        builder: (articleContext, articleState) {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => ArticleCard(
+                              article: state.symptomArticles[index],
+                              type: LearningContentType.article,
+                              onItemPeress: (id, name) {
+                                BlocProvider.of<ArticleContentBloc>(
+                                        articleContext)
+                                    .add(FetchArticleContent(articleId: id));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return BlocProvider.value(
+                                          value: BlocProvider.of<
+                                              ArticleContentBloc>(
+                                            articleContext,
+                                          ),
+                                          child: ArticlePage(id: id));
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 8),
+                            itemCount: state.symptomArticles.length,
+                          );
+                        },
+                      ),
                     ),
-                  ),
+                  ],
                 ],
               ),
             );

@@ -9,11 +9,11 @@ class OriaSnackBar extends SnackBar {
 }
 
 class OriaErrorSnackBar extends OriaSnackBar {
-  OriaErrorSnackBar({super.key, required String content})
-      : super(content: content, color: Colors.redAccent);
+  OriaErrorSnackBar({super.key, required super.content})
+      : super(color: Colors.redAccent);
 }
 
 class OriaSuccessSnackBar extends OriaSnackBar {
-  OriaSuccessSnackBar({super.key, required String content})
-      : super(content: content, color: Colors.green[700]!);
+  OriaSuccessSnackBar({super.key, required super.content})
+      : super(color: Colors.green[700]!);
 }

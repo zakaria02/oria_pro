@@ -29,7 +29,7 @@ ProgramSymptomModel _$ProgramSymptomModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       title: json['title'] as String,
       thumbnail: json['thumbnail'] as String,
-      duration: json['duration'] as int,
+      duration: (json['duration'] as num).toInt(),
       learningStatus: json['learningStatus'] as String,
     );
 

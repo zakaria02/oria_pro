@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/symptom_program.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_no_data_view.dart';
@@ -87,8 +87,8 @@ class SectionBody extends StatelessWidget {
           const SizedBox(height: 8),
           SizedBox(height: section.imageUrl != null ? 8 : 0),
           OriaCard(
-            child: HtmlWidget(
-              section.content,
+            child: Html(
+              data: section.content,
             ),
           ),
         ],

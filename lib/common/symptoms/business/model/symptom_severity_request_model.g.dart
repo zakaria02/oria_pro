@@ -10,7 +10,7 @@ SymptomSeverityRequestModel _$SymptomSeverityRequestModelFromJson(
         Map<String, dynamic> json) =>
     SymptomSeverityRequestModel(
       symptomId: json['symptom'] as String,
-      severity: json['severity'] as int,
+      severity: (json['severity'] as num).toInt(),
       logDate: DateTime.parse(json['logDate'] as String),
     );
 

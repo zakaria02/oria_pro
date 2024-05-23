@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:oria_pro/client/moduls/account/feature/widgets/user_image.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/utils/extensions/date_extensions.dart';
@@ -12,6 +16,7 @@ import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:oria_pro/widgets/oria_snack_bar.dart';
 
+import '../../../../../utils/constants/oria_colors.dart';
 import '../../../../../widgets/oria_custom_rounded_input.dart';
 import '../bloc/user_bloc.dart';
 
@@ -27,6 +32,18 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
   String name = "";
   String email = "";
   DateTime? birthDay;
+  File? _selectedImage;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserBloc, UserState>(
@@ -50,9 +67,32 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
-                        child: UserImage(
-                          userImage: state.currenUser?.profilePicture,
-                          size: 128,
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            UserImage(
+                              userImage: state.currenUser?.profilePicture,
+                              localImage: _selectedImage,
+                              size: 128,
+                            ),
+                            GestureDetector(
+                              onTap: _pickImage,
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: OriaColors.scaffoldBackgroundColor,
+                                    width: 3,
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: SvgPicture.asset(
+                                  SvgAssets.imageIcon,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 20),

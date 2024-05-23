@@ -41,9 +41,12 @@ class _PrimarySymptomSeverityPageState
       };
 
   Color get textColor => switch (selectedSeverity) {
-        0 => const Color(0xFF006400),
-        1 => const Color(0xFF9F9F9F),
-        _ => Colors.white,
+        0 => const Color(0xFF1C7D45),
+        1 => const Color(0xFF8B6525),
+        2 => const Color(0xFF835B22),
+        3 => const Color(0xFF6D1212),
+        4 => const Color(0xFF8E1212),
+        _ => OriaColors.disabledColor,
       };
   @override
   Widget build(BuildContext context) {

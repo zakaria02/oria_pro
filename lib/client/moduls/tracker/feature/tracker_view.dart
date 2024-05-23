@@ -64,65 +64,63 @@ class _TrackerViewState extends State<TrackerView> {
                   Expanded(
                     child: ListView(
                       children: [
-                        ...state.symptoms
-                            .map(
-                              (symptom) => TrackedSymptomCard(
-                                symptom: symptom,
-                                logSymptom: (symptom) => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return BlocProvider.value(
-                                        value: BlocProvider.of<TrackerBloc>(
-                                          blocContext,
-                                        ),
-                                        child: LogSeverityPage(
-                                          symptom: symptom,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                logActivity: (logEventId, activities) {
-                                  BlocProvider.of<TrackerBloc>(blocContext)
-                                      .add(FetchActivities());
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return BlocProvider.value(
-                                          value: BlocProvider.of<TrackerBloc>(
-                                            blocContext,
-                                          ),
-                                          child: LogActivityPage(
-                                            logEventId: logEventId,
-                                            activities: activities,
-                                          ),
-                                        );
-                                      },
+                        ...state.symptoms.map(
+                          (symptom) => TrackedSymptomCard(
+                            symptom: symptom,
+                            logSymptom: (symptom) => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return BlocProvider.value(
+                                    value: BlocProvider.of<TrackerBloc>(
+                                      blocContext,
                                     ),
-                                  );
-                                },
-                                viewInsights: (symptom) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return BlocProvider.value(
-                                          value: BlocProvider.of<TrackerBloc>(
-                                            blocContext,
-                                          ),
-                                          child: InsightsDetailsPage(
-                                            symptom: symptom,
-                                          ),
-                                        );
-                                      },
+                                    child: LogSeverityPage(
+                                      symptom: symptom,
                                     ),
                                   );
                                 },
                               ),
-                            )
-                            .toList(),
+                            ),
+                            logActivity: (logEventId, activities) {
+                              BlocProvider.of<TrackerBloc>(blocContext)
+                                  .add(FetchActivities());
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return BlocProvider.value(
+                                      value: BlocProvider.of<TrackerBloc>(
+                                        blocContext,
+                                      ),
+                                      child: LogActivityPage(
+                                        logEventId: logEventId,
+                                        activities: activities,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            viewInsights: (symptom) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return BlocProvider.value(
+                                      value: BlocProvider.of<TrackerBloc>(
+                                        blocContext,
+                                      ),
+                                      child: InsightsDetailsPage(
+                                        symptom: symptom,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                         const SizedBox(height: 60)
                       ],
                     ),
