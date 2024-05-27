@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:oria_pro/common/auth/business/email_password/model/auth_response_model.dart';
+import '../../../../../utils/network/dio_builder.dart';
 import '../locator/email_password_locator.dart';
 import '../model/auth_request_model.dart';
 import '../model/update_profile_request_model.dart';
@@ -6,6 +10,7 @@ import '../model/update_profile_response_model.dart';
 import '../model/user_model.dart';
 import '../model/user_response_model.dart';
 import '../service/email_password_service.dart';
+import 'package:path/path.dart';
 
 abstract class EmailPasswordRepository {
   Future<UserModel> signInWithEmailAndPassword(AuthRequestModel request);
@@ -13,6 +18,7 @@ abstract class EmailPasswordRepository {
   Future<UserResponseModel> getUser(String userId);
   Future<UpdateProfileResponseModel> updateProfileInfo(
       UpdateProfileRequestModel request);
+  Future<void> updateUserPicture(File image);
 }
 
 class EmailPasswordRepositoryImpl implements EmailPasswordRepository {
@@ -36,5 +42,19 @@ class EmailPasswordRepositoryImpl implements EmailPasswordRepository {
   Future<UpdateProfileResponseModel> updateProfileInfo(
       UpdateProfileRequestModel request) {
     return service.updateProfileInfo(request);
+  }
+
+  @override
+  Future<void> updateUserPicture(File image) async {
+    final dio = DioBuilder().dio;
+    FormData formData = FormData.fromMap(
+      {
+        "file": await MultipartFile.fromFile(
+          image.path,
+          filename: basename(image.path),
+        ),
+      },
+    );
+    await dio.post("/users/upload-profile-image", data: formData);
   }
 }

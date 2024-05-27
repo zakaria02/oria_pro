@@ -1,4 +1,4 @@
-package com.example.oria_pro
+package client.oria.app
 
 import io.flutter.embedding.android.FlutterActivity
 

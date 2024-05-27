@@ -1,5 +1,6 @@
 class SvgAssets {
   static const String _svgAssetsLink = "assets/svg";
+  static const String googleIcon = "$_svgAssetsLink/google.svg";
   static const String logoAsset = "$_svgAssetsLink/logo.svg";
   static const String eyeAsset = "$_svgAssetsLink/eye.svg";
   static const String rateAsset = "$_svgAssetsLink/rate.svg";

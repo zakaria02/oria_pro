@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/account/feature/use_case/update_share_medical_info.dart';
@@ -31,6 +33,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           event.email,
           event.name,
           event.birthDay,
+          event.image,
         );
         if (updated) {
           add(FetchAccount());

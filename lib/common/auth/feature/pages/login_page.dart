@@ -35,6 +35,8 @@ class LoginPage extends StatelessWidget {
             linkClickableText: AppLocalizations.of(context)!.signUp,
             onPress: (email, password) => BlocProvider.of<AuthBloc>(context)
                 .add(Login(email: email, password: password)),
+            onGooglePress: () =>
+                BlocProvider.of<AuthBloc>(context).add(GoogleLogin()),
             onApplePress: () {},
             onFacebookPress: () {},
             onForgotPasswordPress: () =>

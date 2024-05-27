@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../model/set_todays_actions_request.dart';
 import '../model/symptom_content_model.dart';
 import '../model/symptom_info_model.dart';
 import '../model/symptom_severity_request_model.dart';
+import '../model/todays_action_programs_response.dart';
 import '../model/user_symptom_model.dart';
 import '../model/user_symptom_request_model.dart';
 import '../model/user_symptom_response_model.dart';
@@ -29,4 +31,10 @@ abstract class SymptomService {
 
   @GET("/learning/symptom-explore/{symptomId}")
   Future<SymptomContentModel> getSymptomContent(@Path() String symptomId);
+
+  @POST("/users/set-active-program")
+  Future<void> setTodaysActionsProgram(@Body() SetTodaysActionsProgram request);
+
+  @GET("/learning/daily-actions/get-programs")
+  Future<TodaysActionProgramsResponse> getTodayActionsProgram();
 }

@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:oria_pro/utils/constants/oria_links.dart';
 
 import '../../feature/entity/learning_content.dart';
+import '../../feature/programs/entity/program.dart';
 import 'symptom_model.dart';
 
 part 'explore_symptom_program_model.g.dart';
@@ -70,6 +71,15 @@ extension ArticleModelMappers on ProgramSymptomModel {
       duration: duration,
       finished: learningStatus == "finished",
       started: learningStatus == "started",
+    );
+  }
+
+  Program toProgram() {
+    return Program(
+      id: id,
+      title: title,
+      imageUrl: "${OriaLinks.stagingProgramsAssetsBaseUrl}/$thumbnail",
+      duration: duration,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oria_pro/utils/constants/oria_links.dart';
 
 import '../../../../entity/user.dart';
 
@@ -94,7 +95,8 @@ enum UserRole {
 extension UserModelMappers on UserModel {
   User toUser() => User(
         name: name!,
-        profilePicture: profilePicture,
+        profilePicture:
+            "${OriaLinks.stagingProfileAssetsBaseUrl}/$profilePicture",
         birthDay: birthDay,
         email: email,
         shareMedicalInfo: shareMedicalInfo,

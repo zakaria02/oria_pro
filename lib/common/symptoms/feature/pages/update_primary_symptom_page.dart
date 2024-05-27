@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/common/symptoms/feature/entity/symptom.dart';
+import 'package:oria_pro/common/symptoms/feature/pages/update_todays_action_page.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_app_bar.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
@@ -34,13 +35,29 @@ class _UpdatePrimarySymptomPageState extends State<UpdatePrimarySymptomPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SymptomBloc, SymptomState>(
-      listener: (context, state) {
+      listener: (blocContext, state) {
         if (state is UpdateSymptomsSuccess) {
-          context.router.popUntilRoot();
           widget.refresh();
+          BlocProvider.of<SymptomBloc>(blocContext)
+              .add(const FetchTodaysActionPrograms());
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return BlocProvider.value(
+                  value: BlocProvider.of<SymptomBloc>(
+                    blocContext,
+                  ),
+                  child: UpdateTodaysActionsProgramPage(
+                    refresh: widget.refresh,
+                  ),
+                );
+              },
+            ),
+          );
         }
       },
-      builder: (context, state) {
+      builder: (blocContext, state) {
         final symptoms = state.symptoms
             .where((symp) => symp.symptomId != widget.currentSymptom.symptomId)
             .toList();
@@ -85,7 +102,7 @@ class _UpdatePrimarySymptomPageState extends State<UpdatePrimarySymptomPage> {
           bottomNavigationBar: OriaRoundedButton(
             onPress: () {
               if (selectedSymptom != null) {
-                BlocProvider.of<SymptomBloc>(context)
+                BlocProvider.of<SymptomBloc>(blocContext)
                     .add(ChangePrimarySymptom(symptom: selectedSymptom!));
               }
             },

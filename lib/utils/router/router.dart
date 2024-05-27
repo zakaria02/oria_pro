@@ -41,6 +41,7 @@ import '../../common/symptoms/feature/pages/secondary_symptoms_page.dart';
 import '../../common/symptoms/feature/pages/symptom_data_page.dart';
 import '../../common/symptoms/feature/pages/update_primary_symptom_page.dart';
 import '../../common/symptoms/feature/pages/update_secondary_symptoms_page.dart';
+import '../../common/symptoms/feature/pages/update_todays_action_page.dart';
 
 part 'router.gr.dart';
 

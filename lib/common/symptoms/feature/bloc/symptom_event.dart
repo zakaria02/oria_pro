@@ -23,6 +23,16 @@ final class ChangePrimarySymptom extends SymptomEvent {
   const ChangePrimarySymptom({required this.symptom});
 }
 
+final class FetchTodaysActionPrograms extends SymptomEvent {
+  const FetchTodaysActionPrograms();
+}
+
+final class SetTodaysActionsProgram extends SymptomEvent {
+  final Program program;
+
+  const SetTodaysActionsProgram({required this.program});
+}
+
 final class AddSecondarySymptoms extends SymptomEvent {
   final List<SymptomInfo> symptoms;
 

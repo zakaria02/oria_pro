@@ -25,7 +25,7 @@ class OriaBottomBar extends StatelessWidget {
       child: SalomonBottomBar(
         itemPadding: const EdgeInsets.symmetric(
           vertical: 12,
-          horizontal: 18,
+          horizontal: 16,
         ),
         margin: const EdgeInsets.all(4),
         currentIndex: currentIndex,

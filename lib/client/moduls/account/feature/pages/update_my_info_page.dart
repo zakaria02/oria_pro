@@ -48,7 +48,7 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<UserBloc, UserState>(
       listener: (context, state) {
-        if (state is UpdateUserSuccess) {
+        if (state is FetchAccountSuccess) {
           context.maybePop();
         }
       },
@@ -128,8 +128,8 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                         },
                         centerText: false,
                       ),
-                      const SizedBox(height: 16),
-                      /*Text(
+                      /*const SizedBox(height: 16),
+                      Text(
                         AppLocalizations.of(context)!.email,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
@@ -157,6 +157,7 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                                   email: email,
                                   name: name,
                                   birthDay: birthDay,
+                                  image: _selectedImage,
                                 ),
                               );
                             } else {
@@ -171,6 +172,7 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                                 email: email,
                                 name: name,
                                 birthDay: birthDay,
+                                image: _selectedImage,
                               ),
                             );
                           }
@@ -181,7 +183,8 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                                 (email.isEmpty ||
                                     state.currenUser?.email == email) &&
                                 (birthDay == null ||
-                                    state.currenUser?.birthDay == birthDay),
+                                    state.currenUser?.birthDay == birthDay) &&
+                                _selectedImage == null,
                         isLoading: state is UpdateUserLoading,
                       ),
                     ],

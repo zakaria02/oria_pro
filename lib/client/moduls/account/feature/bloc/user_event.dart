@@ -19,10 +19,12 @@ final class UpdateUser extends UserEvent {
   final String email;
   final String name;
   final DateTime? birthDay;
+  final File? image;
 
   const UpdateUser({
     required this.email,
     required this.name,
     required this.birthDay,
+    required this.image,
   });
 }

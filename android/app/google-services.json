@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "793225857832",
+    "project_id": "oria-client",
+    "storage_bucket": "oria-client.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793225857832:android:62bb855d3a0e2138519e1d",
+        "android_client_info": {
+          "package_name": "client.oria.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYP7CCaWIQqF28iMfkOmQL7OeLLsHGP14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793225857832:android:848c84a731e15a9e519e1d",
+        "android_client_info": {
+          "package_name": "com.example.oria_pro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYP7CCaWIQqF28iMfkOmQL7OeLLsHGP14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

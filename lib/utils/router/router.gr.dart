@@ -282,6 +282,16 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    UpdateTodaysActionsProgramRoute.name: (routeData) {
+      final args = routeData.argsAs<UpdateTodaysActionsProgramRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: UpdateTodaysActionsProgramPage(
+          key: args.key,
+          refresh: args.refresh,
+        ),
+      );
+    },
     VerifyEmailRoute.name: (routeData) {
       final args = routeData.argsAs<VerifyEmailRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -1243,6 +1253,45 @@ class UpdateSecondarySymptomsRouteArgs {
   @override
   String toString() {
     return 'UpdateSecondarySymptomsRouteArgs{key: $key, currentSymptoms: $currentSymptoms, primarySymptom: $primarySymptom, refresh: $refresh}';
+  }
+}
+
+/// generated route for
+/// [UpdateTodaysActionsProgramPage]
+class UpdateTodaysActionsProgramRoute
+    extends PageRouteInfo<UpdateTodaysActionsProgramRouteArgs> {
+  UpdateTodaysActionsProgramRoute({
+    Key? key,
+    required void Function() refresh,
+    List<PageRouteInfo>? children,
+  }) : super(
+          UpdateTodaysActionsProgramRoute.name,
+          args: UpdateTodaysActionsProgramRouteArgs(
+            key: key,
+            refresh: refresh,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateTodaysActionsProgramRoute';
+
+  static const PageInfo<UpdateTodaysActionsProgramRouteArgs> page =
+      PageInfo<UpdateTodaysActionsProgramRouteArgs>(name);
+}
+
+class UpdateTodaysActionsProgramRouteArgs {
+  const UpdateTodaysActionsProgramRouteArgs({
+    this.key,
+    required this.refresh,
+  });
+
+  final Key? key;
+
+  final void Function() refresh;
+
+  @override
+  String toString() {
+    return 'UpdateTodaysActionsProgramRouteArgs{key: $key, refresh: $refresh}';
   }
 }
 

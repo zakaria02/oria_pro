@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/explore_symptom_article_model.dart';
+import 'package:oria_pro/client/moduls/explore/business/model/explore_symptom_program_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/learning_content.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/program.dart';
@@ -137,6 +138,46 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
       }
     });
 
+    on<FetchTodaysActionPrograms>((event, emit) async {
+      try {
+        emit(
+          SymptomDataLoading(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+        SymptomRepository repository = SymptomLocator().get();
+        final programs = await repository.getTodayActionsProgram();
+        emit(
+          SymptomDataSuccess(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: programs
+                .where((program) => program.learningStatus == "notStarted")
+                .map((program) => program.toProgram())
+                .toList(),
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+      } catch (e) {
+        emit(SymptomError(
+          errorMessage: e.toString(),
+          symptoms: state.symptoms,
+          selectedSymptom: state.selectedSymptom,
+          secondarySymptoms: state.secondarySymptoms,
+          symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
+        ));
+      }
+    });
+
     on<FetchUserSymptoms>((event, emit) async {
       try {
         emit(
@@ -191,6 +232,43 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomId: event.symptom.symptomId,
           type: "primary",
         ));
+        emit(
+          UpdateSymptomsSuccess(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+      } catch (e) {
+        emit(SymptomError(
+          errorMessage: e.toString(),
+          symptoms: state.symptoms,
+          selectedSymptom: state.selectedSymptom,
+          secondarySymptoms: state.secondarySymptoms,
+          symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
+        ));
+      }
+    });
+
+    on<SetTodaysActionsProgram>((event, emit) async {
+      try {
+        emit(
+          UpdateSymptomsLoading(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+          ),
+        );
+        SymptomRepository repository = SymptomLocator().get();
+        await repository.setTodaysActionsProgram(event.program.id);
         emit(
           UpdateSymptomsSuccess(
             symptoms: state.symptoms,

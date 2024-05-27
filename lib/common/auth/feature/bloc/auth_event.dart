@@ -26,3 +26,5 @@ final class Login extends AuthEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+final class GoogleLogin extends AuthEvent {}

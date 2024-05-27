@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:oria_pro/widgets/oria_icon_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/constants/oria_colors.dart';
@@ -20,6 +21,7 @@ class AuthBaseView extends StatefulWidget {
     required this.title,
     required this.onPress,
     required this.onApplePress,
+    required this.onGooglePress,
     required this.onFacebookPress,
     this.onForgotPasswordPress,
     required this.onLinkPress,
@@ -32,6 +34,7 @@ class AuthBaseView extends StatefulWidget {
 
   final String title;
   final Function(String, String) onPress;
+  final VoidCallback onGooglePress;
   final VoidCallback onApplePress;
   final VoidCallback onFacebookPress;
   final VoidCallback? onForgotPasswordPress;
@@ -133,6 +136,22 @@ class _AuthBaseViewState extends State<AuthBaseView> {
                               : () => widget.onPress(_email, _password),
                           text: widget.buttonText,
                           isLoading: widget.loading,
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        const OrDivider(),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            OriaIconButton(
+                              url: SvgAssets.googleIcon,
+                              onPress: widget.onGooglePress,
+                            )
+                          ],
                         ),
                         const SizedBox(
                           height: 12,
@@ -291,6 +310,7 @@ class OrDivider extends StatelessWidget {
     return const Expanded(
       child: Divider(
         height: 1,
+        color: Color(0xFFD8F2FF),
       ),
     );
   }
