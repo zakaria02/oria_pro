@@ -26,6 +26,8 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Oria needs access to bluetooth to connect to nearby devices.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Oria wants to access to your gallery</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Oria needs access to bluetooth to connect to nearby devices.</string>
 	<key>NSCameraUsageDescription</key>

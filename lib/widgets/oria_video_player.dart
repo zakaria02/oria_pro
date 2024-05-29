@@ -1,4 +1,5 @@
-import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:flick_video_player/flick_video_player.dart';
+import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
 class OriaVideoPlayer extends StatefulWidget {
@@ -10,24 +11,19 @@ class OriaVideoPlayer extends StatefulWidget {
 }
 
 class _OriaVideoPlayerState extends State<OriaVideoPlayer> {
-  late CachedVideoPlayerController videoPlayerController;
-  late CustomVideoPlayerController _customVideoPlayerController;
-
+  late FlickManager flickManager;
   @override
   void initState() {
     super.initState();
-    videoPlayerController =
-        CachedVideoPlayerController.network(widget.videoUrl)
-          ..initialize().then((value) => setState(() {}));
-    _customVideoPlayerController = CustomVideoPlayerController(
-      context: context,
-      videoPlayerController: videoPlayerController,
-    );
+    flickManager = FlickManager(
+        videoPlayerController: VideoPlayerController.networkUrl(
+      Uri.parse(widget.videoUrl),
+    ));
   }
 
   @override
   void dispose() {
-    _customVideoPlayerController.dispose();
+    flickManager.dispose();
     super.dispose();
   }
 
@@ -35,8 +31,7 @@ class _OriaVideoPlayerState extends State<OriaVideoPlayer> {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
-      child: CustomVideoPlayer(
-          customVideoPlayerController: _customVideoPlayerController),
+      child: FlickVideoPlayer(flickManager: flickManager),
     );
   }
 }
