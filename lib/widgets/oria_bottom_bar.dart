@@ -25,7 +25,7 @@ class OriaBottomBar extends StatelessWidget {
       child: SalomonBottomBar(
         itemPadding: const EdgeInsets.symmetric(
           vertical: 12,
-          horizontal: 16,
+          horizontal: 15,
         ),
         margin: const EdgeInsets.all(4),
         currentIndex: currentIndex,
@@ -37,12 +37,12 @@ class OriaBottomBar extends StatelessWidget {
                 activeIcon: item.filledIcon.contains(".svg")
                     ? SvgPicture.asset(
                         item.filledIcon,
-                        height: 22,
-                        width: 22,
+                        height: 18,
+                        width: 18,
                       )
                     : SizedBox(
-                        height: 22,
-                        width: 22,
+                        height: 18,
+                        width: 18,
                         child: Image.asset(
                           item.filledIcon,
                         ),
@@ -50,18 +50,22 @@ class OriaBottomBar extends StatelessWidget {
                 icon: item.filledIcon.contains(".svg")
                     ? SvgPicture.asset(
                         item.icon,
-                        height: 22,
-                        width: 22,
+                        height: 18,
+                        width: 18,
                       )
                     : SizedBox(
-                        height: 22,
-                        width: 22,
+                        height: 18,
+                        width: 18,
                         child: Image.asset(
                           item.icon,
                         ),
                       ),
                 title: Text(
                   item.name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: Colors.white),
                 ),
               ),
             )

@@ -69,7 +69,7 @@ class ExpertModel {
     required this.profilePicture,
     required this.specialty,
     required this.yearsOfExperience,
-    required this.available,
+    this.available = false,
   });
 
   factory ExpertModel.fromJson(Map<String, dynamic> json) =>

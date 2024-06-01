@@ -30,6 +30,7 @@ class OriaRoundedInput extends StatefulWidget {
     this.isExpirationDate = false,
     this.minLines,
     this.borderRadius,
+    this.filled = true,
   }) : assert(
             // assert is a normal text
             (!isEmail && !isPassowrd && !isPhoneNumber && !isDate) ||
@@ -67,6 +68,7 @@ class OriaRoundedInput extends StatefulWidget {
   final bool isExpirationDate;
   final int? minLines;
   final double? borderRadius;
+  final bool filled;
 
   @override
   State<StatefulWidget> createState() {
@@ -104,7 +106,7 @@ class _OriaRoundedInputState extends State<OriaRoundedInput> {
           vertical: 12,
           horizontal: 20,
         ),
-        filled: true,
+        filled: widget.filled,
         hintStyle: TextStyle(
           color: Theme.of(context).disabledColor,
           fontFamily: "Raleway",

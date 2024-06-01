@@ -135,4 +135,23 @@ extension DateTimeExtensions on DateTime? {
         "${this!.hour > 9 ? "PM" : "AM"} - "
         "${toAbbreviationMonthDate(context, withTime: false)}";
   }
+
+  String toTimeDifferenceInUnits(BuildContext context) {
+    final now = DateTime.now();
+    final difference = now.difference(this!);
+
+    if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} ${AppLocalizations.of(context)!.minAgo}"; // minutes
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} ${AppLocalizations.of(context)!.hourAgo}"; // hours
+    } else if (difference.inDays < 7) {
+      return "${difference.inDays} ${AppLocalizations.of(context)!.dayAgo}"; // days
+    } else if (difference.inDays < 30) {
+      return "${(difference.inDays / 7).floor()} ${AppLocalizations.of(context)!.weekAgo}"; // weeks
+    } else if (difference.inDays < 365) {
+      return "${(difference.inDays / 30).floor()} ${AppLocalizations.of(context)!.monthAgo}"; // months
+    } else {
+      return "${(difference.inDays / 365).floor()} ${AppLocalizations.of(context)!.yeardAgo}"; // years
+    }
+  }
 }

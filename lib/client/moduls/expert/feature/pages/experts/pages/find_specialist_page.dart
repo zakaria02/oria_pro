@@ -232,16 +232,18 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Visibility(
-                        visible: experts.isNotEmpty,
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) => ExpertDetailedCard(
-                            expert: experts[index],
+                      Expanded(
+                        child: Visibility(
+                          visible: experts.isNotEmpty,
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) => ExpertDetailedCard(
+                              expert: experts[index],
+                            ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 8),
+                            itemCount: experts.length,
                           ),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 8),
-                          itemCount: experts.length,
                         ),
                       ),
                       Visibility(

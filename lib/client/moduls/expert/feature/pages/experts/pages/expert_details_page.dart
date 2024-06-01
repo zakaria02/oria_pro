@@ -96,25 +96,35 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
                           ),
                         ),
                       ],
-                      if (state.reviews.isNotEmpty) ...[
-                        const SizedBox(height: 22),
-                        OriaCard(
-                          borderColor: OriaColors.iconButtonBackgound,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                      const SizedBox(height: 22),
+                      OriaCard(
+                        borderColor: OriaColors.iconButtonBackgound,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.patientsFeedbacks,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            const SizedBox(height: 16),
+                            ...state.reviews.map(
+                              (r) => PatientFeedback(review: r),
+                            ),
+                            if (state.reviews.isEmpty)
                               Text(
-                                AppLocalizations.of(context)!.patientsFeedbacks,
-                                style: Theme.of(context).textTheme.labelLarge,
+                                AppLocalizations.of(context)!.noFeedbackExpert,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: Colors.black,
+                                    ),
+                                maxLines: maxLines,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              const SizedBox(height: 16),
-                              ...state.reviews.map(
-                                (r) => PatientFeedback(review: r),
-                              ),
-                            ],
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ],
                   ),
                 ),

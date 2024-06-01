@@ -40,39 +40,41 @@ class MakeExpertAppointmentCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                Container(
-                  width: 50,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9),
-                    border: Border.all(
-                      color: const Color(0xFFFEBD3F),
+                if ((expert.rateAvarage ?? 0) > 0)
+                  Container(
+                    width: 55,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(9),
+                      border: Border.all(
+                        color: const Color(0xFFFEBD3F),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 3,
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          SvgAssets.starIcon,
+                          height: 14,
+                          width: 14,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          expert.rateAvarage?.toStringAsFixed(2) ?? "",
+                          style: const TextStyle(
+                            color: OriaColors.darkGrey,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                            height: 0,
+                            fontFamily: "satoshi",
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 6,
-                    vertical: 3,
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        SvgAssets.starIcon,
-                        height: 14,
-                        width: 14,
-                      ),
-                      const SizedBox(width: 4),
-                      const Text(
-                        "4.7",
-                        style: TextStyle(
-                          color: OriaColors.darkGrey,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                          height: 0,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

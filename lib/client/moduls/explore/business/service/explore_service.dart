@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:oria_pro/client/moduls/explore/business/model/add_forum_post_request_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/enroll_program_request_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/learning_article.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
@@ -6,7 +7,9 @@ import 'package:retrofit/retrofit.dart';
 import '../model/explore_symptom_article_model.dart';
 import '../model/explore_symptom_program_model.dart';
 import '../model/favorite_request_model.dart';
+import '../model/forum_topic_model.dart';
 import '../model/program_model.dart';
+import '../model/topic_post_model.dart';
 import '../model/update_section_request_model.dart';
 import '../model/update_section_response_model.dart';
 
@@ -57,5 +60,26 @@ abstract class ExploreService {
   Future<ProgramSectionWithContentModel> fetchProgramSectionContent(
     @Path() String programId,
     @Path() String sectionId,
+  );
+
+  @GET("/forum/topics")
+  Future<List<ForumTopicModel>> fetchForumTopics();
+
+  @GET("/forum/topics/{topicId}/posts")
+  Future<PostTopicModelResults> fetchTopicPosts(@Path() String topicId);
+
+  @GET("/forum/posts/{postId}")
+  Future<PostTopicModel> fetchPostDetails(@Path() String postId);
+
+  @POST("/forum/topics/{topicId}/posts")
+  Future<void> addTopicPost(
+    @Path() String topicId,
+    @Body() AddForumPostRequestModel request,
+  );
+
+  @POST("/forum/posts/{postId}/comments")
+  Future<void> addComment(
+    @Path() String postId,
+    @Body() AddForumPostRequestModel request,
   );
 }

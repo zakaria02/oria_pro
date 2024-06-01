@@ -60,8 +60,8 @@ class OriaDropDown<T> extends StatelessWidget {
           direction: DropdownDirection.right,
           scrollbarTheme: ScrollbarThemeData(
             radius: const Radius.circular(40),
-            thickness: MaterialStateProperty.all(6),
-            thumbVisibility: MaterialStateProperty.all(true),
+            thickness: WidgetStateProperty.all(6),
+            thumbVisibility: WidgetStateProperty.all(true),
           ),
         ),
       ),

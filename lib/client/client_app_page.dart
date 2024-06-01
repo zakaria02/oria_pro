@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/account/feature/account_view.dart';
 import 'package:oria_pro/client/moduls/expert/feature/expert_view.dart';
 import 'package:oria_pro/client/moduls/explore/feature/explore_view.dart';
+import 'package:oria_pro/client/moduls/explore/feature/forum/forum_view.dart';
 import 'package:oria_pro/client/moduls/home/feature/home_page.dart';
 import 'package:oria_pro/client/navigation/bottom_bar_item.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
@@ -30,8 +31,9 @@ class ClientAppPage extends StatelessWidget {
               0 => const HomeView(),
               1 => const ExploreView(),
               2 => const ExpertView(),
-              3 => const TrackerView(),
-              4 => const AccountView(),
+              3 => const ForumView(),
+              4 => const TrackerView(),
+              5 => const AccountView(),
               _ => const SizedBox(),
             }),
             bottomBarPadding: EdgeInsets.zero,

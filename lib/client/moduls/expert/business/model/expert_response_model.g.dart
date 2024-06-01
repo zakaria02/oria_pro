@@ -36,7 +36,7 @@ ExpertModel _$ExpertModelFromJson(Map<String, dynamic> json) => ExpertModel(
       specialty: SpecialtyReposneModel.fromJson(
           json['specialty'] as Map<String, dynamic>),
       yearsOfExperience: (json['yearsOfExperience'] as num).toInt(),
-      available: json['available'] as bool,
+      available: json['available'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ExpertModelToJson(ExpertModel instance) =>

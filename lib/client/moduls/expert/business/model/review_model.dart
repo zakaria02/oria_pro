@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:oria_pro/client/moduls/expert/feature/entity/review.dart';
+import 'package:oria_pro/utils/constants/oria_links.dart';
 
 part 'review_model.g.dart';
 
@@ -40,7 +41,8 @@ class UserModel {
 extension ReviewModelMappers on ReviewModel {
   Review toReview() {
     return Review(
-      profilePicture: userId.profilePicture,
+      profilePicture:
+          "${OriaLinks.stagingProfileAssetsBaseUrl}/${userId.profilePicture}",
       username: userId.name,
       rating: rating,
       review: review,

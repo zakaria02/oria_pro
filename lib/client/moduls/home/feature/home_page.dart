@@ -72,7 +72,7 @@ class HomeView extends StatelessWidget {
                             const SizedBox(width: 12),
                             Text(
                               greeting(context, state.currentUser!.name),
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
                             const Spacer(),
                             const OriaIconButton(
@@ -136,6 +136,7 @@ class HomeView extends StatelessWidget {
                                         BlocProvider.of<HomeBloc>(context).add(
                                       FetchUserCurrentSymptoms(),
                                     ),
+                                    //
                                   ),
                                 ),
                                 child: Container(

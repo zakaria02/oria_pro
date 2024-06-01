@@ -62,20 +62,22 @@ class ExpertDetailedCard extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const Spacer(),
-                    SvgPicture.asset(
-                      SvgAssets.starIcon,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      expert.rateAvarage?.toStringAsFixed(2) ?? "",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(fontFamily: "Satoshi"),
-                      textAlign: TextAlign.center,
-                    ),
+                    if ((expert.rateAvarage ?? 0) > 0) ...[
+                      SvgPicture.asset(
+                        SvgAssets.starIcon,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        expert.rateAvarage?.toStringAsFixed(2) ?? "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge
+                            ?.copyWith(fontFamily: "Satoshi"),
+                        textAlign: TextAlign.center,
+                      ),
+                    ]
                   ],
                 ),
                 const SizedBox(height: 4),

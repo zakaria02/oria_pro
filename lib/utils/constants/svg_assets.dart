@@ -30,6 +30,8 @@ class SvgAssets {
   static const String expertOutlinedIcon =
       "$_svgAssetsLink/expert_outlined.svg";
   static const String userOutlinedIcon = "$_svgAssetsLink/user_outlined.svg";
+  static const String forumOutlinedIcon = "$_svgAssetsLink/forum_outlined.svg";
+  static const String forumFilledIcon = "$_svgAssetsLink/forum_filled.svg";
   static const String premiumIcon = "$_svgAssetsLink/premium.svg";
   static const String checkIcon = "$_svgAssetsLink/check.svg";
   static const String filterIcon = "$_svgAssetsLink/filter.svg";
@@ -45,12 +47,18 @@ class SvgAssets {
   static const String timerIcon = "$_svgAssetsLink/timer.svg";
   static const String warningIcon = "$_svgAssetsLink/warning.svg";
   static const String styloIcon = "$_svgAssetsLink/stylo.svg";
+  static const String heartIcon = "$_svgAssetsLink/heart.svg";
+  static const String commentIcon = "$_svgAssetsLink/comment.svg";
   static const String insightsIcon = "$_svgAssetsLink/insights.svg";
   static const String settingsIcon = "$_svgAssetsLink/settings.svg";
   static const String editPrimaryIcon = "$_svgAssetsLink/edit_primary.svg";
   static const String crossHairIcon = "$_svgAssetsLink/crosshair.svg";
   static const String insightIcon = "$_svgAssetsLink/insight.svg";
   static const String imageIcon = "$_svgAssetsLink/image.svg";
+  static const String addIcon = "$_svgAssetsLink/add.svg";
+  static const String moreIcon = "$_svgAssetsLink/more.svg";
+  static const String deleteIcon = "$_svgAssetsLink/delete.svg";
+  static const String sendIcon = "$_svgAssetsLink/send.svg";
   static const String timePrimaryIcon = "$_svgAssetsLink/time_primary.svg";
   static const String primaryStarIcon = "$_svgAssetsLink/primary_star.svg";
   static const String noAppointmentsAsset =

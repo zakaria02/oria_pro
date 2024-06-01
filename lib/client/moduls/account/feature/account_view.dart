@@ -97,7 +97,7 @@ class AccountView extends StatelessWidget {
                   value: userState.currenUser?.shareMedicalInfo ?? false,
                   activeColor: OriaColors.greenAccentLight,
                   inactiveThumbColor: const Color(0xFF7B7B7B),
-                  trackColor: const MaterialStatePropertyAll(
+                  trackColor: const WidgetStatePropertyAll(
                     Color(0xFFFAF8F2),
                   ),
                   onChanged: (bool value) {

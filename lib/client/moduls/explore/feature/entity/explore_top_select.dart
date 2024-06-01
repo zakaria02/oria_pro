@@ -6,9 +6,7 @@ class ExploreTopSelect {
       AppLocalizations.of(context)!.programs;
   static String learning(BuildContext context) =>
       AppLocalizations.of(context)!.learning;
-  static String forum(BuildContext context) =>
-      AppLocalizations.of(context)!.forum;
 
   static List<String> items(BuildContext context) =>
-      [programs(context), learning(context), forum(context)];
+      [programs(context), learning(context)];
 }

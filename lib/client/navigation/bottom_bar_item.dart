@@ -36,16 +36,22 @@ class BottomBarItem {
           index: 2,
         ),
         BottomBarItem(
+          filledIcon: SvgAssets.forumFilledIcon,
+          icon: SvgAssets.forumOutlinedIcon,
+          name: AppLocalizations.of(context)!.forum,
+          index: 3,
+        ),
+        BottomBarItem(
           filledIcon: PngAssets.chartFilledIcon,
           icon: PngAssets.chartOutlinedIcon,
           name: AppLocalizations.of(context)!.insights,
-          index: 3,
+          index: 4,
         ),
         BottomBarItem(
           filledIcon: SvgAssets.userFilledIcon,
           icon: SvgAssets.userOutlinedIcon,
           name: AppLocalizations.of(context)!.account,
-          index: 4,
+          index: 5,
         ),
       ];
 }

@@ -13,6 +13,7 @@ class OriaScaffold extends StatelessWidget {
     this.bottomBarPadding =
         const EdgeInsets.only(bottom: 30, left: 20, right: 20),
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.backgroundColor,
   });
   final Widget body;
   final Widget? bottomNavigationBar;
@@ -20,10 +21,12 @@ class OriaScaffold extends StatelessWidget {
   final AppBarData? appBarData;
   final EdgeInsets bottomBarPadding;
   final CrossAxisAlignment crossAxisAlignment;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         bottom: false,
         child: Padding(
