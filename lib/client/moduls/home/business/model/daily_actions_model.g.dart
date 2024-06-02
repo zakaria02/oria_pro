@@ -11,10 +11,14 @@ DailyActionsModel _$DailyActionsModelFromJson(Map<String, dynamic> json) =>
       completedProgramSection: json['completedProgramSection'] as bool,
       readArticle: json['readArticle'] as bool,
       loggedSymptomSeverity: json['loggedSymptomSeverity'] as bool,
-      recommendedArticle: RecommendedArticleModel.fromJson(
-          json['recommendedArticle'] as Map<String, dynamic>),
-      recommendedProgramSection: ProgramSectionModel.fromJson(
-          json['recommendedProgramSection'] as Map<String, dynamic>),
+      recommendedArticle: json['recommendedArticle'] == null
+          ? null
+          : RecommendedArticleModel.fromJson(
+              json['recommendedArticle'] as Map<String, dynamic>),
+      recommendedProgramSection: json['recommendedProgramSection'] == null
+          ? null
+          : ProgramSectionModel.fromJson(
+              json['recommendedProgramSection'] as Map<String, dynamic>),
       loggedSeverityValue: (json['loggedSeverityValue'] as num?)?.toInt(),
     );
 

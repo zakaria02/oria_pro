@@ -112,8 +112,19 @@ class AccountView extends StatelessWidget {
                 onlyTopRaduis: true,
                 image: SvgAssets.crossHairIcon,
                 title: AppLocalizations.of(context)!.mySymptoms,
-                onPress: () =>
-                    context.pushRoute(EditMySymptomsRoute(refresh: () {})),
+                onPress: () => context.pushRoute(
+                  EditMySymptomsRoute(
+                    refresh: () {},
+                    refreshTodaysAction: () {},
+                  ),
+                ),
+              ),
+              const SizedBox(height: 1),
+              AccountParam(
+                noRaduis: true,
+                image: SvgAssets.heartIcon,
+                title: AppLocalizations.of(context)!.favorites,
+                onPress: () {},
               ),
               const SizedBox(height: 1),
               AccountParam(

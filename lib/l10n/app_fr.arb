@@ -300,5 +300,15 @@
     "yearAgo": "an plus tôt",
     "reply": "répondre",
     "replyTo": "Répondre à {name}",
-    "noFeedbackExpert": "Cet expert n'a aucun avis pour le moment"
+    "noFeedbackExpert": "Cet expert n'a aucun avis pour le moment",
+    "subscribeToTopic": "S'abonner au sujet",
+    "edit": "Éditer",
+    "complain": "Se plaindre",
+    "delete": "Supprimer",
+    "youHaveSubscribedTopic": "Vous vous êtes abonné à ce sujet",
+    "receiveTopicNotifs": "Vous recevrez désormais des notifications pour ce sujet. Vous pouvez gérer vos abonnements via votre profil.",
+    "noActiveProgram": "Vous n'avez pas de programme actif",
+    "enrollTodaysActionsProgram": "Inscrivez-vous à un programme pour afficher votre action quotidienne ici.",
+    "enrollInProgram": "S'inscrire à un programme",
+    "favorites": "Favoris"
 }

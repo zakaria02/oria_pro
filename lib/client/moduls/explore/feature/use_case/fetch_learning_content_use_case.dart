@@ -17,21 +17,35 @@ class FetchLearningContentUseCase {
         await _symptomRepository.fetchUserSymptoms();
     final String primaryId =
         userSymptoms.firstWhere((symp) => symp.type == "primary").symptom.id;
+    final List<String> secondarySymptomsIds = userSymptoms
+        .where((symp) => symp.type == "secondary")
+        .map((s) => s.symptom.id)
+        .toList();
     late List<LearningContent> contentList;
     if (!isProgram) {
       final content = await _learningRepository.fetchExploreArticles();
-      contentList =
-          content.map((c) => c.toLearningContentUio(primaryId)).toList();
+      contentList = content
+          .map((c) => c.toLearningContentUio(primaryId, secondarySymptomsIds))
+          .toList();
     } else {
       final content = await _learningRepository.fetchExplorePrograms();
-      contentList =
-          content.map((c) => c.toLearningContentUio(primaryId)).toList();
+      contentList = content
+          .map((c) => c.toLearningContentUio(primaryId, secondarySymptomsIds))
+          .toList();
     }
 
     contentList.sort((a, b) {
-      if (a.isPrimarySymptom && !b.isPrimarySymptom) return -1;
-      if (!a.isPrimarySymptom && b.isPrimarySymptom) return 1;
-      return 0;
+      if (a.isPrimarySymptom && !b.isPrimarySymptom) {
+        return -1;
+      } else if (!a.isPrimarySymptom && b.isPrimarySymptom) {
+        return 1;
+      } else if (a.isSecondarySymptom && !b.isSecondarySymptom) {
+        return -1;
+      } else if (!a.isSecondarySymptom && b.isSecondarySymptom) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
 
     return contentList;

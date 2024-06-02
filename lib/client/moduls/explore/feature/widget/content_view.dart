@@ -155,7 +155,7 @@ class ArticleCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 8, top: 9),
               child: SizedBox(
-                width: 210,
+                width: 230,
                 child: Row(
                   children: [
                     OriaBadge(

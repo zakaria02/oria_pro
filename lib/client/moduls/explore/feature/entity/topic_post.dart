@@ -1,3 +1,5 @@
+import 'post_user.dart';
+
 class TopicPost {
   final List<String> tags;
   final String title;
@@ -21,17 +23,5 @@ class TopicPost {
     required this.isOwner,
     required this.commentCount,
     required this.likeCount,
-  });
-}
-
-class PostUser {
-  final String profilePicture;
-  final String name;
-  final String id;
-
-  const PostUser({
-    required this.profilePicture,
-    required this.name,
-    required this.id,
   });
 }

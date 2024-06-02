@@ -71,6 +71,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: EditMySymptomsPage(
           key: args.key,
           refresh: args.refresh,
+          refreshTodaysAction: args.refreshTodaysAction,
         ),
       );
     },
@@ -267,6 +268,7 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           currentSymptom: args.currentSymptom,
           refresh: args.refresh,
+          refreshTodaysAction: args.refreshTodaysAction,
         ),
       );
     },
@@ -473,12 +475,14 @@ class EditMySymptomsRoute extends PageRouteInfo<EditMySymptomsRouteArgs> {
   EditMySymptomsRoute({
     Key? key,
     required void Function() refresh,
+    required void Function() refreshTodaysAction,
     List<PageRouteInfo>? children,
   }) : super(
           EditMySymptomsRoute.name,
           args: EditMySymptomsRouteArgs(
             key: key,
             refresh: refresh,
+            refreshTodaysAction: refreshTodaysAction,
           ),
           initialChildren: children,
         );
@@ -493,15 +497,18 @@ class EditMySymptomsRouteArgs {
   const EditMySymptomsRouteArgs({
     this.key,
     required this.refresh,
+    required this.refreshTodaysAction,
   });
 
   final Key? key;
 
   final void Function() refresh;
 
+  final void Function() refreshTodaysAction;
+
   @override
   String toString() {
-    return 'EditMySymptomsRouteArgs{key: $key, refresh: $refresh}';
+    return 'EditMySymptomsRouteArgs{key: $key, refresh: $refresh, refreshTodaysAction: $refreshTodaysAction}';
   }
 }
 
@@ -1171,6 +1178,7 @@ class UpdatePrimarySymptomRoute
     Key? key,
     required Symptom currentSymptom,
     required void Function() refresh,
+    required void Function() refreshTodaysAction,
     List<PageRouteInfo>? children,
   }) : super(
           UpdatePrimarySymptomRoute.name,
@@ -1178,6 +1186,7 @@ class UpdatePrimarySymptomRoute
             key: key,
             currentSymptom: currentSymptom,
             refresh: refresh,
+            refreshTodaysAction: refreshTodaysAction,
           ),
           initialChildren: children,
         );
@@ -1193,6 +1202,7 @@ class UpdatePrimarySymptomRouteArgs {
     this.key,
     required this.currentSymptom,
     required this.refresh,
+    required this.refreshTodaysAction,
   });
 
   final Key? key;
@@ -1201,9 +1211,11 @@ class UpdatePrimarySymptomRouteArgs {
 
   final void Function() refresh;
 
+  final void Function() refreshTodaysAction;
+
   @override
   String toString() {
-    return 'UpdatePrimarySymptomRouteArgs{key: $key, currentSymptom: $currentSymptom, refresh: $refresh}';
+    return 'UpdatePrimarySymptomRouteArgs{key: $key, currentSymptom: $currentSymptom, refresh: $refresh, refreshTodaysAction: $refreshTodaysAction}';
   }
 }
 

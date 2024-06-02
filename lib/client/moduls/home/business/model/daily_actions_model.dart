@@ -7,8 +7,8 @@ class DailyActionsModel {
   final bool completedProgramSection;
   final bool readArticle;
   final bool loggedSymptomSeverity;
-  final RecommendedArticleModel recommendedArticle;
-  final ProgramSectionModel recommendedProgramSection;
+  final RecommendedArticleModel? recommendedArticle;
+  final ProgramSectionModel? recommendedProgramSection;
   final int? loggedSeverityValue;
 
   const DailyActionsModel({

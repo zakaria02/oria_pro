@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/topic_post.dart';
-import 'package:oria_pro/utils/constants/oria_links.dart';
+
+import 'post_user_model.dart';
 
 part 'topic_post_model.g.dart';
 
@@ -49,33 +50,11 @@ class PostTopicModel {
   Map<String, dynamic> toJson() => _$PostTopicModelToJson(this);
 }
 
-@JsonSerializable()
-class PostUserModel {
-  final String profilePicture;
-  final String name;
-  final String id;
-
-  const PostUserModel({
-    required this.profilePicture,
-    required this.name,
-    required this.id,
-  });
-
-  factory PostUserModel.fromJson(Map<String, dynamic> json) =>
-      _$PostUserModelFromJson(json);
-  Map<String, dynamic> toJson() => _$PostUserModelToJson(this);
-}
-
 extension PostTopicModelMapper on PostTopicModel {
   TopicPost toTopicPost() => TopicPost(
         tags: tags,
         title: title,
-        user: PostUser(
-          profilePicture:
-              "${OriaLinks.stagingProfileAssetsBaseUrl}/${user.profilePicture}",
-          name: user.name,
-          id: user.id,
-        ),
+        user: user.toPostUser(),
         topicId: topicId,
         createdAt: createdAt,
         id: id,

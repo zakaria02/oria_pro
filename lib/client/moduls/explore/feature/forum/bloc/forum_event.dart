@@ -34,3 +34,17 @@ final class AddPost extends ForumEvent {
     required this.tags,
   });
 }
+
+final class AddComment extends ForumEvent {
+  final ForumTopic topic;
+  final TopicPost post;
+  final String comment;
+  final String? parentId;
+
+  const AddComment({
+    required this.topic,
+    required this.post,
+    required this.comment,
+    this.parentId,
+  });
+}

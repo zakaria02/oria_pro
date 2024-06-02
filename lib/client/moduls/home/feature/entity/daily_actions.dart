@@ -6,8 +6,8 @@ class DailyActions {
   final bool completedProgramSection;
   final bool readArticle;
   final bool loggedSymptomSeverity;
-  final LearningArticle article;
-  final ProgramSectionWithContent section;
+  final LearningArticle? article;
+  final ProgramSectionWithContent? section;
   final int? loggedSeverityValue;
 
   const DailyActions({

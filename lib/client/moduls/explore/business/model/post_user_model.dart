@@ -1,0 +1,32 @@
+import 'package:json_annotation/json_annotation.dart';
+
+import '../../../../../utils/constants/oria_links.dart';
+import '../../feature/entity/post_user.dart';
+
+part 'post_user_model.g.dart';
+
+@JsonSerializable()
+class PostUserModel {
+  final String profilePicture;
+  final String name;
+  final String id;
+
+  const PostUserModel({
+    required this.profilePicture,
+    required this.name,
+    required this.id,
+  });
+
+  factory PostUserModel.fromJson(Map<String, dynamic> json) =>
+      _$PostUserModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PostUserModelToJson(this);
+}
+
+extension PostUserModelMapper on PostUserModel {
+  PostUser toPostUser() => PostUser(
+        profilePicture:
+            "${OriaLinks.stagingProfileAssetsBaseUrl}/$profilePicture",
+        name: name,
+        id: id,
+      );
+}

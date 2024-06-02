@@ -21,8 +21,10 @@ class EditMySymptomsPage extends StatelessWidget {
   const EditMySymptomsPage({
     super.key,
     required this.refresh,
+    required this.refreshTodaysAction,
   });
   final VoidCallback refresh;
+  final VoidCallback refreshTodaysAction;
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +92,8 @@ class EditMySymptomsPage extends StatelessWidget {
                                             child: UpdatePrimarySymptomPage(
                                               currentSymptom: primarySymptom,
                                               refresh: refresh,
+                                              refreshTodaysAction:
+                                                  refreshTodaysAction,
                                             ),
                                           );
                                         },

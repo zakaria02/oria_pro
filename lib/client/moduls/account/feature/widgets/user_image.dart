@@ -11,11 +11,13 @@ class UserImage extends StatelessWidget {
     required this.userImage,
     required this.size,
     this.localImage,
+    this.hasBorder = true,
   });
 
   final String? userImage;
   final File? localImage;
   final double size;
+  final bool hasBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +37,12 @@ class UserImage extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,
-        border: Border.all(
-          color: OriaColors.scaffoldBackgroundColor,
-          width: 3,
-        ),
+        border: hasBorder
+            ? Border.all(
+                color: OriaColors.scaffoldBackgroundColor,
+                width: 3,
+              )
+            : null,
       ),
     );
   }

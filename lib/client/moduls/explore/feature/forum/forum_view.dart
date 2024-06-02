@@ -47,8 +47,9 @@ class _ForumViewState extends State<ForumView> {
             });
           }
         },
-        builder: (blocContext, state) {
-          return state is ForumTopicsLoading
+        builder: (blocContext, state) => Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: state is ForumTopicsLoading
               ? const Column(
                   children: [
                     OriaLoadingProgress(),
@@ -237,8 +238,8 @@ class _ForumViewState extends State<ForumView> {
                       ),
                     ),
                   ],
-                );
-        },
+                ),
+        ),
       ),
     );
   }

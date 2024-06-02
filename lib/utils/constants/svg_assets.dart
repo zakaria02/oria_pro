@@ -14,6 +14,9 @@ class SvgAssets {
       "$_svgAssetsLink/forgot_password.svg";
   static const String closeAsset = "$_svgAssetsLink/close.svg";
   static const String backAsset = "$_svgAssetsLink/back.svg";
+  static const String complainAsset = "$_svgAssetsLink/complain.svg";
+  static const String editAsset = "$_svgAssetsLink/edit.svg";
+  static const String subscriptionAsset = "$_svgAssetsLink/subscription.svg";
   static const String congratsAsset = "$_svgAssetsLink/congrats.svg";
   static const String recommendationIcon = "$_svgAssetsLink/recommendation.svg";
   static const String profilCalculationAsset =
@@ -35,6 +38,7 @@ class SvgAssets {
   static const String premiumIcon = "$_svgAssetsLink/premium.svg";
   static const String checkIcon = "$_svgAssetsLink/check.svg";
   static const String filterIcon = "$_svgAssetsLink/filter.svg";
+  static const String replyIcon = "$_svgAssetsLink/reply.svg";
   static const String starIcon = "$_svgAssetsLink/star.svg";
   static const String luggageIcon = "$_svgAssetsLink/luggage.svg";
   static const String moneyIcon = "$_svgAssetsLink/money.svg";

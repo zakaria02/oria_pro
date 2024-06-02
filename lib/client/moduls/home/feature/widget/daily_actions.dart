@@ -8,6 +8,7 @@ import 'package:oria_pro/client/moduls/explore/feature/entity/learning_article.d
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/symptom_program.dart';
 import 'package:oria_pro/client/moduls/home/feature/bloc/home_bloc.dart';
 import 'package:oria_pro/client/moduls/home/feature/entity/daily_actions.dart';
+import 'package:oria_pro/client/moduls/home/feature/widget/no_todays_actions.dart';
 import 'package:oria_pro/common/symptoms/feature/entity/symptom.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
@@ -28,6 +29,7 @@ class DailyActionsSteps extends StatelessWidget {
     required this.finishSection,
     required this.name,
     required this.symptoms,
+    required this.refreshTodaysAction,
   });
   final DailyActions actions;
   final String primarySymptom;
@@ -35,6 +37,7 @@ class DailyActionsSteps extends StatelessWidget {
   final Function(bool, bool, bool) onStartHerePress;
   final Function(String, String) finishSection;
   final List<Symptom> symptoms;
+  final VoidCallback refreshTodaysAction;
 
   bool get isProgramCurrent => !actions.completedProgramSection;
 
@@ -103,19 +106,19 @@ class DailyActionsSteps extends StatelessWidget {
                       Expanded(
                         child: ActionCard(
                           finished: actions.completedProgramSection,
-                          title: actions.section.title,
-                          description: actions.section.description,
-                          imageUrl: actions.section.imageUrl,
+                          title: actions.section!.title,
+                          description: actions.section!.description,
+                          imageUrl: actions.section!.imageUrl,
                           current: isProgramCurrent,
-                          duration: actions.section.duration,
+                          duration: actions.section!.duration,
                           article: null,
                           section: actions.section,
-                          isPremium: actions.section.isPremium,
+                          isPremium: actions.section!.isPremium,
                           onStartPressed: () {
                             onStartHerePress(true, actions.readArticle,
                                 actions.loggedSymptomSeverity);
-                            finishSection(
-                                actions.section.id, actions.section.programId);
+                            finishSection(actions.section!.id,
+                                actions.section!.programId);
                           },
                           loggedSymptom: actions.loggedSymptomSeverity,
                           userName: name,
@@ -136,15 +139,15 @@ class DailyActionsSteps extends StatelessWidget {
                       Expanded(
                         child: ActionCard(
                           finished: actions.readArticle,
-                          title: actions.article.title,
-                          description:
-                              _extractTextFromHtml(actions.article.htmlContent),
-                          imageUrl: actions.article.imageurl,
+                          title: actions.article!.title,
+                          description: _extractTextFromHtml(
+                              actions.article!.htmlContent),
+                          imageUrl: actions.article!.imageurl,
                           current: isArticleCurrent,
-                          duration: actions.article.duration,
+                          duration: actions.article!.duration,
                           article: actions.article,
                           section: null,
-                          isPremium: actions.article.isPremium,
+                          isPremium: actions.article!.isPremium,
                           onStartPressed: () => onStartHerePress(
                             actions.completedProgramSection,
                             true,
@@ -330,7 +333,13 @@ class DailyActionsSteps extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
         ),
-        steps(context),
+        (actions.article != null && actions.section != null)
+            ? steps(context)
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child:
+                    NoTodaysActions(refreshTodaysAction: refreshTodaysAction),
+              ),
       ],
     );
   }

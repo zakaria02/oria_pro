@@ -16,14 +16,18 @@ class GetDailyActionsUseCase {
 
   Future<DailyActions> execute() async {
     final DailyActionsModel actions = await _homeRepository.getDailyActions();
-    final LearningArticle article = (await _exploreRepository
-            .fetchArticleContent(actions.recommendedArticle.id))
-        .toArticleWithContentUio();
-    final ProgramSectionWithContent section =
-        (await _exploreRepository.fetchSectionDetails(
-                actions.recommendedProgramSection.programId.id,
-                actions.recommendedProgramSection.id))
-            .toProgramSectionWithContent();
+    final LearningArticle? article = actions.recommendedArticle != null
+        ? (await _exploreRepository
+                .fetchArticleContent(actions.recommendedArticle!.id))
+            .toArticleWithContentUio()
+        : null;
+    final ProgramSectionWithContent? section =
+        actions.recommendedProgramSection != null
+            ? (await _exploreRepository.fetchSectionDetails(
+                    actions.recommendedProgramSection!.programId.id,
+                    actions.recommendedProgramSection!.id))
+                .toProgramSectionWithContent()
+            : null;
     return DailyActions(
       completedProgramSection: actions.completedProgramSection,
       readArticle: actions.readArticle,

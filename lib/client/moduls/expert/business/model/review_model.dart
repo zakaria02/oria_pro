@@ -41,8 +41,11 @@ class UserModel {
 extension ReviewModelMappers on ReviewModel {
   Review toReview() {
     return Review(
-      profilePicture:
-          "${OriaLinks.stagingProfileAssetsBaseUrl}/${userId.profilePicture}",
+      profilePicture: userId.profilePicture != null
+          ? userId.profilePicture!.contains("http")
+              ? userId.profilePicture
+              : "${OriaLinks.stagingProfileAssetsBaseUrl}/${userId.profilePicture}"
+          : null,
       username: userId.name,
       rating: rating,
       review: review,

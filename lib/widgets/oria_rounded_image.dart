@@ -21,7 +21,7 @@ class OriaRoundedImage extends StatelessWidget {
           image: networkImage != null
               ? NetworkImage(networkImage!)
               : AssetImage(assetImage!) as ImageProvider,
-          fit: BoxFit.fitHeight,
+          fit: BoxFit.cover,
         ),
         shape: BoxShape.circle,
       ),

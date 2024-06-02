@@ -4,6 +4,8 @@ import 'package:oria_pro/client/moduls/explore/business/model/enroll_program_req
 import 'package:oria_pro/client/moduls/explore/business/model/learning_article.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
 import 'package:retrofit/retrofit.dart';
+import '../model/add_comment_request_model.dart';
+import '../model/comment_model.dart';
 import '../model/explore_symptom_article_model.dart';
 import '../model/explore_symptom_program_model.dart';
 import '../model/favorite_request_model.dart';
@@ -78,8 +80,13 @@ abstract class ExploreService {
   );
 
   @POST("/forum/posts/{postId}/comments")
-  Future<void> addComment(
+  Future<CommentModel> addComment(
     @Path() String postId,
-    @Body() AddForumPostRequestModel request,
+    @Body() AddCommentRequestModel request,
+  );
+
+  @GET("/forum/posts/{postId}/comments")
+  Future<List<CommentModel>> fetchPostComment(
+    @Path() String postId,
   );
 }

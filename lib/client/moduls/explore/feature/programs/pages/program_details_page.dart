@@ -9,8 +9,10 @@ import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_no_data_view.dart';
 import 'package:oria_pro/widgets/oria_rounded_button.dart';
 import '../../../../../../common/widgets/author_card.dart';
+import '../../../../../../utils/constants/oria_colors.dart';
 import '../../../../../../widgets/oria_app_bar.dart';
 import '../../../../../../widgets/oria_card.dart';
+import '../../../../../../widgets/oria_icon_button.dart';
 import '../../../../../../widgets/oria_scaffold.dart';
 
 import '../bloc/programs_bloc.dart';
@@ -39,21 +41,45 @@ class ProgramDetailsPage extends StatelessWidget {
                   : Expanded(
                       child: ListView(
                         children: [
-                          SizedBox(
-                            height: 200,
-                            child: AspectRatio(
-                              aspectRatio: 3 / 2,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        programsState.selectedProgram!.image),
-                                    fit: BoxFit.cover,
+                          Stack(
+                            fit: StackFit.passthrough,
+                            children: [
+                              SizedBox(
+                                height: 200,
+                                child: AspectRatio(
+                                  aspectRatio: 3 / 2,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(programsState
+                                            .selectedProgram!.image),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(24),
                                 ),
                               ),
-                            ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10, top: 10),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: CircleAvatar(
+                                    backgroundColor:
+                                        OriaColors.scaffoldBackgroundColor,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 0.5),
+                                      child: OriaIconButton(
+                                        url: SvgAssets.notFavoriteAsset,
+                                        size: 20,
+                                        onPress: () {},
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                           const SizedBox(
                             height: 8,

@@ -141,9 +141,12 @@ class _TrackerViewState extends State<TrackerView> {
                       onTap: () {
                         context.pushRoute(
                           EditMySymptomsRoute(
-                              refresh: () =>
-                                  BlocProvider.of<TrackerBloc>(blocContext)
-                                      .add(FetchSymptomsData())),
+                            refresh: () =>
+                                BlocProvider.of<TrackerBloc>(blocContext).add(
+                              FetchSymptomsData(),
+                            ),
+                            refreshTodaysAction: () {},
+                          ),
                         );
                       },
                       child: Center(

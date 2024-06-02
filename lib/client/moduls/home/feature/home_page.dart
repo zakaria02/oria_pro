@@ -136,7 +136,10 @@ class HomeView extends StatelessWidget {
                                         BlocProvider.of<HomeBloc>(context).add(
                                       FetchUserCurrentSymptoms(),
                                     ),
-                                    //
+                                    refreshTodaysAction: () =>
+                                        BlocProvider.of<HomeBloc>(context).add(
+                                      FetchTodaysActions(),
+                                    ),
                                   ),
                                 ),
                                 child: Container(
@@ -168,33 +171,38 @@ class HomeView extends StatelessWidget {
                           children: [
                             if (state.actions != null)
                               DailyActionsSteps(
-                                  symptoms: state.userSymptoms,
-                                  name: state.currentUser!.name,
-                                  actions: state.actions!,
-                                  primarySymptom: state.userSymptoms
-                                      .firstWhere((sym) =>
-                                          sym.type == SymptomType.primary)
-                                      .name,
-                                  onStartHerePress: (completedProgramSection,
-                                      readArticle, loggedSymptomSeverity) {
-                                    BlocProvider.of<HomeBloc>(context).add(
-                                      FinishAnAction(
-                                        completedProgramSection:
-                                            completedProgramSection,
-                                        readArticle: readArticle,
-                                        loggedSymptomSeverity:
-                                            loggedSymptomSeverity,
-                                      ),
-                                    );
-                                  },
-                                  finishSection: (sectionId, programId) {
-                                    BlocProvider.of<HomeBloc>(context).add(
-                                      FinishASection(
-                                        sectionId: sectionId,
-                                        programId: programId,
-                                      ),
-                                    );
-                                  }),
+                                symptoms: state.userSymptoms,
+                                name: state.currentUser!.name,
+                                actions: state.actions!,
+                                primarySymptom: state.userSymptoms
+                                    .firstWhere((sym) =>
+                                        sym.type == SymptomType.primary)
+                                    .name,
+                                onStartHerePress: (completedProgramSection,
+                                    readArticle, loggedSymptomSeverity) {
+                                  BlocProvider.of<HomeBloc>(context).add(
+                                    FinishAnAction(
+                                      completedProgramSection:
+                                          completedProgramSection,
+                                      readArticle: readArticle,
+                                      loggedSymptomSeverity:
+                                          loggedSymptomSeverity,
+                                    ),
+                                  );
+                                },
+                                finishSection: (sectionId, programId) {
+                                  BlocProvider.of<HomeBloc>(context).add(
+                                    FinishASection(
+                                      sectionId: sectionId,
+                                      programId: programId,
+                                    ),
+                                  );
+                                },
+                                refreshTodaysAction: () {
+                                  BlocProvider.of<HomeBloc>(context)
+                                      .add(FetchTodaysActions());
+                                },
+                              ),
                             if (state.userSymptoms.isNotEmpty) ...[
                               Row(
                                 children: [

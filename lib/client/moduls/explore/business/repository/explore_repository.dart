@@ -3,7 +3,9 @@ import 'package:oria_pro/client/moduls/explore/business/model/learning_article.d
 import 'package:oria_pro/client/moduls/explore/business/model/update_section_request_model.dart';
 
 import '../di/explore_locator.dart';
+import '../model/add_comment_request_model.dart';
 import '../model/add_forum_post_request_model.dart';
+import '../model/comment_model.dart';
 import '../model/explore_symptom_article_model.dart';
 import '../model/explore_symptom_program_model.dart';
 import '../model/favorite_request_model.dart';
@@ -31,10 +33,11 @@ abstract class ExploreRepository {
       String programId, String sectionId);
   Future<List<ForumTopicModel>> fetchForumTopics();
   Future<List<PostTopicModel>> fetchTopicPosts(String topicId);
-
   Future<PostTopicModel> fetchPostDetails(String postId);
-
   Future<void> addTopicPost(String topicId, AddForumPostRequestModel request);
+  Future<List<CommentModel>> fetchPostComment(String postId);
+  Future<CommentModel> addComment(
+      String postId, AddCommentRequestModel request);
 }
 
 class ExploreRepositoryImpl extends ExploreRepository {
@@ -116,5 +119,16 @@ class ExploreRepositoryImpl extends ExploreRepository {
   @override
   Future<List<PostTopicModel>> fetchTopicPosts(String topicId) async {
     return (await service.fetchTopicPosts(topicId)).results;
+  }
+
+  @override
+  Future<List<CommentModel>> fetchPostComment(String postId) {
+    return service.fetchPostComment(postId);
+  }
+
+  @override
+  Future<CommentModel> addComment(
+      String postId, AddCommentRequestModel request) {
+    return service.addComment(postId, request);
   }
 }

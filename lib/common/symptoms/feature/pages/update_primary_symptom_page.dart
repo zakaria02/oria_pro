@@ -20,10 +20,12 @@ class UpdatePrimarySymptomPage extends StatefulWidget {
     super.key,
     required this.currentSymptom,
     required this.refresh,
+    required this.refreshTodaysAction,
   });
 
   final Symptom currentSymptom;
   final VoidCallback refresh;
+  final VoidCallback refreshTodaysAction;
 
   @override
   State<UpdatePrimarySymptomPage> createState() =>
@@ -49,7 +51,7 @@ class _UpdatePrimarySymptomPageState extends State<UpdatePrimarySymptomPage> {
                     blocContext,
                   ),
                   child: UpdateTodaysActionsProgramPage(
-                    refresh: widget.refresh,
+                    refresh: widget.refreshTodaysAction,
                   ),
                 );
               },

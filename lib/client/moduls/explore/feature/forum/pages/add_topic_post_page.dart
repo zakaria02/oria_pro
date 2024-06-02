@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/forum_topic.dart';
+import 'package:oria_pro/client/moduls/explore/feature/entity/topic_post.dart';
 import 'package:oria_pro/client/moduls/explore/feature/forum/widgets/tag_card.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/widgets/oria_app_bar.dart';
@@ -15,17 +16,23 @@ import '../../../../../../widgets/oria_snack_bar.dart';
 import '../bloc/forum_bloc.dart';
 
 class AddTopicPostPage extends StatefulWidget {
-  const AddTopicPostPage({super.key, required this.topic});
+  const AddTopicPostPage({
+    super.key,
+    required this.topic,
+    this.editablePost,
+  });
+
   final ForumTopic topic;
+  final TopicPost? editablePost;
 
   @override
   State<AddTopicPostPage> createState() => _AddTopicPostPageState();
 }
 
 class _AddTopicPostPageState extends State<AddTopicPostPage> {
-  String title = "";
-  String content = "";
-  List<String> tags = [];
+  late String title;
+  late String content;
+  late List<String> tags;
   final tagConroller = TextEditingController();
 
   final inputBorder = OutlineInputBorder(
@@ -40,6 +47,15 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
       Theme.of(context).textTheme.labelMedium?.copyWith(
             color: OriaColors.disabledColor,
           );
+
+  @override
+  void initState() {
+    title = widget.editablePost?.title ?? "";
+    content = widget.editablePost?.content ?? "";
+    tags = widget.editablePost?.tags ?? [];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ForumBloc, ForumState>(
@@ -76,6 +92,7 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   ),
                   style: Theme.of(context).textTheme.displayLarge,
+                  initialValue: title,
                   onChanged: (value) {
                     title = value;
                   },
@@ -94,6 +111,7 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
                   style: Theme.of(context).textTheme.labelMedium,
                   minLines: 15,
                   maxLines: 25,
+                  initialValue: content,
                   onChanged: (value) {
                     content = value;
                   },
@@ -170,20 +188,20 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
               ],
             ),
           ),
-          bottomBarPadding:
-              const EdgeInsets.only(bottom: 10, left: 20, right: 20),
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: OriaRoundedButton(
               onPress: () {
-                BlocProvider.of<ForumBloc>(context).add(
-                  AddPost(
-                    topic: widget.topic,
-                    title: title,
-                    content: content,
-                    tags: tags,
-                  ),
-                );
+                if (widget.editablePost == null) {
+                  BlocProvider.of<ForumBloc>(context).add(
+                    AddPost(
+                      topic: widget.topic,
+                      title: title,
+                      content: content,
+                      tags: tags,
+                    ),
+                  );
+                }
               },
               height: 48,
               padding: EdgeInsets.zero,

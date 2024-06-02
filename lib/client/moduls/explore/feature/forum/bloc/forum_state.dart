@@ -6,15 +6,18 @@ sealed class ForumState extends Equatable {
     required this.recommondedTopics,
     required this.post,
     required this.posts,
+    required this.comments,
   });
 
   final List<ForumTopic> otherTopics;
   final List<ForumTopic> recommondedTopics;
   final List<TopicPost> posts;
   final TopicPost? post;
+  final List<Comment> comments;
 
   @override
-  List<Object?> get props => [otherTopics, recommondedTopics, post, posts];
+  List<Object?> get props =>
+      [otherTopics, recommondedTopics, post, posts, comments];
 }
 
 final class ForumInitial extends ForumState {
@@ -24,6 +27,7 @@ final class ForumInitial extends ForumState {
           otherTopics: const [],
           post: null,
           posts: const [],
+          comments: const [],
         );
 }
 
@@ -33,6 +37,7 @@ final class ForumTopicsLoading extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
   });
 }
 
@@ -42,6 +47,7 @@ final class ForumTopicsSuccess extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
   });
 }
 
@@ -51,6 +57,7 @@ final class TopicPostsLoading extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
   });
 }
 
@@ -60,6 +67,7 @@ final class TopicPostsSuccess extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
   });
 }
 
@@ -69,6 +77,7 @@ final class TopicPostDetailsLoading extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
   });
 }
 
@@ -78,6 +87,7 @@ final class TopicPostDetailsSuccess extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
   });
 }
 
@@ -87,6 +97,7 @@ final class AddPostLoading extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
   });
 }
 
@@ -96,6 +107,27 @@ final class AddPostSuccess extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
+  });
+}
+
+final class AddCommentLoading extends ForumState {
+  const AddCommentLoading({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class AddCommentSuccess extends ForumState {
+  const AddCommentSuccess({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
   });
 }
 
@@ -106,6 +138,7 @@ final class ForumError extends ForumState {
     required super.otherTopics,
     required super.post,
     required super.posts,
+    required super.comments,
     required this.errorMessage,
   });
 }

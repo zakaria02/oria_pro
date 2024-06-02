@@ -95,8 +95,9 @@ enum UserRole {
 extension UserModelMappers on UserModel {
   User toUser() => User(
         name: name!,
-        profilePicture:
-            "${OriaLinks.stagingProfileAssetsBaseUrl}/$profilePicture",
+        profilePicture: profilePicture != null
+            ? "${OriaLinks.stagingProfileAssetsBaseUrl}/$profilePicture"
+            : null,
         birthDay: birthDay,
         email: email,
         shareMedicalInfo: shareMedicalInfo,
