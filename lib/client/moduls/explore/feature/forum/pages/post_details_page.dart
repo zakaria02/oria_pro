@@ -108,6 +108,9 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             commentController.text = "";
           });
         }
+        if (state is DeletePostSuccess) {
+          context.maybePop();
+        }
       },
       builder: (blocContext, state) {
         return PopScope(
@@ -140,6 +143,11 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         child: ListView(
                           children: state.post != null
                               ? [
+                                  if (state is DeletePostLoading)
+                                    const Padding(
+                                      padding: EdgeInsets.only(bottom: 20),
+                                      child: OriaLoadingProgress(),
+                                    ),
                                   Row(
                                     children: [
                                       UserImage(
@@ -303,7 +311,14 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   }),
                   onSubscription: _showSubscriptionDialog,
                   onCompalin: () {},
-                  onDelete: () {},
+                  onDelete: () {
+                    BlocProvider.of<ForumBloc>(blocContext).add(
+                      DeletePost(
+                        topic: widget.topic,
+                        post: state.post!,
+                      ),
+                    );
+                  },
                   onEdit: () {
                     Navigator.push(
                       context,

@@ -79,6 +79,15 @@ abstract class ExploreService {
     @Body() AddForumPostRequestModel request,
   );
 
+  @DELETE("/forum/posts/{topicId}")
+  Future<void> deleteTopicPost(@Path() String topicId);
+
+  @PUT("/forum/posts/{topicId}")
+  Future<void> updateTopicPost(
+    @Path() String topicId,
+    @Body() AddForumPostRequestModel request,
+  );
+
   @POST("/forum/posts/{postId}/comments")
   Future<CommentModel> addComment(
     @Path() String postId,

@@ -7,7 +7,7 @@ part 'post_user_model.g.dart';
 
 @JsonSerializable()
 class PostUserModel {
-  final String profilePicture;
+  final String? profilePicture;
   final String name;
   final String id;
 
@@ -24,8 +24,11 @@ class PostUserModel {
 
 extension PostUserModelMapper on PostUserModel {
   PostUser toPostUser() => PostUser(
-        profilePicture:
-            "${OriaLinks.stagingProfileAssetsBaseUrl}/$profilePicture",
+        profilePicture: profilePicture == null
+            ? null
+            : profilePicture!.contains("http")
+                ? profilePicture
+                : "${OriaLinks.stagingProfileAssetsBaseUrl}/$profilePicture",
         name: name,
         id: id,
       );

@@ -160,6 +160,80 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
       }
     });
 
+    on<UpdatePost>((event, emit) async {
+      final ExploreRepository repository = ExploreLocator().get();
+      try {
+        emit(
+          UpdatePostLoading(
+              recommondedTopics: state.recommondedTopics,
+              otherTopics: state.otherTopics,
+              post: state.post,
+              posts: state.posts,
+              comments: state.comments),
+        );
+        await repository.updateTopicPost(
+          event.post.id,
+          AddForumPostRequestModel(
+            title: event.title,
+            content: event.content,
+            tags: event.tags,
+          ),
+        );
+        emit(
+          UpdatePostSuccess(
+              otherTopics: state.otherTopics,
+              recommondedTopics: state.recommondedTopics,
+              post: state.post,
+              posts: state.posts,
+              comments: state.comments),
+        );
+        add(FetchTopicPosts(topic: event.topic));
+        add(FetchTopics());
+      } catch (e) {
+        emit(ForumError(
+          otherTopics: state.otherTopics,
+          post: state.post,
+          posts: state.posts,
+          comments: state.comments,
+          recommondedTopics: state.recommondedTopics,
+          errorMessage: e.toString(),
+        ));
+      }
+    });
+
+    on<DeletePost>((event, emit) async {
+      final ExploreRepository repository = ExploreLocator().get();
+      try {
+        emit(
+          DeletePostLoading(
+              recommondedTopics: state.recommondedTopics,
+              otherTopics: state.otherTopics,
+              post: state.post,
+              posts: state.posts,
+              comments: state.comments),
+        );
+        await repository.deleteTopicPost(event.post.id);
+        emit(DeletePostSuccess(
+          recommondedTopics: state.recommondedTopics,
+          otherTopics: state.otherTopics,
+          post: state.post,
+          posts: state.posts,
+          comments: state.comments,
+        ));
+        add(FetchTopicPosts(topic: event.topic));
+        add(FetchTopics());
+      } catch (e) {
+        emit(ForumError(
+          otherTopics: state.otherTopics,
+          post: state.post,
+          posts: state.posts,
+          comments: state.comments,
+          recommondedTopics: state.recommondedTopics,
+          errorMessage: e.toString(),
+        ));
+      }
+    });
+
     on<AddComment>((event, emit) async {
       final ExploreRepository repository = ExploreLocator().get();
       try {

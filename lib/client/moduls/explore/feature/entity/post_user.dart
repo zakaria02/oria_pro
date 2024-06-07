@@ -1,5 +1,5 @@
 class PostUser {
-  final String profilePicture;
+  final String? profilePicture;
   final String name;
   final String id;
 

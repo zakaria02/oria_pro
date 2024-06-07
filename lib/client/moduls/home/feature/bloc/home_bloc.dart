@@ -59,7 +59,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           currentUser: state.currentUser,
           userSymptoms: state.userSymptoms,
           selectedSymptom: state.selectedSymptom,
-          actions: state.actions,
+          actions: null,
         ));
         final actions = await getDailyActionsUseCase.execute();
         emit(FetchTodaysActionsSuccess(

@@ -34,13 +34,13 @@ class ExpertCard extends StatelessWidget {
         );
       },
       child: OriaCard(
-        width: 187,
+        width: 150,
         borderColor: OriaColors.iconButtonBackgound,
         child: Column(
           children: [
             Container(
-              height: 104,
-              width: 104,
+              height: 80,
+              width: 80,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
@@ -51,32 +51,32 @@ class ExpertCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             Text(
               "${expert.firstName} ${expert.lastName}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.displayLarge,
+              style: Theme.of(context).textTheme.labelLarge,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             Text(
               expert.specialty,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: OriaColors.green,
                   ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             Text(
               "${expert.city}, ${expert.provinceName}",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context)
                   .textTheme
-                  .labelMedium
+                  .labelSmall
                   ?.copyWith(color: OriaColors.darkGrey),
               textAlign: TextAlign.center,
             ),

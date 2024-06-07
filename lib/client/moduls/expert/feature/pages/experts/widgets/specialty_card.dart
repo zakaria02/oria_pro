@@ -38,8 +38,8 @@ class SpecialtyCard extends StatelessWidget {
         );
       },
       child: Container(
-        width: 138,
-        padding: const EdgeInsets.all(16),
+        width: 110,
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: specialty.color.withOpacity(0.1),
           border: Border.all(color: specialty.color),
@@ -47,20 +47,21 @@ class SpecialtyCard extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 8),
             SvgPicture.network(
               specialty.icon,
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(specialty.color, BlendMode.srcIn),
-              height: 40,
+              height: 30,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             Text(
               specialty.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: specialty.color,
                   ),
               textAlign: TextAlign.center,

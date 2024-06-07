@@ -111,6 +111,46 @@ final class AddPostSuccess extends ForumState {
   });
 }
 
+final class UpdatePostLoading extends ForumState {
+  const UpdatePostLoading({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class UpdatePostSuccess extends ForumState {
+  const UpdatePostSuccess({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class DeletePostLoading extends ForumState {
+  const DeletePostLoading({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class DeletePostSuccess extends ForumState {
+  const DeletePostSuccess({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
 final class AddCommentLoading extends ForumState {
   const AddCommentLoading({
     required super.recommondedTopics,

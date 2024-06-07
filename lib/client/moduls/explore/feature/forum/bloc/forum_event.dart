@@ -35,6 +35,32 @@ final class AddPost extends ForumEvent {
   });
 }
 
+final class DeletePost extends ForumEvent {
+  final ForumTopic topic;
+  final TopicPost post;
+
+  const DeletePost({
+    required this.topic,
+    required this.post,
+  });
+}
+
+final class UpdatePost extends ForumEvent {
+  final ForumTopic topic;
+  final TopicPost post;
+  final String title;
+  final String content;
+  final List<String> tags;
+
+  const UpdatePost({
+    required this.topic,
+    required this.post,
+    required this.title,
+    required this.content,
+    required this.tags,
+  });
+}
+
 final class AddComment extends ForumEvent {
   final ForumTopic topic;
   final TopicPost post;

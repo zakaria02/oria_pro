@@ -38,9 +38,11 @@ class SymptomCard extends StatelessWidget {
                 )
               : null,
         ),
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(6),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
               symptom.icon,
@@ -55,6 +57,9 @@ class SymptomCard extends StatelessWidget {
                   .textTheme
                   .labelSmall
                   ?.copyWith(color: OriaColors.primaryColor),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

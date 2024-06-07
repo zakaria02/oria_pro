@@ -8,9 +8,11 @@ class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
     required this.post,
+    required this.onDelete,
   });
 
   final TopicPost post;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class PostCard extends StatelessWidget {
               if (post.isOwner) ...[
                 const SizedBox(width: 12),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: onDelete,
                   child: SvgPicture.asset(SvgAssets.deleteIcon),
                 ),
               ]

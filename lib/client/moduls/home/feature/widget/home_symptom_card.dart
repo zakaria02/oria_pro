@@ -21,10 +21,13 @@ class HomeSymptomCard extends StatelessWidget {
       child: Stack(
         children: [
           OriaCard(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             borderColor: OriaColors.iconButtonBackgound,
             width: 126,
             height: 120,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.network(
                   symptom.icon,
@@ -38,6 +41,9 @@ class HomeSymptomCard extends StatelessWidget {
                       .textTheme
                       .labelMedium
                       ?.copyWith(color: Colors.black),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 )
               ],
             ),

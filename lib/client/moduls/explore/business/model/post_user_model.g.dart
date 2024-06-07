@@ -8,7 +8,7 @@ part of 'post_user_model.dart';
 
 PostUserModel _$PostUserModelFromJson(Map<String, dynamic> json) =>
     PostUserModel(
-      profilePicture: json['profilePicture'] as String,
+      profilePicture: json['profilePicture'] as String?,
       name: json['name'] as String,
       id: json['id'] as String,
     );

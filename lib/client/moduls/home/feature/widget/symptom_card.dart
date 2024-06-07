@@ -18,12 +18,14 @@ class SymptomCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.pushRoute(SymptomDataRoute(symptom: symptom)),
       child: OriaCard(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         backgroundColor: symptom.type == SymptomType.primary
             ? OriaColors.green
             : Colors.white,
         borderColor: OriaColors.iconButtonBackgound,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
               symptom.icon,
@@ -37,10 +39,14 @@ class SymptomCard extends StatelessWidget {
             Text(
               symptom.name,
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: symptom.type == SymptomType.primary
-                      ? const Color(0xFFFAF1E1)
-                      : Colors.black,
-                  fontWeight: FontWeight.w600),
+                    color: symptom.type == SymptomType.primary
+                        ? const Color(0xFFFAF1E1)
+                        : Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             )
           ],
         ),

@@ -66,9 +66,10 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
               content: state.errorMessage,
             ),
           );
-        }
-        if (state is AddPostSuccess) {
+        } else if (state is AddPostSuccess) {
           context.maybePop();
+        } else if (state is UpdatePostSuccess) {
+          context.router.popUntil((route) => route.isFirst);
         }
       },
       builder: (blocContext, state) {
@@ -201,11 +202,22 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
                       tags: tags,
                     ),
                   );
+                } else {
+                  BlocProvider.of<ForumBloc>(context).add(
+                    UpdatePost(
+                      topic: widget.topic,
+                      post: widget.editablePost!,
+                      title: title,
+                      content: content,
+                      tags: tags,
+                    ),
+                  );
                 }
               },
               height: 48,
               padding: EdgeInsets.zero,
-              isLoading: state is AddPostLoading,
+              isLoading:
+                  (state is AddPostLoading) || (state is UpdatePostLoading),
               text: AppLocalizations.of(context)!.publish,
             ),
           ),

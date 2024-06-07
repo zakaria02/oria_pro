@@ -57,6 +57,9 @@ class SymptomRepositoryImpl implements SymptomRepository {
 
   @override
   Future<List<ProgramSymptomModel>> getTodayActionsProgram() async {
-    return (await service.getTodayActionsProgram()).programs;
+    return (await service.getTodayActionsProgram())
+        .programs
+        .where((prog) => prog.learningStatus != "finished")
+        .toList();
   }
 }

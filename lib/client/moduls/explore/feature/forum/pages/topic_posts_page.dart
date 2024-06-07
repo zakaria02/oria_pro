@@ -69,6 +69,11 @@ class TopicPostsPage extends StatelessWidget {
                     : Expanded(
                         child: Column(
                           children: [
+                            if (state is DeletePostLoading)
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: OriaLoadingProgress(),
+                              ),
                             Row(
                               children: [
                                 PostFilter(
@@ -139,6 +144,14 @@ class TopicPostsPage extends StatelessWidget {
                                   },
                                   child: PostCard(
                                     post: filterState.posts[index],
+                                    onDelete: () {
+                                      BlocProvider.of<ForumBloc>(context).add(
+                                        DeletePost(
+                                          topic: topic,
+                                          post: filterState.posts[index],
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                                 separatorBuilder: (context, index) =>

@@ -42,7 +42,7 @@ class ExpertsView extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
-                          height: 145,
+                          height: 125,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) => SpecialtyCard(
@@ -64,7 +64,7 @@ class ExpertsView extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
-                          height: 235,
+                          height: 190,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) => ExpertCard(
@@ -85,7 +85,7 @@ class ExpertsView extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
-                          height: 235,
+                          height: 190,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) => ExpertCard(

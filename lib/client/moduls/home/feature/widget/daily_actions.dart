@@ -85,7 +85,9 @@ class DailyActionsSteps extends StatelessWidget {
           children: [
             Positioned.fill(
               left: 12,
-              top: isProgramCurrent ? 150 : 70,
+              top: isProgramCurrent && actions.section?.imageUrl != null
+                  ? 160
+                  : 70,
               bottom: 70,
               child: const OriaDottedLine(
                 color: OriaColors.disabledColor,
@@ -107,7 +109,11 @@ class DailyActionsSteps extends StatelessWidget {
                         child: ActionCard(
                           finished: actions.completedProgramSection,
                           title: actions.section!.title,
-                          description: actions.section!.description,
+                          description: actions.section!.description.isNotEmpty
+                              ? actions.section!.description.length > 60
+                                  ? "${actions.section!.description.substring(0, 60)}..."
+                                  : actions.section!.description
+                              : "",
                           imageUrl: actions.section!.imageUrl,
                           current: isProgramCurrent,
                           duration: actions.section!.duration,
@@ -495,6 +501,7 @@ class _ActionCardState extends State<ActionCard> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                   child: OriaRoundedButton(
+                    padding: EdgeInsets.zero,
                     width: 160,
                     height: 34,
                     onPress: () {

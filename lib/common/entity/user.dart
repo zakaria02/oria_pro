@@ -12,4 +12,12 @@ class User {
     required this.email,
     required this.shareMedicalInfo,
   });
+
+  static const fakeUser = User(
+    birthDay: null,
+    name: "fake user",
+    profilePicture: "profilePic",
+    email: "fake@example.com",
+    shareMedicalInfo: false,
+  );
 }

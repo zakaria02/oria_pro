@@ -38,6 +38,9 @@ abstract class ExploreRepository {
   Future<List<CommentModel>> fetchPostComment(String postId);
   Future<CommentModel> addComment(
       String postId, AddCommentRequestModel request);
+  Future<void> deleteTopicPost(String topicId);
+  Future<void> updateTopicPost(
+      String topicId, AddForumPostRequestModel request);
 }
 
 class ExploreRepositoryImpl extends ExploreRepository {
@@ -130,5 +133,16 @@ class ExploreRepositoryImpl extends ExploreRepository {
   Future<CommentModel> addComment(
       String postId, AddCommentRequestModel request) {
     return service.addComment(postId, request);
+  }
+
+  @override
+  Future<void> deleteTopicPost(String topicId) {
+    return service.deleteTopicPost(topicId);
+  }
+
+  @override
+  Future<void> updateTopicPost(
+      String topicId, AddForumPostRequestModel request) {
+    return service.updateTopicPost(topicId, request);
   }
 }
