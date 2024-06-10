@@ -41,6 +41,13 @@ abstract class ExploreRepository {
   Future<void> deleteTopicPost(String topicId);
   Future<void> updateTopicPost(
       String topicId, AddForumPostRequestModel request);
+  Future<void> likePost(String postId);
+  Future<void> unlikePost(String postId);
+  Future<void> favoritePost(String postId);
+  Future<void> unFavoritePost(String postId);
+  Future<CommentModel> updateComment(
+      String commentId, AddCommentRequestModel request);
+  Future<void> deleteComment(String commentId);
 }
 
 class ExploreRepositoryImpl extends ExploreRepository {
@@ -120,8 +127,8 @@ class ExploreRepositoryImpl extends ExploreRepository {
   }
 
   @override
-  Future<List<PostTopicModel>> fetchTopicPosts(String topicId) async {
-    return (await service.fetchTopicPosts(topicId)).results;
+  Future<List<PostTopicModel>> fetchTopicPosts(String topicId) {
+    return service.fetchTopicPosts(topicId);
   }
 
   @override
@@ -144,5 +151,36 @@ class ExploreRepositoryImpl extends ExploreRepository {
   Future<void> updateTopicPost(
       String topicId, AddForumPostRequestModel request) {
     return service.updateTopicPost(topicId, request);
+  }
+
+  @override
+  Future<void> deleteComment(String commentId) {
+    return service.deleteComment(commentId);
+  }
+
+  @override
+  Future<void> favoritePost(String postId) {
+    return service.favoritePost(postId);
+  }
+
+  @override
+  Future<void> likePost(String postId) {
+    return service.likePost(postId);
+  }
+
+  @override
+  Future<void> unFavoritePost(String postId) {
+    return service.unFavoritePost(postId);
+  }
+
+  @override
+  Future<void> unlikePost(String postId) {
+    return service.unlikePost(postId);
+  }
+
+  @override
+  Future<CommentModel> updateComment(
+      String commentId, AddCommentRequestModel request) {
+    return service.updateComment(commentId, request);
   }
 }

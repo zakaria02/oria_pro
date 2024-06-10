@@ -52,6 +52,7 @@ class SvgAssets {
   static const String warningIcon = "$_svgAssetsLink/warning.svg";
   static const String styloIcon = "$_svgAssetsLink/stylo.svg";
   static const String heartIcon = "$_svgAssetsLink/heart.svg";
+  static const String heartFilledIcon = "$_svgAssetsLink/heart_filled.svg";
   static const String commentIcon = "$_svgAssetsLink/comment.svg";
   static const String insightsIcon = "$_svgAssetsLink/insights.svg";
   static const String settingsIcon = "$_svgAssetsLink/settings.svg";

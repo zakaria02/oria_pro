@@ -9,18 +9,22 @@ class PostMenu extends StatelessWidget {
   const PostMenu({
     super.key,
     required this.onClose,
-    required this.onSubscription,
+    this.onSubscription,
     required this.onCompalin,
     required this.onDelete,
     required this.onEdit,
     required this.isOwner,
+    this.isFavorite = false,
+    this.center = false,
   });
   final VoidCallback onClose;
-  final VoidCallback onSubscription;
+  final VoidCallback? onSubscription;
   final VoidCallback onCompalin;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
   final bool isOwner;
+  final bool isFavorite;
+  final bool center;
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +49,26 @@ class PostMenu extends StatelessWidget {
             padding:
                 const EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 36),
             child: Column(
+              mainAxisAlignment:
+                  center ? MainAxisAlignment.center : MainAxisAlignment.start,
               children: [
                 PostMenuItem(
                   icon: SvgAssets.closeAsset,
                   onPress: onClose,
                 ),
-                const SizedBox(height: 8),
-                PostMenuItem(
-                  icon: SvgAssets.subscriptionAsset,
-                  onPress: () {
-                    onSubscription();
-                    onClose();
-                  },
-                  title: AppLocalizations.of(context)?.subscribeToTpic,
-                ),
+                if (onSubscription != null) ...[
+                  const SizedBox(height: 8),
+                  PostMenuItem(
+                    icon: SvgAssets.subscriptionAsset,
+                    onPress: () {
+                      onSubscription!();
+                      onClose();
+                    },
+                    title: isFavorite
+                        ? AppLocalizations.of(context)?.removeFromFavoite
+                        : AppLocalizations.of(context)?.addToFavorite,
+                  ),
+                ],
                 if (isOwner) ...[
                   const SizedBox(height: 8),
                   PostMenuItem(

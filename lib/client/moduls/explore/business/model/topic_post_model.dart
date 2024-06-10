@@ -30,7 +30,10 @@ class PostTopicModel {
   final String id;
   final bool isOwner;
   final int commentCount;
-  final int likeCount;
+  @JsonKey(name: "LikesCount")
+  final int likesCount;
+  final bool isLiked;
+  final bool isFavourite;
 
   const PostTopicModel({
     required this.tags,
@@ -42,7 +45,9 @@ class PostTopicModel {
     required this.id,
     required this.isOwner,
     this.commentCount = 0,
-    this.likeCount = 0,
+    this.likesCount = 0,
+    this.isLiked = false,
+    this.isFavourite = false,
   });
 
   factory PostTopicModel.fromJson(Map<String, dynamic> json) =>
@@ -59,8 +64,10 @@ extension PostTopicModelMapper on PostTopicModel {
         createdAt: createdAt,
         id: id,
         isOwner: isOwner,
-        likeCount: likeCount,
+        likeCount: likesCount,
         commentCount: commentCount,
         content: content,
+        isLiked: isLiked,
+        isFavourite: isFavourite,
       );
 }

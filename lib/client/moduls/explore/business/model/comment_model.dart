@@ -15,6 +15,7 @@ class CommentModel {
   final String id;
   final List<CommentModel> subComments;
   final int likeCount;
+  final bool isOwner;
 
   const CommentModel({
     required this.parentId,
@@ -25,6 +26,7 @@ class CommentModel {
     required this.id,
     this.subComments = const [],
     this.likeCount = 0,
+    this.isOwner = false,
   });
 
   factory CommentModel.fromJson(Map<String, dynamic> json) =>
@@ -33,7 +35,7 @@ class CommentModel {
 }
 
 extension CommentModelMapper on CommentModel {
-  Comment toComment() => Comment(
+  Comment toComment({bool? owner}) => Comment(
         parentId: parentId,
         comment: comment,
         user: userId.toPostUser(),
@@ -42,5 +44,6 @@ extension CommentModelMapper on CommentModel {
         id: id,
         subComments: subComments.map((comm) => comm.toComment()).toList(),
         likeCount: likeCount,
+        isOwner: owner ?? isOwner,
       );
 }

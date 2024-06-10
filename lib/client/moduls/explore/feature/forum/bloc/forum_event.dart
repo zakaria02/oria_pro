@@ -74,3 +74,37 @@ final class AddComment extends ForumEvent {
     this.parentId,
   });
 }
+
+final class UpdateComment extends ForumEvent {
+  final Comment currentComment;
+  final String comment;
+
+  const UpdateComment({
+    required this.currentComment,
+    required this.comment,
+  });
+}
+
+final class DeleteComment extends ForumEvent {
+  final Comment comment;
+
+  const DeleteComment({
+    required this.comment,
+  });
+}
+
+final class LikePost extends ForumEvent {
+  final TopicPost post;
+
+  const LikePost({
+    required this.post,
+  });
+}
+
+final class FavoritePost extends ForumEvent {
+  final TopicPost post;
+
+  const FavoritePost({
+    required this.post,
+  });
+}

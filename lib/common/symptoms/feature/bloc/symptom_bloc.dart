@@ -157,10 +157,8 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptoms: state.symptoms,
             selectedSymptom: state.selectedSymptom,
             secondarySymptoms: state.secondarySymptoms,
-            symptomPrograms: programs
-                .where((program) => program.learningStatus == "notStarted")
-                .map((program) => program.toProgram())
-                .toList(),
+            symptomPrograms:
+                programs.map((program) => program.toProgram()).toList(),
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
           ),

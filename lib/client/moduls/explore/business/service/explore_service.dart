@@ -68,7 +68,7 @@ abstract class ExploreService {
   Future<List<ForumTopicModel>> fetchForumTopics();
 
   @GET("/forum/topics/{topicId}/posts")
-  Future<PostTopicModelResults> fetchTopicPosts(@Path() String topicId);
+  Future<List<PostTopicModel>> fetchTopicPosts(@Path() String topicId);
 
   @GET("/forum/posts/{postId}")
   Future<PostTopicModel> fetchPostDetails(@Path() String postId);
@@ -94,8 +94,39 @@ abstract class ExploreService {
     @Body() AddCommentRequestModel request,
   );
 
+  @PUT("/forum/comments/{commentId}")
+  Future<CommentModel> updateComment(
+    @Path() String commentId,
+    @Body() AddCommentRequestModel request,
+  );
+
+  @DELETE("/forum/comments/{commentId}")
+  Future<void> deleteComment(
+    @Path() String commentId,
+  );
+
   @GET("/forum/posts/{postId}/comments")
   Future<List<CommentModel>> fetchPostComment(
+    @Path() String postId,
+  );
+
+  @POST("/forum/posts/{postId}/like")
+  Future<void> likePost(
+    @Path() String postId,
+  );
+
+  @POST("/forum/posts/{postId}/unlike")
+  Future<void> unlikePost(
+    @Path() String postId,
+  );
+
+  @POST("/forum/posts/{postId}/favourite")
+  Future<void> favoritePost(
+    @Path() String postId,
+  );
+
+  @POST("/forum/posts/{postId}/unfavourite")
+  Future<void> unFavoritePost(
     @Path() String postId,
   );
 }

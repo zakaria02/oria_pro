@@ -151,8 +151,8 @@ final class DeletePostSuccess extends ForumState {
   });
 }
 
-final class AddCommentLoading extends ForumState {
-  const AddCommentLoading({
+final class CommentLoading extends ForumState {
+  const CommentLoading({
     required super.recommondedTopics,
     required super.otherTopics,
     required super.post,
@@ -161,8 +161,48 @@ final class AddCommentLoading extends ForumState {
   });
 }
 
-final class AddCommentSuccess extends ForumState {
-  const AddCommentSuccess({
+final class CommentSuccess extends ForumState {
+  const CommentSuccess({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class LikeLoading extends ForumState {
+  const LikeLoading({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class LikeSuccess extends ForumState {
+  const LikeSuccess({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class FavoriteLoading extends ForumState {
+  const FavoriteLoading({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class FavoriteSuccess extends ForumState {
+  const FavoriteSuccess({
     required super.recommondedTopics,
     required super.otherTopics,
     required super.post,

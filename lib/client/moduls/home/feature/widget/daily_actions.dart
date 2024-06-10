@@ -3,7 +3,6 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:html/parser.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/learning_article.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/symptom_program.dart';
 import 'package:oria_pro/client/moduls/home/feature/bloc/home_bloc.dart';
@@ -49,16 +48,6 @@ class DailyActionsSteps extends StatelessWidget {
       actions.readArticle &&
       actions.loggedSymptomSeverity;
 
-  String _extractTextFromHtml(String htmlString) {
-    var document = parse(htmlString);
-    final text = document.body?.text ?? "";
-    return text.isNotEmpty
-        ? text.length > 70
-            ? "${text.substring(0, 70)}..."
-            : text
-        : "";
-  }
-
   Color color(int? value) => switch (value) {
         0 => const Color(0xFFA8E4C2),
         1 => const Color(0xFFFEF3E0),
@@ -86,8 +75,8 @@ class DailyActionsSteps extends StatelessWidget {
             Positioned.fill(
               left: 12,
               top: isProgramCurrent && actions.section?.imageUrl != null
-                  ? 160
-                  : 70,
+                  ? 130
+                  : 50,
               bottom: 70,
               child: const OriaDottedLine(
                 color: OriaColors.disabledColor,
@@ -109,14 +98,8 @@ class DailyActionsSteps extends StatelessWidget {
                         child: ActionCard(
                           finished: actions.completedProgramSection,
                           title: actions.section!.title,
-                          description: actions.section!.description.isNotEmpty
-                              ? actions.section!.description.length > 60
-                                  ? "${actions.section!.description.substring(0, 60)}..."
-                                  : actions.section!.description
-                              : "",
                           imageUrl: actions.section!.imageUrl,
                           current: isProgramCurrent,
-                          duration: actions.section!.duration,
                           article: null,
                           section: actions.section,
                           isPremium: actions.section!.isPremium,
@@ -146,11 +129,8 @@ class DailyActionsSteps extends StatelessWidget {
                         child: ActionCard(
                           finished: actions.readArticle,
                           title: actions.article!.title,
-                          description: _extractTextFromHtml(
-                              actions.article!.htmlContent),
                           imageUrl: actions.article!.imageurl,
                           current: isArticleCurrent,
-                          duration: actions.article!.duration,
                           article: actions.article,
                           section: null,
                           isPremium: actions.article!.isPremium,
@@ -183,13 +163,7 @@ class DailyActionsSteps extends StatelessWidget {
                               Text(
                                 AppLocalizations.of(context)!
                                     .howIsYouSymptomToday(primarySymptom),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color: OriaColors.primaryColor,
-                                    ),
+                                style: Theme.of(context).textTheme.labelLarge,
                               ),
                               const SizedBox(height: 12),
                               SingleChildScrollView(
@@ -355,10 +329,8 @@ class ActionCard extends StatefulWidget {
   const ActionCard({
     super.key,
     required this.title,
-    required this.description,
     required this.imageUrl,
     required this.current,
-    required this.duration,
     required this.section,
     required this.article,
     required this.isPremium,
@@ -369,10 +341,8 @@ class ActionCard extends StatefulWidget {
     required this.userName,
   });
   final String title;
-  final String description;
   final String? imageUrl;
   final bool current;
-  final int duration;
   final bool isPremium;
   final ProgramSectionWithContent? section;
   final LearningArticle? article;
@@ -423,65 +393,14 @@ class _ActionCardState extends State<ActionCard> {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.fromLTRB(20, 20, 20, widget.current ? 5 : 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                              text: "${widget.title}: ",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: OriaColors.primaryColor,
-                                  ),
-                            ),
-                            TextSpan(
-                              text: widget.description,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color: OriaColors.primaryColor,
-                                  ),
-                            ),
-                          ]),
-                        ),
-                        if (widget.duration > 0) ...[
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                SvgAssets.timeAsset,
-                                colorFilter: const ColorFilter.mode(
-                                    OriaColors.darkGrey, BlendMode.srcIn),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .minutes(widget.duration),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      color: OriaColors.darkGrey,
-                                      fontStyle: FontStyle.italic,
-                                      fontFamily: "Satoshi",
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ]
-                      ],
+                    child: Text(
+                      widget.title,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),
                   if (widget.isPremium) ...[

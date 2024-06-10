@@ -18,6 +18,7 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) => CommentModel(
               .toList() ??
           const [],
       likeCount: (json['likeCount'] as num?)?.toInt() ?? 0,
+      isOwner: json['isOwner'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$CommentModelToJson(CommentModel instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$CommentModelToJson(CommentModel instance) =>
       'id': instance.id,
       'subComments': instance.subComments,
       'likeCount': instance.likeCount,
+      'isOwner': instance.isOwner,
     };
