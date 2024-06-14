@@ -101,6 +101,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    FavoritesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FavoritesPage(),
+      );
+    },
     FindSpecialistRoute.name: (routeData) {
       final args = routeData.argsAs<FindSpecialistRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -616,6 +622,20 @@ class ExpertFilterRouteArgs {
   String toString() {
     return 'ExpertFilterRouteArgs{key: $key, specilalties: $specilalties, cities: $cities, selectedSpeciality: $selectedSpeciality, selectedCity: $selectedCity, selectedRating: $selectedRating, provinces: $provinces, selectedProvince: $selectedProvince}';
   }
+}
+
+/// generated route for
+/// [FavoritesPage]
+class FavoritesRoute extends PageRouteInfo<void> {
+  const FavoritesRoute({List<PageRouteInfo>? children})
+      : super(
+          FavoritesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FavoritesRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -124,7 +124,7 @@ class AccountView extends StatelessWidget {
                 noRaduis: true,
                 image: SvgAssets.heartIcon,
                 title: AppLocalizations.of(context)!.favorites,
-                onPress: () {},
+                onPress: () => context.router.push(const FavoritesRoute()),
               ),
               const SizedBox(height: 1),
               AccountParam(

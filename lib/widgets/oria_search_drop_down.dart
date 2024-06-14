@@ -7,20 +7,20 @@ class OriaSearchDropDown<T> extends StatefulWidget {
   const OriaSearchDropDown({
     super.key,
     required this.items,
-    required this.onValueChange,
+    required this.onSelected,
     this.selectedItem,
+    required this.controller,
   });
   final List<T> items;
-  final Function(T?) onValueChange;
+  final Function(T?) onSelected;
   final T? selectedItem;
+  final TextEditingController controller;
 
   @override
   State<OriaSearchDropDown<T>> createState() => _OriaSearchDropDownState<T>();
 }
 
 class _OriaSearchDropDownState<T> extends State<OriaSearchDropDown<T>> {
-  final TextEditingController _controller = TextEditingController();
-
   final inputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(24),
     borderSide: const BorderSide(color: Colors.transparent),
@@ -29,7 +29,7 @@ class _OriaSearchDropDownState<T> extends State<OriaSearchDropDown<T>> {
   @override
   void initState() {
     if (widget.selectedItem != null) {
-      _controller.text = widget.selectedItem.toString();
+      widget.controller.text = widget.selectedItem.toString();
     }
     super.initState();
   }
@@ -49,7 +49,7 @@ class _OriaSearchDropDownState<T> extends State<OriaSearchDropDown<T>> {
         color: OriaColors.iconButtonBackgound,
       ),
       child: TypeAheadField<T>(
-        controller: _controller,
+        controller: widget.controller,
         builder: (context, controller, focusNode) {
           return TextField(
             controller: controller,
@@ -90,13 +90,13 @@ class _OriaSearchDropDownState<T> extends State<OriaSearchDropDown<T>> {
           setState(() {
             String suggestionText = suggestion.toString();
             if (suggestionText.isEmpty) {
-              _controller.text =
+              widget.controller.text =
                   widget.selectedItem?.toString() ?? suggestionText;
             } else {
-              _controller.text = suggestion.toString();
+              widget.controller.text = suggestion.toString();
             }
           });
-          widget.onValueChange(suggestion);
+          widget.onSelected(suggestion);
         },
         hideOnEmpty: true,
       ),

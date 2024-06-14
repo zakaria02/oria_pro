@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:oria_pro/common/symptoms/feature/pages/edit_my_symptoms_page.dart';
 
 import '../../client/client_app_page.dart';
+import '../../client/moduls/account/feature/pages/favorites_page.dart';
 import '../../client/moduls/account/feature/pages/medical_info_page.dart';
 import '../../client/moduls/account/feature/pages/update_my_info_page.dart';
 import '../../client/moduls/expert/feature/entity/city.dart';
@@ -80,6 +81,7 @@ class AppRouter extends _$AppRouter {
     // Account routes
     AutoRoute(page: UpdateMyInfoRoute.page),
     AutoRoute(page: MedicalInfoRoute.page),
+    AutoRoute(page: FavoritesRoute.page),
     // Common routes
     AutoRoute(page: EditMySymptomsRoute.page),
     AutoRoute(page: UpdatePrimarySymptomRoute.page),
