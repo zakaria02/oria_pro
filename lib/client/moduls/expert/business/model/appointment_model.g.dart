@@ -16,6 +16,7 @@ AppointmentModel _$AppointmentModelFromJson(Map<String, dynamic> json) =>
       duration: (json['duration'] as num).toInt(),
       type: json['type'] as String,
       id: json['id'] as String,
+      hasFile: json['hasFile'] as bool,
     );
 
 Map<String, dynamic> _$AppointmentModelToJson(AppointmentModel instance) =>
@@ -28,4 +29,5 @@ Map<String, dynamic> _$AppointmentModelToJson(AppointmentModel instance) =>
       'duration': instance.duration,
       'type': instance.type,
       'id': instance.id,
+      'hasFile': instance.hasFile,
     };

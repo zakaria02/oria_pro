@@ -375,7 +375,7 @@ class _InsightsDetailsPageState extends State<InsightsDetailsPage> {
                             child: BlocBuilder<ExpertBloc, ExpertState>(
                               builder: (context, state) {
                                 return SizedBox(
-                                  height: 235,
+                                  height: 207,
                                   child: ListView.separated(
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,

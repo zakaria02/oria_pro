@@ -174,7 +174,10 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                                             BlocProvider.of<ForumBloc>(
                                                     blocContext)
                                                 .add(
-                                              LikePost(post: state.post!),
+                                              LikePost(
+                                                post: state.post!,
+                                                topic: widget.topic,
+                                              ),
                                             );
                                           },
                                           child: SvgPicture.asset(

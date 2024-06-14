@@ -232,9 +232,8 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Expanded(
-                        child: Visibility(
-                          visible: experts.isNotEmpty,
+                      if (experts.isNotEmpty)
+                        Expanded(
                           child: ListView.separated(
                             shrinkWrap: true,
                             itemBuilder: (context, index) => ExpertDetailedCard(
@@ -245,11 +244,9 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                             itemCount: experts.length,
                           ),
                         ),
-                      ),
-                      Visibility(
-                        visible: experts.isEmpty &&
-                            expertState is! SpecialityExpertLoading,
-                        child: Expanded(
+                      if (experts.isEmpty &&
+                          expertState is! SpecialityExpertLoading)
+                        Expanded(
                           child: ListView(
                             children: [
                               const SizedBox(height: 60),
@@ -290,7 +287,6 @@ class _FindSpecialistPageState extends State<FindSpecialistPage> {
                             ],
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),

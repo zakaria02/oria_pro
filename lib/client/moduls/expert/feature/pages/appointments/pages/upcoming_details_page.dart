@@ -521,7 +521,8 @@ class _UpcomingDetailsPageState extends State<UpcomingDetailsPage> {
                         ),
                       ],
                       if (widget.appointment.status ==
-                          AppointmentStatus.finished)
+                              AppointmentStatus.finished &&
+                          widget.appointment.hasFile)
                         GestureDetector(
                           onTap: () async {
                             if (filePath == null) {
@@ -557,6 +558,14 @@ class _UpcomingDetailsPageState extends State<UpcomingDetailsPage> {
                                       ?.copyWith(
                                         fontWeight: FontWeight.w700,
                                       ),
+                                ),
+                                const Spacer(),
+                                SvgPicture.asset(
+                                  SvgAssets.eyeActiveAsset,
+                                  colorFilter: const ColorFilter.mode(
+                                    OriaColors.green,
+                                    BlendMode.srcIn,
+                                  ),
                                 )
                               ],
                             ),

@@ -94,9 +94,11 @@ final class DeleteComment extends ForumEvent {
 }
 
 final class LikePost extends ForumEvent {
+  final ForumTopic topic;
   final TopicPost post;
 
   const LikePost({
+    required this.topic,
     required this.post,
   });
 }

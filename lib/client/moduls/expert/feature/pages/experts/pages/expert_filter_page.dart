@@ -13,7 +13,6 @@ import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../../../utils/constants/oria_colors.dart';
-import '../../../../../../../widgets/oria_search_drop_down.dart';
 import '../../../entity/province.dart';
 import '../widgets/rating_widget.dart';
 
@@ -52,7 +51,7 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
 
   @override
   void initState() {
-    selectedSpeciality = widget.selectedSpeciality ?? widget.specilalties.first;
+    selectedSpeciality = widget.selectedSpeciality;
     rating = switch (widget.selectedRating) {
       4 => Rating.rating4,
       3 => Rating.rating3,
@@ -60,11 +59,11 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
       _ => Rating.all,
     };
     selectedRating = widget.selectedRating;
-    selectedProvince = widget.selectedProvince ?? widget.provinces.first;
+    selectedProvince = widget.selectedProvince;
     provinceCities = widget.cities
         .where((city) => city.provinceId == selectedProvince?.id)
         .toList();
-    selectedCity = widget.selectedCity ?? provinceCities.first;
+    selectedCity = widget.selectedCity;
 
     super.initState();
   }
@@ -123,7 +122,6 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                                   .where((city) =>
                                       city.provinceId == selectedProvince?.id)
                                   .toList();
-                              selectedCity = provinceCities.first;
                             }
                           });
                         },
@@ -137,15 +135,22 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                             ?.copyWith(fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(height: 12),
-                      OriaSearchDropDown<City>(
+                      OriaDropDown<City>(
                         selectedItem: selectedCity,
                         items: provinceCities,
                         onValueChange: (city) {
-                          setState(() {
-                            selectedCity = city;
-                          });
+                          if (selectedCity != city) {
+                            setState(() {
+                              selectedCity = city;
+                            });
+                          }
                         },
                       ),
+                      /*OriaSearchDropDown<City>(
+                        selectedItem: selectedCity,
+                        items: provinceCities,
+                        onValueChange: (city) {},
+                      ),*/
                       const SizedBox(height: 24),
                       Text(
                         AppLocalizations.of(context)!.customerReview,

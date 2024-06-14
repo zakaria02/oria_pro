@@ -3,6 +3,7 @@ import 'appointment.dart';
 class AppointmentDetails extends Appointment {
   final AppointmentStatus status;
   final String id;
+  final bool hasFile;
 
   AppointmentDetails({
     required super.date,
@@ -10,6 +11,7 @@ class AppointmentDetails extends Appointment {
     required super.expert,
     required this.status,
     required this.id,
+    required this.hasFile,
   });
 }
 

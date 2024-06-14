@@ -10,6 +10,7 @@ class OriaTopBarSelect extends StatelessWidget {
     required this.onItemPress,
     this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
     this.margin = const EdgeInsets.symmetric(vertical: 5),
+    this.fontSize,
   });
 
   final List<String> items;
@@ -17,6 +18,7 @@ class OriaTopBarSelect extends StatelessWidget {
   final Function(String) onItemPress;
   final EdgeInsets padding;
   final EdgeInsets margin;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +48,17 @@ class OriaTopBarSelect extends StatelessWidget {
                         ),
                         child: Text(
                           item,
-                          style:
-                              Theme.of(context).textTheme.labelMedium?.copyWith(
-                                    fontWeight: selectedItem == item
-                                        ? FontWeight.w700
-                                        : FontWeight.w500,
-                                    color: selectedItem == item
-                                        ? Colors.white
-                                        : OriaColors.green,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(
+                                  fontWeight: selectedItem == item
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
+                                  color: selectedItem == item
+                                      ? Colors.white
+                                      : OriaColors.green,
+                                  fontSize: fontSize),
                           textAlign: TextAlign.center,
                         ),
                       ),

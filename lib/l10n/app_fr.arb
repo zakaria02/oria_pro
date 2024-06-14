@@ -311,5 +311,12 @@
     "noActiveProgram": "Vous n'avez pas de programme actif",
     "enrollTodaysActionsProgram": "Inscrivez-vous à un programme pour afficher votre action quotidienne ici.",
     "enrollInProgram": "S'inscrire à un programme",
-    "favorites": "Favoris"
+    "favorites": "Favoris",
+    "deleteAccount": "Supprimé le compte",
+    "learn": "Apprendre",
+    "forYou": "Pour vous",
+    "moreArticles": "Plus d'articles",
+    "marketplace": "Marché",
+    "liveqa": "Q/R en direct",
+    "commingSoon": "Cette fonctionnalité arrive bientôt"
 }

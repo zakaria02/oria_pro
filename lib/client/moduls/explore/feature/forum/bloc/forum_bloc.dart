@@ -267,9 +267,10 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             recommondedTopics: state.recommondedTopics,
             post: state.post,
             posts: state.posts,
-            comments: comments,
+            comments: List.from(comments),
           ),
         );
+        add(FetchTopicPosts(topic: event.topic));
       } catch (e) {
         emit(ForumError(
           otherTopics: state.otherTopics,
@@ -323,7 +324,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             recommondedTopics: state.recommondedTopics,
             post: state.post,
             posts: state.posts,
-            comments: comments,
+            comments: List.from(comments),
           ),
         );
       } catch (e) {
@@ -367,7 +368,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             recommondedTopics: state.recommondedTopics,
             post: state.post,
             posts: state.posts,
-            comments: comments,
+            comments: List.from(comments),
           ),
         );
       } catch (e) {
@@ -412,6 +413,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             comments: state.comments,
           ),
         );
+        add(FetchTopicPosts(topic: event.topic));
       } catch (e) {
         emit(ForumError(
           otherTopics: state.otherTopics,

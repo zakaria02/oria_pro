@@ -30,7 +30,6 @@ class PostTopicModel {
   final String id;
   final bool isOwner;
   final int commentCount;
-  @JsonKey(name: "LikesCount")
   final int likesCount;
   final bool isLiked;
   final bool isFavourite;

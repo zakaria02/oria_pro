@@ -128,7 +128,7 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                         },
                         centerText: false,
                       ),
-                      /*const SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Text(
                         AppLocalizations.of(context)!.email,
                         style: Theme.of(context).textTheme.displayLarge,
@@ -142,7 +142,9 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                             email = tippedEmail;
                           });
                         },
-                      ),*/
+                        enabled: false,
+                        fillColor: Colors.grey[200],
+                      ),
                       const SizedBox(height: 16),
                       OriaRoundedButton(
                         onPress: () {

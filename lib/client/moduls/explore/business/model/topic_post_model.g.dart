@@ -31,7 +31,7 @@ PostTopicModel _$PostTopicModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       isOwner: json['isOwner'] as bool,
       commentCount: (json['commentCount'] as num?)?.toInt() ?? 0,
-      likesCount: (json['LikesCount'] as num?)?.toInt() ?? 0,
+      likesCount: (json['likesCount'] as num?)?.toInt() ?? 0,
       isLiked: json['isLiked'] as bool? ?? false,
       isFavourite: json['isFavourite'] as bool? ?? false,
     );
@@ -47,7 +47,7 @@ Map<String, dynamic> _$PostTopicModelToJson(PostTopicModel instance) =>
       'id': instance.id,
       'isOwner': instance.isOwner,
       'commentCount': instance.commentCount,
-      'LikesCount': instance.likesCount,
+      'likesCount': instance.likesCount,
       'isLiked': instance.isLiked,
       'isFavourite': instance.isFavourite,
     };

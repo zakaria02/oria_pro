@@ -11,7 +11,7 @@ class AccountParam extends StatelessWidget {
   final VoidCallback? onIconPress;
   final bool onlyTopRaduis;
   final bool onlyBottomRaduis;
-  final Color? titleColor;
+  final Color? color;
   final double imageSize;
   final bool noRaduis;
   final EdgeInsets padding;
@@ -20,7 +20,7 @@ class AccountParam extends StatelessWidget {
     super.key,
     this.image,
     required this.title,
-    this.titleColor,
+    this.color,
     this.icon,
     this.onPress,
     this.onIconPress,
@@ -48,6 +48,9 @@ class AccountParam extends StatelessWidget {
                 image!,
                 height: imageSize,
                 width: imageSize,
+                colorFilter: color != null
+                    ? ColorFilter.mode(color!, BlendMode.srcIn)
+                    : null,
               ),
             Visibility(
               visible: image != null,
@@ -61,7 +64,7 @@ class AccountParam extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(fontWeight: FontWeight.w700, color: titleColor),
+                    ?.copyWith(fontWeight: FontWeight.w700, color: color),
               ),
             ),
             if (icon != null)

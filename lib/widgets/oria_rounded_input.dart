@@ -31,6 +31,8 @@ class OriaRoundedInput extends StatefulWidget {
     this.minLines,
     this.borderRadius,
     this.filled = true,
+    this.enabled = true,
+    this.fillColor = Colors.white,
   }) : assert(
             // assert is a normal text
             (!isEmail && !isPassowrd && !isPhoneNumber && !isDate) ||
@@ -69,6 +71,8 @@ class OriaRoundedInput extends StatefulWidget {
   final int? minLines;
   final double? borderRadius;
   final bool filled;
+  final bool enabled;
+  final Color? fillColor;
 
   @override
   State<StatefulWidget> createState() {
@@ -98,6 +102,7 @@ class _OriaRoundedInputState extends State<OriaRoundedInput> {
               ),
             )
           : null,
+      enabled: widget.enabled,
       decoration: InputDecoration(
         border: inputBorder,
         enabledBorder: inputBorder,
@@ -113,7 +118,7 @@ class _OriaRoundedInputState extends State<OriaRoundedInput> {
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
-        fillColor: Colors.white,
+        fillColor: widget.fillColor,
         hintText: widget.hintText,
         prefixIcon: widget.prefixIcon != null
             ? Padding(

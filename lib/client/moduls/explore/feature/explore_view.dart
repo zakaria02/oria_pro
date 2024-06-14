@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/explore/feature/cubit/explore_navigation_cubit.dart';
-import 'package:oria_pro/client/moduls/explore/feature/learning/learning_view.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/programs_view.dart';
 import 'package:oria_pro/widgets/oria_top_select.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'entity/explore_top_select.dart';
 import 'learning/bloc/article_categories_bloc.dart';
+import 'learning/learning_view.dart';
 import 'programs/bloc/programs_bloc.dart';
 
 class ExploreView extends StatelessWidget {
@@ -44,8 +45,17 @@ class ExploreView extends StatelessWidget {
                   if (state.currentItem == ExploreTopSelect.programs(context)) {
                     return const ProgramsView();
                   }
-                  if (state.currentItem == ExploreTopSelect.learning(context)) {
+                  if (state.currentItem == ExploreTopSelect.learn(context)) {
                     return const LearningView();
+                  }
+                  if (state.currentItem == ExploreTopSelect.liveQA(context)) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.commingSoon,
+                        ),
+                      ),
+                    );
                   }
                   return const SizedBox();
                 },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../widgets/oria_top_select.dart';
 import 'cubit/expert_navigation_cubit.dart';
@@ -24,6 +25,7 @@ class ExpertView extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
               OriaTopBarSelect(
+                fontSize: 12,
                 items: state.topSelectItems,
                 selectedItem: state.currentItem,
                 onItemPress: (item) =>
@@ -38,6 +40,16 @@ class ExpertView extends StatelessWidget {
                   if (state.currentItem ==
                       ExpertTopSelect.appointments(context)) {
                     return const AppointmentsView();
+                  }
+                  if (state.currentItem ==
+                      ExpertTopSelect.marketpalace(context)) {
+                    return Expanded(
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.commingSoon,
+                        ),
+                      ),
+                    );
                   }
                   return Expanded(
                     child: Center(

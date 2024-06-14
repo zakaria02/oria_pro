@@ -6,9 +6,11 @@ class ExpertTopSelect {
       AppLocalizations.of(context)!.findExpert;
   static String appointments(BuildContext context) =>
       AppLocalizations.of(context)!.appointments;
+  static String marketpalace(BuildContext context) =>
+      AppLocalizations.of(context)!.marketplace;
 
   static List<String> items(BuildContext context) =>
-      [experts(context), appointments(context)];
+      [experts(context), appointments(context), marketpalace(context)];
 
   static String upcoming(BuildContext context) =>
       AppLocalizations.of(context)!.upcoming;

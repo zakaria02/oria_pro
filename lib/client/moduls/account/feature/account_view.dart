@@ -146,7 +146,7 @@ class AccountView extends StatelessWidget {
               ),
               const SizedBox(height: 1),
               AccountParam(
-                onlyBottomRaduis: true,
+                noRaduis: true,
                 image: SvgAssets.logoutIcon,
                 title: AppLocalizations.of(context)!.logout,
                 onPress: () async {
@@ -156,6 +156,14 @@ class AccountView extends StatelessWidget {
                   // ignore: use_build_context_synchronously
                   context.router.replaceAll([const AppOrchestratorRoute()]);
                 },
+              ),
+              const SizedBox(height: 1),
+              AccountParam(
+                onlyBottomRaduis: true,
+                image: SvgAssets.deleteIcon,
+                title: AppLocalizations.of(context)!.deleteAccount,
+                onPress: () {},
+                color: const Color(0xFFFF553E),
               ),
               const SizedBox(height: 1),
             ],

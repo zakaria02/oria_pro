@@ -156,137 +156,146 @@ class DailyActionsSteps extends StatelessWidget {
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: OriaCard(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!
-                                    .howIsYouSymptomToday(primarySymptom),
-                                style: Theme.of(context).textTheme.labelLarge,
-                              ),
-                              const SizedBox(height: 12),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ...List.generate(
-                                      5,
-                                      (index) => GestureDetector(
-                                        onTap: () {
-                                          BlocProvider.of<HomeBloc>(context)
-                                              .add(
-                                            AddSymptomSeverity(
-                                              severity: index,
-                                              symptomId: symptoms
-                                                  .where((symp) =>
-                                                      symp.type ==
-                                                      SymptomType.primary)
-                                                  .first
-                                                  .symptomId,
-                                            ),
-                                          );
-                                          if (actions.readArticle &&
-                                              actions.completedProgramSection &&
-                                              !actions.loggedSymptomSeverity) {
-                                            _showCongratsDialog(
-                                                context, name, symptoms);
-                                          }
-                                          onStartHerePress(
-                                            actions.completedProgramSection,
-                                            actions.readArticle,
-                                            true,
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              height: 32,
-                                              width: 32,
-                                              margin: const EdgeInsets.only(
-                                                right: 6,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 50),
+                          child: OriaCard(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .howIsYouSymptomToday(primarySymptom),
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                                const SizedBox(height: 12),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ...List.generate(
+                                        5,
+                                        (index) => GestureDetector(
+                                          onTap: () {
+                                            BlocProvider.of<HomeBloc>(context)
+                                                .add(
+                                              AddSymptomSeverity(
+                                                severity: index,
+                                                symptomId: symptoms
+                                                    .where((symp) =>
+                                                        symp.type ==
+                                                        SymptomType.primary)
+                                                    .first
+                                                    .symptomId,
                                               ),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                color: color(index),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "$index",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall
-                                                      ?.copyWith(
-                                                          fontFamily: "Satoshi",
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color:
-                                                              textColor(index)),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            if (index ==
-                                                actions.loggedSeverityValue)
+                                            );
+                                            if (actions.readArticle &&
+                                                actions
+                                                    .completedProgramSection &&
+                                                !actions
+                                                    .loggedSymptomSeverity) {
+                                              _showCongratsDialog(
+                                                  context, name, symptoms);
+                                            }
+                                            onStartHerePress(
+                                              actions.completedProgramSection,
+                                              actions.readArticle,
+                                              true,
+                                            );
+                                          },
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
                                               Container(
+                                                height: 32,
+                                                width: 32,
                                                 margin: const EdgeInsets.only(
                                                   right: 6,
                                                 ),
                                                 decoration: BoxDecoration(
-                                                  color: color(index),
                                                   borderRadius:
-                                                      BorderRadius.circular(16),
+                                                      BorderRadius.circular(8),
+                                                  color: color(index),
                                                 ),
-                                                height: 5,
-                                                width: 32,
+                                                child: Center(
+                                                  child: Text(
+                                                    "$index",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall
+                                                        ?.copyWith(
+                                                            fontFamily:
+                                                                "Satoshi",
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: textColor(
+                                                                index)),
+                                                  ),
+                                                ),
                                               ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    if (actions.loggedSeverityValue != null)
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: color(
-                                              actions.loggedSeverityValue),
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        height: 32,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 12, vertical: 5),
-                                        child: Text(
-                                          switch (actions.loggedSeverityValue) {
-                                            0 => AppLocalizations.of(context)!
-                                                .great,
-                                            1 => AppLocalizations.of(context)!
-                                                .good,
-                                            2 => AppLocalizations.of(context)!
-                                                .okay,
-                                            3 =>
-                                              AppLocalizations.of(context)!.bad,
-                                            4 => AppLocalizations.of(context)!
-                                                .awful,
-                                            _ => "",
-                                          },
-                                          style: TextStyle(
-                                            color: textColor(
-                                                actions.loggedSeverityValue),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: "Raleway",
+                                              const SizedBox(height: 4),
+                                              if (index ==
+                                                  actions.loggedSeverityValue)
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                    right: 6,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: color(index),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                  ),
+                                                  height: 5,
+                                                  width: 32,
+                                                ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                  ],
+                                      const SizedBox(width: 8),
+                                      if (actions.loggedSeverityValue != null)
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: color(
+                                                actions.loggedSeverityValue),
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          height: 32,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12, vertical: 5),
+                                          child: Text(
+                                            switch (
+                                                actions.loggedSeverityValue) {
+                                              0 => AppLocalizations.of(context)!
+                                                  .great,
+                                              1 => AppLocalizations.of(context)!
+                                                  .good,
+                                              2 => AppLocalizations.of(context)!
+                                                  .okay,
+                                              3 => AppLocalizations.of(context)!
+                                                  .bad,
+                                              4 => AppLocalizations.of(context)!
+                                                  .awful,
+                                              _ => "",
+                                            },
+                                            style: TextStyle(
+                                              color: textColor(
+                                                  actions.loggedSeverityValue),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: "Raleway",
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -370,78 +379,83 @@ class _ActionCardState extends State<ActionCard> {
           }
         }
       },
-      child: OriaCard(
-        backgroundColor: Colors.white,
-        borderColor: OriaColors.iconButtonBackgound,
-        padding: EdgeInsets.zero,
-        child: Column(
-          children: [
-            if (widget.imageUrl != null && widget.current)
-              Container(
-                height: 140,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      widget.imageUrl!,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 50),
+        child: OriaCard(
+          backgroundColor: Colors.white,
+          borderColor: OriaColors.iconButtonBackgound,
+          padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              if (widget.imageUrl != null && widget.current)
+                Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        widget.imageUrl!,
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
                   ),
                 ),
-              ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, widget.current ? 5 : 20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      widget.title,
-                      style: Theme.of(context).textTheme.labelLarge,
+              Padding(
+                padding:
+                    EdgeInsets.fromLTRB(20, 20, 20, widget.current ? 5 : 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.title,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
                     ),
-                  ),
-                  if (widget.isPremium) ...[
-                    const SizedBox(width: 8),
-                    const OriaIconButton(
-                      url: SvgAssets.premiumIcon,
-                      size: 14,
-                      raduis: 14,
-                    ),
-                  ]
-                ],
+                    if (widget.isPremium) ...[
+                      const SizedBox(width: 8),
+                      const OriaIconButton(
+                        url: SvgAssets.premiumIcon,
+                        size: 14,
+                        raduis: 14,
+                      ),
+                    ]
+                  ],
+                ),
               ),
-            ),
-            if (widget.current)
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                  child: OriaRoundedButton(
-                    padding: EdgeInsets.zero,
-                    width: 160,
-                    height: 34,
-                    onPress: () {
-                      widget.onStartPressed.call();
-                      if (widget.section != null) {
-                        context.pushRoute(SectionDetailsRoute(
-                            section: widget.section!,
-                            programName: widget.section!.title));
-                      } else {
-                        context.pushRoute(ArticleRoute(id: widget.article!.id));
-                        if (widget.loggedSymptom) {
-                          _showCongratsDialog(
-                              context, widget.userName, widget.symptoms);
+              if (widget.current)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    child: OriaRoundedButton(
+                      padding: EdgeInsets.zero,
+                      width: 160,
+                      height: 34,
+                      onPress: () {
+                        widget.onStartPressed.call();
+                        if (widget.section != null) {
+                          context.pushRoute(SectionDetailsRoute(
+                              section: widget.section!,
+                              programName: widget.section!.title));
+                        } else {
+                          context
+                              .pushRoute(ArticleRoute(id: widget.article!.id));
+                          if (widget.loggedSymptom) {
+                            _showCongratsDialog(
+                                context, widget.userName, widget.symptoms);
+                          }
                         }
-                      }
-                    },
-                    text: AppLocalizations.of(context)!.startHere,
+                      },
+                      text: AppLocalizations.of(context)!.startHere,
+                    ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

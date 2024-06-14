@@ -23,6 +23,8 @@ class AppointmentModel {
   final String type;
   @JsonKey(name: "id")
   final String id;
+  @JsonKey(name: "hasFile")
+  final bool hasFile;
 
   const AppointmentModel({
     required this.status,
@@ -33,6 +35,7 @@ class AppointmentModel {
     required this.duration,
     required this.type,
     required this.id,
+    required this.hasFile,
   });
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) =>
@@ -55,6 +58,7 @@ extension AppointmentModelMappers on AppointmentModel {
         _ => throw Exception("Appointment status not found")
       },
       id: id,
+      hasFile: hasFile,
     );
   }
 }
