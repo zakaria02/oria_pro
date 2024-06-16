@@ -5,8 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../client/moduls/explore/feature/programs/entity/program.dart';
 import '../../../../utils/constants/oria_colors.dart';
+import '../../../../widgets/oria_badge.dart';
 
-class ProgramSeggestionCard extends StatelessWidget {
+class ProgramSeggestionCard extends StatefulWidget {
   const ProgramSeggestionCard({
     super.key,
     required this.program,
@@ -18,18 +19,42 @@ class ProgramSeggestionCard extends StatelessWidget {
   final bool selected;
 
   @override
+  State<ProgramSeggestionCard> createState() => _ProgramSeggestionCardState();
+}
+
+class _ProgramSeggestionCardState extends State<ProgramSeggestionCard> {
+  String badgeText = "";
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        if (widget.program.finished == true) {
+          badgeText = AppLocalizations.of(context)!.finished;
+        } else if (widget.program.started == true) {
+          badgeText = AppLocalizations.of(context)!.started;
+        } else {
+          badgeText =
+              AppLocalizations.of(context)!.daysCount(widget.program.duration);
+        }
+      });
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: GestureDetector(
-        onTap: () => onPress(program),
+        onTap: () => widget.onPress(widget.program),
         child: Container(
           padding: EdgeInsets.zero,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border:
-                selected ? Border.all(color: OriaColors.primaryColor) : null,
+            border: widget.selected
+                ? Border.all(color: OriaColors.primaryColor)
+                : null,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.13),
@@ -50,7 +75,7 @@ class ProgramSeggestionCard extends StatelessWidget {
                   ),
                   image: DecorationImage(
                     image: NetworkImage(
-                      program.imageUrl,
+                      widget.program.imageUrl,
                     ),
                     fit: BoxFit.fitHeight,
                   ),
@@ -67,7 +92,7 @@ class ProgramSeggestionCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        program.title,
+                        widget.program.title,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                       const SizedBox(height: 8),
@@ -83,10 +108,16 @@ class ProgramSeggestionCard extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             AppLocalizations.of(context)!
-                                .daysCount(program.duration),
+                                .daysCount(widget.program.duration),
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 8),
+                      OriaBadge(
+                        title: badgeText,
+                        isTime: widget.program.finished != true &&
+                            widget.program.started != true,
                       ),
                     ],
                   ),

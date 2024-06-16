@@ -45,7 +45,10 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
               : Expanded(
                   child: ListView(
                     children: [
-                      MakeExpertAppointmentCard(expert: widget.expert),
+                      MakeExpertAppointmentCard(
+                        expert: widget.expert,
+                        hasMedicalInfo: state.hasMedicalInfo,
+                      ),
                       if (widget.expert.bio != null) ...[
                         const SizedBox(height: 22),
                         OriaCard(
@@ -74,22 +77,26 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
                                 maxLines: maxLines,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    maxLines = maxLines == 5 ? 100 : 5;
-                                  });
-                                },
-                                child: Text(
-                                  maxLines == 5
-                                      ? AppLocalizations.of(context)!.readMore
-                                      : AppLocalizations.of(context)!.readLess,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(
-                                        color: OriaColors.darkOrange,
-                                      ),
+                              Visibility(
+                                visible: widget.expert.bio!.length >= 222,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      maxLines = maxLines == 5 ? 100 : 5;
+                                    });
+                                  },
+                                  child: Text(
+                                    maxLines == 5
+                                        ? AppLocalizations.of(context)!.readMore
+                                        : AppLocalizations.of(context)!
+                                            .readLess,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          color: OriaColors.darkOrange,
+                                        ),
+                                  ),
                                 ),
                               ),
                             ],

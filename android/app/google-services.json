@@ -12,7 +12,20 @@
           "package_name": "client.oria.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "793225857832-dal8gk144gljdhlgn2n5m3fj8qmr0v62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "client.oria.app",
+            "certificate_hash": "172524f2f8f618985b34740915ec706345ca7102"
+          }
+        },
+        {
+          "client_id": "793225857832-2hbfhove3i3mpqustmv0pp4f8kv3hb08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDYP7CCaWIQqF28iMfkOmQL7OeLLsHGP14"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793225857832-2hbfhove3i3mpqustmv0pp4f8kv3hb08.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "793225857832-sfghlhm0ij964rj4g6rmsgbkijdn1ejl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "client.oria.app"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,12 @@
           "package_name": "com.example.oria_pro"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "793225857832-2hbfhove3i3mpqustmv0pp4f8kv3hb08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDYP7CCaWIQqF28iMfkOmQL7OeLLsHGP14"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793225857832-2hbfhove3i3mpqustmv0pp4f8kv3hb08.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "793225857832-sfghlhm0ij964rj4g6rmsgbkijdn1ejl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "client.oria.app"
+              }
+            }
+          ]
         }
       }
     }

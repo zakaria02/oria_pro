@@ -145,6 +145,19 @@ class _UpdateMyInfoPageState extends State<UpdateMyInfoPage> {
                         enabled: false,
                         fillColor: Colors.grey[200],
                       ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            SvgAssets.infoIcon,
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            AppLocalizations.of(context)!.emailCantBeUpdated,
+                            style: Theme.of(context).textTheme.labelLarge,
+                          )
+                        ],
+                      ),
                       const SizedBox(height: 16),
                       OriaRoundedButton(
                         onPress: () {

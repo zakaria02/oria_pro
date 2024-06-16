@@ -7,6 +7,8 @@ import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_
 import 'package:oria_pro/client/moduls/expert/business/repository/expert_repository.dart';
 import 'package:oria_pro/client/moduls/expert/feature/entity/specialty.dart';
 
+import '../../../account/business/locator/account_locator.dart';
+import '../../../account/business/repository/medical_info_repository.dart';
 import '../entity/city.dart';
 import '../entity/expert.dart';
 import '../entity/review.dart';
@@ -25,6 +27,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           recommendedExperts: state.recommendedExperts,
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
+          hasMedicalInfo: state.hasMedicalInfo,
         ));
         final specialtiesModel = await repository.fetchSpecialties();
         final recommendedsModel = await repository.fetchRecommendedExperts();
@@ -38,6 +41,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
               recommendedsModel.map((expert) => expert.toExpert()).toList(),
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
+          hasMedicalInfo: state.hasMedicalInfo,
         ));
       } catch (e) {
         emit(ExpertError(
@@ -46,6 +50,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             recommendedExperts: state.recommendedExperts,
             specialtyExperts: state.specialtyExperts,
             reviews: state.reviews,
+            hasMedicalInfo: state.hasMedicalInfo,
             errorMessage: e.toString()));
       }
     });
@@ -58,6 +63,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           recommendedExperts: state.recommendedExperts,
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
+          hasMedicalInfo: state.hasMedicalInfo,
         ));
         final specialtyExperts = await repository.fetchSpecialtyExperts(
             event.specialty?.id, event.city?.id, event.rating, event.page);
@@ -66,6 +72,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           bestRatedExperts: state.bestRatedExperts,
           recommendedExperts: state.recommendedExperts,
           reviews: state.reviews,
+          hasMedicalInfo: state.hasMedicalInfo,
           specialtyExperts:
               specialtyExperts.map((spec) => spec.toExpert()).toList(),
         ));
@@ -76,6 +83,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             recommendedExperts: state.recommendedExperts,
             specialtyExperts: state.specialtyExperts,
             reviews: state.reviews,
+            hasMedicalInfo: state.hasMedicalInfo,
             errorMessage: e.toString()));
       }
     });
@@ -88,6 +96,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           recommendedExperts: state.recommendedExperts,
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
+          hasMedicalInfo: state.hasMedicalInfo,
         ));
         final reviews = await repository.getExpertReviews(event.expertId);
         emit(ExpertReviewsSuccess(
@@ -96,6 +105,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           recommendedExperts: state.recommendedExperts,
           reviews: reviews.map((r) => r.toReview()).toList(),
           specialtyExperts: state.specialtyExperts,
+          hasMedicalInfo: state.hasMedicalInfo,
         ));
       } catch (e) {
         emit(ExpertError(
@@ -104,7 +114,44 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             recommendedExperts: state.recommendedExperts,
             specialtyExperts: state.specialtyExperts,
             reviews: state.reviews,
+            hasMedicalInfo: state.hasMedicalInfo,
             errorMessage: e.toString()));
+      }
+    });
+
+    on<FetchMedicalInfo>((event, emit) async {
+      final MedicalInfoRepository repository = AccountLocator().get();
+      try {
+        emit(HasMedicalInfoLoading(
+          specialties: state.specialties,
+          bestRatedExperts: state.bestRatedExperts,
+          recommendedExperts: state.recommendedExperts,
+          specialtyExperts: state.specialtyExperts,
+          reviews: state.reviews,
+          hasMedicalInfo: null,
+        ));
+        await repository.getMedicalInfo();
+        emit(
+          HasMedicalInfoSuccess(
+            specialties: state.specialties,
+            bestRatedExperts: state.bestRatedExperts,
+            recommendedExperts: state.recommendedExperts,
+            reviews: state.reviews,
+            hasMedicalInfo: true,
+            specialtyExperts: state.specialtyExperts,
+          ),
+        );
+      } catch (e) {
+        emit(
+          HasMedicalInfoSuccess(
+            specialties: state.specialties,
+            bestRatedExperts: state.bestRatedExperts,
+            recommendedExperts: state.recommendedExperts,
+            reviews: state.reviews,
+            hasMedicalInfo: false,
+            specialtyExperts: state.specialtyExperts,
+          ),
+        );
       }
     });
   }

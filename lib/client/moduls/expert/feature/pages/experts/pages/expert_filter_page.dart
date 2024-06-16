@@ -100,6 +100,9 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                       ),
                       const SizedBox(height: 12),
                       OriaDropDown<Specialty>(
+                        hintValue: AppLocalizations.of(context)!.choose(
+                          AppLocalizations.of(context)!.specialty,
+                        ),
                         selectedItem: selectedSpeciality,
                         items: widget.specilalties,
                         onValueChange: (specialty) {
@@ -118,6 +121,9 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                       ),
                       const SizedBox(height: 12),
                       OriaDropDown<Province>(
+                        hintValue: AppLocalizations.of(context)!.choose(
+                          AppLocalizations.of(context)!.province,
+                        ),
                         selectedItem: selectedProvince,
                         items: widget.provinces,
                         onValueChange: (province) {
@@ -144,6 +150,9 @@ class _ExpertFilterPageState extends State<ExpertFilterPage> {
                       ),
                       const SizedBox(height: 12),
                       OriaSearchDropDown<City>(
+                        hintValue: AppLocalizations.of(context)!.choose(
+                          AppLocalizations.of(context)!.location,
+                        ),
                         controller: cityController,
                         selectedItem: selectedCity,
                         items: provinceCities,

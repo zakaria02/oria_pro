@@ -5,6 +5,7 @@ import '../../../../../utils/locator/abstract_locator.dart';
 import '../../../../../utils/network/dio_builder.dart';
 import '../../feature/usecase/add_primay_symptom_use_case.dart';
 import '../../feature/usecase/add_secondary_symptom.dart';
+import '../../feature/usecase/set_todays_actions_program_use_case.dart';
 import '../repository/symptom_repository.dart';
 import '../service/symptom_service.dart';
 
@@ -33,5 +34,7 @@ class SymptomLocator extends AbstractLocator {
         () => AddSecondarySymptomUsecase());
     serviceLocator.registerLazySingleton<GetUserSymptomsUsecase>(
         () => GetUserSymptomsUsecase());
+    serviceLocator.registerLazySingleton<SetTodaysActionsProgramUseCase>(
+        () => SetTodaysActionsProgramUseCase());
   }
 }

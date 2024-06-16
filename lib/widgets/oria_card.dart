@@ -14,6 +14,7 @@ class OriaCard extends StatelessWidget {
     this.noRaduis = false,
     this.radius = 12,
     this.boxShadow,
+    this.borderWidth = 1,
   });
   final Widget child;
   final Color? borderColor;
@@ -26,6 +27,7 @@ class OriaCard extends StatelessWidget {
   final bool noRaduis;
   final double radius;
   final List<BoxShadow>? boxShadow;
+  final double borderWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,12 @@ class OriaCard extends StatelessWidget {
                       )
                     : BorderRadius.circular(radius),
         color: backgroundColor,
-        border: borderColor != null ? Border.all(color: borderColor!) : null,
+        border: borderColor != null
+            ? Border.all(
+                color: borderColor!,
+                width: borderWidth,
+              )
+            : null,
         boxShadow: boxShadow,
       ),
       padding: padding,

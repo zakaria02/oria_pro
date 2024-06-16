@@ -25,6 +25,7 @@ class ExpertDetailedCard extends StatelessWidget {
       onTap: () {
         BlocProvider.of<ExpertBloc>(context)
             .add(FetchExpertReviews(expertId: expert.id));
+        BlocProvider.of<ExpertBloc>(context).add(FetchMedicalInfo());
         Navigator.push(
           context,
           MaterialPageRoute(

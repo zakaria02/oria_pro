@@ -389,7 +389,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         _focusNode.requestFocus();
                       });
                     },
-                    isOwner: menuComment?.isOwner == true,
+                    isOwner: menuComment?.isOwner == true ||
+                        state.post?.isOwner == true,
                     center: true,
                   ),
               ],

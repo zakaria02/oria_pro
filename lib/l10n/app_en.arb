@@ -187,7 +187,7 @@
     "deniedPermission": "Denied Permission",
     "deniedPermissionContent": "You need to give access to denied permissions to procced",
     "manage": "Manage",
-    "location": "Location",
+    "location": "City",
     "customerReview": "Customer Review",
     "andUp": "& Up",
     "medicalInfo": "Medical info",
@@ -226,7 +226,7 @@
     "walking": "Walking",
     "targetedWeightTraining": "Targeted weight training",
     "cardio": "Cardio",
-    "patientsFeedbacks": "Patients Feedbacks",
+    "patientsFeedbacks": "Patients Feedback",
     "rateAppointment": "Rate your appointement with {expert}",
     "send": "Send",
     "startHere": "Start here",
@@ -318,5 +318,10 @@
     "moreArticles": "More articles",
     "marketplace": "Marketplace",
     "liveqa": "Live Q/A",
-    "commingSoon": "This feature is comming soon"
+    "commingSoon": "This feature is comming soon",
+    "choose": "Choose {value}",
+    "emailCantBeUpdated": "Your email cannot be updated",
+    "expertDisableAppointments": "This expert",
+    "finishMedicalInfo": "You need to add you medical information before making an appointment",
+    "addMedicalInfo": "Add medical information"
 }

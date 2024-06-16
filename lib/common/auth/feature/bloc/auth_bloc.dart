@@ -24,11 +24,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<GoogleLogin>((event, emit) async {
-      OtherMethodsRepository reposutory = EmailPasswordAuthLocator().get();
+      OtherMethodsRepository repository = EmailPasswordAuthLocator().get();
 
       emit(AuthLoading());
       try {
-        await reposutory.signInWithGoogle();
+        await repository.signOutFromGoogle();
+        await repository.signInWithGoogle();
         emit(const AuthSuccess());
       } catch (e) {
         emit(AuthError(errorMessage: e.toString()));

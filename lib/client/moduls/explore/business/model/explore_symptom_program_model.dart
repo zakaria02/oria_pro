@@ -82,6 +82,8 @@ extension ArticleModelMappers on ProgramSymptomModel {
       title: title,
       imageUrl: "${OriaLinks.stagingProgramsAssetsBaseUrl}/$thumbnail",
       duration: duration,
+      finished: learningStatus == "finished",
+      started: learningStatus == "started",
     );
   }
 }

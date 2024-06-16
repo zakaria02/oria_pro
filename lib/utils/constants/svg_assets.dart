@@ -66,6 +66,7 @@ class SvgAssets {
   static const String sendIcon = "$_svgAssetsLink/send.svg";
   static const String timePrimaryIcon = "$_svgAssetsLink/time_primary.svg";
   static const String primaryStarIcon = "$_svgAssetsLink/primary_star.svg";
+  static const String infoIcon = "$_svgAssetsLink/info.svg";
   static const String noAppointmentsAsset =
       "$_svgAssetsLink/no_appointements.svg";
   static const String finishedSectionIcon =

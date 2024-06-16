@@ -187,7 +187,7 @@
     "deniedPermission": "Permission refusée",
     "deniedPermissionContent": "Vous devez donner accès aux permissions refusées pour continuer",
     "manage": "Gérer",
-    "location": "Emplacement",
+    "location": "Ville",
     "customerReview": "Avis du client",
     "andUp": "& Plus",
     "medicalInfo": "Informations médicales",
@@ -226,7 +226,7 @@
     "walking": "Marche",
     "targetedWeightTraining": "Entraînement ciblé de musculation",
     "cardio": "Cardio",
-    "patientsFeedbacks": "Retours des patients",
+    "patientsFeedbacks": "Retour des patients",
     "rateAppointment": "Notez votre rendez-vous avec {expert}",
     "send": "Envoyer",
     "startHere": "Commencer ici",
@@ -318,5 +318,9 @@
     "moreArticles": "Plus d'articles",
     "marketplace": "Marché",
     "liveqa": "Q/R en direct",
-    "commingSoon": "Cette fonctionnalité arrive bientôt"
+    "commingSoon": "Cette fonctionnalité arrive bientôt",
+    "choose": "Choisir {value}",
+    "emailCantBeUpdated": "Votre email ne peux pas être modifier",
+    "finishMedicalInfo": "Vous avez besoin d'ajouter vos informations médicales avant de prendre un rendez-vous",
+    "addMedicalInfo": "Ajotuer les informations médicales"
 }

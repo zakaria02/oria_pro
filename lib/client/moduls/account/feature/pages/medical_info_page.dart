@@ -170,7 +170,7 @@ class _MedicalInfoPageState extends State<MedicalInfoPage> {
         listener: (context, state) {
           initData(state.medicalInfo);
           if (state is SendMedicalInfoSuccess) {
-            context.router.maybePop();
+            context.router.maybePop(true);
           }
         },
         builder: (context, state) {

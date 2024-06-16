@@ -72,6 +72,7 @@ class PrimarySymptomPage extends StatelessWidget {
                             mainAxisSpacing: 8,
                             crossAxisSpacing: 8,
                           ),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) => SymptomCard(
                             symptom: state.symptoms[index],
                             selected:
@@ -82,7 +83,8 @@ class PrimarySymptomPage extends StatelessWidget {
                           ),
                           itemCount: state.symptoms.length,
                         ),
-                      )
+                      ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),

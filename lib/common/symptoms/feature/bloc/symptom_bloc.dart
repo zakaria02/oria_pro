@@ -7,6 +7,7 @@ import 'package:oria_pro/client/moduls/explore/feature/entity/learning_content.d
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/program.dart';
 import 'package:oria_pro/common/symptoms/business/model/user_symptom_model.dart';
 import 'package:oria_pro/common/symptoms/business/model/user_symptom_request_model.dart';
+import 'package:oria_pro/common/symptoms/feature/usecase/set_todays_actions_program_use_case.dart';
 
 import '../../business/locator/symptom_locator.dart';
 import '../../business/model/symptom_info_model.dart';
@@ -265,8 +266,8 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             userSymptoms: state.userSymptoms,
           ),
         );
-        SymptomRepository repository = SymptomLocator().get();
-        await repository.setTodaysActionsProgram(event.program.id);
+        SetTodaysActionsProgramUseCase useCase = SymptomLocator().get();
+        await useCase.execute(event.program);
         emit(
           UpdateSymptomsSuccess(
             symptoms: state.symptoms,

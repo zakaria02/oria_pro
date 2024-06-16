@@ -59,6 +59,7 @@ class SecondarySymptomsPage extends StatelessWidget {
                   child: GridView.builder(
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
@@ -77,7 +78,8 @@ class SecondarySymptomsPage extends StatelessWidget {
                     ),
                     itemCount: otherSymptoms.length,
                   ),
-                )
+                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),

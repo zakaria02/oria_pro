@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:oria_pro/common/auth/business/local_data_source/auth_local_data_source.dart';
 
@@ -22,13 +21,8 @@ class OtherMethodsRepositoryImpl implements OtherMethodsRepository {
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    log("token ${googleAuth?.idToken}");
 
-    final result = await FirebaseAuth.instance.signInWithCredential(credential);
-    log(result.toString());
     return UserModel(
       id: "id",
       email: "email",
@@ -48,7 +42,7 @@ class OtherMethodsRepositoryImpl implements OtherMethodsRepository {
 
   @override
   Future<void> signOutFromGoogle() async {
-    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
     await localDS.deleteUser();
   }
 }

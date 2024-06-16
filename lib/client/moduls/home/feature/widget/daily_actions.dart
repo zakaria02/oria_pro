@@ -75,7 +75,7 @@ class DailyActionsSteps extends StatelessWidget {
             Positioned.fill(
               left: 12,
               top: isProgramCurrent && actions.section?.imageUrl != null
-                  ? 130
+                  ? 110
                   : 50,
               bottom: 70,
               child: const OriaDottedLine(
@@ -156,146 +156,137 @@ class DailyActionsSteps extends StatelessWidget {
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 50),
-                          child: OriaCard(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .howIsYouSymptomToday(primarySymptom),
-                                  style: Theme.of(context).textTheme.labelLarge,
-                                ),
-                                const SizedBox(height: 12),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ...List.generate(
-                                        5,
-                                        (index) => GestureDetector(
-                                          onTap: () {
-                                            BlocProvider.of<HomeBloc>(context)
-                                                .add(
-                                              AddSymptomSeverity(
-                                                severity: index,
-                                                symptomId: symptoms
-                                                    .where((symp) =>
-                                                        symp.type ==
-                                                        SymptomType.primary)
-                                                    .first
-                                                    .symptomId,
+                        child: OriaCard(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .howIsYouSymptomToday(primarySymptom),
+                                style: Theme.of(context).textTheme.labelLarge,
+                              ),
+                              const SizedBox(height: 12),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ...List.generate(
+                                      5,
+                                      (index) => GestureDetector(
+                                        onTap: () {
+                                          BlocProvider.of<HomeBloc>(context)
+                                              .add(
+                                            AddSymptomSeverity(
+                                              severity: index,
+                                              symptomId: symptoms
+                                                  .where((symp) =>
+                                                      symp.type ==
+                                                      SymptomType.primary)
+                                                  .first
+                                                  .symptomId,
+                                            ),
+                                          );
+                                          if (actions.readArticle &&
+                                              actions.completedProgramSection &&
+                                              !actions.loggedSymptomSeverity) {
+                                            _showCongratsDialog(
+                                                context, name, symptoms);
+                                          }
+                                          onStartHerePress(
+                                            actions.completedProgramSection,
+                                            actions.readArticle,
+                                            true,
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              height: 32,
+                                              width: 32,
+                                              margin: const EdgeInsets.only(
+                                                right: 6,
                                               ),
-                                            );
-                                            if (actions.readArticle &&
-                                                actions
-                                                    .completedProgramSection &&
-                                                !actions
-                                                    .loggedSymptomSeverity) {
-                                              _showCongratsDialog(
-                                                  context, name, symptoms);
-                                            }
-                                            onStartHerePress(
-                                              actions.completedProgramSection,
-                                              actions.readArticle,
-                                              true,
-                                            );
-                                          },
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: color(index),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "$index",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                          fontFamily: "Satoshi",
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              textColor(index)),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            if (index ==
+                                                actions.loggedSeverityValue)
                                               Container(
-                                                height: 32,
-                                                width: 32,
                                                 margin: const EdgeInsets.only(
                                                   right: 6,
                                                 ),
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
                                                   color: color(index),
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
                                                 ),
-                                                child: Center(
-                                                  child: Text(
-                                                    "$index",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall
-                                                        ?.copyWith(
-                                                            fontFamily:
-                                                                "Satoshi",
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: textColor(
-                                                                index)),
-                                                  ),
-                                                ),
+                                                height: 5,
+                                                width: 32,
                                               ),
-                                              const SizedBox(height: 4),
-                                              if (index ==
-                                                  actions.loggedSeverityValue)
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                    right: 6,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    color: color(index),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                  ),
-                                                  height: 5,
-                                                  width: 32,
-                                                ),
-                                            ],
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    if (actions.loggedSeverityValue != null)
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: color(
+                                              actions.loggedSeverityValue),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        height: 32,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 5),
+                                        child: Text(
+                                          switch (actions.loggedSeverityValue) {
+                                            0 => AppLocalizations.of(context)!
+                                                .great,
+                                            1 => AppLocalizations.of(context)!
+                                                .good,
+                                            2 => AppLocalizations.of(context)!
+                                                .okay,
+                                            3 =>
+                                              AppLocalizations.of(context)!.bad,
+                                            4 => AppLocalizations.of(context)!
+                                                .awful,
+                                            _ => "",
+                                          },
+                                          style: TextStyle(
+                                            color: textColor(
+                                                actions.loggedSeverityValue),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "Raleway",
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 8),
-                                      if (actions.loggedSeverityValue != null)
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: color(
-                                                actions.loggedSeverityValue),
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                          ),
-                                          height: 32,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 12, vertical: 5),
-                                          child: Text(
-                                            switch (
-                                                actions.loggedSeverityValue) {
-                                              0 => AppLocalizations.of(context)!
-                                                  .great,
-                                              1 => AppLocalizations.of(context)!
-                                                  .good,
-                                              2 => AppLocalizations.of(context)!
-                                                  .okay,
-                                              3 => AppLocalizations.of(context)!
-                                                  .bad,
-                                              4 => AppLocalizations.of(context)!
-                                                  .awful,
-                                              _ => "",
-                                            },
-                                            style: TextStyle(
-                                              color: textColor(
-                                                  actions.loggedSeverityValue),
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: "Raleway",
-                                            ),
-                                          ),
-                                        ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -365,36 +356,65 @@ class ActionCard extends StatefulWidget {
   State<ActionCard> createState() => _ActionCardState();
 }
 
-class _ActionCardState extends State<ActionCard> {
+class _ActionCardState extends State<ActionCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(
+      begin: 0.95,
+      end: 1,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (widget.finished) {
-          if (widget.section != null) {
-            context.pushRoute(SectionDetailsRoute(
-                section: widget.section!, programName: widget.section!.title));
-          } else {
-            context.pushRoute(ArticleRoute(id: widget.article!.id));
+    return ScaleTransition(
+      scale: widget.current ? _animation : const AlwaysStoppedAnimation(1.0),
+      child: GestureDetector(
+        onTap: () {
+          if (widget.finished) {
+            if (widget.section != null) {
+              context.pushRoute(SectionDetailsRoute(
+                  section: widget.section!,
+                  programName: widget.section!.title));
+            } else {
+              context.pushRoute(ArticleRoute(id: widget.article!.id));
+            }
           }
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(right: 50),
+        },
         child: OriaCard(
           backgroundColor: Colors.white,
-          borderColor: OriaColors.iconButtonBackgound,
+          borderColor: widget.current
+              ? OriaColors.green
+              : OriaColors.iconButtonBackgound,
+          borderWidth: widget.current ? 2 : 1,
           padding: EdgeInsets.zero,
           child: Column(
             children: [
               if (widget.imageUrl != null && widget.current)
                 Container(
-                  height: 80,
+                  height: 100,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                        widget.imageUrl!,
-                      ),
+                      image: NetworkImage(widget.imageUrl!),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: const BorderRadius.only(

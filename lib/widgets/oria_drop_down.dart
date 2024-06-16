@@ -8,10 +8,12 @@ class OriaDropDown<T> extends StatelessWidget {
     required this.items,
     required this.onValueChange,
     this.selectedItem,
+    this.hintValue,
   });
   final List<T> items;
   final Function(T?) onValueChange;
   final T? selectedItem;
+  final String? hintValue;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,14 @@ class OriaDropDown<T> extends StatelessWidget {
         onChanged: (item) {
           onValueChange(item);
         },
+        hint: hintValue != null
+            ? Text(
+                hintValue!,
+                style: Theme.of(context).textTheme.displayMedium,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              )
+            : null,
         buttonStyleData: ButtonStyleData(
           height: 50,
           padding: const EdgeInsets.symmetric(

@@ -10,11 +10,13 @@ class OriaSearchDropDown<T> extends StatefulWidget {
     required this.onSelected,
     this.selectedItem,
     required this.controller,
+    this.hintValue,
   });
   final List<T> items;
   final Function(T?) onSelected;
   final T? selectedItem;
   final TextEditingController controller;
+  final String? hintValue;
 
   @override
   State<OriaSearchDropDown<T>> createState() => _OriaSearchDropDownState<T>();
@@ -61,11 +63,14 @@ class _OriaSearchDropDownState<T> extends State<OriaSearchDropDown<T>> {
               floatingLabelBehavior: FloatingLabelBehavior.never,
               filled: true,
               fillColor: OriaColors.iconButtonBackgound,
+              contentPadding: const EdgeInsets.only(left: 20),
               suffixIcon: const Icon(
                 Icons.keyboard_arrow_down,
                 size: 20,
                 color: OriaColors.primaryColor,
               ),
+              hintText: widget.hintValue,
+              hintStyle: Theme.of(context).textTheme.displayMedium,
             ),
             style: Theme.of(context).textTheme.displayMedium,
           );

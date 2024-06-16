@@ -28,3 +28,5 @@ final class FetchExpertReviews extends ExpertEvent {
 
   const FetchExpertReviews({required this.expertId});
 }
+
+final class FetchMedicalInfo extends ExpertEvent {}
