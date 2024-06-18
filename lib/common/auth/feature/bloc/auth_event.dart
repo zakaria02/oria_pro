@@ -28,3 +28,5 @@ final class Login extends AuthEvent {
 }
 
 final class GoogleLogin extends AuthEvent {}
+
+final class FacebookLogin extends AuthEvent {}

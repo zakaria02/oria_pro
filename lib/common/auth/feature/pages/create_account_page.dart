@@ -36,7 +36,7 @@ class CreateAccountPage extends StatelessWidget {
             onPress: (email, password) => BlocProvider.of<AuthBloc>(context)
                 .add(SignUp(email: email, password: password)),
             onGooglePress: () =>
-                BlocProvider.of<AuthBloc>(context).add(GoogleLogin()),
+                BlocProvider.of<AuthBloc>(context).add(FacebookLogin()),
             onApplePress: () {},
             onFacebookPress: () {},
             onLinkPress: () => context.router.maybePop(),

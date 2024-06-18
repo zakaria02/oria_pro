@@ -38,7 +38,8 @@ class LoginPage extends StatelessWidget {
             onGooglePress: () =>
                 BlocProvider.of<AuthBloc>(context).add(GoogleLogin()),
             onApplePress: () {},
-            onFacebookPress: () {},
+            onFacebookPress: () =>
+                BlocProvider.of<AuthBloc>(context).add(FacebookLogin()),
             onForgotPasswordPress: () =>
                 context.router.push(const ForgotPasswordRoute()),
             onLinkPress: () => context.router.push(const CreateAccountRoute()),
