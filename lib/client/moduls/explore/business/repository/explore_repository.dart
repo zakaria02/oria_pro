@@ -1,3 +1,4 @@
+import 'package:oria_pro/client/moduls/explore/business/model/complain_request_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/enroll_program_request_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/learning_article.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/update_section_request_model.dart';
@@ -8,7 +9,6 @@ import '../model/add_forum_post_request_model.dart';
 import '../model/comment_model.dart';
 import '../model/explore_symptom_article_model.dart';
 import '../model/explore_symptom_program_model.dart';
-import '../model/favorite_request_model.dart';
 import '../model/forum_topic_model.dart';
 import '../model/program_model.dart';
 import '../model/symptom_programs_model.dart';
@@ -22,8 +22,6 @@ abstract class ExploreRepository {
   Future<LearningArticleModel> fetchArticleContent(
     String articleId,
   );
-  Future<void> addFavorite(FavoriteRequestModel request);
-  Future<void> removeFavorite(FavoriteRequestModel request);
   Future<SymptomProgramsResultModel> fetchSymptomPrograms(String symptomId);
   Future<void> enrollProgram(String programId);
   Future<void> resetProgram(String programId);
@@ -43,11 +41,15 @@ abstract class ExploreRepository {
       String topicId, AddForumPostRequestModel request);
   Future<void> likePost(String postId);
   Future<void> unlikePost(String postId);
+  Future<void> likeComment(String commentId);
+  Future<void> unlikeComment(String commentId);
   Future<void> favoritePost(String postId);
   Future<void> unFavoritePost(String postId);
   Future<CommentModel> updateComment(
       String commentId, AddCommentRequestModel request);
   Future<void> deleteComment(String commentId);
+  Future<void> complainPost(String postId);
+  Future<void> complainComment(String commentId);
 }
 
 class ExploreRepositoryImpl extends ExploreRepository {
@@ -66,16 +68,6 @@ class ExploreRepositoryImpl extends ExploreRepository {
   @override
   Future<LearningArticleModel> fetchArticleContent(String articleId) {
     return service.fetchArticleContent(articleId);
-  }
-
-  @override
-  Future<void> addFavorite(FavoriteRequestModel request) {
-    return service.addFavorite(request);
-  }
-
-  @override
-  Future<void> removeFavorite(FavoriteRequestModel request) {
-    return service.removeFavorite(request);
   }
 
   @override
@@ -182,5 +174,26 @@ class ExploreRepositoryImpl extends ExploreRepository {
   Future<CommentModel> updateComment(
       String commentId, AddCommentRequestModel request) {
     return service.updateComment(commentId, request);
+  }
+
+  @override
+  Future<void> complainComment(String commentId) {
+    return service
+        .complainComment(ComplainCommentRequestModel(commentId: commentId));
+  }
+
+  @override
+  Future<void> complainPost(String postId) {
+    return service.complainPost(ComplainPostRequestModel(postId: postId));
+  }
+
+  @override
+  Future<void> likeComment(String commentId) {
+    return service.likeComment(commentId);
+  }
+
+  @override
+  Future<void> unlikeComment(String commentId) {
+    return service.unlikeComment(commentId);
   }
 }

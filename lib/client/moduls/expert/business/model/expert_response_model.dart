@@ -52,6 +52,8 @@ class ExpertModel {
   final String id;
   @JsonKey(name: "available")
   final bool available;
+  @JsonKey(name: "isFavourite")
+  final bool isFavourite;
 
   const ExpertModel({
     required this.address,
@@ -70,6 +72,7 @@ class ExpertModel {
     required this.specialty,
     required this.yearsOfExperience,
     this.available = false,
+    this.isFavourite = false,
   });
 
   factory ExpertModel.fromJson(Map<String, dynamic> json) =>
@@ -94,6 +97,7 @@ extension ExpertModelMappers on ExpertModel {
       bio: bio,
       id: id,
       available: available,
+      isFavourite: isFavourite,
     );
   }
 }

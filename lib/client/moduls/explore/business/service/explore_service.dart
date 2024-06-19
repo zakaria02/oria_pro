@@ -6,9 +6,9 @@ import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_m
 import 'package:retrofit/retrofit.dart';
 import '../model/add_comment_request_model.dart';
 import '../model/comment_model.dart';
+import '../model/complain_request_model.dart';
 import '../model/explore_symptom_article_model.dart';
 import '../model/explore_symptom_program_model.dart';
-import '../model/favorite_request_model.dart';
 import '../model/forum_topic_model.dart';
 import '../model/program_model.dart';
 import '../model/topic_post_model.dart';
@@ -28,12 +28,6 @@ abstract class ExploreService {
 
   @GET("/learning/article/{articleId}")
   Future<LearningArticleModel> fetchArticleContent(@Path() String articleId);
-
-  @POST("/users/favourite")
-  Future<void> addFavorite(@Body() FavoriteRequestModel request);
-
-  @DELETE("/users/favourite")
-  Future<void> removeFavorite(@Body() FavoriteRequestModel request);
 
   @GET("/learning/programs/{symptomId}")
   Future<SymptomProgramsResultModel> fetchSymptomPrograms(
@@ -120,6 +114,16 @@ abstract class ExploreService {
     @Path() String postId,
   );
 
+  @POST("/forum/comments/{commentId}/like")
+  Future<void> likeComment(
+    @Path() String commentId,
+  );
+
+  @POST("/forum/comments/{commentId}/unlike")
+  Future<void> unlikeComment(
+    @Path() String commentId,
+  );
+
   @POST("/forum/posts/{postId}/favourite")
   Future<void> favoritePost(
     @Path() String postId,
@@ -128,5 +132,15 @@ abstract class ExploreService {
   @POST("/forum/posts/{postId}/unfavourite")
   Future<void> unFavoritePost(
     @Path() String postId,
+  );
+
+  @POST("/forum/report/post")
+  Future<void> complainPost(
+    @Body() ComplainPostRequestModel request,
+  );
+
+  @POST("/forum/report/comment")
+  Future<void> complainComment(
+    @Body() ComplainCommentRequestModel request,
   );
 }

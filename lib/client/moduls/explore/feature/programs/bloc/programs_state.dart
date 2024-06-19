@@ -161,6 +161,18 @@ final class UpdateSectionSuccess extends ProgramsState {
   });
 }
 
+// FAVOURITE PROGRAM
+
+final class FavoriteProgramSuccess extends ProgramsState {
+  const FavoriteProgramSuccess({
+    required super.content,
+    required super.programs,
+    required super.selectedProgram,
+    required super.selectedSection,
+    required super.mixedContent,
+  });
+}
+
 // ALL ERRORS //
 final class ProgramsError extends ProgramsState {
   final String errorMessage;

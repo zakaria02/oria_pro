@@ -83,6 +83,12 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   : AppLocalizations.of(context)!.removeFromFavorite,
             ),
           );
+        } else if (state is ComplainSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            OriaSuccessSnackBar(
+              content: AppLocalizations.of(context)!.complainSubmitted,
+            ),
+          );
         }
       },
       builder: (blocContext, state) {
@@ -126,6 +132,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                                 ? [
                                     if ((state is DeletePostLoading) ||
                                         (state is FavoriteLoading) ||
+                                        (state is ComplainLoading) ||
                                         (state is CommentLoading))
                                       const Padding(
                                         padding: EdgeInsets.only(bottom: 20),
@@ -246,6 +253,16 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                                             menuComment = comment;
                                           });
                                         },
+                                        onLike: (comment) {
+                                          BlocProvider.of<ForumBloc>(
+                                                  blocContext)
+                                              .add(
+                                            LikeComment(
+                                              topic: widget.topic,
+                                              comment: comment,
+                                            ),
+                                          );
+                                        },
                                       ),
                                       separatorBuilder: (context, index) =>
                                           const SizedBox(height: 20),
@@ -337,7 +354,13 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         BlocProvider.of<ForumBloc>(blocContext).add(
                       FavoritePost(post: state.post!),
                     ),
-                    onCompalin: () {},
+                    onCompalin: () {
+                      BlocProvider.of<ForumBloc>(blocContext).add(
+                        ComplainPost(
+                          post: state.post!,
+                        ),
+                      );
+                    },
                     onDelete: () {
                       BlocProvider.of<ForumBloc>(blocContext).add(
                         DeletePost(
@@ -372,7 +395,13 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                     onClose: () => setState(() {
                       showCommentMenu = false;
                     }),
-                    onCompalin: () {},
+                    onCompalin: () {
+                      BlocProvider.of<ForumBloc>(blocContext).add(
+                        ComplainComment(
+                          comment: menuComment!,
+                        ),
+                      );
+                    },
                     onDelete: () {
                       if (menuComment != null) {
                         BlocProvider.of<ForumBloc>(blocContext).add(

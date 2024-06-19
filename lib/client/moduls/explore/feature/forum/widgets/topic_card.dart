@@ -54,7 +54,8 @@ class TopicCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 12),
                         Text(
-                          AppLocalizations.of(context)!.posts(topic.postsCount),
+                          AppLocalizations.of(context)!
+                              .posts(" ${topic.postsCount}"),
                           style:
                               Theme.of(context).textTheme.labelSmall?.copyWith(
                                     color: OriaColors.disabledColor,

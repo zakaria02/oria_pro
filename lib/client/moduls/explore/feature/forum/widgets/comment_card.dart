@@ -14,11 +14,13 @@ class CommentCard extends StatefulWidget {
     required this.onReply,
     this.isSub = false,
     required this.onMore,
+    required this.onLike,
   });
   final Comment comment;
   final Function(Comment) onReply;
   final bool isSub;
   final Function(Comment) onMore;
+  final Function(Comment) onLike;
 
   @override
   State<CommentCard> createState() => _CommentCardState();
@@ -128,8 +130,13 @@ class _CommentCardState extends State<CommentCard> {
                                 ),
                       ),
                       const SizedBox(width: 6),
-                      SvgPicture.asset(
-                        SvgAssets.heartIcon,
+                      InkWell(
+                        onTap: () => widget.onLike(widget.comment),
+                        child: SvgPicture.asset(
+                          widget.comment.isLiked
+                              ? SvgAssets.heartFilledIcon
+                              : SvgAssets.heartIcon,
+                        ),
                       ),
                     ],
                   ),
@@ -141,6 +148,7 @@ class _CommentCardState extends State<CommentCard> {
                         onReply: (subComment) => widget.onReply(widget.comment),
                         isSub: true,
                         onMore: (subComment) => widget.onMore(subComment),
+                        onLike: (subComment) => widget.onLike(subComment),
                       ),
                     ),
                   ],

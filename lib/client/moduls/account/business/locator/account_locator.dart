@@ -4,6 +4,7 @@ import 'package:oria_pro/client/moduls/account/business/service/medical_info_ser
 import 'package:oria_pro/client/moduls/account/feature/use_case/update_user_info_usecase.dart';
 import 'package:oria_pro/utils/network/dio_builder.dart';
 import '../../../../../utils/locator/abstract_locator.dart';
+import '../../feature/use_case/fetch_favourite_use_case.dart';
 import '../../feature/use_case/update_share_medical_info.dart';
 
 class AccountLocator extends AbstractLocator {
@@ -25,5 +26,7 @@ class AccountLocator extends AbstractLocator {
         () => UpdateMyInfoUseCase());
     serviceLocator.registerLazySingleton<UpdateShareMedicalInfoUseCase>(
         () => UpdateShareMedicalInfoUseCase());
+    serviceLocator.registerLazySingleton<FetchFavouriteUseCase>(
+        () => FetchFavouriteUseCase());
   }
 }

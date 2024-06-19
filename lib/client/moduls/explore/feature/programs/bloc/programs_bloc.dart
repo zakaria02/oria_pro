@@ -13,6 +13,7 @@ import '../../../business/di/explore_locator.dart';
 import '../../entity/learning_content.dart';
 import '../../use_case/fetch_learning_content_use_case.dart';
 import '../entity/program.dart';
+import '../use_case/update_program_favourite_use_case.dart';
 
 part 'programs_event.dart';
 part 'programs_state.dart';
@@ -299,6 +300,30 @@ class ProgramsBloc extends Bloc<ProgramsEvent, ProgramsState> {
         ));
       }
     });
+
+    on<UpdateFavorite>((event, emit) async {
+      UpdateProgramFavoriteUseCase usecase = ExploreLocator().get();
+      try {
+        final program = await usecase.execute(event.program);
+        emit(FavoriteProgramSuccess(
+          content: state.content,
+          programs: state.programs,
+          selectedProgram: program,
+          selectedSection: null,
+          mixedContent: state.mixedContent,
+        ));
+      } catch (e) {
+        emit(ProgramsError(
+          content: state.content,
+          programs: state.programs,
+          selectedProgram: state.selectedProgram,
+          selectedSection: state.selectedSection,
+          mixedContent: state.mixedContent,
+          errorMessage: e.toString(),
+        ));
+      }
+    });
+
     /*on<FetchSectionContent>((event, emit) async {
       LearningRepository learningRepository = ExploreLocator().get();
       try {

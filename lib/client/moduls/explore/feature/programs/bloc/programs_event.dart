@@ -51,6 +51,14 @@ final class FinishSection extends ProgramsEvent {
   });
 }
 
+final class UpdateFavorite extends ProgramsEvent {
+  final SymptomProgram program;
+
+  const UpdateFavorite({
+    required this.program,
+  });
+}
+
 /*final class FetchProgramSections extends ProgramsEvent {
   final String programId;
   const FetchProgramSections({required this.programId});

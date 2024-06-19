@@ -127,6 +127,17 @@ final class HasMedicalInfoSuccess extends ExpertState {
   });
 }
 
+final class ExpertFavouriteSuccess extends ExpertState {
+  const ExpertFavouriteSuccess({
+    required super.specialties,
+    required super.bestRatedExperts,
+    required super.recommendedExperts,
+    required super.specialtyExperts,
+    required super.reviews,
+    required super.hasMedicalInfo,
+  });
+}
+
 final class ExpertError extends ExpertState {
   final String errorMessage;
   const ExpertError({

@@ -25,7 +25,7 @@ class OtherMethodsRepositoryImpl implements OtherMethodsRepository {
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    log("token ${googleAuth?.idToken}");
+    log("token ${googleAuth?.accessToken}");
 
     return UserModel(
       id: "id",

@@ -19,6 +19,7 @@ ProgramModel _$ProgramModelFromJson(Map<String, dynamic> json) => ProgramModel(
           .toList(),
       isPremium: json['isPremium'] as bool,
       programStatus: json['learningStatus'] as String,
+      isFavourite: json['isFavourite'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ProgramModelToJson(ProgramModel instance) =>
@@ -33,6 +34,7 @@ Map<String, dynamic> _$ProgramModelToJson(ProgramModel instance) =>
       'sections': instance.sections,
       'isPremium': instance.isPremium,
       'learningStatus': instance.programStatus,
+      'isFavourite': instance.isFavourite,
     };
 
 ProgramSectionModel _$ProgramSectionModelFromJson(Map<String, dynamic> json) =>

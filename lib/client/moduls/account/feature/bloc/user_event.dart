@@ -28,3 +28,19 @@ final class UpdateUser extends UserEvent {
     required this.image,
   });
 }
+
+final class FetchFavourite extends UserEvent {
+  final FavouriteRessourceType type;
+
+  const FetchFavourite({required this.type});
+}
+
+final class RemoveFavourite extends UserEvent {
+  final String ressourceId;
+  final String ressourceType;
+
+  const RemoveFavourite({
+    required this.ressourceId,
+    required this.ressourceType,
+  });
+}

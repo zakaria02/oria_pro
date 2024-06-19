@@ -30,3 +30,9 @@ final class FetchExpertReviews extends ExpertEvent {
 }
 
 final class FetchMedicalInfo extends ExpertEvent {}
+
+final class UpdateFavorite extends ExpertEvent {
+  final Expert expert;
+
+  const UpdateFavorite({required this.expert});
+}

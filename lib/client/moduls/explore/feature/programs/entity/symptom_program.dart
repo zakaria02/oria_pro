@@ -10,6 +10,7 @@ class SymptomProgram {
   final List<ProgramSection> sections;
   final bool isPremium;
   final LearningStatus programStatus;
+  final bool isFavourite;
 
   const SymptomProgram({
     required this.id,
@@ -21,6 +22,7 @@ class SymptomProgram {
     required this.sections,
     required this.isPremium,
     required this.programStatus,
+    required this.isFavourite,
   });
 
   SymptomProgram copyWith({
@@ -33,6 +35,7 @@ class SymptomProgram {
     List<ProgramSection>? sections,
     bool? isPremium,
     LearningStatus? programStatus,
+    bool? isFavourite,
   }) =>
       SymptomProgram(
         id: id ?? this.id,
@@ -44,6 +47,7 @@ class SymptomProgram {
         sections: sections ?? this.sections,
         isPremium: isPremium ?? this.isPremium,
         programStatus: programStatus ?? this.programStatus,
+        isFavourite: isFavourite ?? this.isFavourite,
       );
 }
 

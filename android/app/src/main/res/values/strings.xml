@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">487001893986175</string>
-    <string name="facebook_client_token">8a7c121bafb16e2d82421cdb4c8c4974</string>
+  <string name="appName">Oria</string>
+  <string name="facebook_app_id">487001893986175</string>
+  <string name="facebook_client_token">8a7c121bafb16e2d82421cdb4c8c4974</string>
 </resources>

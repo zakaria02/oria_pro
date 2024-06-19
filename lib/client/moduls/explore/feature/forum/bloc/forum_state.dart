@@ -211,6 +211,26 @@ final class FavoriteSuccess extends ForumState {
   });
 }
 
+final class ComplainLoading extends ForumState {
+  const ComplainLoading({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
+final class ComplainSuccess extends ForumState {
+  const ComplainSuccess({
+    required super.recommondedTopics,
+    required super.otherTopics,
+    required super.post,
+    required super.posts,
+    required super.comments,
+  });
+}
+
 final class ForumError extends ForumState {
   final String errorMessage;
   const ForumError({

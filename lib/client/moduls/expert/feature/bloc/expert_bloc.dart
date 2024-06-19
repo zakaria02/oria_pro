@@ -6,6 +6,7 @@ import 'package:oria_pro/client/moduls/expert/business/model/review_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/specialty_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/repository/expert_repository.dart';
 import 'package:oria_pro/client/moduls/expert/feature/entity/specialty.dart';
+import 'package:oria_pro/client/moduls/expert/feature/use_case/update_expert_favorite_use_case.dart';
 
 import '../../../account/business/locator/account_locator.dart';
 import '../../../account/business/repository/medical_info_repository.dart';
@@ -143,13 +144,61 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
         );
       } catch (e) {
         emit(
-          HasMedicalInfoSuccess(
+          ExpertError(
             specialties: state.specialties,
             bestRatedExperts: state.bestRatedExperts,
             recommendedExperts: state.recommendedExperts,
             reviews: state.reviews,
-            hasMedicalInfo: false,
+            hasMedicalInfo: state.hasMedicalInfo,
             specialtyExperts: state.specialtyExperts,
+            errorMessage: e.toString(),
+          ),
+        );
+      }
+    });
+
+    on<UpdateFavorite>((event, emit) async {
+      UpdateExpertFavoriteUseCase usecase = ExpertLocator().get();
+      try {
+        final updatedExpert = await usecase.execute(event.expert);
+
+        // Function to update the expert in a list if it matches the id
+        List<Expert> updateExpertList(
+            List<Expert> experts, Expert? updatedExpert) {
+          return experts.map((expert) {
+            if (updatedExpert != null && expert.id == updatedExpert.id) {
+              return updatedExpert;
+            }
+            return expert;
+          }).toList();
+        }
+
+        // Update the bestRatedExperts and recommendedExperts lists
+        final updatedBestRatedExperts =
+            updateExpertList(state.bestRatedExperts, updatedExpert);
+        final updatedRecommendedExperts =
+            updateExpertList(state.recommendedExperts, updatedExpert);
+
+        emit(
+          ExpertFavouriteSuccess(
+            specialties: state.specialties,
+            bestRatedExperts: updatedBestRatedExperts,
+            recommendedExperts: updatedRecommendedExperts,
+            reviews: state.reviews,
+            hasMedicalInfo: state.hasMedicalInfo,
+            specialtyExperts: state.specialtyExperts,
+          ),
+        );
+      } catch (e) {
+        emit(
+          ExpertError(
+            specialties: state.specialties,
+            bestRatedExperts: state.bestRatedExperts,
+            recommendedExperts: state.recommendedExperts,
+            reviews: state.reviews,
+            hasMedicalInfo: state.hasMedicalInfo,
+            specialtyExperts: state.specialtyExperts,
+            errorMessage: e.toString(),
           ),
         );
       }

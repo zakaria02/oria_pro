@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:oria_pro/utils/bloc/bloc_observer.dart';
@@ -18,6 +19,11 @@ void main() async {
   await AppPathProvider.initPath();
   // Initialize hive
   initHive();
+  // Block Oriontation
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   // Launch App
   runApp(const MyApp());
 }

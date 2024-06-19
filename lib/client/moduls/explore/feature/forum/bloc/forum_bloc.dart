@@ -426,6 +426,67 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
       }
     });
 
+    on<LikeComment>((event, emit) async {
+      final ExploreRepository repository = ExploreLocator().get();
+      try {
+        emit(
+          LikeLoading(
+            recommondedTopics: state.recommondedTopics,
+            otherTopics: state.otherTopics,
+            post: state.post,
+            posts: state.posts,
+            comments: state.comments,
+          ),
+        );
+
+        if (event.comment.isLiked) {
+          await repository.unlikeComment(event.comment.id);
+        } else {
+          await repository.likeComment(event.comment.id);
+        }
+
+        // Function to update the isLiked status in subComments
+        List<Comment> updateSubComments(List<Comment> subComments) {
+          return subComments.map((subComment) {
+            if (subComment.id == event.comment.id) {
+              return subComment.copyWith(isLiked: !subComment.isLiked);
+            }
+            return subComment;
+          }).toList();
+        }
+
+        // Update the comments list
+        final updatedComments = state.comments.map((comment) {
+          if (comment.id == event.comment.id) {
+            return comment.copyWith(isLiked: !comment.isLiked);
+          } else {
+            return comment.copyWith(
+                subComments: updateSubComments(comment.subComments));
+          }
+        }).toList();
+
+        emit(
+          LikeSuccess(
+            otherTopics: state.otherTopics,
+            recommondedTopics: state.recommondedTopics,
+            post: state.post,
+            posts: state.posts,
+            comments: updatedComments,
+          ),
+        );
+        add(FetchTopicPosts(topic: event.topic));
+      } catch (e) {
+        emit(ForumError(
+          otherTopics: state.otherTopics,
+          post: state.post,
+          posts: state.posts,
+          comments: state.comments,
+          recommondedTopics: state.recommondedTopics,
+          errorMessage: e.toString(),
+        ));
+      }
+    });
+
     on<FavoritePost>((event, emit) async {
       final ExploreRepository repository = ExploreLocator().get();
       late final bool favorite;
@@ -450,6 +511,72 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             otherTopics: state.otherTopics,
             recommondedTopics: state.recommondedTopics,
             post: state.post?.copyWith(isFavourite: favorite),
+            posts: state.posts,
+            comments: state.comments,
+          ),
+        );
+      } catch (e) {
+        emit(ForumError(
+          otherTopics: state.otherTopics,
+          post: state.post,
+          posts: state.posts,
+          comments: state.comments,
+          recommondedTopics: state.recommondedTopics,
+          errorMessage: e.toString(),
+        ));
+      }
+    });
+
+    on<ComplainPost>((event, emit) async {
+      final ExploreRepository repository = ExploreLocator().get();
+      try {
+        emit(
+          ComplainLoading(
+              recommondedTopics: state.recommondedTopics,
+              otherTopics: state.otherTopics,
+              post: state.post,
+              posts: state.posts,
+              comments: state.comments),
+        );
+        await repository.complainPost(event.post.id);
+        emit(
+          ComplainSuccess(
+            otherTopics: state.otherTopics,
+            recommondedTopics: state.recommondedTopics,
+            post: state.post,
+            posts: state.posts,
+            comments: state.comments,
+          ),
+        );
+      } catch (e) {
+        emit(ForumError(
+          otherTopics: state.otherTopics,
+          post: state.post,
+          posts: state.posts,
+          comments: state.comments,
+          recommondedTopics: state.recommondedTopics,
+          errorMessage: e.toString(),
+        ));
+      }
+    });
+
+    on<ComplainComment>((event, emit) async {
+      final ExploreRepository repository = ExploreLocator().get();
+      try {
+        emit(
+          ComplainLoading(
+              recommondedTopics: state.recommondedTopics,
+              otherTopics: state.otherTopics,
+              post: state.post,
+              posts: state.posts,
+              comments: state.comments),
+        );
+        await repository.complainComment(event.comment.id);
+        emit(
+          ComplainSuccess(
+            otherTopics: state.otherTopics,
+            recommondedTopics: state.recommondedTopics,
+            post: state.post,
             posts: state.posts,
             comments: state.comments,
           ),

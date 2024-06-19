@@ -5,7 +5,7 @@ import 'package:oria_pro/client/moduls/explore/feature/entity/learning_article.d
 
 import '../../../business/di/explore_locator.dart';
 import '../../../business/repository/explore_repository.dart';
-import '../use_case/update_favorite_use_case.dart';
+import '../use_case/update_article_favorite_use_case.dart';
 
 part 'article_content_event.dart';
 part 'article_content_state.dart';

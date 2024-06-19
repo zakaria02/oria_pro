@@ -12,6 +12,7 @@ class Expert {
   final String? bio;
   final String id;
   final bool available;
+  final bool isFavourite;
 
   String get fullName => "$firstName $lastName";
 
@@ -29,5 +30,40 @@ class Expert {
     required this.bio,
     required this.id,
     required this.available,
+    required this.isFavourite,
   });
+
+  Expert copyWith({
+    String? profilePicture,
+    String? firstName,
+    String? lastName,
+    String? city,
+    String? provinceId,
+    String? provinceName,
+    String? specialty,
+    int? yearsOfExperience,
+    double? consultationPrice,
+    double? rateAvarage,
+    String? bio,
+    String? id,
+    bool? available,
+    bool? isFavourite,
+  }) {
+    return Expert(
+      profilePicture: profilePicture ?? this.profilePicture,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      city: city ?? this.city,
+      provinceId: provinceId ?? this.provinceId,
+      provinceName: provinceName ?? this.provinceName,
+      specialty: specialty ?? this.specialty,
+      yearsOfExperience: yearsOfExperience ?? this.yearsOfExperience,
+      consultationPrice: consultationPrice ?? this.consultationPrice,
+      rateAvarage: rateAvarage ?? this.rateAvarage,
+      bio: bio ?? this.bio,
+      id: id ?? this.id,
+      available: available ?? this.available,
+      isFavourite: isFavourite ?? this.isFavourite,
+    );
+  }
 }

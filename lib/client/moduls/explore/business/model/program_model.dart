@@ -28,6 +28,8 @@ class ProgramModel {
   final bool isPremium;
   @JsonKey(name: "learningStatus")
   final String programStatus;
+  @JsonKey(name: "isFavourite")
+  final bool isFavourite;
 
   const ProgramModel({
     required this.id,
@@ -40,6 +42,7 @@ class ProgramModel {
     required this.sections,
     required this.isPremium,
     required this.programStatus,
+    this.isFavourite = false,
   });
 
   factory ProgramModel.fromJson(Map<String, dynamic> json) =>
@@ -105,6 +108,7 @@ extension ProgramModelMappers on ProgramModel {
       sections: programSections,
       isPremium: isPremium,
       programStatus: programStatus.toLearningStatus(),
+      isFavourite: isFavourite,
     );
   }
 }

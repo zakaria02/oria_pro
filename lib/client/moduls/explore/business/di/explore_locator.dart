@@ -3,7 +3,8 @@ import 'package:oria_pro/client/moduls/explore/feature/programs/use_case/finish_
 import 'package:oria_pro/client/moduls/explore/feature/programs/use_case/start_section_use_case.dart';
 import '../../../../../../utils/network/dio_builder.dart';
 import '../../../../../utils/locator/abstract_locator.dart';
-import '../../feature/learning/use_case/update_favorite_use_case.dart';
+import '../../feature/learning/use_case/update_article_favorite_use_case.dart';
+import '../../feature/programs/use_case/update_program_favourite_use_case.dart';
 import '../../feature/use_case/fetch_learning_content_use_case.dart';
 import '../repository/explore_repository.dart';
 import '../service/explore_service.dart';
@@ -27,6 +28,8 @@ class ExploreLocator extends AbstractLocator {
         () => FetchLearningContentUseCase());
     serviceLocator.registerLazySingleton<UpdateArticleFavoriteUseCase>(
         () => UpdateArticleFavoriteUseCase());
+    serviceLocator.registerLazySingleton<UpdateProgramFavoriteUseCase>(
+        () => UpdateProgramFavoriteUseCase());
     serviceLocator.registerLazySingleton<StartSectionUseCase>(
         () => StartSectionUseCase());
     serviceLocator.registerLazySingleton<FinishSectionUseCase>(

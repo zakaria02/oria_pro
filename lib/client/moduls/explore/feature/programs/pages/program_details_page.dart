@@ -8,6 +8,7 @@ import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_no_data_view.dart';
 import 'package:oria_pro/widgets/oria_rounded_button.dart';
+import 'package:oria_pro/widgets/oria_snack_bar.dart';
 import '../../../../../../common/widgets/author_card.dart';
 import '../../../../../../utils/constants/oria_colors.dart';
 import '../../../../../../widgets/oria_app_bar.dart';
@@ -25,7 +26,18 @@ class ProgramDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProgramsBloc, ProgramsState>(
+    return BlocConsumer<ProgramsBloc, ProgramsState>(
+      listener: (context, state) {
+        if (state is FavoriteProgramSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(OriaSuccessSnackBar(
+            content: AppLocalizations.of(context)!.addedToFavorite,
+          ));
+        } else if (state is ProgramsError) {
+          ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+            content: state.errorMessage,
+          ));
+        }
+      },
       builder: (programBlocContext, programsState) {
         return OriaScaffold(
           appBarData: AppBarData(
@@ -71,9 +83,18 @@ class ProgramDetailsPage extends StatelessWidget {
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 0.5),
                                       child: OriaIconButton(
-                                        url: SvgAssets.notFavoriteAsset,
+                                        url: programsState
+                                                .selectedProgram!.isFavourite
+                                            ? SvgAssets.favoriteAsset
+                                            : SvgAssets.notFavoriteAsset,
                                         size: 20,
-                                        onPress: () {},
+                                        onPress: () {
+                                          BlocProvider.of<ProgramsBloc>(
+                                                  programBlocContext)
+                                              .add(UpdateFavorite(
+                                                  program: programsState
+                                                      .selectedProgram!));
+                                        },
                                       ),
                                     ),
                                   ),

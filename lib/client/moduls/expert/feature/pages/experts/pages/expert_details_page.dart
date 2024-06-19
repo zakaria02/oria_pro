@@ -11,6 +11,7 @@ import 'package:oria_pro/widgets/oria_card.dart';
 import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:oria_pro/widgets/oria_snack_bar.dart';
 
 import '../../../bloc/expert_bloc.dart';
 
@@ -31,7 +32,17 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
   int maxLines = 5;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExpertBloc, ExpertState>(
+    return BlocConsumer<ExpertBloc, ExpertState>(
+      listener: (context, state) {
+        if (state is ExpertFavouriteSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(OriaSuccessSnackBar(
+            content: AppLocalizations.of(context)!.addedToFavorite,
+          ));
+        } else if (state is ExpertError) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+        }
+      },
       builder: (context, state) {
         return OriaScaffold(
           appBarData: AppBarData(

@@ -103,10 +103,32 @@ final class LikePost extends ForumEvent {
   });
 }
 
+final class LikeComment extends ForumEvent {
+  final ForumTopic topic;
+  final Comment comment;
+
+  const LikeComment({
+    required this.topic,
+    required this.comment,
+  });
+}
+
 final class FavoritePost extends ForumEvent {
   final TopicPost post;
 
   const FavoritePost({
     required this.post,
   });
+}
+
+final class ComplainPost extends ForumEvent {
+  final TopicPost post;
+
+  const ComplainPost({required this.post});
+}
+
+final class ComplainComment extends ForumEvent {
+  final Comment comment;
+
+  const ComplainComment({required this.comment});
 }

@@ -11,6 +11,7 @@ class Comment {
   final int likeCount;
   final bool isOwner;
   final bool subVisible;
+  final bool isLiked;
 
   const Comment({
     required this.parentId,
@@ -23,6 +24,7 @@ class Comment {
     required this.likeCount,
     required this.isOwner,
     this.subVisible = false,
+    required this.isLiked,
   });
 
   Comment copyWith({
@@ -36,6 +38,7 @@ class Comment {
     int? likeCount,
     bool? isOwner,
     bool? subVisible,
+    bool? isLiked,
   }) {
     return Comment(
       parentId: parentId ?? this.parentId,
@@ -48,6 +51,7 @@ class Comment {
       likeCount: likeCount ?? this.likeCount,
       isOwner: isOwner ?? this.isOwner,
       subVisible: subVisible ?? this.subVisible,
+      isLiked: isLiked ?? this.isLiked,
     );
   }
 
