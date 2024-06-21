@@ -449,7 +449,12 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
         List<Comment> updateSubComments(List<Comment> subComments) {
           return subComments.map((subComment) {
             if (subComment.id == event.comment.id) {
-              return subComment.copyWith(isLiked: !subComment.isLiked);
+              return subComment.copyWith(
+                isLiked: !subComment.isLiked,
+                likeCount: subComment.isLiked
+                    ? subComment.likeCount - 1
+                    : subComment.likeCount + 1,
+              );
             }
             return subComment;
           }).toList();
@@ -458,10 +463,17 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
         // Update the comments list
         final updatedComments = state.comments.map((comment) {
           if (comment.id == event.comment.id) {
-            return comment.copyWith(isLiked: !comment.isLiked);
+            return comment.copyWith(
+              isLiked: !comment.isLiked,
+              likeCount: comment.isLiked
+                  ? comment.likeCount - 1
+                  : comment.likeCount + 1,
+            );
           } else {
             return comment.copyWith(
-                subComments: updateSubComments(comment.subComments));
+                subComments: updateSubComments(
+              comment.subComments,
+            ));
           }
         }).toList();
 
