@@ -80,9 +80,8 @@ class ArticlePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 0.5),
                                 child: OriaIconButton(
                                   url: state.article?.isFavorite == true
-                                      ? SvgAssets.favoriteAsset
-                                      : SvgAssets.notFavoriteAsset,
-                                  size: 20,
+                                      ? SvgAssets.heartFilledIcon
+                                      : SvgAssets.heartIcon,
                                   onPress: () =>
                                       BlocProvider.of<ArticleContentBloc>(
                                               context)

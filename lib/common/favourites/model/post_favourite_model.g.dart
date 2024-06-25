@@ -8,7 +8,9 @@ part of 'post_favourite_model.dart';
 
 PostFavouriteModel _$PostFavouriteModelFromJson(Map<String, dynamic> json) =>
     PostFavouriteModel(
-      postId: PostDetails.fromJson(json['postId'] as Map<String, dynamic>),
+      postId: json['postId'] == null
+          ? null
+          : PostDetails.fromJson(json['postId'] as Map<String, dynamic>),
       userId: json['userId'] as String,
       id: json['id'] as String,
     );

@@ -323,5 +323,6 @@
     "emailCantBeUpdated": "Votre email ne peux pas être modifier",
     "finishMedicalInfo": "Vous avez besoin d'ajouter vos informations médicales avant de prendre un rendez-vous",
     "addMedicalInfo": "Ajotuer les informations médicales",
-    "complainSubmitted": "Votre plainte a été soumise avec succès. L'équipe appropriée l'examinera sous peu."
+    "complainSubmitted": "Votre plainte a été soumise avec succès. L'équipe appropriée l'examinera sous peu.",
+    "expertNotFound": "Nous n'avons pas pu trouver l'expert"
 }

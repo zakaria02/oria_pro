@@ -22,8 +22,8 @@ import '../widgets/post_menu.dart';
 import 'add_topic_post_page.dart';
 
 class PostDetailsPage extends StatefulWidget {
-  const PostDetailsPage({super.key, required this.topic});
-  final ForumTopic topic;
+  const PostDetailsPage({super.key, this.topic});
+  final ForumTopic? topic;
 
   @override
   State<PostDetailsPage> createState() => _PostDetailsPageState();
@@ -114,7 +114,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                   appBarData: AppBarData(
                     firstButtonUrl: SvgAssets.backAsset,
                     onFirstButtonPress: () => context.maybePop(),
-                    title: widget.topic.title,
+                    title: widget.topic?.title ?? "",
                     lastButtonUrl: state is! TopicPostDetailsLoading
                         ? SvgAssets.moreIcon
                         : null,
@@ -243,8 +243,12 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                                       itemBuilder: (context, index) =>
                                           CommentCard(
                                         comment: state.comments[index],
-                                        onReply: (comment) {
+                                        onReply: (comment, parentUser) {
                                           _selectedComment = comment;
+                                          if (parentUser != null) {
+                                            commentController.text =
+                                                "@$parentUser ";
+                                          }
                                           _focusNode.requestFocus();
                                         },
                                         onMore: (comment) {
@@ -277,6 +281,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         ),
                   bottomNavigationBar: state.post != null
                       ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
                               child: TextFormField(
@@ -310,6 +315,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                                     ),
                                   ),
                                 ),
+                                maxLength: 500,
                               ),
                             ),
                             const SizedBox(width: 8),
@@ -364,7 +370,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                     onDelete: () {
                       BlocProvider.of<ForumBloc>(blocContext).add(
                         DeletePost(
-                          topic: widget.topic,
+                          topic: widget.topic!,
                           post: state.post!,
                         ),
                       );
@@ -379,7 +385,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                                 blocContext,
                               ),
                               child: AddTopicPostPage(
-                                topic: widget.topic,
+                                topic: widget.topic!,
                                 editablePost: state.post,
                               ),
                             );
@@ -388,6 +394,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                       );
                     },
                     isOwner: state.post?.isOwner == true,
+                    showAllItem: widget.topic != null,
                     isFavorite: state.post?.isFavourite == true,
                   ),
                 if (showCommentMenu)
@@ -407,6 +414,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                         BlocProvider.of<ForumBloc>(blocContext).add(
                           DeleteComment(
                             comment: menuComment!,
+                            topic: widget.topic,
                           ),
                         );
                         menuComment = null;

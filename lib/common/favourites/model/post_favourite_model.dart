@@ -5,7 +5,7 @@ part 'post_favourite_model.g.dart';
 
 @JsonSerializable()
 class PostFavouriteModel {
-  final PostDetails postId;
+  final PostDetails? postId;
   final String userId;
   final String id;
 
@@ -36,11 +36,13 @@ class PostDetails {
 }
 
 extension PostFavouriteModelMappers on PostFavouriteModel {
-  Favourite toFavourite() {
-    return Favourite(
-      resourceId: postId.id,
-      resourceType: "post",
-      title: postId.title,
-    );
+  Favourite? toFavourite() {
+    return postId == null
+        ? null
+        : Favourite(
+            resourceId: postId!.id,
+            resourceType: "post",
+            title: postId!.title,
+          );
   }
 }

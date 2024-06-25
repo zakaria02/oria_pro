@@ -29,6 +29,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
           hasMedicalInfo: state.hasMedicalInfo,
+          selectedExpert: state.selectedExpert,
         ));
         final specialtiesModel = await repository.fetchSpecialties();
         final recommendedsModel = await repository.fetchRecommendedExperts();
@@ -43,6 +44,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
           hasMedicalInfo: state.hasMedicalInfo,
+          selectedExpert: state.selectedExpert,
         ));
       } catch (e) {
         emit(ExpertError(
@@ -52,9 +54,11 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             specialtyExperts: state.specialtyExperts,
             reviews: state.reviews,
             hasMedicalInfo: state.hasMedicalInfo,
+            selectedExpert: state.selectedExpert,
             errorMessage: e.toString()));
       }
     });
+
     on<FetchSpecialtyExperts>((event, emit) async {
       ExpertRepository repository = ExpertLocator().get();
       try {
@@ -65,6 +69,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
           hasMedicalInfo: state.hasMedicalInfo,
+          selectedExpert: state.selectedExpert,
         ));
         final specialtyExperts = await repository.fetchSpecialtyExperts(
             event.specialty?.id, event.city?.id, event.rating, event.page);
@@ -74,6 +79,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           recommendedExperts: state.recommendedExperts,
           reviews: state.reviews,
           hasMedicalInfo: state.hasMedicalInfo,
+          selectedExpert: state.selectedExpert,
           specialtyExperts:
               specialtyExperts.map((spec) => spec.toExpert()).toList(),
         ));
@@ -85,28 +91,33 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             specialtyExperts: state.specialtyExperts,
             reviews: state.reviews,
             hasMedicalInfo: state.hasMedicalInfo,
+            selectedExpert: state.selectedExpert,
             errorMessage: e.toString()));
       }
     });
-    on<FetchExpertReviews>((event, emit) async {
+
+    on<FetchExpert>((event, emit) async {
       ExpertRepository repository = ExpertLocator().get();
       try {
-        emit(ExpertReviewsLoading(
+        emit(ExpertDetailsLoading(
           specialties: state.specialties,
           bestRatedExperts: state.bestRatedExperts,
           recommendedExperts: state.recommendedExperts,
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
           hasMedicalInfo: state.hasMedicalInfo,
+          selectedExpert: null,
         ));
+        final expert = await repository.getExpert(event.expertId);
         final reviews = await repository.getExpertReviews(event.expertId);
-        emit(ExpertReviewsSuccess(
+        emit(ExpertDetailsSuccess(
           specialties: state.specialties,
           bestRatedExperts: state.bestRatedExperts,
           recommendedExperts: state.recommendedExperts,
           reviews: reviews.map((r) => r.toReview()).toList(),
           specialtyExperts: state.specialtyExperts,
           hasMedicalInfo: state.hasMedicalInfo,
+          selectedExpert: expert.toExpert(),
         ));
       } catch (e) {
         emit(ExpertError(
@@ -116,6 +127,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             specialtyExperts: state.specialtyExperts,
             reviews: state.reviews,
             hasMedicalInfo: state.hasMedicalInfo,
+            selectedExpert: state.selectedExpert,
             errorMessage: e.toString()));
       }
     });
@@ -130,6 +142,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           specialtyExperts: state.specialtyExperts,
           reviews: state.reviews,
           hasMedicalInfo: null,
+          selectedExpert: state.selectedExpert,
         ));
         await repository.getMedicalInfo();
         emit(
@@ -140,18 +153,19 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             reviews: state.reviews,
             hasMedicalInfo: true,
             specialtyExperts: state.specialtyExperts,
+            selectedExpert: state.selectedExpert,
           ),
         );
       } catch (e) {
         emit(
-          ExpertError(
+          HasMedicalInfoSuccess(
             specialties: state.specialties,
             bestRatedExperts: state.bestRatedExperts,
             recommendedExperts: state.recommendedExperts,
             reviews: state.reviews,
-            hasMedicalInfo: state.hasMedicalInfo,
+            hasMedicalInfo: false,
             specialtyExperts: state.specialtyExperts,
-            errorMessage: e.toString(),
+            selectedExpert: state.selectedExpert,
           ),
         );
       }
@@ -162,30 +176,14 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
       try {
         final updatedExpert = await usecase.execute(event.expert);
 
-        // Function to update the expert in a list if it matches the id
-        List<Expert> updateExpertList(
-            List<Expert> experts, Expert? updatedExpert) {
-          return experts.map((expert) {
-            if (updatedExpert != null && expert.id == updatedExpert.id) {
-              return updatedExpert;
-            }
-            return expert;
-          }).toList();
-        }
-
-        // Update the bestRatedExperts and recommendedExperts lists
-        final updatedBestRatedExperts =
-            updateExpertList(state.bestRatedExperts, updatedExpert);
-        final updatedRecommendedExperts =
-            updateExpertList(state.recommendedExperts, updatedExpert);
-
         emit(
           ExpertFavouriteSuccess(
             specialties: state.specialties,
-            bestRatedExperts: updatedBestRatedExperts,
-            recommendedExperts: updatedRecommendedExperts,
+            bestRatedExperts: state.bestRatedExperts,
+            recommendedExperts: state.recommendedExperts,
             reviews: state.reviews,
             hasMedicalInfo: state.hasMedicalInfo,
+            selectedExpert: updatedExpert,
             specialtyExperts: state.specialtyExperts,
           ),
         );
@@ -197,6 +195,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
             recommendedExperts: state.recommendedExperts,
             reviews: state.reviews,
             hasMedicalInfo: state.hasMedicalInfo,
+            selectedExpert: state.selectedExpert,
             specialtyExperts: state.specialtyExperts,
             errorMessage: e.toString(),
           ),

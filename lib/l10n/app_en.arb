@@ -324,5 +324,6 @@
     "expertDisableAppointments": "This expert",
     "finishMedicalInfo": "You need to add you medical information before making an appointment",
     "addMedicalInfo": "Add medical information",
-    "complainSubmitted": "Your complaint has been successfully submitted. The appropriate team will review it shortly."
+    "complainSubmitted": "Your complaint has been successfully submitted. The appropriate team will review it shortly.",
+    "expertNotFound": "Expert not found"
 }

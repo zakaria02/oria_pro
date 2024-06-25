@@ -23,10 +23,10 @@ final class FetchSpecialtyExperts extends ExpertEvent {
   });
 }
 
-final class FetchExpertReviews extends ExpertEvent {
+final class FetchExpert extends ExpertEvent {
   final String expertId;
 
-  const FetchExpertReviews({required this.expertId});
+  const FetchExpert({required this.expertId});
 }
 
 final class FetchMedicalInfo extends ExpertEvent {}

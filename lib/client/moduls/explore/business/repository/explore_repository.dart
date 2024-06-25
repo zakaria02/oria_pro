@@ -30,7 +30,7 @@ abstract class ExploreRepository {
   Future<ProgramSectionWithContentModel> fetchSectionDetails(
       String programId, String sectionId);
   Future<List<ForumTopicModel>> fetchForumTopics();
-  Future<List<PostTopicModel>> fetchTopicPosts(String topicId);
+  Future<List<PostTopicModel>> fetchTopicPosts(String topicId, int page);
   Future<PostTopicModel> fetchPostDetails(String postId);
   Future<void> addTopicPost(String topicId, AddForumPostRequestModel request);
   Future<List<CommentModel>> fetchPostComment(String postId);
@@ -119,8 +119,8 @@ class ExploreRepositoryImpl extends ExploreRepository {
   }
 
   @override
-  Future<List<PostTopicModel>> fetchTopicPosts(String topicId) {
-    return service.fetchTopicPosts(topicId);
+  Future<List<PostTopicModel>> fetchTopicPosts(String topicId, int page) {
+    return service.fetchTopicPosts(topicId, page);
   }
 
   @override

@@ -16,6 +16,7 @@ class PostMenu extends StatelessWidget {
     required this.isOwner,
     this.isFavorite = false,
     this.center = false,
+    this.showAllItem = true,
   });
   final VoidCallback onClose;
   final VoidCallback? onSubscription;
@@ -25,6 +26,7 @@ class PostMenu extends StatelessWidget {
   final bool isOwner;
   final bool isFavorite;
   final bool center;
+  final bool showAllItem;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class PostMenu extends StatelessWidget {
                         : AppLocalizations.of(context)?.addToFavorite,
                   ),
                 ],
-                if (isOwner) ...[
+                if (isOwner && showAllItem) ...[
                   const SizedBox(height: 8),
                   PostMenuItem(
                     icon: SvgAssets.deleteIcon,

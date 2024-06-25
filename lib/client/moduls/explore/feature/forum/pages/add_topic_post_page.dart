@@ -116,6 +116,7 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
                   onChanged: (value) {
                     content = value;
                   },
+                  maxLength: 1000,
                 ),
                 const SizedBox(height: 12),
                 Text(

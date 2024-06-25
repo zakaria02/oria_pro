@@ -22,6 +22,7 @@ class FetchFavouriteUseCase {
       case FavouriteRessourceType.post:
         return (await repository.postFavourites())
             .map((post) => post.toFavourite())
+            .nonNulls
             .toList();
       case FavouriteRessourceType.expert:
         return (await repository.expertFavourites())

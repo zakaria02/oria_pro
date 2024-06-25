@@ -178,7 +178,8 @@ class _ForumViewState extends State<ForumView> {
                                   topic: topic,
                                   onPress: () {
                                     BlocProvider.of<ForumBloc>(blocContext).add(
-                                      FetchTopicPosts(topic: topic),
+                                      FetchTopicPosts(
+                                          topic: topic, reset: true),
                                     );
                                     Navigator.push(
                                       context,
@@ -214,7 +215,8 @@ class _ForumViewState extends State<ForumView> {
                                   topic: topic,
                                   onPress: () {
                                     BlocProvider.of<ForumBloc>(blocContext).add(
-                                      FetchTopicPosts(topic: topic),
+                                      FetchTopicPosts(
+                                          topic: topic, reset: true),
                                     );
                                     Navigator.push(
                                       context,

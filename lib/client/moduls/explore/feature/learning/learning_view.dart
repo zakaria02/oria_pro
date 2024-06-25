@@ -32,6 +32,7 @@ class LearningView extends StatelessWidget {
                       BlocProvider.of<LearnNavigationCubit>(context)
                           .selectItem(item),
                   padding: EdgeInsets.zero,
+                  fontSize: 12,
                 ),
                 const SizedBox(height: 20),
                 Builder(

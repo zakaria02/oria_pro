@@ -5,8 +5,6 @@ class SvgAssets {
   static const String eyeAsset = "$_svgAssetsLink/eye.svg";
   static const String rateAsset = "$_svgAssetsLink/rate.svg";
   static const String timeAsset = "$_svgAssetsLink/time.svg";
-  static const String favoriteAsset = "$_svgAssetsLink/favorite.svg";
-  static const String notFavoriteAsset = "$_svgAssetsLink/not_favorite.svg";
   static const String eyeActiveAsset = "$_svgAssetsLink/eye_active.svg";
   static const String logoBackgroundAsset =
       "$_svgAssetsLink/logo_background.svg";

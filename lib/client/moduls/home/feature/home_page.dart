@@ -16,6 +16,7 @@ import 'package:oria_pro/widgets/oria_snack_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../utils/constants/svg_assets.dart';
+import '../../../cubit/client_navigation_cubit.dart';
 import 'bloc/home_bloc.dart';
 import 'widget/daily_actions.dart';
 
@@ -62,12 +63,18 @@ class HomeView extends StatelessWidget {
                       if (state.currentUser != null)
                         Row(
                           children: [
-                            OriaRoundedImage(
-                              networkImage: state.currentUser?.profilePicture,
-                              assetImage:
-                                  state.currentUser?.profilePicture == null
-                                      ? PngAssets.womanAsset
-                                      : null,
+                            GestureDetector(
+                              onTap: () =>
+                                  BlocProvider.of<ClientNavigationCubit>(
+                                context,
+                              ).changeBottomBarIndex(5),
+                              child: OriaRoundedImage(
+                                networkImage: state.currentUser?.profilePicture,
+                                assetImage:
+                                    state.currentUser?.profilePicture == null
+                                        ? PngAssets.womanAsset
+                                        : null,
+                              ),
                             ),
                             const SizedBox(width: 12),
                             Text(

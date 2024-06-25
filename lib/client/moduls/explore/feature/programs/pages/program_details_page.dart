@@ -30,7 +30,9 @@ class ProgramDetailsPage extends StatelessWidget {
       listener: (context, state) {
         if (state is FavoriteProgramSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(OriaSuccessSnackBar(
-            content: AppLocalizations.of(context)!.addedToFavorite,
+            content: state.selectedProgram?.isFavourite == true
+                ? AppLocalizations.of(context)!.addedToFavorite
+                : AppLocalizations.of(context)!.removeFromFavorite,
           ));
         } else if (state is ProgramsError) {
           ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
@@ -85,9 +87,8 @@ class ProgramDetailsPage extends StatelessWidget {
                                       child: OriaIconButton(
                                         url: programsState
                                                 .selectedProgram!.isFavourite
-                                            ? SvgAssets.favoriteAsset
-                                            : SvgAssets.notFavoriteAsset,
-                                        size: 20,
+                                            ? SvgAssets.heartFilledIcon
+                                            : SvgAssets.heartIcon,
                                         onPress: () {
                                           BlocProvider.of<ProgramsBloc>(
                                                   programBlocContext)

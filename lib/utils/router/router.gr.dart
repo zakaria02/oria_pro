@@ -76,13 +76,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ExpertDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<ExpertDetailsRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: ExpertDetailsPage(
-          key: args.key,
-          expert: args.expert,
-        ),
+        child: const ExpertDetailsPage(),
       );
     },
     ExpertFilterRoute.name: (routeData) {
@@ -520,40 +516,16 @@ class EditMySymptomsRouteArgs {
 
 /// generated route for
 /// [ExpertDetailsPage]
-class ExpertDetailsRoute extends PageRouteInfo<ExpertDetailsRouteArgs> {
-  ExpertDetailsRoute({
-    Key? key,
-    required Expert expert,
-    List<PageRouteInfo>? children,
-  }) : super(
+class ExpertDetailsRoute extends PageRouteInfo<void> {
+  const ExpertDetailsRoute({List<PageRouteInfo>? children})
+      : super(
           ExpertDetailsRoute.name,
-          args: ExpertDetailsRouteArgs(
-            key: key,
-            expert: expert,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'ExpertDetailsRoute';
 
-  static const PageInfo<ExpertDetailsRouteArgs> page =
-      PageInfo<ExpertDetailsRouteArgs>(name);
-}
-
-class ExpertDetailsRouteArgs {
-  const ExpertDetailsRouteArgs({
-    this.key,
-    required this.expert,
-  });
-
-  final Key? key;
-
-  final Expert expert;
-
-  @override
-  String toString() {
-    return 'ExpertDetailsRouteArgs{key: $key, expert: $expert}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -17,7 +17,7 @@ class CommentCard extends StatefulWidget {
     required this.onLike,
   });
   final Comment comment;
-  final Function(Comment) onReply;
+  final Function(Comment, String?) onReply;
   final bool isSub;
   final Function(Comment) onMore;
   final Function(Comment) onLike;
@@ -80,7 +80,7 @@ class _CommentCardState extends State<CommentCard> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          widget.onReply(widget.comment);
+                          widget.onReply(widget.comment, null);
                           context
                               .read<CommentVisibilityCubit>()
                               .setVisible(widget.comment);
@@ -145,7 +145,8 @@ class _CommentCardState extends State<CommentCard> {
                     ...widget.comment.subComments.map(
                       (comm) => CommentCard(
                         comment: comm,
-                        onReply: (subComment) => widget.onReply(widget.comment),
+                        onReply: (subComment, user) => widget.onReply(
+                            widget.comment, subComment.user.name),
                         isSub: true,
                         onMore: (subComment) => widget.onMore(subComment),
                         onLike: (subComment) => widget.onLike(subComment),

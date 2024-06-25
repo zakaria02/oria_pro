@@ -9,9 +9,14 @@ import 'favourite_card.dart';
 class FavouritesList extends StatelessWidget {
   final List<Favourite> items;
   final Function(Favourite) onRemove;
+  final VoidCallback refresh;
 
-  const FavouritesList(
-      {super.key, required this.items, required this.onRemove});
+  const FavouritesList({
+    super.key,
+    required this.items,
+    required this.onRemove,
+    required this.refresh,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +47,7 @@ class FavouritesList extends StatelessWidget {
       itemBuilder: (context, index) => FavouriteCard(
         favourite: items[index],
         onRemove: onRemove,
+        refresh: refresh,
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 8),
       itemCount: items.length,

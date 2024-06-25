@@ -16,9 +16,38 @@ import 'package:oria_pro/widgets/oria_snack_bar.dart';
 
 import '../bloc/forum_bloc.dart';
 
-class TopicPostsPage extends StatelessWidget {
+class TopicPostsPage extends StatefulWidget {
   const TopicPostsPage({super.key, required this.topic});
   final ForumTopic topic;
+
+  @override
+  State<TopicPostsPage> createState() => _TopicPostsPageState();
+}
+
+class _TopicPostsPageState extends State<TopicPostsPage> {
+  final ScrollController postsController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    postsController.addListener(() {
+      if (postsController.position.atEdge) {
+        if (postsController.position.pixels != 0) {
+          BlocProvider.of<ForumBloc>(context).add(
+            FetchTopicPosts(
+              topic: widget.topic,
+            ),
+          );
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    postsController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +66,7 @@ class TopicPostsPage extends StatelessWidget {
               }
               if (state is TopicPostsSuccess) {
                 BlocProvider.of<PostFilterCubit>(context).addFilter(
-                  FilterType.mostRecent,
+                  BlocProvider.of<PostFilterCubit>(context).state.filter,
                   state.posts,
                 );
               }
@@ -47,7 +76,7 @@ class TopicPostsPage extends StatelessWidget {
                 appBarData: AppBarData(
                   firstButtonUrl: SvgAssets.backAsset,
                   onFirstButtonPress: () => context.maybePop(),
-                  title: topic.title,
+                  title: widget.topic.title,
                   lastButtonUrl: SvgAssets.addIcon,
                   onLastButtonPress: () {
                     Navigator.push(
@@ -58,110 +87,107 @@ class TopicPostsPage extends StatelessWidget {
                               value: BlocProvider.of<ForumBloc>(
                                 blocContext,
                               ),
-                              child: AddTopicPostPage(topic: topic));
+                              child: AddTopicPostPage(topic: widget.topic));
                         },
                       ),
                     );
                   },
                 ),
-                body: state is TopicPostsLoading
-                    ? const OriaLoadingProgress()
-                    : Expanded(
-                        child: Column(
-                          children: [
-                            if (state is DeletePostLoading)
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 20),
-                                child: OriaLoadingProgress(),
-                              ),
-                            Row(
-                              children: [
-                                PostFilter(
-                                  title: AppLocalizations.of(context)!.my,
-                                  onPress: () {
-                                    BlocProvider.of<PostFilterCubit>(context)
-                                        .addFilter(
-                                      FilterType.my,
-                                      state.posts,
-                                    );
-                                  },
-                                  selected: filterState.filter == FilterType.my,
-                                ),
-                                const SizedBox(width: 8),
-                                PostFilter(
-                                  title: AppLocalizations.of(context)!.top,
-                                  onPress: () {
-                                    BlocProvider.of<PostFilterCubit>(context)
-                                        .addFilter(
-                                      FilterType.top,
-                                      state.posts,
-                                    );
-                                  },
-                                  selected:
-                                      filterState.filter == FilterType.top,
-                                ),
-                                const SizedBox(width: 8),
-                                PostFilter(
-                                  title:
-                                      AppLocalizations.of(context)!.mostRecent,
-                                  onPress: () {
-                                    BlocProvider.of<PostFilterCubit>(context)
-                                        .addFilter(
-                                      FilterType.mostRecent,
-                                      state.posts,
-                                    );
-                                  },
-                                  selected: filterState.filter ==
-                                      FilterType.mostRecent,
-                                ),
-                                const SizedBox(width: 8),
-                              ],
-                            ),
-                            const SizedBox(height: 24),
-                            Expanded(
-                              child: ListView.separated(
-                                itemBuilder: (context, index) =>
-                                    GestureDetector(
-                                  onTap: () {
-                                    BlocProvider.of<ForumBloc>(context).add(
-                                        FetchPostDetails(
-                                            post: filterState.posts[index]));
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return BlocProvider.value(
-                                            value: BlocProvider.of<ForumBloc>(
-                                              blocContext,
-                                            ),
-                                            child: PostDetailsPage(
-                                              topic: topic,
-                                            ),
-                                          );
-                                        },
+                body: Expanded(
+                  child: Column(
+                    children: [
+                      if (state is DeletePostLoading ||
+                          state is TopicPostsLoading)
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: OriaLoadingProgress(),
+                        ),
+                      Row(
+                        children: [
+                          PostFilter(
+                            title: AppLocalizations.of(context)!.my,
+                            onPress: () {
+                              BlocProvider.of<PostFilterCubit>(context)
+                                  .addFilter(
+                                FilterType.my,
+                                state.posts,
+                              );
+                            },
+                            selected: filterState.filter == FilterType.my,
+                          ),
+                          const SizedBox(width: 8),
+                          PostFilter(
+                            title: AppLocalizations.of(context)!.top,
+                            onPress: () {
+                              BlocProvider.of<PostFilterCubit>(context)
+                                  .addFilter(
+                                FilterType.top,
+                                state.posts,
+                              );
+                            },
+                            selected: filterState.filter == FilterType.top,
+                          ),
+                          const SizedBox(width: 8),
+                          PostFilter(
+                            title: AppLocalizations.of(context)!.mostRecent,
+                            onPress: () {
+                              BlocProvider.of<PostFilterCubit>(context)
+                                  .addFilter(
+                                FilterType.mostRecent,
+                                state.posts,
+                              );
+                            },
+                            selected:
+                                filterState.filter == FilterType.mostRecent,
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      Expanded(
+                        child: ListView.separated(
+                          controller: postsController,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<ForumBloc>(context).add(
+                                  FetchPostDetails(
+                                      postId: filterState.posts[index].id));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return BlocProvider.value(
+                                      value: BlocProvider.of<ForumBloc>(
+                                        blocContext,
+                                      ),
+                                      child: PostDetailsPage(
+                                        topic: widget.topic,
                                       ),
                                     );
                                   },
-                                  child: PostCard(
-                                    post: filterState.posts[index],
-                                    onDelete: () {
-                                      BlocProvider.of<ForumBloc>(context).add(
-                                        DeletePost(
-                                          topic: topic,
-                                          post: filterState.posts[index],
-                                        ),
-                                      );
-                                    },
-                                  ),
                                 ),
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(height: 12),
-                                itemCount: filterState.posts.length,
-                              ),
-                            )
-                          ],
+                              );
+                            },
+                            child: PostCard(
+                              post: filterState.posts[index],
+                              onDelete: () {
+                                BlocProvider.of<ForumBloc>(context).add(
+                                  DeletePost(
+                                    topic: widget.topic,
+                                    post: filterState.posts[index],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 12),
+                          itemCount: filterState.posts.length,
                         ),
-                      ),
+                      )
+                    ],
+                  ),
+                ),
               );
             },
           );

@@ -23,9 +23,9 @@ class ExpertDetailedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<ExpertBloc>(context)
-            .add(FetchExpertReviews(expertId: expert.id));
         BlocProvider.of<ExpertBloc>(context).add(FetchMedicalInfo());
+        BlocProvider.of<ExpertBloc>(context)
+            .add(FetchExpert(expertId: expert.id));
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -34,9 +34,7 @@ class ExpertDetailedCard extends StatelessWidget {
                 value: BlocProvider.of<ExpertBloc>(
                   context,
                 ),
-                child: ExpertDetailsPage(
-                  expert: expert,
-                ),
+                child: const ExpertDetailsPage(),
               );
             },
           ),

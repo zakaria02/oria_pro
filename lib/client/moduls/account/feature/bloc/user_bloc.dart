@@ -210,6 +210,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         List<Favourite> updatedFavs = switch (state.ressourceType) {
           FavouriteRessourceType.post => (await repository.postFavourites())
               .map((fav) => fav.toFavourite())
+              .nonNulls
               .toList(),
           FavouriteRessourceType.article =>
             (await repository.articleFavourites())

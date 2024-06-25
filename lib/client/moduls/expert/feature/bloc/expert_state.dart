@@ -8,6 +8,7 @@ sealed class ExpertState extends Equatable {
     required this.specialtyExperts,
     required this.reviews,
     required this.hasMedicalInfo,
+    required this.selectedExpert,
   });
   final List<Specialty> specialties;
   final List<Expert> recommendedExperts;
@@ -15,6 +16,7 @@ sealed class ExpertState extends Equatable {
   final List<Expert> specialtyExperts;
   final List<Review> reviews;
   final bool? hasMedicalInfo;
+  final Expert? selectedExpert;
 
   @override
   List<Object?> get props => [
@@ -24,6 +26,7 @@ sealed class ExpertState extends Equatable {
         specialtyExperts,
         reviews,
         hasMedicalInfo,
+        selectedExpert,
       ];
 }
 
@@ -36,6 +39,7 @@ final class ExpertInitial extends ExpertState {
           specialtyExperts: const [],
           reviews: const [],
           hasMedicalInfo: null,
+          selectedExpert: null,
         );
 }
 
@@ -47,6 +51,7 @@ final class HomeDataLoading extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
@@ -58,6 +63,7 @@ final class HomeDataSuccess extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
@@ -69,6 +75,7 @@ final class SpecialityExpertLoading extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
@@ -80,28 +87,31 @@ final class SpecialityExpertSuccess extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
-final class ExpertReviewsLoading extends ExpertState {
-  const ExpertReviewsLoading({
+final class ExpertDetailsLoading extends ExpertState {
+  const ExpertDetailsLoading({
     required super.specialties,
     required super.bestRatedExperts,
     required super.recommendedExperts,
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
-final class ExpertReviewsSuccess extends ExpertState {
-  const ExpertReviewsSuccess({
+final class ExpertDetailsSuccess extends ExpertState {
+  const ExpertDetailsSuccess({
     required super.specialties,
     required super.bestRatedExperts,
     required super.recommendedExperts,
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
@@ -113,6 +123,7 @@ final class HasMedicalInfoLoading extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
@@ -124,6 +135,7 @@ final class HasMedicalInfoSuccess extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
@@ -135,6 +147,7 @@ final class ExpertFavouriteSuccess extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
   });
 }
 
@@ -147,6 +160,7 @@ final class ExpertError extends ExpertState {
     required super.specialtyExperts,
     required super.reviews,
     required super.hasMedicalInfo,
+    required super.selectedExpert,
     required this.errorMessage,
   });
 }

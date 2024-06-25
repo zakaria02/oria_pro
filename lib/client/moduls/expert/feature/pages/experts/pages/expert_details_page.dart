@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oria_pro/client/moduls/expert/feature/entity/expert.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/experts/widgets/make_expert_appointment_card.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/experts/widgets/patient_feedback.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
@@ -19,10 +18,7 @@ import '../../../bloc/expert_bloc.dart';
 class ExpertDetailsPage extends StatefulWidget {
   const ExpertDetailsPage({
     super.key,
-    required this.expert,
   });
-
-  final Expert expert;
 
   @override
   State<ExpertDetailsPage> createState() => _ExpertDetailsPageState();
@@ -34,9 +30,11 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<ExpertBloc, ExpertState>(
       listener: (context, state) {
-        if (state is ExpertFavouriteSuccess) {
+        if (state is ExpertFavouriteSuccess && state.selectedExpert != null) {
           ScaffoldMessenger.of(context).showSnackBar(OriaSuccessSnackBar(
-            content: AppLocalizations.of(context)!.addedToFavorite,
+            content: state.selectedExpert!.isFavourite
+                ? AppLocalizations.of(context)!.addedToFavorite
+                : AppLocalizations.of(context)!.removeFromFavorite,
           ));
         } else if (state is ExpertError) {
           ScaffoldMessenger.of(context)
@@ -51,16 +49,16 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
             title: AppLocalizations.of(context)!.specialist,
           ),
           bottomBarPadding: EdgeInsets.zero,
-          body: state is ExpertReviewsLoading
+          body: state is ExpertDetailsLoading || state.selectedExpert == null
               ? const OriaLoadingProgress()
               : Expanded(
                   child: ListView(
                     children: [
                       MakeExpertAppointmentCard(
-                        expert: widget.expert,
+                        expert: state.selectedExpert!,
                         hasMedicalInfo: state.hasMedicalInfo,
                       ),
-                      if (widget.expert.bio != null) ...[
+                      if (state.selectedExpert!.bio != null) ...[
                         const SizedBox(height: 22),
                         OriaCard(
                           borderColor: OriaColors.iconButtonBackgound,
@@ -68,7 +66,7 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${AppLocalizations.of(context)!.about} Dr. ${widget.expert.firstName} ${widget.expert.lastName}",
+                                "${AppLocalizations.of(context)!.about} Dr. ${state.selectedExpert!.firstName} ${state.selectedExpert!.lastName}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelLarge
@@ -78,7 +76,7 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
                               ),
                               const SizedBox(height: 12),
                               Text(
-                                widget.expert.bio!,
+                                state.selectedExpert!.bio!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -89,7 +87,8 @@ class _ExpertDetailsPageState extends State<ExpertDetailsPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Visibility(
-                                visible: widget.expert.bio!.length >= 222,
+                                visible:
+                                    state.selectedExpert!.bio!.length >= 222,
                                 child: GestureDetector(
                                   onTap: () {
                                     setState(() {

@@ -11,14 +11,15 @@ final class FetchTopics extends ForumEvent {}
 
 final class FetchTopicPosts extends ForumEvent {
   final ForumTopic topic;
+  final bool reset;
 
-  const FetchTopicPosts({required this.topic});
+  const FetchTopicPosts({required this.topic, this.reset = false,});
 }
 
 final class FetchPostDetails extends ForumEvent {
-  final TopicPost post;
+  final String postId;
 
-  const FetchPostDetails({required this.post});
+  const FetchPostDetails({required this.postId});
 }
 
 final class AddPost extends ForumEvent {
@@ -62,7 +63,7 @@ final class UpdatePost extends ForumEvent {
 }
 
 final class AddComment extends ForumEvent {
-  final ForumTopic topic;
+  final ForumTopic? topic;
   final TopicPost post;
   final String comment;
   final String? parentId;
@@ -86,15 +87,17 @@ final class UpdateComment extends ForumEvent {
 }
 
 final class DeleteComment extends ForumEvent {
+  final ForumTopic? topic;
   final Comment comment;
 
   const DeleteComment({
     required this.comment,
+    required this.topic,
   });
 }
 
 final class LikePost extends ForumEvent {
-  final ForumTopic topic;
+  final ForumTopic? topic;
   final TopicPost post;
 
   const LikePost({
@@ -104,7 +107,7 @@ final class LikePost extends ForumEvent {
 }
 
 final class LikeComment extends ForumEvent {
-  final ForumTopic topic;
+  final ForumTopic? topic;
   final Comment comment;
 
   const LikeComment({

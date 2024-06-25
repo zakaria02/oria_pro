@@ -7,6 +7,8 @@ sealed class ForumState extends Equatable {
     required this.post,
     required this.posts,
     required this.comments,
+    required this.currentPage,
+    required this.hasOtherPages,
   });
 
   final List<ForumTopic> otherTopics;
@@ -14,10 +16,19 @@ sealed class ForumState extends Equatable {
   final List<TopicPost> posts;
   final TopicPost? post;
   final List<Comment> comments;
+  final int currentPage;
+  final bool hasOtherPages;
 
   @override
-  List<Object?> get props =>
-      [otherTopics, recommondedTopics, post, posts, comments];
+  List<Object?> get props => [
+        otherTopics,
+        recommondedTopics,
+        post,
+        posts,
+        comments,
+        currentPage,
+        hasOtherPages
+      ];
 }
 
 final class ForumInitial extends ForumState {
@@ -28,6 +39,8 @@ final class ForumInitial extends ForumState {
           post: null,
           posts: const [],
           comments: const [],
+          currentPage: 1,
+          hasOtherPages: true,
         );
 }
 
@@ -38,6 +51,8 @@ final class ForumTopicsLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -48,6 +63,8 @@ final class ForumTopicsSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -58,6 +75,8 @@ final class TopicPostsLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -68,6 +87,8 @@ final class TopicPostsSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -78,6 +99,8 @@ final class TopicPostDetailsLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -88,6 +111,8 @@ final class TopicPostDetailsSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -98,6 +123,8 @@ final class AddPostLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -108,6 +135,8 @@ final class AddPostSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -118,6 +147,8 @@ final class UpdatePostLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -128,6 +159,8 @@ final class UpdatePostSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -138,6 +171,8 @@ final class DeletePostLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -148,6 +183,8 @@ final class DeletePostSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -158,6 +195,8 @@ final class CommentLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -168,6 +207,8 @@ final class CommentSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -178,6 +219,8 @@ final class LikeLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -188,6 +231,8 @@ final class LikeSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -198,6 +243,8 @@ final class FavoriteLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -208,6 +255,8 @@ final class FavoriteSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -218,6 +267,8 @@ final class ComplainLoading extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -228,6 +279,8 @@ final class ComplainSuccess extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
   });
 }
 
@@ -239,6 +292,8 @@ final class ForumError extends ForumState {
     required super.post,
     required super.posts,
     required super.comments,
+    required super.currentPage,
+    required super.hasOtherPages,
     required this.errorMessage,
   });
 }

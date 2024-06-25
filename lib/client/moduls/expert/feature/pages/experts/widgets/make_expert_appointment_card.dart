@@ -234,9 +234,8 @@ class MakeExpertAppointmentCard extends StatelessWidget {
                 child: OriaIconButton(
                   backgroundColor: Colors.white,
                   url: expert.isFavourite
-                      ? SvgAssets.favoriteAsset
-                      : SvgAssets.notFavoriteAsset,
-                  size: 20,
+                      ? SvgAssets.heartFilledIcon
+                      : SvgAssets.heartIcon,
                   onPress: () {
                     BlocProvider.of<ExpertBloc>(context)
                         .add(UpdateFavorite(expert: expert));

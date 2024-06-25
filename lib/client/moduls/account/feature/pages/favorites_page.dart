@@ -92,6 +92,11 @@ class FavoritesPage extends StatelessWidget {
                                     ressourceType: fav.resourceType),
                               );
                             },
+                            refresh: () {
+                              BlocProvider.of<UserBloc>(userContext).add(
+                                  const FetchFavourite(
+                                      type: FavouriteRessourceType.article));
+                            },
                             items: userState.articleFavourites),
                         FavouriteRessourceType.expert => FavouritesList(
                             onRemove: (fav) {
@@ -100,6 +105,11 @@ class FavoritesPage extends StatelessWidget {
                                     ressourceId: fav.resourceId,
                                     ressourceType: fav.resourceType),
                               );
+                            },
+                            refresh: () {
+                              BlocProvider.of<UserBloc>(userContext).add(
+                                  const FetchFavourite(
+                                      type: FavouriteRessourceType.expert));
                             },
                             items: userState.expertFavourites),
                         FavouriteRessourceType.program => FavouritesList(
@@ -110,6 +120,11 @@ class FavoritesPage extends StatelessWidget {
                                     ressourceType: fav.resourceType),
                               );
                             },
+                            refresh: () {
+                              BlocProvider.of<UserBloc>(userContext).add(
+                                  const FetchFavourite(
+                                      type: FavouriteRessourceType.program));
+                            },
                             items: userState.programFavourites),
                         FavouriteRessourceType.post => FavouritesList(
                             onRemove: (fav) {
@@ -118,6 +133,11 @@ class FavoritesPage extends StatelessWidget {
                                     ressourceId: fav.resourceId,
                                     ressourceType: fav.resourceType),
                               );
+                            },
+                            refresh: () {
+                              BlocProvider.of<UserBloc>(userContext).add(
+                                  const FetchFavourite(
+                                      type: FavouriteRessourceType.post));
                             },
                             items: userState.postFavourites),
                       },
