@@ -113,6 +113,16 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    ForgotPasswordEmailRoute.name: (routeData) {
+      final args = routeData.argsAs<ForgotPasswordEmailRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ForgotPasswordEmailPage(
+          key: args.key,
+          email: args.email,
+        ),
+      );
+    },
     ForgotPasswordRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -149,6 +159,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MedicalInfoPage(),
+      );
+    },
+    NewPasswordRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NewPasswordPage(),
       );
     },
     OnBoardingStepsRoute.name: (routeData) {
@@ -260,6 +276,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const UpdateMyInfoPage(),
+      );
+    },
+    UpdatePasswordRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const UpdatePasswordPage(),
       );
     },
     UpdatePrimarySymptomRoute.name: (routeData) {
@@ -649,6 +671,45 @@ class FindSpecialistRouteArgs {
 }
 
 /// generated route for
+/// [ForgotPasswordEmailPage]
+class ForgotPasswordEmailRoute
+    extends PageRouteInfo<ForgotPasswordEmailRouteArgs> {
+  ForgotPasswordEmailRoute({
+    Key? key,
+    required String email,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ForgotPasswordEmailRoute.name,
+          args: ForgotPasswordEmailRouteArgs(
+            key: key,
+            email: email,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ForgotPasswordEmailRoute';
+
+  static const PageInfo<ForgotPasswordEmailRouteArgs> page =
+      PageInfo<ForgotPasswordEmailRouteArgs>(name);
+}
+
+class ForgotPasswordEmailRouteArgs {
+  const ForgotPasswordEmailRouteArgs({
+    this.key,
+    required this.email,
+  });
+
+  final Key? key;
+
+  final String email;
+
+  @override
+  String toString() {
+    return 'ForgotPasswordEmailRouteArgs{key: $key, email: $email}';
+  }
+}
+
+/// generated route for
 /// [ForgotPasswordPage]
 class ForgotPasswordRoute extends PageRouteInfo<void> {
   const ForgotPasswordRoute({List<PageRouteInfo>? children})
@@ -763,6 +824,20 @@ class MedicalInfoRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MedicalInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NewPasswordPage]
+class NewPasswordRoute extends PageRouteInfo<void> {
+  const NewPasswordRoute({List<PageRouteInfo>? children})
+      : super(
+          NewPasswordRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NewPasswordRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -1158,6 +1233,20 @@ class UpdateMyInfoRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'UpdateMyInfoRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [UpdatePasswordPage]
+class UpdatePasswordRoute extends PageRouteInfo<void> {
+  const UpdatePasswordRoute({List<PageRouteInfo>? children})
+      : super(
+          UpdatePasswordRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdatePasswordRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

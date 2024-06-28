@@ -8,11 +8,13 @@ sealed class SymptomState extends Equatable {
     required this.symptomPrograms,
     required this.symptomArticles,
     required this.userSymptoms,
+    required this.symptomForum,
   });
   final List<SymptomInfo> symptoms;
   final SymptomInfo? selectedSymptom;
   final List<SymptomInfo> secondarySymptoms;
   final List<Program> symptomPrograms;
+  final ForumTopic? symptomForum;
   final List<SymptomArticle> symptomArticles;
   final List<Symptom> userSymptoms;
 
@@ -30,6 +32,7 @@ final class SymptomInitial extends SymptomState {
           symptomPrograms: const [],
           symptomArticles: const [],
           userSymptoms: const [],
+          symptomForum: null,
         );
 }
 
@@ -41,6 +44,7 @@ final class SymptomLoading extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -52,6 +56,7 @@ final class SymptomSuccess extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -63,6 +68,7 @@ final class UserSymptomsLoading extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -74,6 +80,7 @@ final class UserSymptomsSuccess extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -85,6 +92,7 @@ final class AddSymptomLoading extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -96,6 +104,7 @@ final class AddSymptomSuccess extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -107,6 +116,7 @@ final class SymptomDataLoading extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -118,6 +128,7 @@ final class SymptomDataSuccess extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -129,6 +140,7 @@ final class UpdateSymptomsLoading extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -140,6 +152,7 @@ final class UpdateSymptomsSuccess extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }
 
@@ -154,5 +167,6 @@ final class SymptomError extends SymptomState {
     required super.symptomPrograms,
     required super.symptomArticles,
     required super.userSymptoms,
+    required super.symptomForum,
   });
 }

@@ -48,42 +48,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:793225857832:android:848c84a731e15a9e519e1d",
-        "android_client_info": {
-          "package_name": "com.example.oria_pro"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "793225857832-2hbfhove3i3mpqustmv0pp4f8kv3hb08.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDYP7CCaWIQqF28iMfkOmQL7OeLLsHGP14"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "793225857832-2hbfhove3i3mpqustmv0pp4f8kv3hb08.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "793225857832-sfghlhm0ij964rj4g6rmsgbkijdn1ejl.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "client.oria.app"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

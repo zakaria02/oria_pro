@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oria_pro/client/moduls/account/feature/pages/update_password_page.dart';
 import 'package:oria_pro/client/moduls/account/feature/widgets/account_param.dart';
 import 'package:oria_pro/client/moduls/account/feature/widgets/user_image.dart';
 import 'package:oria_pro/common/auth/business/email_password/locator/email_password_locator.dart';
@@ -110,6 +111,26 @@ class AccountView extends StatelessWidget {
               const SizedBox(height: 8),
               AccountParam(
                 onlyTopRaduis: true,
+                image: SvgAssets.passwordIcon,
+                title: AppLocalizations.of(context)!.password,
+                onPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return BlocProvider.value(
+                            value: BlocProvider.of<UserBloc>(
+                              userBlocContext,
+                            ),
+                            child: const UpdatePasswordPage());
+                      },
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 1),
+              AccountParam(
+                noRaduis: true,
                 image: SvgAssets.crossHairIcon,
                 title: AppLocalizations.of(context)!.mySymptoms,
                 onPress: () => context.pushRoute(

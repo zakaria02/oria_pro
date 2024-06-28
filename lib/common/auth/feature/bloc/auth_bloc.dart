@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../business/email_password/locator/email_password_locator.dart';
+import '../../business/other_methods/locator/other_methods_locator.dart';
 import '../../business/other_methods/repository/other_methods_repository.dart';
 import '../usecase/login_use_case.dart';
 import '../usecase/signup_use_case.dart';
@@ -23,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<GoogleLogin>((event, emit) async {
-      OtherMethodsRepository repository = EmailPasswordAuthLocator().get();
+      OtherMethodsRepository repository = OtherMethodsLocator().get();
       emit(AuthLoading());
       try {
         await repository.signInWithGoogle();
@@ -34,7 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<FacebookLogin>((event, emit) async {
-      OtherMethodsRepository repository = EmailPasswordAuthLocator().get();
+      OtherMethodsRepository repository = OtherMethodsLocator().get();
       emit(AuthLoading());
       try {
         await repository.signInWithFacebook();

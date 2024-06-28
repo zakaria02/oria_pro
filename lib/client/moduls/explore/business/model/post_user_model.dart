@@ -10,11 +10,13 @@ class PostUserModel {
   final String? profilePicture;
   final String name;
   final String id;
+  final String role;
 
   const PostUserModel({
     required this.profilePicture,
     required this.name,
     required this.id,
+    required this.role,
   });
 
   factory PostUserModel.fromJson(Map<String, dynamic> json) =>
@@ -31,5 +33,6 @@ extension PostUserModelMapper on PostUserModel {
                 : "${OriaLinks.stagingProfileAssetsBaseUrl}/$profilePicture",
         name: name,
         id: id,
+        isExpert: role == "expert",
       );
 }

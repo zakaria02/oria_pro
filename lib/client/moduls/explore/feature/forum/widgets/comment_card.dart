@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:oria_pro/client/moduls/account/feature/widgets/user_image.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/comment.dart';
 import 'package:oria_pro/client/moduls/explore/feature/forum/cubit/comment_visibility_cubit.dart';
+import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -59,6 +60,18 @@ class _CommentCardState extends State<CommentCard> {
                           widget.comment.user.name,
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
+                        const SizedBox(width: 8),
+                        if (widget.comment.user.isExpert)
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: OriaColors.iconButtonBackgound,
+                                borderRadius: BorderRadius.circular(52)),
+                            child: Text(
+                              AppLocalizations.of(context)!.expert,
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ),
                         const Spacer(),
                         GestureDetector(
                           onTap: () => widget.onMore(widget.comment),

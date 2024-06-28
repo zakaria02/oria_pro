@@ -6,6 +6,7 @@ import '../../client/client_app_page.dart';
 import '../../client/moduls/account/feature/pages/favorites_page.dart';
 import '../../client/moduls/account/feature/pages/medical_info_page.dart';
 import '../../client/moduls/account/feature/pages/update_my_info_page.dart';
+import '../../client/moduls/account/feature/pages/update_password_page.dart';
 import '../../client/moduls/expert/feature/entity/city.dart';
 import '../../client/moduls/expert/feature/entity/expert.dart';
 import '../../client/moduls/expert/feature/entity/province.dart';
@@ -29,8 +30,10 @@ import '../../client/moduls/home/feature/symptoms_list_page.dart';
 import '../../common/app_orchestrator/app_orchestrator.dart';
 import '../../common/auth/feature/entity/onbaording_step.dart';
 import '../../common/auth/feature/pages/create_account_page.dart';
+import '../../common/auth/feature/pages/forgot_password_email_page.dart';
 import '../../common/auth/feature/pages/forgot_password_page.dart';
 import '../../common/auth/feature/pages/login_page.dart';
+import '../../common/auth/feature/pages/new_password_page.dart';
 import '../../common/onboarding/feature/cubit/onboarding_steps_cubit.dart';
 import '../../common/onboarding/feature/pages/on_boarding_steps_page.dart';
 import '../../common/email_verification/feature/verify_email_page.dart';
@@ -82,10 +85,13 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: UpdateMyInfoRoute.page),
     AutoRoute(page: MedicalInfoRoute.page),
     AutoRoute(page: FavoritesRoute.page),
+    AutoRoute(page: UpdatePasswordRoute.page),
     // Common routes
     AutoRoute(page: EditMySymptomsRoute.page),
     AutoRoute(page: UpdatePrimarySymptomRoute.page),
-    AutoRoute(page: UpdateSecondarySymptomsRoute.page)
+    AutoRoute(page: UpdateSecondarySymptomsRoute.page),
+    AutoRoute(page: ForgotPasswordEmailRoute.page),
+    AutoRoute(page: NewPasswordRoute.page),
   ];
 
   final List<AutoRoute> _symptomRoutes = [];

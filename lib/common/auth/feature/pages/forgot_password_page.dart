@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:oria_pro/utils/router/router.dart';
 
 import '../../../../utils/constants/oria_colors.dart';
 import '../../../../utils/constants/svg_assets.dart';
@@ -93,8 +95,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               height: 36,
             ),
             OriaRoundedButton(
-              onPress: () {},
+              onPress: () {
+                if (_email.isNotEmpty && EmailValidator.validate(_email)) {
+                  context.pushRoute(ForgotPasswordEmailRoute(email: _email));
+                }
+              },
               text: AppLocalizations.of(context)!.sendEmail,
+              disabled: _email.isEmpty || !EmailValidator.validate(_email),
             ),
           ],
         ),

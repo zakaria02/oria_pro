@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/explore_symptom_article_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/explore_symptom_program_model.dart';
+import 'package:oria_pro/client/moduls/explore/business/model/forum_topic_model.dart';
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/learning_content.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/program.dart';
@@ -9,6 +10,7 @@ import 'package:oria_pro/common/symptoms/business/model/user_symptom_model.dart'
 import 'package:oria_pro/common/symptoms/business/model/user_symptom_request_model.dart';
 import 'package:oria_pro/common/symptoms/feature/usecase/set_todays_actions_program_use_case.dart';
 
+import '../../../../client/moduls/explore/feature/entity/forum_topic.dart';
 import '../../business/locator/symptom_locator.dart';
 import '../../business/model/symptom_info_model.dart';
 import '../../business/repository/symptom_repository.dart';
@@ -30,6 +32,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ),
       );
       try {
@@ -42,6 +45,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
       } catch (e) {
@@ -53,6 +57,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ));
       }
     });
@@ -65,6 +70,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
         symptomPrograms: state.symptomPrograms,
         symptomArticles: state.symptomArticles,
         userSymptoms: state.userSymptoms,
+        symptomForum: state.symptomForum,
       ));
     });
 
@@ -77,6 +83,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ),
       );
       List<SymptomInfo> secSymptoms = List.from(state.secondarySymptoms);
@@ -93,6 +100,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ),
       );
     });
@@ -107,6 +115,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
         SymptomRepository repository = SymptomLocator().get();
@@ -124,6 +133,8 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
                 .map((ar) => ar.toArticleUio())
                 .toList(),
             userSymptoms: state.userSymptoms,
+            symptomForum:
+                symptomContent.results.relatedForumTopic?.toForumTopic(),
           ),
         );
       } catch (e) {
@@ -135,6 +146,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ));
       }
     });
@@ -149,6 +161,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
         SymptomRepository repository = SymptomLocator().get();
@@ -162,6 +175,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
                 programs.map((program) => program.toProgram()).toList(),
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
       } catch (e) {
@@ -173,6 +187,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ));
       }
     });
@@ -187,6 +202,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
         SymptomRepository repository = SymptomLocator().get();
@@ -199,6 +215,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: symptoms.map((sym) => sym.toSymptom()).toList(),
+            symptomForum: state.symptomForum,
           ),
         );
       } catch (e) {
@@ -210,6 +227,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ));
       }
     });
@@ -224,6 +242,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
         SymptomRepository repository = SymptomLocator().get();
@@ -239,6 +258,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
       } catch (e) {
@@ -250,6 +270,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ));
       }
     });
@@ -264,6 +285,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
         SetTodaysActionsProgramUseCase useCase = SymptomLocator().get();
@@ -276,6 +298,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
       } catch (e) {
@@ -287,6 +310,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ));
       }
     });
@@ -301,6 +325,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
         SymptomRepository repository = SymptomLocator().get();
@@ -319,6 +344,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomPrograms: state.symptomPrograms,
             symptomArticles: state.symptomArticles,
             userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
           ),
         );
       } catch (e) {
@@ -330,6 +356,7 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
           symptomPrograms: state.symptomPrograms,
           symptomArticles: state.symptomArticles,
           userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
         ));
       }
     });

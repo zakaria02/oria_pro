@@ -1,12 +1,12 @@
 import 'package:get_it/get_it.dart';
 import 'package:oria_pro/client/moduls/explore/business/di/explore_locator.dart';
+import 'package:oria_pro/common/auth/business/other_methods/locator/other_methods_locator.dart';
 import 'package:oria_pro/common/email_verification/business/locator/email_verification_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../client/moduls/account/business/locator/account_locator.dart';
 import '../../client/moduls/expert/business/locator/expert_locator.dart';
 import '../../client/moduls/home/business/locator/home_locator.dart';
 import '../../client/moduls/tracker/business/locator/tracker_locator.dart';
-import '../../common/auth/business/other_methods/repository/other_methods_repository.dart';
 import '../../common/favourites/locator/favourite_locator.dart';
 import '../../common/onboarding/business/locator/onboarding_lcoator.dart';
 import '../router/router.dart';
@@ -38,9 +38,6 @@ class AppLocator extends AbstractLocator {
     HomeLocator().setUp(serviceLocator);
     SymptomTrackerLocator().setUp(serviceLocator);
     FavouriteLocator().setUp(serviceLocator);
-    /*serviceLocator.registerLazySingleton<OtherMethodsService>(
-        () => OtherMethodsService(DioBuilder.createDio()));*/
-    serviceLocator.registerLazySingleton<OtherMethodsRepository>(
-        () => OtherMethodsRepositoryImpl());
+    OtherMethodsLocator().setUp(serviceLocator);
   }
 }

@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/learning_content.dart';
+import 'package:oria_pro/client/moduls/explore/feature/forum/bloc/forum_bloc.dart';
+import 'package:oria_pro/client/moduls/explore/feature/forum/pages/topic_posts_page.dart';
 import 'package:oria_pro/client/moduls/explore/feature/learning/bloc/article_content_bloc.dart';
 import 'package:oria_pro/client/moduls/explore/feature/widget/content_view.dart';
 import 'package:oria_pro/common/symptoms/feature/entity/symptom.dart';
@@ -36,7 +38,10 @@ class SymptomDataPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ArticleContentBloc(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => ForumBloc(),
+        ),
       ],
       child: OriaScaffold(
         appBarData: AppBarData(
@@ -102,7 +107,6 @@ class SymptomDataPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(height: 16),
                   ],
                   if (state.symptomArticles.isNotEmpty) ...[
                     Text(
@@ -147,6 +151,82 @@ class SymptomDataPage extends StatelessWidget {
                           );
                         },
                       ),
+                    ),
+                  ],
+                  if (state.symptomForum != null) ...[
+                    Text(
+                      AppLocalizations.of(context)!.topicFor(
+                        symptom.name,
+                      ),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 16),
+                    BlocBuilder<ForumBloc, ForumState>(
+                      builder: (forumContext, forumState) {
+                        return GestureDetector(
+                          onTap: () {
+                            BlocProvider.of<ForumBloc>(forumContext).add(
+                                FetchTopicPosts(topic: state.symptomForum!));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return BlocProvider.value(
+                                      value: BlocProvider.of<ForumBloc>(
+                                        forumContext,
+                                      ),
+                                      child: TopicPostsPage(
+                                          topic: state.symptomForum!));
+                                },
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: SizedBox(
+                              width: 250,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    width: 250,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          state.symptomForum!.thumbnail,
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.13),
+                                          blurRadius: 4,
+                                          offset: const Offset(0.0, 4),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8, bottom: 4),
+                                    child: Text(
+                                      state.symptomForum!.title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ],

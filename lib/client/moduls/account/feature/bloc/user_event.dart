@@ -29,6 +29,14 @@ final class UpdateUser extends UserEvent {
   });
 }
 
+final class UpdatePassword extends UserEvent {
+  final String password;
+
+  const UpdatePassword({
+    required this.password,
+  });
+}
+
 final class FetchFavourite extends UserEvent {
   final FavouriteRessourceType type;
 

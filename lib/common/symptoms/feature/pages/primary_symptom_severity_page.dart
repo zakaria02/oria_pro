@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,15 +53,15 @@ class _PrimarySymptomSeverityPageState
   @override
   Widget build(BuildContext context) {
     final router = context.router;
-    if (widget.onboardingStepsCubit.state.currentIndex == 2) {
-      selectedSeverity = null;
-    }
     return OriaScaffold(
       appBarData: AppBarData(
         firstButtonUrl: widget.onboardingStepsCubit.state.currentIndex != 0
             ? SvgAssets.backAsset
             : null,
-        onFirstButtonPress: () => widget.onboardingStepsCubit.maybePop(),
+        onFirstButtonPress: () {
+          widget.onboardingStepsCubit.maybePop();
+          selectedSeverity = null;
+        },
         title: AppLocalizations.of(context)!.rateSymptom,
       ),
       body: Expanded(
@@ -133,6 +135,7 @@ class _PrimarySymptomSeverityPageState
                     severity: index,
                     onPress: (severity) => setState(() {
                       selectedSeverity = severity;
+                      log("severity: $selectedSeverity");
                     }),
                     selected: index == selectedSeverity,
                   ),

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:oria_pro/common/auth/business/email_password/model/token_model.dart';
 
 import 'user_model.dart';
 import 'user_response_model.dart';
@@ -20,35 +21,6 @@ class AuthResponseModel {
   factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>
       _$AuthResponseModelFromJson(json);
   Map<String, dynamic> toJson() => _$AuthResponseModelToJson(this);
-}
-
-@JsonSerializable()
-class TokenResponseModel {
-  @JsonKey(name: "token")
-  final String token;
-  @JsonKey(name: "expires")
-  final DateTime expires;
-
-  const TokenResponseModel({required this.token, required this.expires});
-
-  factory TokenResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$TokenResponseModelFromJson(json);
-  Map<String, dynamic> toJson() => _$TokenResponseModelToJson(this);
-}
-
-@JsonSerializable()
-class TokensResponseModel {
-  @JsonKey(name: "access")
-  final TokenResponseModel accessToken;
-  @JsonKey(name: "refresh")
-  final TokenResponseModel refreshToken;
-
-  const TokensResponseModel(
-      {required this.accessToken, required this.refreshToken});
-
-  factory TokensResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$TokensResponseModelFromJson(json);
-  Map<String, dynamic> toJson() => _$TokensResponseModelToJson(this);
 }
 
 extension AuthResponseMappers on AuthResponseModel {

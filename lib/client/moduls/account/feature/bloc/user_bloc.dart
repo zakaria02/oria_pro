@@ -20,6 +20,8 @@ import 'package:oria_pro/common/favourites/model/learning_content_favourite_mode
 import 'package:oria_pro/common/favourites/model/post_favourite_model.dart';
 import 'package:oria_pro/common/favourites/repository/favourite_repository.dart';
 
+import '../../../../../common/auth/business/email_password/model/update_profile_request_model.dart';
+import '../../../../../common/auth/business/email_password/repository/email_password_repository.dart';
 import '../entity/favourite.dart';
 
 part 'user_event.dart';
@@ -51,6 +53,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             errorMessage: e.toString());
       }
     });
+
     on<UpdateUser>((event, emit) async {
       final UpdateMyInfoUseCase usecase = EmailPasswordAuthLocator().get();
       try {
@@ -81,6 +84,42 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               ressourceType: state.ressourceType,
               errorMessage: "Error while updating current user"));
         }
+      } catch (e) {
+        UserError(
+            currenUser: state.currenUser,
+            postFavourites: state.postFavourites,
+            articleFavourites: state.articleFavourites,
+            expertFavourites: state.expertFavourites,
+            programFavourites: state.programFavourites,
+            ressourceType: state.ressourceType,
+            errorMessage: e.toString());
+      }
+    });
+
+    on<UpdatePassword>((event, emit) async {
+      final EmailPasswordRepository repository =
+          EmailPasswordAuthLocator().get();
+
+      try {
+        emit(UpdatePasswordLoading(
+          currenUser: state.currenUser,
+          postFavourites: state.postFavourites,
+          articleFavourites: state.articleFavourites,
+          expertFavourites: state.expertFavourites,
+          programFavourites: state.programFavourites,
+          ressourceType: state.ressourceType,
+        ));
+        await repository.updateProfileInfo(UpdateProfileRequestModel(
+          password: event.password,
+        ));
+        emit(UpdatePasswordSuccess(
+          currenUser: state.currenUser,
+          postFavourites: state.postFavourites,
+          articleFavourites: state.articleFavourites,
+          expertFavourites: state.expertFavourites,
+          programFavourites: state.programFavourites,
+          ressourceType: state.ressourceType,
+        ));
       } catch (e) {
         UserError(
             currenUser: state.currenUser,

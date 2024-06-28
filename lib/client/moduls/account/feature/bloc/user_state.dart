@@ -77,6 +77,28 @@ final class UpdateUserSuccess extends UserState {
   });
 }
 
+final class UpdatePasswordLoading extends UserState {
+  const UpdatePasswordLoading({
+    required super.currenUser,
+    required super.articleFavourites,
+    required super.expertFavourites,
+    required super.postFavourites,
+    required super.programFavourites,
+    required super.ressourceType,
+  });
+}
+
+final class UpdatePasswordSuccess extends UserState {
+  const UpdatePasswordSuccess({
+    required super.currenUser,
+    required super.articleFavourites,
+    required super.expertFavourites,
+    required super.postFavourites,
+    required super.programFavourites,
+    required super.ressourceType,
+  });
+}
+
 final class FavouriteLoading extends UserState {
   const FavouriteLoading({
     required super.currenUser,

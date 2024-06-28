@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:oria_pro/client/moduls/explore/business/model/forum_topic_model.dart';
 
 import '../../../../client/moduls/explore/business/model/explore_symptom_article_model.dart';
 import '../../../../client/moduls/explore/business/model/symptom_programs_model.dart';
@@ -22,10 +23,12 @@ class SymptomContentModel {
 class SymptomContentResultModel {
   final List<SymptomProgramsModel> symptomPrograms;
   final List<ArticleModel> symptomArticles;
+  final ForumTopicModel? relatedForumTopic;
 
   const SymptomContentResultModel({
     required this.symptomPrograms,
     required this.symptomArticles,
+    required this.relatedForumTopic,
   });
 
   factory SymptomContentResultModel.fromJson(Map<String, dynamic> json) =>
