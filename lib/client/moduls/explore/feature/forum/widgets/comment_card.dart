@@ -63,13 +63,17 @@ class _CommentCardState extends State<CommentCard> {
                         const SizedBox(width: 8),
                         if (widget.comment.user.isExpert)
                           Container(
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
                             decoration: BoxDecoration(
-                                color: OriaColors.iconButtonBackgound,
+                                color: OriaColors.greenAccentLight,
                                 borderRadius: BorderRadius.circular(52)),
                             child: Text(
                               AppLocalizations.of(context)!.expert,
-                              style: Theme.of(context).textTheme.labelSmall,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.white),
                             ),
                           ),
                         const Spacer(),

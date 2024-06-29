@@ -156,6 +156,30 @@ final class UpdateSymptomsSuccess extends SymptomState {
   });
 }
 
+final class DeleteSecondaryLoading extends SymptomState {
+  const DeleteSecondaryLoading({
+    required super.symptoms,
+    required super.selectedSymptom,
+    required super.secondarySymptoms,
+    required super.symptomPrograms,
+    required super.symptomArticles,
+    required super.userSymptoms,
+    required super.symptomForum,
+  });
+}
+
+final class DeleteSecondarySuccess extends SymptomState {
+  const DeleteSecondarySuccess({
+    required super.symptoms,
+    required super.selectedSymptom,
+    required super.secondarySymptoms,
+    required super.symptomPrograms,
+    required super.symptomArticles,
+    required super.userSymptoms,
+    required super.symptomForum,
+  });
+}
+
 final class SymptomError extends SymptomState {
   final String errorMessage;
 

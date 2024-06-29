@@ -328,5 +328,7 @@
     "topicFor": "Sujet pour {topic}",
     "editPassword": "Modifier le mot de passe",
     "newPassword": "Nouveau mot de passe",
-    "passwordConfirmation": "Confirmation du mot de passe"
+    "passwordConfirmation": "Confirmation du mot de passe",
+    "deleteSymptom": "Supprimer le symptôme",
+    "sureDeleteSymptom": "Êtes-vous sûr de vouloir supprimer ce symptôme ?"
 }

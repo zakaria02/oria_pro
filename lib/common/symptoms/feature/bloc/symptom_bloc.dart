@@ -6,6 +6,7 @@ import 'package:oria_pro/client/moduls/explore/business/model/forum_topic_model.
 import 'package:oria_pro/client/moduls/explore/business/model/symptom_programs_model.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/learning_content.dart';
 import 'package:oria_pro/client/moduls/explore/feature/programs/entity/program.dart';
+import 'package:oria_pro/common/symptoms/business/model/delete_symptom_request_model.dart';
 import 'package:oria_pro/common/symptoms/business/model/user_symptom_model.dart';
 import 'package:oria_pro/common/symptoms/business/model/user_symptom_request_model.dart';
 import 'package:oria_pro/common/symptoms/feature/usecase/set_todays_actions_program_use_case.dart';
@@ -261,6 +262,48 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
             symptomForum: state.symptomForum,
           ),
         );
+      } catch (e) {
+        emit(SymptomError(
+          errorMessage: e.toString(),
+          symptoms: state.symptoms,
+          selectedSymptom: state.selectedSymptom,
+          secondarySymptoms: state.secondarySymptoms,
+          symptomPrograms: state.symptomPrograms,
+          symptomArticles: state.symptomArticles,
+          userSymptoms: state.userSymptoms,
+          symptomForum: state.symptomForum,
+        ));
+      }
+    });
+
+    on<DeleteSecondarySymptom>((event, emit) async {
+      try {
+        emit(
+          DeleteSecondaryLoading(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
+          ),
+        );
+        SymptomRepository repository = SymptomLocator().get();
+        await repository.deleteUserSymptom(
+            DeleteSymptomRequestModel(symptomId: event.symptom.symptomId));
+        emit(
+          DeleteSecondarySuccess(
+            symptoms: state.symptoms,
+            selectedSymptom: state.selectedSymptom,
+            secondarySymptoms: state.secondarySymptoms,
+            symptomPrograms: state.symptomPrograms,
+            symptomArticles: state.symptomArticles,
+            userSymptoms: state.userSymptoms,
+            symptomForum: state.symptomForum,
+          ),
+        );
+        add(FetchUserSymptoms());
       } catch (e) {
         emit(SymptomError(
           errorMessage: e.toString(),

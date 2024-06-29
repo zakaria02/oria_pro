@@ -329,5 +329,7 @@
     "topicFor": "Topic for {topic}",
     "editPassword": "Edit password",
     "newPassword": "New password",
-    "passwordConfirmation": "Password confirmation"
+    "passwordConfirmation": "Password confirmation",
+    "deleteSymptom": "Delete symptom",
+    "sureDeleteSymptom": "Are you sure you want to delete this symptom ?"
 }

@@ -17,6 +17,12 @@ final class SelectPrimarySymptom extends SymptomEvent {
   const SelectPrimarySymptom({required this.symptom});
 }
 
+final class DeleteSecondarySymptom extends SymptomEvent {
+  final SymptomInfo symptom;
+
+  const DeleteSecondarySymptom({required this.symptom});
+}
+
 final class ChangePrimarySymptom extends SymptomEvent {
   final SymptomInfo symptom;
 

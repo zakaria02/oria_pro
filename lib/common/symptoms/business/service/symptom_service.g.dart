@@ -81,6 +81,31 @@ class _SymptomService implements SymptomService {
   }
 
   @override
+  Future<void> deleteUserSymptom(DeleteSymptomRequestModel request) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/users/user-symptom',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
   Future<List<SymptomInfoModel>> fetchAllSymptoms() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

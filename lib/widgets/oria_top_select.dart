@@ -11,6 +11,7 @@ class OriaTopBarSelect extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
     this.margin = const EdgeInsets.symmetric(vertical: 5),
     this.fontSize,
+    this.selectedColor,
   });
 
   final List<String> items;
@@ -19,6 +20,7 @@ class OriaTopBarSelect extends StatelessWidget {
   final EdgeInsets padding;
   final EdgeInsets margin;
   final double? fontSize;
+  final Color? selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class OriaTopBarSelect extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           color: selectedItem == item
-                              ? OriaColors.green
+                              ? selectedColor ?? OriaColors.green
                               : Colors.white,
                         ),
                         child: Text(

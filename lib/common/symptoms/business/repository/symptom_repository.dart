@@ -1,3 +1,5 @@
+import 'package:oria_pro/common/symptoms/business/model/delete_symptom_request_model.dart';
+
 import '../../../../client/moduls/explore/business/model/explore_symptom_program_model.dart';
 import '../locator/symptom_locator.dart';
 import '../model/set_todays_actions_request.dart';
@@ -14,6 +16,7 @@ abstract class SymptomRepository {
   Future<List<SymptomInfoModel>> fetchAllSymptoms();
   Future<List<UserSymptomResponseModel>> addUserSymptom(
       UserSymptomRequestModel request);
+  Future<void> deleteUserSymptom(DeleteSymptomRequestModel request);
   Future<void> addSymptomSeverity(SymptomSeverityRequestModel request);
   Future<SymptomContentModel> getSymptomContent(String symptomId);
   Future<void> setTodaysActionsProgram(String programId);
@@ -58,5 +61,10 @@ class SymptomRepositoryImpl implements SymptomRepository {
   @override
   Future<List<ProgramSymptomModel>> getTodayActionsProgram() async {
     return (await service.getTodayActionsProgram()).programs;
+  }
+
+  @override
+  Future<void> deleteUserSymptom(DeleteSymptomRequestModel request) {
+    return service.deleteUserSymptom(request);
   }
 }

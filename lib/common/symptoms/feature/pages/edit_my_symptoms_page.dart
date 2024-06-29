@@ -44,120 +44,42 @@ class EditMySymptomsPage extends StatelessWidget {
               onFirstButtonPress: () => context.maybePop(),
               title: AppLocalizations.of(context)!.editMySymptoms,
             ),
-            body: state is UserSymptomsLoading
-                ? const OriaLoadingProgress()
-                : Expanded(
-                    child: ListView(
-                      children: [
-                        const SizedBox(height: 24),
-                        Text(
-                          AppLocalizations.of(context)!.myPrimarySymptom,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 20),
-                        if (primarySymptom != null)
-                          OriaCard(
-                            backgroundColor: OriaColors.green,
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  primarySymptom.icon,
-                                  height: 32,
+            body: Expanded(
+              child: ListView(
+                children: [
+                  if (state is UserSymptomsLoading ||
+                      state is DeleteSecondaryLoading)
+                    const OriaLoadingProgress(),
+                  const SizedBox(height: 24),
+                  Text(
+                    AppLocalizations.of(context)!.myPrimarySymptom,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 20),
+                  if (primarySymptom != null)
+                    OriaCard(
+                      backgroundColor: OriaColors.green,
+                      child: Row(
+                        children: [
+                          Image.network(
+                            primarySymptom.icon,
+                            height: 32,
+                            color: OriaColors.iconButtonBackgound,
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            primarySymptom.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
                                   color: OriaColors.iconButtonBackgound,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                const SizedBox(width: 20),
-                                Text(
-                                  primarySymptom.name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                        color: OriaColors.iconButtonBackgound,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () {
-                                    BlocProvider.of<SymptomBloc>(blocContext)
-                                        .add(FetchAllSymptoms());
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return BlocProvider.value(
-                                            value: BlocProvider.of<SymptomBloc>(
-                                              blocContext,
-                                            ),
-                                            child: UpdatePrimarySymptomPage(
-                                              currentSymptom: primarySymptom,
-                                              refresh: refresh,
-                                              refreshTodaysAction:
-                                                  refreshTodaysAction,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 6),
-                                    child: Text(
-                                      AppLocalizations.of(context)!.change,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
-                                            color: OriaColors.green,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
-                        const SizedBox(height: 26),
-                        Text(
-                          AppLocalizations.of(context)!.otherSymptoms,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.black,
-                                  ),
-                        ),
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 8,
-                            ),
-                            itemBuilder: (context, index) => SymptomCard(
-                              symptom: secondarySymptoms[index].toSymptom(),
-                              selected: false,
-                              onPress: () =>
-                                  BlocProvider.of<SymptomBloc>(context).add(
-                                      SelectPrimarySymptom(
-                                          symptom: secondarySymptoms[index]
-                                              .toSymptom())),
-                            ),
-                            itemCount: secondarySymptoms.length,
-                          ),
-                        ),
-                        const SizedBox(height: 36),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: OriaRoundedButton(
-                            onPress: () {
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () {
                               BlocProvider.of<SymptomBloc>(blocContext)
                                   .add(FetchAllSymptoms());
                               Navigator.push(
@@ -168,22 +90,104 @@ class EditMySymptomsPage extends StatelessWidget {
                                       value: BlocProvider.of<SymptomBloc>(
                                         blocContext,
                                       ),
-                                      child: UpdateSecondarySymptomsPage(
-                                        currentSymptoms: secondarySymptoms,
-                                        primarySymptom: primarySymptom,
+                                      child: UpdatePrimarySymptomPage(
+                                        currentSymptom: primarySymptom,
                                         refresh: refresh,
+                                        refreshTodaysAction:
+                                            refreshTodaysAction,
                                       ),
                                     );
                                   },
                                 ),
                               );
                             },
-                            text: AppLocalizations.of(context)!.addMoreSymptoms,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 6),
+                              child: Text(
+                                AppLocalizations.of(context)!.change,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: OriaColors.green,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                            ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
+                    ),
+                  const SizedBox(height: 26),
+                  Text(
+                    AppLocalizations.of(context)!.otherSymptoms,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.black,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                      ),
+                      itemBuilder: (context, index) => SymptomCard(
+                        symptom: secondarySymptoms[index].toSymptom(),
+                        selected: false,
+                        onPress: () => BlocProvider.of<SymptomBloc>(context)
+                            .add(SelectPrimarySymptom(
+                                symptom: secondarySymptoms[index].toSymptom())),
+                        onDelete: () => BlocProvider.of<SymptomBloc>(context)
+                            .add(DeleteSecondarySymptom(
+                                symptom: secondarySymptoms[index].toSymptom())),
+                      ),
+                      itemCount: secondarySymptoms.length,
                     ),
                   ),
+                  const SizedBox(height: 36),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: OriaRoundedButton(
+                      onPress: () {
+                        if (secondarySymptoms.length < 3) {
+                          BlocProvider.of<SymptomBloc>(blocContext)
+                              .add(FetchAllSymptoms());
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return BlocProvider.value(
+                                  value: BlocProvider.of<SymptomBloc>(
+                                    blocContext,
+                                  ),
+                                  child: UpdateSecondarySymptomsPage(
+                                    currentSymptoms: secondarySymptoms,
+                                    primarySymptom: primarySymptom,
+                                    refresh: refresh,
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
+                      disabled: secondarySymptoms.length >= 3,
+                      text: AppLocalizations.of(context)!.addMoreSymptoms,
+                    ),
+                  )
+                ],
+              ),
+            ),
           );
         },
       ),

@@ -87,7 +87,9 @@ class _UpdateSecondarySymptomsPageState
                                 if (selectedSymptoms
                                     .contains(symptoms[index])) {
                                   selectedSymptoms.remove(symptoms[index]);
-                                } else {
+                                } else if ((selectedSymptoms.length +
+                                        widget.currentSymptoms.length) <
+                                    3) {
                                   selectedSymptoms.add(symptoms[index]);
                                 }
                               });

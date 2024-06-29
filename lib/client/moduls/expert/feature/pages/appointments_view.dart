@@ -25,14 +25,18 @@ class AppointmentsView extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                OriaTopBarSelect(
-                  items: state.topSelectItems,
-                  selectedItem: state.currentItem,
-                  onItemPress: (item) =>
-                      BlocProvider.of<AppointmentsNavigationCubit>(context)
-                          .selectItem(item),
-                  padding: EdgeInsets.zero,
-                  fontSize: 12,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: OriaTopBarSelect(
+                    items: state.topSelectItems,
+                    selectedItem: state.currentItem,
+                    onItemPress: (item) =>
+                        BlocProvider.of<AppointmentsNavigationCubit>(context)
+                            .selectItem(item),
+                    padding: EdgeInsets.zero,
+                    margin: const EdgeInsets.symmetric(vertical: 2),
+                    fontSize: 12,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Builder(

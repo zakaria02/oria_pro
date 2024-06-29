@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:oria_pro/common/symptoms/business/model/delete_symptom_request_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../model/set_todays_actions_request.dart';
@@ -22,6 +23,9 @@ abstract class SymptomService {
   @POST("/users/user-symptom")
   Future<List<UserSymptomResponseModel>> addUserSymptom(
       @Body() UserSymptomRequestModel request);
+
+  @DELETE("/users/user-symptom")
+  Future<void> deleteUserSymptom(@Body() DeleteSymptomRequestModel request);
 
   @GET("/metadata/symptoms")
   Future<List<SymptomInfoModel>> fetchAllSymptoms();
