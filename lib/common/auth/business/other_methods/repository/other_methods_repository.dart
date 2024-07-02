@@ -2,13 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:oria_pro/common/auth/business/local_data_source/auth_local_data_source.dart';
 import 'package:oria_pro/common/auth/business/other_methods/locator/other_methods_locator.dart';
 import 'package:oria_pro/common/auth/business/other_methods/model/google_request_model.dart';
 import 'package:oria_pro/common/auth/business/other_methods/model/other_methodes_user_model.dart';
 
-import '../../../../../client/moduls/account/business/locator/account_locator.dart';
-import '../../../../../client/moduls/account/feature/use_case/set_player_id_use_case.dart';
 import '../../email_password/locator/email_password_locator.dart';
 import '../../email_password/model/user_model.dart';
 import '../service/other_methods_service.dart';
@@ -23,7 +22,6 @@ abstract class OtherMethodsRepository {
 class OtherMethodsRepositoryImpl implements OtherMethodsRepository {
   AuthLocalDataSource localDS = EmailPasswordAuthLocator().get();
   OtherMethodsService service = OtherMethodsLocator().get();
-  SetPlayerIdUseCase setPlayerIdUseCase = AccountLocator().get();
 
   @override
   Future<UserModel> signInWithGoogle() async {
@@ -38,7 +36,7 @@ class OtherMethodsRepositoryImpl implements OtherMethodsRepository {
         .toUserModel();
 
     await localDS.saveUser(user);
-    await setPlayerIdUseCase.execute();
+    await OneSignal.login(user.id);
 
     return user;
   }

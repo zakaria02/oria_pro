@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:oria_pro/utils/locator/locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,6 +31,7 @@ class AuthLocalDataSource {
   }
 
   Future<void> deleteUser() async {
+    OneSignal.logout();
     Box<UserModel> box = await Hive.openBox<UserModel>(OriaLinks.userHiveBox);
     if (box.isOpen) {
       await box.clear().whenComplete(() async {
