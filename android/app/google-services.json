@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "793225857832-t1cmpfaviunah6f8vd69ohs66qcvarqo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "client.oria.app",
+            "certificate_hash": "f819eaa30efae8266906fce64c647f78fde0709a"
+          }
+        },
+        {
           "client_id": "793225857832-2hbfhove3i3mpqustmv0pp4f8kv3hb08.apps.googleusercontent.com",
           "client_type": 3
         }

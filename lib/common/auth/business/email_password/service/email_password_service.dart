@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:oria_pro/common/auth/business/email_password/model/reset_password_request.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../model/auth_request_model.dart';
 import '../model/auth_response_model.dart';
+import '../model/forgot_password_request.dart';
 import '../model/update_profile_request_model.dart';
 import '../model/update_profile_response_model.dart';
 import '../model/user_response_model.dart';
@@ -26,7 +28,11 @@ abstract class EmailPasswordService {
   Future<UserResponseModel> getUser(@Path() String id);
 
   @POST("/auth/forgot-password")
-  Future<void> forgotPassword(@Body() String email);
+  Future<void> forgotPassword(@Body() ForgotPasswordRequest request);
+
+  @POST("/auth/reset-password")
+  Future<void> resetPassword(
+      @Body() ResetPasswordRequest request, @Query("token") String token);
 
   @POST("/users/profile/update")
   Future<UpdateProfileResponseModel> updateProfileInfo(

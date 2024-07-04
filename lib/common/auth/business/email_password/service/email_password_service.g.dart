@@ -104,11 +104,12 @@ class _EmailPasswordService implements EmailPasswordService {
   }
 
   @override
-  Future<void> forgotPassword(String email) async {
+  Future<void> forgotPassword(ForgotPasswordRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = email;
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
@@ -117,6 +118,34 @@ class _EmailPasswordService implements EmailPasswordService {
         .compose(
           _dio.options,
           '/auth/forgot-password',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+  }
+
+  @override
+  Future<void> resetPassword(
+    ResetPasswordRequest request,
+    String token,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'token': token};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/auth/reset-password',
           queryParameters: queryParameters,
           data: _data,
         )

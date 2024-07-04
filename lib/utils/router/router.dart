@@ -26,6 +26,7 @@ import '../../client/moduls/explore/feature/programs/entity/symptom_program.dart
 import '../../client/moduls/explore/feature/programs/pages/program_details_page.dart';
 import '../../client/moduls/explore/feature/programs/pages/program_sections_page.dart';
 import '../../client/moduls/explore/feature/programs/pages/section_details_page.dart';
+import '../../client/moduls/home/feature/pages/notifications_page.dart';
 import '../../client/moduls/home/feature/symptoms_list_page.dart';
 import '../../common/app_orchestrator/app_orchestrator.dart';
 import '../../common/auth/feature/entity/onbaording_step.dart';
@@ -73,6 +74,7 @@ class AppRouter extends _$AppRouter {
     // Home routes
     AutoRoute(page: SymptomDataRoute.page),
     AutoRoute(page: SymptomsListRoute.page),
+    AutoRoute(page: NotificationsRoute.page),
     // Expert routes
     AutoRoute(page: FindSpecialistRoute.page),
     AutoRoute(page: ExpertFilterRoute.page),

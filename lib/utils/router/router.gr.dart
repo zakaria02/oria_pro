@@ -162,9 +162,19 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     NewPasswordRoute.name: (routeData) {
+      final args = routeData.argsAs<NewPasswordRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const NewPasswordPage(),
+        child: NewPasswordPage(
+          key: args.key,
+          token: args.token,
+        ),
+      );
+    },
+    NotificationsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NotificationsPage(),
       );
     },
     OnBoardingStepsRoute.name: (routeData) {
@@ -830,14 +840,52 @@ class MedicalInfoRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [NewPasswordPage]
-class NewPasswordRoute extends PageRouteInfo<void> {
-  const NewPasswordRoute({List<PageRouteInfo>? children})
-      : super(
+class NewPasswordRoute extends PageRouteInfo<NewPasswordRouteArgs> {
+  NewPasswordRoute({
+    Key? key,
+    required String token,
+    List<PageRouteInfo>? children,
+  }) : super(
           NewPasswordRoute.name,
+          args: NewPasswordRouteArgs(
+            key: key,
+            token: token,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'NewPasswordRoute';
+
+  static const PageInfo<NewPasswordRouteArgs> page =
+      PageInfo<NewPasswordRouteArgs>(name);
+}
+
+class NewPasswordRouteArgs {
+  const NewPasswordRouteArgs({
+    this.key,
+    required this.token,
+  });
+
+  final Key? key;
+
+  final String token;
+
+  @override
+  String toString() {
+    return 'NewPasswordRouteArgs{key: $key, token: $token}';
+  }
+}
+
+/// generated route for
+/// [NotificationsPage]
+class NotificationsRoute extends PageRouteInfo<void> {
+  const NotificationsRoute({List<PageRouteInfo>? children})
+      : super(
+          NotificationsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NotificationsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

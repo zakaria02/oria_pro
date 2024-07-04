@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:oria_pro/client/moduls/explore/business/di/explore_locator.dart';
+import 'package:oria_pro/client/moduls/home/business/locator/notification_locator.dart';
 import 'package:oria_pro/common/auth/business/other_methods/locator/other_methods_locator.dart';
 import 'package:oria_pro/common/email_verification/business/locator/email_verification_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,5 +40,6 @@ class AppLocator extends AbstractLocator {
     SymptomTrackerLocator().setUp(serviceLocator);
     FavouriteLocator().setUp(serviceLocator);
     OtherMethodsLocator().setUp(serviceLocator);
+    NotificationsLocator().setUp(serviceLocator);
   }
 }

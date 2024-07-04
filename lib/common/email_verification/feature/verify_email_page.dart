@@ -157,6 +157,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 ),
                 const SizedBox(height: 18),
                 Pinput(
+                  length: 6,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   defaultPinTheme: state is VerifyEmailFailed
                       ? errorPinTheme
@@ -208,7 +209,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     ),
                   text: AppLocalizations.of(context)!.verifyMyEmail,
                   isLoading: state is VerifyEmailLoading,
-                  disabled: token.length != 4,
+                  disabled: token.length != 6,
                 ),
                 const SizedBox(height: 8),
                 GestureDetector(

@@ -17,6 +17,18 @@ final class AuthSuccess extends AuthState {
   const AuthSuccess();
 }
 
+final class ForgotPassworLoading extends AuthState {}
+
+final class ForgotPassworSuccess extends AuthState {
+  const ForgotPassworSuccess();
+}
+
+final class ResetPasswordLoading extends AuthState {}
+
+final class ResetPasswordSuccess extends AuthState {
+  const ResetPasswordSuccess();
+}
+
 final class AuthError extends AuthState {
   final String errorMessage;
   const AuthError({required this.errorMessage});

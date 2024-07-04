@@ -4,19 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:oria_pro/common/auth/business/email_password/locator/email_password_locator.dart';
-import 'package:oria_pro/common/auth/business/local_data_source/auth_local_data_source.dart';
-import 'package:oria_pro/common/email_verification/feature/bloc/email_verification_bloc.dart';
+import 'package:oria_pro/common/auth/feature/pages/new_password_page.dart';
 import 'package:oria_pro/utils/constants/oria_colors.dart';
-import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_app_bar.dart';
-import 'package:oria_pro/widgets/oria_dialog.dart';
+import 'package:oria_pro/widgets/oria_loading_progress.dart';
 import 'package:oria_pro/widgets/oria_rounded_button.dart';
 import 'package:oria_pro/widgets/oria_snack_bar.dart';
 import 'package:pinput/pinput.dart';
 
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
+
+import '../bloc/auth_bloc.dart';
 
 @RoutePage()
 class ForgotPasswordEmailPage extends StatefulWidget {
@@ -33,6 +32,7 @@ class ForgotPasswordEmailPage extends StatefulWidget {
 }
 
 class _ForgotPasswordEmailPageState extends State<ForgotPasswordEmailPage> {
+  String token = "";
   final defaultPinTheme = PinTheme(
     width: 54,
     height: 54,
@@ -48,73 +48,18 @@ class _ForgotPasswordEmailPageState extends State<ForgotPasswordEmailPage> {
     ),
   );
 
-  final errorPinTheme = PinTheme(
-    width: 54,
-    height: 54,
-    textStyle: const TextStyle(
-      fontSize: 24,
-      color: Color(0xFFB8A093),
-      fontWeight: FontWeight.w500,
-      fontFamily: "Raleway",
-    ),
-    decoration: BoxDecoration(
-      border: Border.all(color: OriaColors.red),
-      borderRadius: BorderRadius.circular(6),
-    ),
-  );
-
-  AuthLocalDataSource authLocalDs = EmailPasswordAuthLocator().get();
-
-  Future<void> _showSuccessDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return OriaDialog(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(SvgAssets.checkIcon),
-              const SizedBox(height: 24),
-              Text(
-                AppLocalizations.of(context)!.emailVerified,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontFamily: "Raleway",
-                    ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 40),
-              OriaRoundedButton(
-                onPress: () => context.router.push(const NewPasswordRoute()),
-                padding: EdgeInsets.zero,
-                text: AppLocalizations.of(context)!.continue_key,
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  String token = "";
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => EmailVerificationBloc()..add(SendVerificationEmail()),
-      child: BlocConsumer<EmailVerificationBloc, EmailVerificationState>(
-        listener: (context, state) {
-          if (state is EmailVerificationError) {
+      create: (_) => AuthBloc()..add(ForgotPassword(email: widget.email)),
+      child: BlocConsumer<AuthBloc, AuthState>(
+        listener: (authContext, state) {
+          if (state is AuthError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
           }
-          if (state is VerifyEmailSuccess) {
-            _showSuccessDialog();
-          }
         },
-        builder: (context, state) {
+        builder: (authContext, state) {
           return OriaScaffold(
             appBarData: AppBarData(
               lastButtonUrl: SvgAssets.closeAsset,
@@ -124,7 +69,9 @@ class _ForgotPasswordEmailPageState extends State<ForgotPasswordEmailPage> {
             body: Expanded(
                 child: ListView(
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
+                if (state is ForgotPassworLoading) const OriaLoadingProgress(),
+                const SizedBox(height: 10),
                 SvgPicture.asset(SvgAssets.verifyEmailAsset),
                 const SizedBox(height: 66),
                 Padding(
@@ -150,23 +97,10 @@ class _ForgotPasswordEmailPageState extends State<ForgotPasswordEmailPage> {
                   ),
                 ),
                 const SizedBox(height: 45),
-                Visibility(
-                  visible: state is VerifyEmailFailed,
-                  child: Text(
-                    AppLocalizations.of(context)!.pinError,
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: OriaColors.redAccent,
-                          fontWeight: FontWeight.w400,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 18),
                 Pinput(
+                  length: 6,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  defaultPinTheme: state is VerifyEmailFailed
-                      ? errorPinTheme
-                      : defaultPinTheme,
+                  defaultPinTheme: defaultPinTheme,
                   onChanged: (value) {
                     setState(() {
                       token = value;
@@ -199,8 +133,8 @@ class _ForgotPasswordEmailPageState extends State<ForgotPasswordEmailPage> {
                                   ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () =>
-                                BlocProvider.of<EmailVerificationBloc>(context)
-                                    .add(SendVerificationEmail()),
+                                BlocProvider.of<AuthBloc>(authContext)
+                                    .add(ForgotPassword(email: widget.email)),
                         ),
                       ],
                     ),
@@ -208,13 +142,22 @@ class _ForgotPasswordEmailPageState extends State<ForgotPasswordEmailPage> {
                 ),
                 const SizedBox(height: 50),
                 OriaRoundedButton(
-                  onPress: () => BlocProvider.of<EmailVerificationBloc>(context)
-                    ..add(
-                      VerifyEmail(token: token),
-                    ),
-                  text: AppLocalizations.of(context)!.verifyMyEmail,
-                  isLoading: state is VerifyEmailLoading,
-                  disabled: token.length != 4,
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return BlocProvider.value(
+                              value: BlocProvider.of<AuthBloc>(
+                                authContext,
+                              ),
+                              child: NewPasswordPage(token: token));
+                        },
+                      ),
+                    );
+                  },
+                  text: AppLocalizations.of(context)!.continue_key,
+                  disabled: token.length != 6,
                 ),
               ],
             )),

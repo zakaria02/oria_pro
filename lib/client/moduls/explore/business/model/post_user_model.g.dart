@@ -11,7 +11,7 @@ PostUserModel _$PostUserModelFromJson(Map<String, dynamic> json) =>
       profilePicture: json['profilePicture'] as String?,
       name: json['name'] as String,
       id: json['id'] as String,
-      role: json['role'] as String,
+      role: json['role'] as String?,
     );
 
 Map<String, dynamic> _$PostUserModelToJson(PostUserModel instance) =>

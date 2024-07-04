@@ -10,7 +10,7 @@ class PostUserModel {
   final String? profilePicture;
   final String name;
   final String id;
-  final String role;
+  final String? role;
 
   const PostUserModel({
     required this.profilePicture,

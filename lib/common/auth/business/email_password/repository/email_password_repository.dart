@@ -5,6 +5,8 @@ import 'package:oria_pro/common/auth/business/email_password/model/auth_response
 import '../../../../../utils/network/dio_builder.dart';
 import '../locator/email_password_locator.dart';
 import '../model/auth_request_model.dart';
+import '../model/forgot_password_request.dart';
+import '../model/reset_password_request.dart';
 import '../model/update_profile_request_model.dart';
 import '../model/update_profile_response_model.dart';
 import '../model/user_model.dart';
@@ -19,6 +21,9 @@ abstract class EmailPasswordRepository {
   Future<UpdateProfileResponseModel> updateProfileInfo(
       UpdateProfileRequestModel request);
   Future<void> updateUserPicture(File image);
+  Future<void> forgotPassword(ForgotPasswordRequest request);
+
+  Future<void> resetPassword(ResetPasswordRequest request, String token);
 }
 
 class EmailPasswordRepositoryImpl implements EmailPasswordRepository {
@@ -56,5 +61,15 @@ class EmailPasswordRepositoryImpl implements EmailPasswordRepository {
       },
     );
     await dio.post("/users/upload-profile-image", data: formData);
+  }
+
+  @override
+  Future<void> forgotPassword(ForgotPasswordRequest request) {
+    return service.forgotPassword(request);
+  }
+
+  @override
+  Future<void> resetPassword(ResetPasswordRequest request, String token) {
+    return service.resetPassword(request, token);
   }
 }

@@ -155,9 +155,7 @@ class SymptomDataPage extends StatelessWidget {
                   ],
                   if (state.symptomForum != null) ...[
                     Text(
-                      AppLocalizations.of(context)!.topicFor(
-                        symptom.name,
-                      ),
+                      AppLocalizations.of(context)!.discussWithOria,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 16),

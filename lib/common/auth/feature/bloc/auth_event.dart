@@ -30,3 +30,25 @@ final class Login extends AuthEvent {
 final class GoogleLogin extends AuthEvent {}
 
 final class FacebookLogin extends AuthEvent {}
+
+final class ForgotPassword extends AuthEvent {
+  final String email;
+
+  const ForgotPassword({required this.email});
+
+  @override
+  List<Object> get props => [email];
+}
+
+final class ResetPassword extends AuthEvent {
+  final String password;
+  final String token;
+
+  const ResetPassword({
+    required this.password,
+    required this.token,
+  });
+
+  @override
+  List<Object> get props => [password, token];
+}

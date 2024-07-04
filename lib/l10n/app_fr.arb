@@ -325,10 +325,13 @@
     "addMedicalInfo": "Ajotuer les informations médicales",
     "complainSubmitted": "Votre plainte a été soumise avec succès. L'équipe appropriée l'examinera sous peu.",
     "expertNotFound": "Nous n'avons pas pu trouver l'expert",
-    "topicFor": "Sujet pour {topic}",
+    "discussWithOria": "Discuter avec la communité d'Oria",
     "editPassword": "Modifier le mot de passe",
     "newPassword": "Nouveau mot de passe",
     "passwordConfirmation": "Confirmation du mot de passe",
     "deleteSymptom": "Supprimer le symptôme",
-    "sureDeleteSymptom": "Êtes-vous sûr de vouloir supprimer ce symptôme ?"
+    "sureDeleteSymptom": "Êtes-vous sûr de vouloir supprimer ce symptôme ?",
+    "notifications": "Notifications",
+    "markAllAsRead": "Tout marquer comme lu",
+    "pwd_reseted": "Votre mot de passe a été réinitialisé"
 }

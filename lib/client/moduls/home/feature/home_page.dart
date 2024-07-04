@@ -18,6 +18,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../utils/constants/svg_assets.dart';
 import '../../../cubit/client_navigation_cubit.dart';
 import 'bloc/home_bloc.dart';
+import 'bloc/notification_bloc.dart';
 import 'widget/daily_actions.dart';
 
 class HomeView extends StatelessWidget {
@@ -82,8 +83,23 @@ class HomeView extends StatelessWidget {
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                             const Spacer(),
-                            const OriaIconButton(
-                              url: SvgAssets.activeNotificationIcon,
+                            BlocProvider(
+                              create: (context) => NotificationBloc()
+                                ..add(FetchAllNotifications()),
+                              child: BlocBuilder<NotificationBloc,
+                                  NotificationState>(
+                                builder:
+                                    (notificationsContext, notificationsState) {
+                                  return OriaIconButton(
+                                    url: notificationsState.notifications
+                                            .any((notif) => !notif.read)
+                                        ? SvgAssets.activeNotificationIcon
+                                        : SvgAssets.notificationIcon,
+                                    onPress: () => context
+                                        .pushRoute(const NotificationsRoute()),
+                                  );
+                                },
+                              ),
                             )
                           ],
                         ),

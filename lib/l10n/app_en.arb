@@ -326,10 +326,13 @@
     "addMedicalInfo": "Add medical information",
     "complainSubmitted": "Your complaint has been successfully submitted. The appropriate team will review it shortly.",
     "expertNotFound": "Expert not found",
-    "topicFor": "Topic for {topic}",
+    "discussWithOria": "Discuss with Oria community",
     "editPassword": "Edit password",
     "newPassword": "New password",
     "passwordConfirmation": "Password confirmation",
     "deleteSymptom": "Delete symptom",
-    "sureDeleteSymptom": "Are you sure you want to delete this symptom ?"
+    "sureDeleteSymptom": "Are you sure you want to delete this symptom ?",
+    "notifications": "Notifications",
+    "markAllAsRead": "Read All",
+    "pwd_reseted": "Your password has been reset"
 }
