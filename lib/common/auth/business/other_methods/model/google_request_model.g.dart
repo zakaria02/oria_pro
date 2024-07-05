@@ -9,9 +9,11 @@ part of 'google_request_model.dart';
 GoogleRequestModel _$GoogleRequestModelFromJson(Map<String, dynamic> json) =>
     GoogleRequestModel(
       idToken: json['idToken'] as String,
+      deviceType: json['deviceType'] as String,
     );
 
 Map<String, dynamic> _$GoogleRequestModelToJson(GoogleRequestModel instance) =>
     <String, dynamic>{
       'idToken': instance.idToken,
+      'deviceType': instance.deviceType,
     };

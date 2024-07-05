@@ -21,9 +21,11 @@ import '../bloc/forum_bloc.dart';
 import '../widgets/post_menu.dart';
 import 'add_topic_post_page.dart';
 
+@RoutePage()
 class PostDetailsPage extends StatefulWidget {
-  const PostDetailsPage({super.key, this.topic});
+  const PostDetailsPage({super.key, this.topic, required this.postId});
   final ForumTopic? topic;
+  final String postId;
 
   @override
   State<PostDetailsPage> createState() => _PostDetailsPageState();
@@ -58,7 +60,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ForumBloc, ForumState>(
+    final page = BlocConsumer<ForumBloc, ForumState>(
       listener: (context, state) {
         if (state is ForumError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -436,5 +438,19 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         );
       },
     );
+    try {
+      BlocProvider.of<ForumBloc>(context);
+      // If BlocProvider.of does not throw, the bloc is already provided
+      return page;
+    } catch (e) {
+      // If BlocProvider.of throws an exception, the bloc is not provided
+      return BlocProvider<ForumBloc>(
+        create: (context) => ForumBloc()
+          ..add(FetchPostDetails(
+              postId: widget
+                  .postId)), // Ensure you have the correct Bloc creation here
+        child: page,
+      );
+    }
   }
 }

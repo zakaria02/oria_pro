@@ -105,7 +105,9 @@ class FavouriteCard extends StatelessWidget {
                                 value: BlocProvider.of<ForumBloc>(
                                   forumContext,
                                 ),
-                                child: const PostDetailsPage(),
+                                child: PostDetailsPage(
+                                  postId: favourite.resourceId,
+                                ),
                               );
                             },
                           ),

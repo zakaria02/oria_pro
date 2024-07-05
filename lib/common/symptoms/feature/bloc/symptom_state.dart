@@ -14,7 +14,7 @@ sealed class SymptomState extends Equatable {
   final SymptomInfo? selectedSymptom;
   final List<SymptomInfo> secondarySymptoms;
   final List<Program> symptomPrograms;
-  final ForumTopic? symptomForum;
+  final List<ForumTopic> symptomForum;
   final List<SymptomArticle> symptomArticles;
   final List<Symptom> userSymptoms;
 
@@ -32,7 +32,7 @@ final class SymptomInitial extends SymptomState {
           symptomPrograms: const [],
           symptomArticles: const [],
           userSymptoms: const [],
-          symptomForum: null,
+          symptomForum: const [],
         );
 }
 

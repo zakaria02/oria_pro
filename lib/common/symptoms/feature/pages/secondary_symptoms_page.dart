@@ -70,11 +70,15 @@ class SecondarySymptomsPage extends StatelessWidget {
                       symptom: otherSymptoms[index],
                       selected: state.secondarySymptoms
                           .contains(otherSymptoms[index]),
-                      onPress: () => BlocProvider.of<SymptomBloc>(context).add(
-                        UpdateSecondarySymptoms(
-                          symptom: otherSymptoms[index],
-                        ),
-                      ),
+                      onPress: () {
+                        if (state.secondarySymptoms.length < 3) {
+                          BlocProvider.of<SymptomBloc>(context).add(
+                            UpdateSecondarySymptoms(
+                              symptom: otherSymptoms[index],
+                            ),
+                          );
+                        }
+                      },
                     ),
                     itemCount: otherSymptoms.length,
                   ),

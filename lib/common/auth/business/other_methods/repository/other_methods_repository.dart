@@ -1,10 +1,11 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:oria_pro/common/auth/business/local_data_source/auth_local_data_source.dart';
 import 'package:oria_pro/common/auth/business/other_methods/locator/other_methods_locator.dart';
+import 'package:oria_pro/common/auth/business/other_methods/model/facebook_request_model.dart';
 import 'package:oria_pro/common/auth/business/other_methods/model/google_request_model.dart';
 import 'package:oria_pro/common/auth/business/other_methods/model/other_methodes_user_model.dart';
 
@@ -31,8 +32,10 @@ class OtherMethodsRepositoryImpl implements OtherMethodsRepository {
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    final user = (await service
-            .googleSignIn(GoogleRequestModel(idToken: googleAuth!.idToken!)))
+    final user = (await service.googleSignIn(GoogleRequestModel(
+      idToken: googleAuth!.idToken!,
+      deviceType: Platform.isIOS ? "ios" : "android",
+    )))
         .toUserModel();
 
     await localDS.saveUser(user);
@@ -51,27 +54,16 @@ class OtherMethodsRepositoryImpl implements OtherMethodsRepository {
   Future<UserModel> signInWithFacebook() async {
     await FacebookAuth.instance.logOut();
     final LoginResult result = await FacebookAuth.instance.login();
-    if (result.status == LoginStatus.success) {
-      // you are logged
-      final AccessToken? accessToken = result.accessToken;
-      log("token ${accessToken?.token}");
-    }
+    final AccessToken? accessToken = result.accessToken;
+    final user = (await service.facebookSignIn(FacebookRequestModel(
+      accessToken: accessToken!.token,
+    )))
+        .toUserModel();
 
-    return UserModel(
-      id: "id",
-      email: "email",
-      name: 'name',
-      role: UserRole.proUser,
-      accessToken: "accessToken",
-      accessTokenExpire: DateTime.now(),
-      refreshToken: "refreshToken",
-      refreshTokenExpire: DateTime.now(),
-      hasFinishedOnboarding: true,
-      birthDay: DateTime.now(),
-      isEmailVerified: true,
-      profilePicture: '',
-      shareMedicalInfo: true,
-    );
+    await localDS.saveUser(user);
+    await OneSignal.login(user.id);
+
+    return user;
   }
 
   @override

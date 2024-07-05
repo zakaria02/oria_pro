@@ -153,78 +153,93 @@ class SymptomDataPage extends StatelessWidget {
                       ),
                     ),
                   ],
-                  if (state.symptomForum != null) ...[
+                  if (state.symptomForum.isNotEmpty) ...[
                     Text(
                       AppLocalizations.of(context)!.discussWithOria,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 16),
-                    BlocBuilder<ForumBloc, ForumState>(
-                      builder: (forumContext, forumState) {
-                        return GestureDetector(
-                          onTap: () {
-                            BlocProvider.of<ForumBloc>(forumContext).add(
-                                FetchTopicPosts(topic: state.symptomForum!));
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return BlocProvider.value(
-                                      value: BlocProvider.of<ForumBloc>(
-                                        forumContext,
-                                      ),
-                                      child: TopicPostsPage(
-                                          topic: state.symptomForum!));
-                                },
-                              ),
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: SizedBox(
-                              width: 250,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    height: 150,
-                                    width: 250,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          state.symptomForum!.thumbnail,
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.13),
-                                          blurRadius: 4,
-                                          offset: const Offset(0.0, 4),
-                                        ),
-                                      ],
-                                    ),
+                    SizedBox(
+                      height: 198,
+                      child: BlocBuilder<ForumBloc, ForumState>(
+                        builder: (forumContext, forumState) {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<ForumBloc>(forumContext).add(
+                                    FetchTopicPosts(
+                                        topic: state.symptomForum[index]));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return BlocProvider.value(
+                                          value: BlocProvider.of<ForumBloc>(
+                                            forumContext,
+                                          ),
+                                          child: TopicPostsPage(
+                                              topic:
+                                                  state.symptomForum[index]));
+                                    },
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, bottom: 4),
-                                    child: Text(
-                                      state.symptomForum!.title,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelLarge,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: SizedBox(
+                                  width: 250,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        height: 150,
+                                        width: 250,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              state.symptomForum[index]
+                                                  .thumbnail,
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black
+                                                  .withOpacity(0.13),
+                                              blurRadius: 4,
+                                              offset: const Offset(0.0, 4),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8, bottom: 4),
+                                        child: Text(
+                                          state.symptomForum[index].title,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 8),
+                            itemCount: state.symptomForum.length,
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ],

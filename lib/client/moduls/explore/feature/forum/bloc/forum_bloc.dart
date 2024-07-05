@@ -26,7 +26,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: state.comments));
         final topicsModel = await repository.fetchForumTopics();
         emit(
@@ -42,7 +42,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
       } catch (e) {
@@ -51,7 +51,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -68,17 +68,19 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               otherTopics: state.otherTopics,
               post: state.post,
               posts: event.reset ? [] : state.posts,
-              currentPage: event.reset ? 1 : state.currentPage,
-              hasOtherPages: event.reset ? true : state.hasOtherPages,
+              currentPage: event.reset ? 0 : state.currentPage,
+              totalPages: event.reset ? 1 : state.totalPages,
               comments: state.comments),
         );
         List<PostTopicModel> postsModel = [];
         List<TopicPost> posts = [...state.posts];
-        if (state.hasOtherPages) {
-          postsModel = await repository.fetchTopicPosts(
+        PostTopicModelResults? results;
+        if (state.currentPage < state.totalPages) {
+          results = await repository.fetchTopicPosts(
             event.topic.id,
-            state.currentPage,
+            state.currentPage + 1,
           );
+          postsModel = results.results;
           posts.addAll(postsModel.map((post) => post.toTopicPost()));
         }
         emit(
@@ -87,10 +89,8 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             recommondedTopics: state.recommondedTopics,
             post: state.post,
             posts: posts,
-            currentPage: postsModel.isNotEmpty
-                ? state.currentPage + 1
-                : state.currentPage,
-            hasOtherPages: postsModel.isNotEmpty,
+            currentPage: results?.page ?? state.currentPage,
+            totalPages: results?.totalPages ?? state.totalPages,
             comments: state.comments,
           ),
         );
@@ -100,7 +100,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -118,7 +118,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: state.comments,
           ),
         );
@@ -131,7 +131,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: postModel.toTopicPost(),
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: commentsModel.map((comm) => comm.toComment()).toList(),
           ),
         );
@@ -141,7 +141,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -159,7 +159,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         await repository.addTopicPost(
@@ -177,7 +177,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         add(FetchTopicPosts(topic: event.topic, reset: true));
@@ -188,7 +188,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -206,7 +206,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         await repository.updateTopicPost(
@@ -224,7 +224,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         add(FetchTopicPosts(topic: event.topic, reset: true));
@@ -235,7 +235,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -253,7 +253,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         await repository.deleteTopicPost(event.post.id);
@@ -263,7 +263,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
         ));
         add(FetchTopicPosts(topic: event.topic, reset: true));
@@ -274,7 +274,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -292,7 +292,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         final commentModel = await repository.addComment(
@@ -318,7 +318,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: List.from(comments),
           ),
         );
@@ -331,7 +331,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -349,7 +349,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         final commentModel = await repository.updateComment(
@@ -383,7 +383,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: List.from(comments),
           ),
         );
@@ -393,7 +393,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -411,7 +411,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         await repository.deleteComment(
@@ -433,7 +433,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: List.from(comments),
           ),
         );
@@ -446,7 +446,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -464,7 +464,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         if (state.post?.isLiked == true) {
@@ -484,7 +484,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             ),
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: state.comments,
           ),
         );
@@ -497,7 +497,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -515,7 +515,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: state.comments,
           ),
         );
@@ -565,7 +565,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: updatedComments,
           ),
         );
@@ -578,7 +578,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -597,7 +597,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         if (state.post?.isFavourite == true) {
@@ -614,7 +614,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post?.copyWith(isFavourite: favorite),
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: state.comments,
           ),
         );
@@ -624,7 +624,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -642,7 +642,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         await repository.complainPost(event.post.id);
@@ -653,7 +653,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: state.comments,
           ),
         );
@@ -663,7 +663,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),
@@ -681,7 +681,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
               post: state.post,
               posts: state.posts,
               currentPage: state.currentPage,
-              hasOtherPages: state.hasOtherPages,
+              totalPages: state.totalPages,
               comments: state.comments),
         );
         await repository.complainComment(event.comment.id);
@@ -692,7 +692,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
             post: state.post,
             posts: state.posts,
             currentPage: state.currentPage,
-            hasOtherPages: state.hasOtherPages,
+            totalPages: state.totalPages,
             comments: state.comments,
           ),
         );
@@ -702,7 +702,7 @@ class ForumBloc extends Bloc<ForumEvent, ForumState> {
           post: state.post,
           posts: state.posts,
           currentPage: state.currentPage,
-          hasOtherPages: state.hasOtherPages,
+          totalPages: state.totalPages,
           comments: state.comments,
           recommondedTopics: state.recommondedTopics,
           errorMessage: e.toString(),

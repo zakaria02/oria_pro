@@ -27,10 +27,9 @@ SymptomContentResultModel _$SymptomContentResultModelFromJson(
       symptomArticles: (json['symptomArticles'] as List<dynamic>)
           .map((e) => ArticleModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      relatedForumTopic: json['relatedForumTopic'] == null
-          ? null
-          : ForumTopicModel.fromJson(
-              json['relatedForumTopic'] as Map<String, dynamic>),
+      relatedForumTopics: (json['relatedForumTopic'] as List<dynamic>)
+          .map((e) => ForumTopicModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$SymptomContentResultModelToJson(
@@ -38,5 +37,5 @@ Map<String, dynamic> _$SymptomContentResultModelToJson(
     <String, dynamic>{
       'symptomPrograms': instance.symptomPrograms,
       'symptomArticles': instance.symptomArticles,
-      'relatedForumTopic': instance.relatedForumTopic,
+      'relatedForumTopic': instance.relatedForumTopics,
     };

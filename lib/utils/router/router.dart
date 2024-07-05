@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
+import 'package:oria_pro/client/moduls/explore/feature/entity/forum_topic.dart';
 import 'package:oria_pro/common/symptoms/feature/pages/edit_my_symptoms_page.dart';
 
 import '../../client/client_app_page.dart';
@@ -21,6 +22,7 @@ import '../../client/moduls/expert/feature/pages/appointments/pages/upcoming_det
 import '../../client/moduls/expert/feature/pages/experts/pages/expert_details_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/expert_filter_page.dart';
 import '../../client/moduls/expert/feature/pages/experts/pages/find_specialist_page.dart';
+import '../../client/moduls/explore/feature/forum/pages/post_details_page.dart';
 import '../../client/moduls/explore/feature/learning/pages/article_page.dart';
 import '../../client/moduls/explore/feature/programs/entity/symptom_program.dart';
 import '../../client/moduls/explore/feature/programs/pages/program_details_page.dart';
@@ -71,6 +73,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: ProgramDetailsRoute.page),
     AutoRoute(page: ProgramSectionsRoute.page),
     AutoRoute(page: SectionDetailsRoute.page),
+    AutoRoute(page: PostDetailsRoute.page),
     // Home routes
     AutoRoute(page: SymptomDataRoute.page),
     AutoRoute(page: SymptomsListRoute.page),

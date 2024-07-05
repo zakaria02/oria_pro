@@ -162,6 +162,7 @@ class _TopicPostsPageState extends State<TopicPostsPage> {
                                       ),
                                       child: PostDetailsPage(
                                         topic: widget.topic,
+                                        postId: filterState.posts[index].id,
                                       ),
                                     );
                                   },

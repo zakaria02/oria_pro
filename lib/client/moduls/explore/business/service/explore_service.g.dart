@@ -325,7 +325,7 @@ class _ExploreService implements ExploreService {
   }
 
   @override
-  Future<List<PostTopicModel>> fetchTopicPosts(
+  Future<PostTopicModelResults> fetchTopicPosts(
     String topicId,
     int page,
   ) async {
@@ -333,8 +333,8 @@ class _ExploreService implements ExploreService {
     final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<PostTopicModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PostTopicModelResults>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -350,9 +350,7 @@ class _ExploreService implements ExploreService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => PostTopicModel.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = PostTopicModelResults.fromJson(_result.data!);
     return value;
   }
 

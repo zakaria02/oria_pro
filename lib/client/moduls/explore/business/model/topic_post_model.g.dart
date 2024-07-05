@@ -12,12 +12,16 @@ PostTopicModelResults _$PostTopicModelResultsFromJson(
       results: (json['results'] as List<dynamic>)
           .map((e) => PostTopicModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      page: (json['page'] as num).toInt(),
+      totalPages: (json['totalPages'] as num).toInt(),
     );
 
 Map<String, dynamic> _$PostTopicModelResultsToJson(
         PostTopicModelResults instance) =>
     <String, dynamic>{
       'results': instance.results,
+      'page': instance.page,
+      'totalPages': instance.totalPages,
     };
 
 PostTopicModel _$PostTopicModelFromJson(Map<String, dynamic> json) =>

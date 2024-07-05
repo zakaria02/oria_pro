@@ -62,7 +62,8 @@ abstract class ExploreService {
   Future<List<ForumTopicModel>> fetchForumTopics();
 
   @GET("/forum/topics/{topicId}/posts")
-  Future<List<PostTopicModel>> fetchTopicPosts(@Path() String topicId,@Query("page") int page);
+  Future<PostTopicModelResults> fetchTopicPosts(
+      @Path() String topicId, @Query("page") int page);
 
   @GET("/forum/posts/{postId}")
   Future<PostTopicModel> fetchPostDetails(@Path() String postId);

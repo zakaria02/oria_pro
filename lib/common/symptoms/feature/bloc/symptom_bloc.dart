@@ -134,8 +134,9 @@ class SymptomBloc extends Bloc<SymptomEvent, SymptomState> {
                 .map((ar) => ar.toArticleUio())
                 .toList(),
             userSymptoms: state.userSymptoms,
-            symptomForum:
-                symptomContent.results.relatedForumTopic?.toForumTopic(),
+            symptomForum: symptomContent.results.relatedForumTopics
+                .map((topic) => topic.toForumTopic())
+                .toList(),
           ),
         );
       } catch (e) {

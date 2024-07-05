@@ -23,12 +23,13 @@ class SymptomContentModel {
 class SymptomContentResultModel {
   final List<SymptomProgramsModel> symptomPrograms;
   final List<ArticleModel> symptomArticles;
-  final ForumTopicModel? relatedForumTopic;
+  @JsonKey(name: "relatedForumTopic")
+  final List<ForumTopicModel> relatedForumTopics;
 
   const SymptomContentResultModel({
     required this.symptomPrograms,
     required this.symptomArticles,
-    required this.relatedForumTopic,
+    required this.relatedForumTopics,
   });
 
   factory SymptomContentResultModel.fromJson(Map<String, dynamic> json) =>

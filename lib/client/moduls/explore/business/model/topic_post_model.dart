@@ -8,9 +8,13 @@ part 'topic_post_model.g.dart';
 @JsonSerializable()
 class PostTopicModelResults {
   final List<PostTopicModel> results;
+  final int page;
+  final int totalPages;
 
   const PostTopicModelResults({
     required this.results,
+    required this.page,
+    required this.totalPages,
   });
 
   factory PostTopicModelResults.fromJson(Map<String, dynamic> json) =>

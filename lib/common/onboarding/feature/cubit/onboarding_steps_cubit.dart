@@ -1,7 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:oria_pro/client/moduls/explore/business/di/explore_locator.dart';
-import 'package:oria_pro/client/moduls/explore/business/repository/explore_repository.dart';
 import 'package:oria_pro/common/auth/business/email_password/locator/email_password_locator.dart';
 import 'package:oria_pro/common/auth/business/email_password/model/update_profile_request_model.dart';
 import 'package:oria_pro/common/auth/business/email_password/repository/email_password_repository.dart';
@@ -82,7 +80,6 @@ class OnboardingStepsCubit extends Cubit<OnboardingStepsState> {
     SymptomRepository symptomRepository = SymptomLocator().get();
     EmailPasswordRepository emailPasswordRepository =
         EmailPasswordAuthLocator().get();
-    ExploreRepository exploreRepository = ExploreLocator().get();
 
     try {
       await emailPasswordRepository.updateProfileInfo(
@@ -160,7 +157,8 @@ class OnboardingStepsCubit extends Cubit<OnboardingStepsState> {
       );
 
       if (state.symptomProgram != null) {
-        await exploreRepository.enrollProgram(state.symptomProgram!.id);
+        await symptomRepository
+            .setTodaysActionsProgram(state.symptomProgram!.id);
 
         emit(
           OnboardingStepsState(

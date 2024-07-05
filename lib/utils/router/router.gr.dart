@@ -187,6 +187,17 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    PostDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<PostDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: PostDetailsPage(
+          key: args.key,
+          topic: args.topic,
+          postId: args.postId,
+        ),
+      );
+    },
     PrimarySymptomRoute.name: (routeData) {
       final args = routeData.argsAs<PrimarySymptomRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -925,6 +936,49 @@ class OnBoardingStepsRouteArgs {
   @override
   String toString() {
     return 'OnBoardingStepsRouteArgs{key: $key, steps: $steps}';
+  }
+}
+
+/// generated route for
+/// [PostDetailsPage]
+class PostDetailsRoute extends PageRouteInfo<PostDetailsRouteArgs> {
+  PostDetailsRoute({
+    Key? key,
+    ForumTopic? topic,
+    required String postId,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PostDetailsRoute.name,
+          args: PostDetailsRouteArgs(
+            key: key,
+            topic: topic,
+            postId: postId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'PostDetailsRoute';
+
+  static const PageInfo<PostDetailsRouteArgs> page =
+      PageInfo<PostDetailsRouteArgs>(name);
+}
+
+class PostDetailsRouteArgs {
+  const PostDetailsRouteArgs({
+    this.key,
+    this.topic,
+    required this.postId,
+  });
+
+  final Key? key;
+
+  final ForumTopic? topic;
+
+  final String postId;
+
+  @override
+  String toString() {
+    return 'PostDetailsRouteArgs{key: $key, topic: $topic, postId: $postId}';
   }
 }
 

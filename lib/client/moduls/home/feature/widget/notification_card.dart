@@ -41,7 +41,9 @@ class NotificationCard extends StatelessWidget {
                           value: BlocProvider.of<ForumBloc>(
                             forumContext,
                           ),
-                          child: const PostDetailsPage());
+                          child: PostDetailsPage(
+                            postId: notification.resourceId,
+                          ));
                     },
                   ),
                 );
@@ -82,6 +84,7 @@ class NotificationCard extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           notification.updatedAt
+                              .toLocal()
                               .toNamedDayDateWithHourAndMinute()!,
                           style: Theme.of(context)
                               .textTheme

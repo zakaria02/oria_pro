@@ -152,7 +152,7 @@ class _ForumViewState extends State<ForumView> {
                       child: VisibilityDetector(
                         key: const Key("forum_list"),
                         onVisibilityChanged: (info) {
-                          if (info.visibleFraction == 0) {
+                          if (info.visibleFraction == 0 && mounted) {
                             setState(() {
                               otherTopics = state.otherTopics;
                               recommondedTopics = state.recommondedTopics;

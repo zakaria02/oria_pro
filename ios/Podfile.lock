@@ -142,6 +142,7 @@ DEPENDENCIES:
   - hmssdk_flutter (from `.symlinks/plugins/hmssdk_flutter/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
+  - OneSignalXCFramework (< 6.0, >= 5.0.0)
   - open_filex (from `.symlinks/plugins/open_filex/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -252,6 +253,6 @@ SPEC CHECKSUMS:
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
   webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
 
-PODFILE CHECKSUM: cf36ce1fe79bba39b3f82c474afd9180fff57695
+PODFILE CHECKSUM: db891efae02707754aefee852915d4751236eb4a
 
 COCOAPODS: 1.15.2
