@@ -61,7 +61,7 @@ abstract class ExploreService {
   @GET("/forum/topics")
   Future<List<ForumTopicModel>> fetchForumTopics();
 
-  @GET("/forum/topics/{topicId}/posts")
+  @GET("/forum/topics/{topicId}/posts?sortBy=created_at")
   Future<PostTopicModelResults> fetchTopicPosts(
       @Path() String topicId, @Query("page") int page);
 

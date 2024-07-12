@@ -341,7 +341,7 @@ class _ExploreService implements ExploreService {
     )
             .compose(
               _dio.options,
-              '/forum/topics/${topicId}/posts',
+              '/forum/topics/${topicId}/posts?sortBy=created_at',
               queryParameters: queryParameters,
               data: _data,
             )

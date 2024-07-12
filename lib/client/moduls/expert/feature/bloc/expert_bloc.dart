@@ -114,7 +114,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
           specialties: state.specialties,
           bestRatedExperts: state.bestRatedExperts,
           recommendedExperts: state.recommendedExperts,
-          reviews: reviews.map((r) => r.toReview()).toList(),
+          reviews: reviews.map((r) => r.toReview()).nonNulls.toList(),
           specialtyExperts: state.specialtyExperts,
           hasMedicalInfo: state.hasMedicalInfo,
           selectedExpert: expert.toExpert(),

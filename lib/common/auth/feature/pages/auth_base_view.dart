@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:oria_pro/utils/constants/oria_links.dart';
 import 'package:oria_pro/widgets/oria_icon_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -151,11 +154,18 @@ class _AuthBaseViewState extends State<AuthBaseView> {
                               url: SvgAssets.googleIcon,
                               onPress: widget.onGooglePress,
                             ),
-                            const SizedBox(width: 12),
+                            if (Platform.isIOS) ...[
+                              const SizedBox(width: 12),
+                              OriaIconButton(
+                                url: SvgAssets.appleIcon,
+                                onPress: widget.onApplePress,
+                              ),
+                              const SizedBox(width: 12),
+                            ],
                             OriaIconButton(
                               url: SvgAssets.facebookIcon,
                               onPress: widget.onFacebookPress,
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -185,8 +195,8 @@ class _AuthBaseViewState extends State<AuthBaseView> {
                                         decoration: TextDecoration.underline),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    await launchUrl(
-                                        Uri.parse('https://www.google.com'));
+                                    await launchUrl(Uri.parse(
+                                        OriaLinks.termsAndConditions));
                                   },
                               ),
                               TextSpan(
@@ -211,7 +221,7 @@ class _AuthBaseViewState extends State<AuthBaseView> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
                                     await launchUrl(
-                                        Uri.parse('https://www.google.com'));
+                                        Uri.parse(OriaLinks.privacyPolicyUrl));
                                   },
                               ),
                               TextSpan(

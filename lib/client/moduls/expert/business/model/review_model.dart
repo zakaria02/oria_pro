@@ -6,7 +6,7 @@ part 'review_model.g.dart';
 
 @JsonSerializable()
 class ReviewModel {
-  final UserModel userId;
+  final UserModel? userId;
   final int rating;
   final String review;
   final String id;
@@ -39,14 +39,17 @@ class UserModel {
 }
 
 extension ReviewModelMappers on ReviewModel {
-  Review toReview() {
+  Review? toReview() {
+    if (userId == null) {
+      return null;
+    }
     return Review(
-      profilePicture: userId.profilePicture != null
-          ? userId.profilePicture!.contains("http")
-              ? userId.profilePicture
-              : "${OriaLinks.stagingProfileAssetsBaseUrl}/${userId.profilePicture}"
+      profilePicture: userId!.profilePicture != null
+          ? userId!.profilePicture!.contains("http")
+              ? userId!.profilePicture
+              : "${OriaLinks.stagingProfileAssetsBaseUrl}/${userId!.profilePicture}"
           : null,
-      username: userId.name,
+      username: userId!.name,
       rating: rating,
       review: review,
     );

@@ -80,4 +80,5 @@ class SvgAssets {
   static const String arrowLeftIcon = "$_svgAssetsLink/arrow_left.svg";
   static const String noResultFoundAsset =
       "$_svgAssetsLink/no_result_found.svg";
+  static const String appleIcon = "$_svgAssetsLink/apple.svg";
 }

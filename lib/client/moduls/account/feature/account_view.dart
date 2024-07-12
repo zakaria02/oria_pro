@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oria_pro/client/moduls/account/feature/pages/update_password_page.dart';
 import 'package:oria_pro/client/moduls/account/feature/widgets/account_param.dart';
+import 'package:oria_pro/client/moduls/account/feature/widgets/delete_account_dialog.dart';
 import 'package:oria_pro/client/moduls/account/feature/widgets/user_image.dart';
 import 'package:oria_pro/common/auth/business/email_password/locator/email_password_locator.dart';
 import 'package:oria_pro/common/auth/business/local_data_source/auth_local_data_source.dart';
+import 'package:oria_pro/utils/constants/oria_links.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_card.dart';
@@ -153,7 +155,7 @@ class AccountView extends StatelessWidget {
                 image: SvgAssets.policyIcon,
                 title: AppLocalizations.of(context)!.privacyPolicy,
                 onPress: () async {
-                  await launchUrl(Uri.parse('https://www.google.com'));
+                  await launchUrl(Uri.parse(OriaLinks.privacyPolicyUrl));
                 },
               ),
               const SizedBox(height: 1),
@@ -162,7 +164,7 @@ class AccountView extends StatelessWidget {
                 image: SvgAssets.termsIcon,
                 title: AppLocalizations.of(context)!.generalConditions,
                 onPress: () async {
-                  await launchUrl(Uri.parse('https://www.google.com'));
+                  await launchUrl(Uri.parse(OriaLinks.termsAndConditions));
                 },
               ),
               const SizedBox(height: 1),
@@ -183,7 +185,12 @@ class AccountView extends StatelessWidget {
                 onlyBottomRaduis: true,
                 image: SvgAssets.deleteIcon,
                 title: AppLocalizations.of(context)!.deleteAccount,
-                onPress: () {},
+                onPress: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const DeleteAccountDialog(),
+                  );
+                },
                 color: const Color(0xFFFF553E),
               ),
               const SizedBox(height: 1),

@@ -264,7 +264,7 @@
     "showOrHideActivities": "(Show or hide the Activities you want to track in your observations)",
     "myPrimarySymptom": "My primary symptom",
     "addMoreSymptoms": "Add More Symptoms",
-    "otherSymptoms": "Other symptoms",
+    "secondarySymptoms": "Secondary symptoms",
     "change": "Change",
     "primarySymptom": "Primary Symptom:",
     "symptomHistory": "{symptom} history",
@@ -334,5 +334,6 @@
     "sureDeleteSymptom": "Are you sure you want to delete this symptom ?",
     "notifications": "Notifications",
     "markAllAsRead": "Read All",
-    "pwd_reseted": "Your password has been reset"
+    "pwd_reseted": "Your password has been reset",
+    "delete_account_sure": "Are you sure that you want to delete your account"
 }

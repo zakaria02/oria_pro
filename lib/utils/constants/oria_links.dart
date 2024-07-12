@@ -25,4 +25,8 @@ class OriaLinks {
       "$_stagingAssetsBaseUrl/profile";
   static const String stagingTopicsAssetsBaseUrl =
       "$_stagingAssetsBaseUrl/forum";
+
+  static const String privacyPolicyUrl = "https://myoria.ca/privacy-policy-2/";
+  static const String termsAndConditions =
+      "https://myoria.ca/terms-and-conditions/";
 }

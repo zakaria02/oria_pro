@@ -454,6 +454,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_app_badger:
+    dependency: "direct main"
+    description:
+      name: flutter_app_badger
+      sha256: "64d4a279bab862ed28850431b9b446b9820aaae0bf363322d51077419f930fa8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -669,6 +677,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0+1"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: f54946fdb1fa7b01f780841937b1a80783a20b393485f3f6cdf336fd6f4705f2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.2"
   frontend_server_client:
     dependency: transitive
     description:
@@ -1317,6 +1333,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  purchases_flutter:
+    dependency: "direct main"
+    description:
+      name: purchases_flutter
+      sha256: "135a7e973deac49aa1e2b4f1d51cc90bd31085310b86710e9187b1b03822ff8a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.30.0"
   retrofit:
     dependency: "direct main"
     description:
@@ -1429,6 +1453,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  sign_in_with_apple:
+    dependency: "direct main"
+    description:
+      name: sign_in_with_apple
+      sha256: "5c34c601d6910d7db0077063001ccd9d9329ee58b9038ee07153ffcdd76e91bd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.1"
+  sign_in_with_apple_platform_interface:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_platform_interface
+      sha256: c2ef2ce6273fce0c61acd7e9ff5be7181e33d7aa2b66508b39418b786cca2119
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
+  sign_in_with_apple_web:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_web
+      sha256: c009e9beeb6c376e86aaa154fcc8b4e075d4bad90c56286b9668a51cdb6129ea
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   sky_engine:
     dependency: transitive
     description: flutter

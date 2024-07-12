@@ -52,6 +52,8 @@
 	<string>Oria wants to access to your gallery</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>OneSignal_disable_badge_clearing</key>
+	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -83,8 +85,8 @@
 	<string>Oria</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-  	<string>fbapi</string>
-  	<string>fb-messenger-share-api</string>
-</array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 </dict>
 </plist>

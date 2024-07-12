@@ -125,7 +125,7 @@ class EditMySymptomsPage extends StatelessWidget {
                     ),
                   const SizedBox(height: 26),
                   Text(
-                    AppLocalizations.of(context)!.otherSymptoms,
+                    AppLocalizations.of(context)!.secondarySymptoms,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Colors.black,
                         ),

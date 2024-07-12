@@ -11,7 +11,7 @@ abstract class NotificationsService {
   factory NotificationsService(Dio dio, {String baseUrl}) =
       _NotificationsService;
 
-  @GET("/users/notifications")
+  @GET("/users/notifications?sortBy=created_at")
   Future<NotificationResponseModel> getNotifications(@Query("page") int page);
 
   @POST("/users/notifications/{id}/mark-as-read")

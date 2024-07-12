@@ -32,7 +32,7 @@ class _NotificationsService implements NotificationsService {
     )
             .compose(
               _dio.options,
-              '/users/notifications',
+              '/users/notifications?sortBy=created_at',
               queryParameters: queryParameters,
               data: _data,
             )

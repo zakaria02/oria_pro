@@ -264,7 +264,7 @@
     "showOrHideActivities": "Affichez ou masquez les activités que vous souhaitez suivre dans vos observations.",
     "myPrimarySymptom": "Mon symptôme principal",
     "addMoreSymptoms": "Ajouter d'autres symptômes",
-    "otherSymptoms": "Autres symptômes",
+    "secondarySymptoms": "Symptômes secondaires",
     "change": "Changer",
     "primarySymptom": "Symptôme principal :",
     "symptomHistory": "Historique de {symptom}",
@@ -333,5 +333,6 @@
     "sureDeleteSymptom": "Êtes-vous sûr de vouloir supprimer ce symptôme ?",
     "notifications": "Notifications",
     "markAllAsRead": "Tout marquer comme lu",
-    "pwd_reseted": "Votre mot de passe a été réinitialisé"
+    "pwd_reseted": "Votre mot de passe a été réinitialisé",
+    "delete_account_sure": "Êtes-vous sûr de vouloir supprimer votre compte ?"
 }
