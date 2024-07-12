@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/account/business/locator/account_locator.dart';
 import 'package:oria_pro/client/moduls/account/business/model/medical_info_model.dart';
-import 'package:oria_pro/client/moduls/account/business/repository/medical_info_repository.dart';
+import 'package:oria_pro/client/moduls/account/business/repository/account_repository.dart';
 import 'package:oria_pro/client/moduls/account/feature/entity/medical_info.dart';
 
 part 'medical_info_state.dart';
@@ -10,7 +10,7 @@ part 'medical_info_state.dart';
 class MedicalInfoCubit extends Cubit<MedicalInfoState> {
   MedicalInfoCubit() : super(const MedicalInfoInitial());
 
-  final MedicalInfoRepository _repository = AccountLocator().get();
+  final AccountRepository _repository = AccountLocator().get();
 
   Future<void> getMedicalInfo() async {
     try {

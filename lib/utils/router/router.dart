@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
+import 'package:oria_pro/client/moduls/account/feature/pages/delete_account_email_verification_page.dart';
 import 'package:oria_pro/client/moduls/explore/feature/entity/forum_topic.dart';
 import 'package:oria_pro/common/symptoms/feature/pages/edit_my_symptoms_page.dart';
 
@@ -91,6 +92,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: MedicalInfoRoute.page),
     AutoRoute(page: FavoritesRoute.page),
     AutoRoute(page: UpdatePasswordRoute.page),
+    AutoRoute(page: DeleteAccountEmailRoute.page),
     // Common routes
     AutoRoute(page: EditMySymptomsRoute.page),
     AutoRoute(page: UpdatePrimarySymptomRoute.page),

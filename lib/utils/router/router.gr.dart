@@ -64,6 +64,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CreateAccountPage(),
       );
     },
+    DeleteAccountEmailRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DeleteAccountEmailPage(),
+      );
+    },
     EditMySymptomsRoute.name: (routeData) {
       final args = routeData.argsAs<EditMySymptomsRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -289,7 +295,7 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: UpcomingDetailsPage(
           key: args.key,
-          appointment: args.appointment,
+          appointmentId: args.appointmentId,
         ),
       );
     },
@@ -510,6 +516,20 @@ class CreateAccountRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'CreateAccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DeleteAccountEmailPage]
+class DeleteAccountEmailRoute extends PageRouteInfo<void> {
+  const DeleteAccountEmailRoute({List<PageRouteInfo>? children})
+      : super(
+          DeleteAccountEmailRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DeleteAccountEmailRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -1292,13 +1312,13 @@ class SymptomsListRouteArgs {
 class UpcomingDetailsRoute extends PageRouteInfo<UpcomingDetailsRouteArgs> {
   UpcomingDetailsRoute({
     Key? key,
-    required AppointmentDetails appointment,
+    required String appointmentId,
     List<PageRouteInfo>? children,
   }) : super(
           UpcomingDetailsRoute.name,
           args: UpcomingDetailsRouteArgs(
             key: key,
-            appointment: appointment,
+            appointmentId: appointmentId,
           ),
           initialChildren: children,
         );
@@ -1312,16 +1332,16 @@ class UpcomingDetailsRoute extends PageRouteInfo<UpcomingDetailsRouteArgs> {
 class UpcomingDetailsRouteArgs {
   const UpcomingDetailsRouteArgs({
     this.key,
-    required this.appointment,
+    required this.appointmentId,
   });
 
   final Key? key;
 
-  final AppointmentDetails appointment;
+  final String appointmentId;
 
   @override
   String toString() {
-    return 'UpcomingDetailsRouteArgs{key: $key, appointment: $appointment}';
+    return 'UpcomingDetailsRouteArgs{key: $key, appointmentId: $appointmentId}';
   }
 }
 

@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:oria_pro/utils/constants/svg_assets.dart';
+import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_dialog.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -37,7 +39,7 @@ class DeleteAccountDialog extends StatelessWidget {
             height: 42,
             padding: EdgeInsets.zero,
             onPress: () {
-              Navigator.of(context).pop();
+              context.pushRoute(const DeleteAccountEmailRoute());
             },
             text: AppLocalizations.of(context)!.delete,
           ),

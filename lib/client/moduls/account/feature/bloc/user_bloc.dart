@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/account/business/locator/account_locator.dart';
+import 'package:oria_pro/client/moduls/account/business/repository/account_repository.dart';
 import 'package:oria_pro/client/moduls/account/feature/entity/favourite_ressource_type.dart';
 import 'package:oria_pro/client/moduls/account/feature/use_case/fetch_favourite_use_case.dart';
 import 'package:oria_pro/client/moduls/account/feature/use_case/update_share_medical_info.dart';
@@ -113,6 +114,72 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           password: event.password,
         ));
         emit(UpdatePasswordSuccess(
+          currenUser: state.currenUser,
+          postFavourites: state.postFavourites,
+          articleFavourites: state.articleFavourites,
+          expertFavourites: state.expertFavourites,
+          programFavourites: state.programFavourites,
+          ressourceType: state.ressourceType,
+        ));
+      } catch (e) {
+        UserError(
+            currenUser: state.currenUser,
+            postFavourites: state.postFavourites,
+            articleFavourites: state.articleFavourites,
+            expertFavourites: state.expertFavourites,
+            programFavourites: state.programFavourites,
+            ressourceType: state.ressourceType,
+            errorMessage: e.toString());
+      }
+    });
+
+    on<DeleteAccount>((event, emit) async {
+      final AccountRepository repository = AccountLocator().get();
+
+      try {
+        emit(DeleteAccountLoading(
+          currenUser: state.currenUser,
+          postFavourites: state.postFavourites,
+          articleFavourites: state.articleFavourites,
+          expertFavourites: state.expertFavourites,
+          programFavourites: state.programFavourites,
+          ressourceType: state.ressourceType,
+        ));
+        await repository.deleteAccount();
+        emit(DeleteAccountSuccess(
+          currenUser: state.currenUser,
+          postFavourites: state.postFavourites,
+          articleFavourites: state.articleFavourites,
+          expertFavourites: state.expertFavourites,
+          programFavourites: state.programFavourites,
+          ressourceType: state.ressourceType,
+        ));
+      } catch (e) {
+        UserError(
+            currenUser: state.currenUser,
+            postFavourites: state.postFavourites,
+            articleFavourites: state.articleFavourites,
+            expertFavourites: state.expertFavourites,
+            programFavourites: state.programFavourites,
+            ressourceType: state.ressourceType,
+            errorMessage: e.toString());
+      }
+    });
+
+    on<DeleteAccount2FA>((event, emit) async {
+      final AccountRepository repository = AccountLocator().get();
+
+      try {
+        emit(DeleteAccount2FALoading(
+          currenUser: state.currenUser,
+          postFavourites: state.postFavourites,
+          articleFavourites: state.articleFavourites,
+          expertFavourites: state.expertFavourites,
+          programFavourites: state.programFavourites,
+          ressourceType: state.ressourceType,
+        ));
+        await repository.deleteAccount2fa(event.token);
+        emit(DeleteAccount2FASuccess(
           currenUser: state.currenUser,
           postFavourites: state.postFavourites,
           articleFavourites: state.articleFavourites,

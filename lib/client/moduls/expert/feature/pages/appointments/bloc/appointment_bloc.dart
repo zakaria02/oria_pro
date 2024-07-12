@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/add_review_request_model.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/appointment_model.dart';
+import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/repository/expert_repository.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment.dart';
 import 'package:oria_pro/client/moduls/expert/feature/pages/appointments/entity/appointment_details.dart';
@@ -29,6 +31,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
         final availabilities = await usecase.execute(event.expertId, event.day);
         emit(GetDayAvailabilitySuccess(
@@ -42,6 +45,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
               .where((date) => date.period == Period.evening)
               .toList(),
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
           previous: state.previous,
           upcoming: state.upcoming,
         ));
@@ -54,6 +58,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       }
     });
@@ -65,6 +70,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           selectedDate: event.date,
           afternoonAvailabilities: state.afternoonAvailabilities,
           eveningAvailabilities: state.eveningAvailabilities,
+          currentAppointment: state.currentAppointment,
           previous: state.previous,
           upcoming: state.upcoming,
         ));
@@ -81,6 +87,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
         final appointment = await usecase.execute(
             event.expertId, event.appointmentDate.toUtc());
@@ -92,6 +99,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
             previous: state.previous,
             upcoming: state.upcoming,
             selectedDate: state.selectedDate,
+            currentAppointment: state.currentAppointment,
             appointment: appointment,
           ),
         );
@@ -104,6 +112,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       }
     });
@@ -118,6 +127,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
         final appointments = await usecase.execute(isUpcoming: false);
         emit(FetchAllAppointmentsSuccess(
@@ -127,6 +137,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: appointments,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       } catch (e) {
         emit(AppointmentError(
@@ -137,6 +148,44 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
+        ));
+      }
+    });
+
+    on<FetchAppointment>((event, emit) async {
+      try {
+        final ExpertRepository repository = ExploreLocator().get();
+        emit(FetchCurrentAppointmentLoading(
+          morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          previous: state.previous,
+          upcoming: state.upcoming,
+          selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
+        ));
+        final appointment = await repository.fetchAppointment(event.id);
+        final expert = await repository.getExpert(appointment.expertId);
+        emit(FetchCurrentAppointmentSuccess(
+          morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          previous: state.previous,
+          upcoming: state.upcoming,
+          selectedDate: state.selectedDate,
+          currentAppointment: appointment.toAppointment(expert.toExpert()),
+        ));
+      } catch (e) {
+        emit(AppointmentError(
+          errorMessage: e.toString(),
+          morningAvailabilities: state.morningAvailabilities,
+          afternoonAvailabilities: state.afternoonAvailabilities,
+          eveningAvailabilities: state.eveningAvailabilities,
+          previous: state.previous,
+          upcoming: state.upcoming,
+          selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       }
     });
@@ -151,6 +200,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
         final appointments = await usecase.execute(isUpcoming: true);
         final upcoming = appointments
@@ -162,6 +212,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           eveningAvailabilities: state.eveningAvailabilities,
           previous: state.previous,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
           upcoming: upcoming,
         ));
       } catch (e) {
@@ -173,6 +224,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       }
     });
@@ -187,6 +239,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
         await repository.cancelAppointment(event.id);
         emit(CancelAppointmentSuccess(
@@ -196,6 +249,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
         add(FetchAllAppointments());
         add(FetchUpcomingAppointments());
@@ -208,6 +262,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       }
     });
@@ -222,6 +277,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
         final String roomCode =
             (await repository.getMeetingAccessKey(event.appointmentId)).key;
@@ -233,6 +289,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       } catch (e) {
         emit(AppointmentError(
@@ -243,6 +300,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
           previous: state.previous,
           upcoming: state.upcoming,
           selectedDate: state.selectedDate,
+          currentAppointment: state.currentAppointment,
         ));
       }
     });

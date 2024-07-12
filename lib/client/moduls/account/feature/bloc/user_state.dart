@@ -55,6 +55,50 @@ final class FetchAccountSuccess extends UserState {
   });
 }
 
+final class DeleteAccountLoading extends UserState {
+  const DeleteAccountLoading({
+    required super.currenUser,
+    required super.articleFavourites,
+    required super.expertFavourites,
+    required super.postFavourites,
+    required super.programFavourites,
+    required super.ressourceType,
+  });
+}
+
+final class DeleteAccountSuccess extends UserState {
+  const DeleteAccountSuccess({
+    required super.currenUser,
+    required super.articleFavourites,
+    required super.expertFavourites,
+    required super.postFavourites,
+    required super.programFavourites,
+    required super.ressourceType,
+  });
+}
+
+final class DeleteAccount2FALoading extends UserState {
+  const DeleteAccount2FALoading({
+    required super.currenUser,
+    required super.articleFavourites,
+    required super.expertFavourites,
+    required super.postFavourites,
+    required super.programFavourites,
+    required super.ressourceType,
+  });
+}
+
+final class DeleteAccount2FASuccess extends UserState {
+  const DeleteAccount2FASuccess({
+    required super.currenUser,
+    required super.articleFavourites,
+    required super.expertFavourites,
+    required super.postFavourites,
+    required super.programFavourites,
+    required super.ressourceType,
+  });
+}
+
 final class UpdateUserLoading extends UserState {
   const UpdateUserLoading({
     required super.currenUser,

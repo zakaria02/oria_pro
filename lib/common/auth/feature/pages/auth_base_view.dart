@@ -154,8 +154,8 @@ class _AuthBaseViewState extends State<AuthBaseView> {
                               url: SvgAssets.googleIcon,
                               onPress: widget.onGooglePress,
                             ),
+                            const SizedBox(width: 12),
                             if (Platform.isIOS) ...[
-                              const SizedBox(width: 12),
                               OriaIconButton(
                                 url: SvgAssets.appleIcon,
                                 onPress: widget.onApplePress,

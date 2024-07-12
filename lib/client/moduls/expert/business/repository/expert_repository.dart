@@ -41,6 +41,7 @@ abstract class ExpertRepository {
   Future<void> addReview(AddReviewRequestModel request);
   Future<File> downloadPrescription(String appointmentId);
   Future<List<ProvinceModel>> getProvinces();
+  Future<AppointmentModel> fetchAppointment(String id);
 }
 
 class ExpertRepositoryImpl extends ExpertRepository {
@@ -146,5 +147,10 @@ class ExpertRepositoryImpl extends ExpertRepository {
     await dio.download("/consultation/appointement/$appointmentId/prescription",
         "${dir.path}/$appointmentId.pdf");
     return File("${dir.path}/$appointmentId.pdf");
+  }
+
+  @override
+  Future<AppointmentModel> fetchAppointment(String id) {
+    return _service.fetchAppointment(id);
   }
 }

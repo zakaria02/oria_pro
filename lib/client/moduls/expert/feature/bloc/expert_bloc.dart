@@ -9,7 +9,7 @@ import 'package:oria_pro/client/moduls/expert/feature/entity/specialty.dart';
 import 'package:oria_pro/client/moduls/expert/feature/use_case/update_expert_favorite_use_case.dart';
 
 import '../../../account/business/locator/account_locator.dart';
-import '../../../account/business/repository/medical_info_repository.dart';
+import '../../../account/business/repository/account_repository.dart';
 import '../entity/city.dart';
 import '../entity/expert.dart';
 import '../entity/review.dart';
@@ -133,7 +133,7 @@ class ExpertBloc extends Bloc<ExpertEvent, ExpertState> {
     });
 
     on<FetchMedicalInfo>((event, emit) async {
-      final MedicalInfoRepository repository = AccountLocator().get();
+      final AccountRepository repository = AccountLocator().get();
       try {
         emit(HasMedicalInfoLoading(
           specialties: state.specialties,

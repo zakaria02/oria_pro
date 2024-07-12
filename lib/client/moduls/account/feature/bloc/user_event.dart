@@ -52,3 +52,13 @@ final class RemoveFavourite extends UserEvent {
     required this.ressourceType,
   });
 }
+
+final class DeleteAccount extends UserEvent {}
+
+final class DeleteAccount2FA extends UserEvent {
+  final String token;
+
+  const DeleteAccount2FA({
+    required this.token,
+  });
+}

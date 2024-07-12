@@ -8,6 +8,7 @@ sealed class AppointmentState extends Equatable {
     required this.eveningAvailabilities,
     required this.previous,
     required this.upcoming,
+    required this.currentAppointment,
   });
   final List<DayAvailability> morningAvailabilities;
   final List<DayAvailability> afternoonAvailabilities;
@@ -15,6 +16,7 @@ sealed class AppointmentState extends Equatable {
   final DayAvailability? selectedDate;
   final List<AppointmentDetails> previous;
   final List<AppointmentDetails> upcoming;
+  final AppointmentDetails? currentAppointment;
 
   @override
   List<Object?> get props => [
@@ -23,6 +25,7 @@ sealed class AppointmentState extends Equatable {
         eveningAvailabilities,
         selectedDate,
         previous,
+        currentAppointment,
       ];
 }
 
@@ -35,6 +38,7 @@ final class AppointmentInitial extends AppointmentState {
           eveningAvailabilities: const [],
           previous: const [],
           upcoming: const [],
+          currentAppointment: null,
         );
 }
 
@@ -46,6 +50,7 @@ final class GetDayAvailabilityLoading extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -57,6 +62,7 @@ final class GetDayAvailabilitySuccess extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -68,6 +74,7 @@ final class CancelAppointmentLoading extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -79,6 +86,7 @@ final class CancelAppointmentSuccess extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -90,6 +98,7 @@ final class FetchAllAppointmentsLoading extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -101,6 +110,31 @@ final class FetchAllAppointmentsSuccess extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
+  });
+}
+
+final class FetchCurrentAppointmentLoading extends AppointmentState {
+  const FetchCurrentAppointmentLoading({
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.afternoonAvailabilities,
+    required super.eveningAvailabilities,
+    required super.previous,
+    required super.upcoming,
+    required super.currentAppointment,
+  });
+}
+
+final class FetchCurrentAppointmentSuccess extends AppointmentState {
+  const FetchCurrentAppointmentSuccess({
+    required super.morningAvailabilities,
+    required super.selectedDate,
+    required super.afternoonAvailabilities,
+    required super.eveningAvailabilities,
+    required super.previous,
+    required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -112,6 +146,7 @@ final class SelectDateSuccess extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -123,6 +158,7 @@ final class CreateAppointmentLoading extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -135,6 +171,7 @@ final class CreateAppointmentSuccess extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
     required this.appointment,
   });
 }
@@ -147,6 +184,7 @@ final class GetRoomCodeLoading extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -161,6 +199,7 @@ final class GetRoomCodeSuccess extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }
 
@@ -174,5 +213,6 @@ final class AppointmentError extends AppointmentState {
     required super.eveningAvailabilities,
     required super.previous,
     required super.upcoming,
+    required super.currentAppointment,
   });
 }

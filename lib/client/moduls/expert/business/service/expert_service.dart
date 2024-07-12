@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/add_review_request_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/expert_response_model.dart';
 import 'package:oria_pro/client/moduls/expert/business/model/province_model.dart';
+import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../model/appointment_model.dart';
@@ -78,4 +79,7 @@ abstract class ExpertService {
 
   @POST("/consultation/appointement/review")
   Future<void> addReview(@Body() AddReviewRequestModel request);
+
+  @GET("/consultation/appointement/{id}")
+  Future<AppointmentModel> fetchAppointment(@Path() String id);
 }

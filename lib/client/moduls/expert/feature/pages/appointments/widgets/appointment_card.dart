@@ -29,7 +29,8 @@ class AppointmentCard extends StatelessWidget {
                       value: BlocProvider.of<AppointmentBloc>(
                         blocContext,
                       ),
-                      child: UpcomingDetailsPage(appointment: appointment));
+                      child:
+                          UpcomingDetailsPage(appointmentId: appointment.id));
                 },
               ),
             );
