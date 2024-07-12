@@ -1,3 +1,4 @@
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:oria_pro/client/moduls/home/business/model/notification_response_model.dart';
@@ -30,6 +31,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
               pagesCount: notifs.totalPages,
             ),
           );
+          addNotifsBadge(state.notifications);
         } catch (e) {
           emit(
             NotificationError(
@@ -64,6 +66,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
               pagesCount: state.pagesCount,
             ),
           );
+          addNotifsBadge(state.notifications);
         } catch (e) {
           emit(
             NotificationError(
@@ -95,6 +98,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
             pagesCount: state.pagesCount,
           ),
         );
+        addNotifsBadge(state.notifications);
       } catch (e) {
         emit(
           NotificationError(
@@ -106,5 +110,14 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         );
       }
     });
+  }
+}
+
+void addNotifsBadge(List<NotificationEntity> notifs) {
+  final count = notifs.where((not) => !not.read).length;
+  if (count > 0) {
+    FlutterAppBadger.updateBadgeCount(count);
+  } else {
+    FlutterAppBadger.removeBadge();
   }
 }
