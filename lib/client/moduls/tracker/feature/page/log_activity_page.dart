@@ -38,8 +38,8 @@ class _LogActivityPageState extends State<LogActivityPage> {
         if (state is AddSymptomActivitySuccess) {
           context.maybePop();
         } else if (state is TrackedDataError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+              content: AppLocalizations.of(context)!.error_default));
         }
       },
       builder: (blocContext, state) {

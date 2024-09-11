@@ -1,11 +1,11 @@
-import 'dart:io';
+//import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:oria_pro/utils/constants/oria_links.dart';
-import 'package:oria_pro/widgets/oria_icon_button.dart';
+//import 'package:oria_pro/widgets/oria_icon_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/constants/oria_colors.dart';
@@ -143,7 +143,7 @@ class _AuthBaseViewState extends State<AuthBaseView> {
                         const SizedBox(
                           height: 12,
                         ),
-                        const OrDivider(),
+                        /*const OrDivider(),
                         const SizedBox(
                           height: 12,
                         ),
@@ -170,7 +170,7 @@ class _AuthBaseViewState extends State<AuthBaseView> {
                         ),
                         const SizedBox(
                           height: 12,
-                        ),
+                        ),*/
                         RichText(
                           text: TextSpan(
                             children: [

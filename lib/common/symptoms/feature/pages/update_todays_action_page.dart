@@ -37,8 +37,8 @@ class _UpdateTodaysActionsProgramState
     return BlocConsumer<SymptomBloc, SymptomState>(
       listener: (context, state) {
         if (state is SymptomError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+              content: AppLocalizations.of(context)!.error_default));
         }
         if (state is UpdateSymptomsSuccess) {
           widget.refresh();

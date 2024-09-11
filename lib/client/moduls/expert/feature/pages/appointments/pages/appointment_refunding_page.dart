@@ -72,8 +72,8 @@ class AppointmentRefundingPage extends StatelessWidget {
     return BlocConsumer<AppointmentBloc, AppointmentState>(
       listener: (context, state) {
         if (state is AppointmentError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+              content: AppLocalizations.of(context)!.error_default));
         }
         if (state is CancelAppointmentSuccess) {
           _showDialog(context);

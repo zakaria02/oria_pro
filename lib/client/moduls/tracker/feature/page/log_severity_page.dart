@@ -58,8 +58,8 @@ class _LogSeverityPageState extends State<LogSeverityPage> {
         if (state is AddSymptomSeveritySuccess) {
           context.maybePop();
         } else if (state is TrackedDataError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+              content: AppLocalizations.of(context)!.error_default));
         }
       },
       builder: (context, state) {

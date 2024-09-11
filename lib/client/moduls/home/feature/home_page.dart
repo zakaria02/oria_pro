@@ -47,7 +47,8 @@ class HomeView extends StatelessWidget {
         listener: (context, state) {
           if (state is HomeError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              OriaErrorSnackBar(content: state.errorMessage),
+              OriaErrorSnackBar(
+                  content: AppLocalizations.of(context)!.error_default),
             );
           }
         },

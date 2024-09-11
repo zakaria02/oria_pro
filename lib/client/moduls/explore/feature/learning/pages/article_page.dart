@@ -126,8 +126,8 @@ class ArticlePage extends StatelessWidget {
           },
           listener: (context, state) {
             if (state is ArticleContentError) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+              ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+                  content: AppLocalizations.of(context)!.error_default));
             }
             if (state is ArticleFavoriteSuccess) {
               String message;

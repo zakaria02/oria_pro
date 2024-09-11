@@ -63,7 +63,7 @@ class _AddTopicPostPageState extends State<AddTopicPostPage> {
         if (state is ForumError) {
           ScaffoldMessenger.of(context).showSnackBar(
             OriaErrorSnackBar(
-              content: state.errorMessage,
+              content: AppLocalizations.of(context)!.error_default,
             ),
           );
         } else if (state is AddPostSuccess) {

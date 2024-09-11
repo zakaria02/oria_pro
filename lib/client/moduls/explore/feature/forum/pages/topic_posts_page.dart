@@ -60,7 +60,7 @@ class _TopicPostsPageState extends State<TopicPostsPage> {
               if (state is ForumError) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   OriaErrorSnackBar(
-                    content: state.errorMessage,
+                    content: AppLocalizations.of(context)!.error_default,
                   ),
                 );
               }

@@ -51,8 +51,8 @@ class _DeleteAccountEmailPageState extends State<DeleteAccountEmailPage> {
       child: BlocConsumer<UserBloc, UserState>(
         listener: (authContext, state) async {
           if (state is UserError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+            ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+                content: AppLocalizations.of(context)!.error_default));
           }
           if (state is DeleteAccount2FASuccess) {
             final dataSource =

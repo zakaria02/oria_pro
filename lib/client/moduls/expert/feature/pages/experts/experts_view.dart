@@ -18,8 +18,8 @@ class ExpertsView extends StatelessWidget {
       child: BlocConsumer<ExpertBloc, ExpertState>(
         listener: (context, state) {
           if (state is ExpertError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+            ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+                content: AppLocalizations.of(context)!.error_default));
           }
         },
         builder: (expertBlocContext, state) {

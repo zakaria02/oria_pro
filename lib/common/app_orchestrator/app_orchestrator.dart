@@ -5,6 +5,7 @@ import 'package:oria_pro/utils/constants/oria_colors.dart';
 import 'package:oria_pro/utils/router/router.dart';
 import 'package:oria_pro/widgets/oria_scaffold.dart';
 import 'package:oria_pro/widgets/oria_snack_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'cubit/steps_cubit.dart';
 
@@ -19,8 +20,8 @@ class AppOrchestratorPage extends StatelessWidget {
       child: BlocConsumer<StepsCubit, StepsState>(
         listener: (context, state) {
           if (state is StepsError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+            ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+                content: AppLocalizations.of(context)!.error_default));
           }
           if (state is StepsSuccess) {
             if (state.steps == null) {

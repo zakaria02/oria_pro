@@ -44,8 +44,8 @@ class _MakeAppointmentPageState extends State<MakeAppointmentPage> {
       child: BlocConsumer<AppointmentBloc, AppointmentState>(
         listener: (context, state) {
           if (state is AppointmentError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+            ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+                content: AppLocalizations.of(context)!.error_default));
           } else if (state is CreateAppointmentSuccess) {
             context.router.replace(
                 MakeAppointmentSuccessRoute(appointment: state.appointment));

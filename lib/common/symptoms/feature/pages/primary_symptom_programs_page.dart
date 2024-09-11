@@ -39,8 +39,8 @@ class _PrimarySymptomsProgramsPageState
     return BlocConsumer<ProgramsBloc, ProgramsState>(
       listener: (context, state) {
         if (state is ProgramsError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+              content: AppLocalizations.of(context)!.error_default));
         }
       },
       builder: (context, state) {

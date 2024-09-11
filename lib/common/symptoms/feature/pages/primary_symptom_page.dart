@@ -29,8 +29,8 @@ class PrimarySymptomPage extends StatelessWidget {
     return BlocConsumer<SymptomBloc, SymptomState>(
       listener: (context, state) {
         if (state is SymptomError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(OriaErrorSnackBar(content: state.errorMessage));
+          ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
+              content: AppLocalizations.of(context)!.error_default));
         }
       },
       builder: (context, state) {

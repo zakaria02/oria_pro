@@ -37,7 +37,8 @@ class _ForumViewState extends State<ForumView> {
         listener: (context, state) {
           if (state is ForumError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              OriaErrorSnackBar(content: state.errorMessage),
+              OriaErrorSnackBar(
+                  content: AppLocalizations.of(context)!.error_default),
             );
           }
           if (state is ForumTopicsSuccess) {

@@ -1,7 +1,7 @@
 import 'package:oria_pro/utils/constants/svg_assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../utils/constants/png_assets.dart';
+//import '../../utils/constants/png_assets.dart';
 
 class BottomBarItem {
   final String name;
@@ -41,17 +41,18 @@ class BottomBarItem {
           name: AppLocalizations.of(context)!.forum,
           index: 3,
         ),
+        /*
         BottomBarItem(
           filledIcon: PngAssets.chartFilledIcon,
           icon: PngAssets.chartOutlinedIcon,
           name: AppLocalizations.of(context)!.insights,
           index: 4,
-        ),
+        ),*/
         BottomBarItem(
           filledIcon: SvgAssets.userFilledIcon,
           icon: SvgAssets.userOutlinedIcon,
           name: AppLocalizations.of(context)!.account,
-          index: 5,
+          index: 4, //index:5,
         ),
       ];
 }

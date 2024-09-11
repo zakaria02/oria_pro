@@ -36,7 +36,7 @@ class ProgramDetailsPage extends StatelessWidget {
           ));
         } else if (state is ProgramsError) {
           ScaffoldMessenger.of(context).showSnackBar(OriaErrorSnackBar(
-            content: state.errorMessage,
+            content: AppLocalizations.of(context)!.error_default,
           ));
         }
       },

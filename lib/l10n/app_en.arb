@@ -335,5 +335,6 @@
     "notifications": "Notifications",
     "markAllAsRead": "Read All",
     "pwd_reseted": "Your password has been reset",
-    "delete_account_sure": "Are you sure that you want to delete your account"
+    "delete_account_sure": "Are you sure that you want to delete your account",
+    "error_default": "an error occurred"
 }
